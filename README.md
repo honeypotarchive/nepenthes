@@ -1,162 +1,129 @@
-		Nepenthes 
-	- the finest collection -
+# Nepenthes
+**the finest collection**
 
 
-Our documentation and installation instructions is available online at
-
-        http://nepenthes.sourceforge.net/documentation:readme
-
-
-
-( if you are offline and need a README file scroll down, there is a paste of the online version)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               Nepenthes
-       - the finest collection -
-
-
-IMPORTANT NOTE
+**IMPORTANT NOTE
 the same README in a better readable format can be found on
 http://nepenthes.sourceforge.net/documentation:readme
-not to mention the online doc is updatet more often.
+not to mention the online doc is updatet more often.**
+
+- [Nepenthes](#nepenthes)
+- [1. What is Nepenthes?](#1-what-is-nepenthes)
+- [2. How does Nepenthes work?](#2-how-does-nepenthes-work)
+  - [2.1 Why would one want to run Nepenthes?](#21-why-would-one-want-to-run-nepenthes)
+- [3. Installing Nepenthes](#3-installing-nepenthes)
+  - [precompiled binaries/prebuild setups](#precompiled-binariesprebuild-setups)
+  - [from source](#from-source)
+    - [linux](#linux)
+      - [Debian](#debian)
+      - [SuSE](#suse)
+      - [Fedora Core 4](#fedora-core-4)
+      - [Mac OSX](#mac-osx)
+    - [BSD](#bsd)
+      - [FreeBSD](#freebsd)
+      - [OpenBSD](#openbsd)
+      - [NetBSD](#netbsd)
+      - [cygwin/Windows](#cygwinwindows)
+    - [getting the code](#getting-the-code)
+      - [svn repository](#svn-repository)
+    - [release packages](#release-packages)
+  - [patching the source](#patching-the-source)
+    - [0.1.3 patches](#013-patches)
+    - [0.1.4 patches](#014-patches)
+  - [compiling the source](#compiling-the-source)
+    - [linux](#linux-1)
+    - [Mac OSX](#mac-osx-1)
+    - [NetBSD](#netbsd-1)
+    - [OpenBSD](#openbsd-1)
+    - [Cygwin](#cygwin)
+  - [adjust the configuration](#adjust-the-configuration)
+  - [update an existing configuration](#update-an-existing-configuration)
+    - [the lazy way](#the-lazy-way)
+    - [diff it](#diff-it)
+- [4. Current Status](#4-current-status)
+  - [4.1 Nepenthes core](#41-nepenthes-core)
+  - [4.2 Nepenthes Modules](#42-nepenthes-modules)
+    - [4.2.1 download handler](#421-download-handler)
+    - [4.2.2 submit Handler](#422-submit-handler)
+    - [4.2.3 shellcode handler](#423-shellcode-handler)
+    - [4.2.4 vulnerability modules](#424-vulnerability-modules)
+    - [4.2.5 ShellEmulation modules](#425-shellemulation-modules)
+      - [4.2.5.1 shellemu-winnt](#4251-shellemu-winnt)
+    - [4.2.6 eXample modules](#426-example-modules)
+    - [4.2.7 GeoLocationHandler](#427-geolocationhandler)
+    - [4.2.8 DNSHandler](#428-dnshandler)
+- [5. Modules Interface](#5-modules-interface)
+- [6. Contribute to Nepenthes](#6-contribute-to-nepenthes)
+- [7. Trouble Shooting](#7-trouble-shooting)
+- [8. FAQ](#8-faq)
 
 
-
-
-
-Table of Contents
-
-    * Nepenthes Readme
-    * 1. What is Nepenthes?
-    * 2. How does Nepenthes work?
-          o 2.1 Why would one want to run Nepenthes?
-    * 3. Installing Nepenthes
-          o precompiled binaries/prebuild setups
-          o from source
-                + linux
-                + Mac OSX
-                + BSD
-                + cygwin/Windows
-          o getting the code
-                + svn repository
-                + release packages
-          o patching the source
-                + 0.1.3 patches
-                + 0.1.4 patches
-          o compiling the source
-                + linux
-                + Mac OSX
-                + NetBSD
-                + OpenBSD
-                + cygwin
-          o adjust the configuration
-          o update an existing configuration
-                + the lazy way
-                + diff it
-          o run it
-    * 4. Current Status
-          o 4.1 Nepenthes core
-          o 4.2 Nepenthes Modules
-                + 4.2.1 download handler
-                + 4.2.2 submit Handler
-                + 4.2.3 shellcode handler
-                + 4.2.4 vulnerability modules
-                + 4.2.5 ShellEmulation modules
-                + 4.2.6 eXample modules
-                + 4.2.7 GeoLocationHandler
-                + 4.2.8 DNSHandler
-    * 5. Modules Interface
-    * 6. Contribute to Nepenthes
-    * 7. Trouble Shooting
-    * 8. FAQ
-
-
-
-
-
-
-
-
-
-
-
-Nepenthes Readme
-1. What is Nepenthes?
+# 1. What is Nepenthes?
 
 Nepenthes is a low interaction honeypot like honeyd or mwcollect. Low Interaction Honeypots emulate _known_ vulnerabilities to collect information about potential attacks. Nepenthes is designed to emulate vulnerabilties worms use to spread, and to capture these worms. As there are many possible ways for worms to spread, Nepenthes is modular. There are module interface to
 
-    * resolve dns asynchronous
-    * emulate vulnerabilities
-    * download files
-    * submit the downloaded files
-    * trigger events (sounds abstract and it is abstract but is still quite useful)
-    * shellcode handler
+  * resolve dns asynchronous
+  * emulate vulnerabilities
+  * download files
+  * submit the downloaded files
+  * trigger events (sounds abstract and it is abstract but is still quite useful)
+  * shellcode handler
 
 Refer to FIXME for more information about the Module Interface.
-2. How does Nepenthes work?
+
+# 2. How does Nepenthes work?
 
 Nepenthes vulnerability modules require knowledge about weaknesses so one can draft a Dialogue how the virus will exploit the weakness, gain the needed information to download the file and send the attacker just enough information he does not notice he gets fooled.
 On the other hand Nepenthes is quite usefull to capture new exploits for old vulnerabilities.
 As Nepenthes does not know these exploits, they will appear in the logfiles.
 By running these captures against a real vulnerable machine one can gain new information about the exploit and start writing an Nepenthes Dialogue.
-2.1 Why would one want to run Nepenthes?
+
+## 2.1 Why would one want to run Nepenthes?
 
 The first argument is, its free. The software is free, the viruses you can capture are free. You can collect this annoying stuff like stamps without paying a diam. The rest of the arguments are security related an discussable. Setting up a host running Nepenthes can improve network security drastically, as you can see who scans for which known vulnerabilities.
-3. Installing Nepenthes
+
+# 3. Installing Nepenthes
 
 If you update an existing install, please read this, else you may miss something and screw your install.
-precompiled binaries/prebuild setups
+
+## precompiled binaries/prebuild setups
 
 Check the download section before trying to compile nepenthes from source, there are prebuild or preconfigured packages for
 
-    * gentoo
-    * debian
-    * FreeBSD
+  * gentoo
+  * debian
+  * FreeBSD
 
-from source
+## from source
 
 Nepenthes will use automake to verify your system satisfies the needed depencies.
 
-    * g++ do not use g++ 4.0.* it wont work properly) (g++ 4.0.2 may work ) 2.9? wont work too, as these versions are not c99 compatible
-    * libcurl
-    * libmagic
-    * libpcre
-    * libadns
+  * g++ do not use g++ 4.0.* it wont work properly) (g++ 4.0.2 may work ) 2.9? wont work too, as these versions are not c99 compatible
+  * libcurl
+  * libmagic
+  * libpcre
+  * libadns
 
-linux
-Debian
+### linux
+
+#### Debian
 
 On debian just do
 
-apt-get install libcurl3-dev
+```apt-get install libcurl3-dev
 apt-get install libmagic-dev
 apt-get install libpcre3-dev
 apt-get install libadns1-dev
-
+```
 or ( paste it in one line )
 
-apt-get install  libcurl3-dev libmagic-dev libpcre3-dev libadns1-dev
+`apt-get install  libcurl3-dev libmagic-dev libpcre3-dev libadns1-dev`
 
-SuSE
+#### SuSE
 
 SuSE (10) needs you to
 
+```
 apt-get install libadns 
 apt-get install libadns-devel  
 apt-get install file-devel
@@ -164,118 +131,128 @@ apt-get install pcre-devel
 apt-get install pcre
 apt-get install curl 
 apt-get install curl-devel
-
+```
 and once again the single line for easy pasting
 
-apt-get install libadns libadns-devel file-devel pcre-devel pcre curl curl-devel
+`apt-get install libadns libadns-devel file-devel pcre-devel pcre curl curl-devel`
 
-Fedora Core 4
+#### Fedora Core 4
 
 pretty easy again.
 
-yum install pcre-devel pcre adns adns-devel curl curl-devel file
+`yum install pcre-devel pcre adns adns-devel curl curl-devel file`
 
-Mac OSX
+#### Mac OSX
 
 You need to install updated autotools with darwinports:
 
+```
 sudo port install libtool  # libtoolize
 sudo port install autoconf
 sudo port install automake
+```
 
 Install the dependencies as well:
 
+```
 sudo port install adns
 sudo port install pcre
 sudo port install file  # for libmagic
 sudo port install curl
+```
 
-BSD
-FreeBSD
+### BSD
+#### FreeBSD
 
 Installing the depencies from ports
-
+```
 dns/adns
 ftp/curl
 devel/pcre
+```
 
 worked for me
-OpenBSD
 
-file & libmagic
+#### OpenBSD
+
+`file & libmagic`
 OpenBSD lacks libmagic, the file utility is not linked against libmagic, it was compile including the magic source. So there is no way but to install (gnu) file from source, so you can link against libmagic. But apart from file everything could be taken from ports, (gnu) file with libmagic is missing on OpenBSD.
 
-stdint.h
+`stdint.h`
 And please do
 
-echo "#include <inttypes.h>" > /usr/include/stdint.h
+`echo "#include <inttypes.h>" > /usr/include/stdint.h`
 
-else OpenBSD won\u2019t have stdint.h
+else OpenBSD won't have `stdint.h`
 
 So 2 ways to install on openbsd, either get all but file from ports, or build every depency from source, without using ports.
+
 ports
 
 taking
-
+```
 net/adns
 net/curl
 devel/pcre
+```
+from ports worked, but the pcre version used in OpenBSD 3.8 was pretty old (version 4.3 where 6.4 is current), so you you may want to install pcre  from source too, please install file from source to get libmagic.
 
-from ports worked, but the pcre version used in OpenBSD 3.8 was pretty old (version 4.3 where 6.4 is current), so you you may want to install pcre from source too, please install file from source to get libmagic.
 plan b
 
 Installing the depencies from source
-
+```
 file
 adns
 curl
 pcre
-
+```
 to /opt and specify their path with the configure flags worked for me.
-NetBSD
+
+#### NetBSD
 
 Installing the depencies adns curl pcre file from pkg worked for me
-cygwin/Windows
+
+#### cygwin/Windows
 
 Compiling nepenthes >= 0.1.6 on windows using cygwin is possible . Installing
 
-    * autoconf2.5
-    * automake1.9
-    * bzip2
-    * curl-devel
-    * file
-    * gcc-core 3.3.3-3
-    * gcc-g++ 3.3.3-3
-    * gzip
-    * inetutils
-    * libcurl3
-    * libtool1.5
-    * make
-    * openssl-devel
-    * pcre-devel
-    * tar
-    * wget
-    * zlib
+  * autoconf2.5
+  * automake1.9
+  * bzip2
+  * curl-devel
+  * file
+  * gcc-core 3.3.3-3
+  * gcc-g++ 3.3.3-3
+  * gzip
+  * inetutils
+  * libcurl3
+  * libtool1.5
+  * make
+  * openssl-devel
+  * pcre-devel
+  * tar
+  * wget
+  * zlib
 
 from cygwin worked for me. Some packages will install its specific depencies.
 Installing adns in cygwin
 
 Get it
 
-wget http://www.chiark.greenend.org.uk/~ian/adns/adns.tar.gz
+`wget http://www.chiark.greenend.org.uk/~ian/adns/adns.tar.gz`
 
 unpack it
-
+```
 tar xfz adns.tar.gz
 cd adns-1.1
-
+```
 configure & compile
-
+```
 ./configure --prefix=/usr
 make
-
+```
 this will fail when linking the adns client, we have to copy the created library by hand
-
+```
 cd dynamic 
 cp libadns.so libadns.dll
 cd ..
@@ -283,43 +260,46 @@ make
 
 for d in src dynamic client regress; do make -C $d install; done
 cp dynamic/libadns.dll /bin/libadns.dll
+```
+create `/etc/resolv.conf`
 
-create /etc/resolv.conf
-
-Now adns needs the /etc/resolv.conf file we have to create it, first check your nameservers ip
-
+Now adns needs the `/etc/resolv.conf` file we have to create it, first check your nameservers ip
+```
 ipconfig /all | grep DNS-Server
-
+```
 will give you something like
 
-DNS-Server. . . . . . . . . . . . : 194.25.2.129
+`DNS-Server. . . . . . . . . . . . : 194.25.2.129`
 
 I recommend you use your real nameserver and not just take this examples values.
 
-echo nameserver 194.2.25.129 > /etc/resolv.conf
+`echo nameserver 194.2.25.129 > /etc/resolv.conf`
 
 test adns
 
+```
 adnshost kernel.org
 
 kernel.org A INET 204.152.191.5
 kernel.org A INET 204.152.191.37
+```
 
-getting the code
+### getting the code
 
 You can download a source package, or get the latest code from the svn repository.
 
 Svn will offer the latest version, but may not build properly, have bugs, requires some additional time reading the install guide, and additional software.
-svn repository
+
+#### svn repository
 
 If you think you can handle it, we recommend using svn, if you hit a bug, you can help us fixing it by filing a bug report. But using svn is not that easy, as the svn snapshot does not contain preconfigured autoconf files, you have to create them yourself with the help of
 
-    * libtool (1.5.20)
-          o libtoolize
-    * automake (1.9.6)
-          o aclocal
-    * autoconf (2.59)
-          o autoheader
+  * libtool (1.5.20)
+    * libtoolize
+  * automake (1.9.6)
+    * aclocal
+  * autoconf (2.59)
+    * autoheader
 
 Some operating systems (FreeBSD 6.0 for example) ship broken autotools, I was unable to get the shipped autotools create the required files, so using svn may be tricky on some operating systems.
 Others (debian for example) make using autotools very easy
@@ -329,38 +309,40 @@ apt-get install autoconf automake1.9 autotools-dev libtool
 For more information about autoconf I can recommend the autoconf docs.
 get it down now
 
-if you \u201csvn checkout\u201d a repository, you can update this checkout incremental with \u201csvn update\u201d, so you don\u2019t need to download the complete source again when just some lines were changes.
+if you `svn checkout` a repository, you can update this checkout incremental with `svn update`, so you don't need to download the complete source again when just some lines were changes.
 
-\u201csvn export\u201d does not allow incremental updates, but uses less diskspace as an export, as the export stores some additional data (local private copy of the whole source).
+`svn export` does not allow incremental updates, but uses less diskspace as an export, as the export stores some additional data (local private copy of the whole source).
 
 So whatever you want to run, its up to you.
 
+```
 svn checkout svn://svn.mwcollect.org/nepenthes/trunk/
 cd trunk
-
+```
 autobreak it
+
 *any* non freebsd operting system
 
-Now we have to run the famous autotools to get the \u201c./configure\u201d file we\u2019ll need to install it.
+Now we have to run the famous autotools to get the `./configure` file we'll need to install it.
 
-autoreconf -v -i --force
+`autoreconf -v -i --force`
 
 What happens when doing this is ... sometimes a picture says more than words.
-
+```
 configure.ac --.
                |   .------> autoconf* -----> configure
 [aclocal.m4] --+---+
                |   `-----> [autoheader*] --> [config.h.in]
 [acsite.m4] ---'
-
+```
 (taken from the autoconf 2.57 manual)
 
 the configure on the right side indicates we get this as a result.
 Mac OSX
 
-/opt/local/bin/autoreconf -v -i --force
+`/opt/local/bin/autoreconf -v -i --force`
 
-FreeBSD
+**FreeBSD**
 
 As you can imagine, this does not work everywhere, FreeBSD is special, that special that I was unable to autoreconf svn on a FreeBSD host myself for a long time, that special that I had no real motivation looking for it, as everything automake depended really sucks .....
 
@@ -369,69 +351,71 @@ But today I got mail, mail how to get it working on FreeBSD.
 For what it's worth, here's what I did to build the current SVN code on
 FreeBSD 6.0. I thought we might want to add this to the wiki:
 
-# -- checkout code && cd to src directory --
-# /usr/local/bin/libtoolize --copy --force
-# /usr/local/bin/aclocal19 --force
-# cat /usr/local/share/aclocal/libtool.m4 >>aclocal.m4
-# /usr/local/bin/autoheader259 --force
-# /usr/local/bin/automake19 -ai
-# /usr/local/bin/autoconf259 -f
-# ./configure
-# make
-
+```
+ -- checkout code && cd to src directory --
+ /usr/local/bin/libtoolize --copy --force
+ /usr/local/bin/aclocal19 --force
+ cat /usr/local/share/aclocal/libtool.m4 >>aclocal.m4
+ /usr/local/bin/autoheader259 --force
+ /usr/local/bin/automake19 -ai
+ /usr/local/bin/autoconf259 -f
+ ./configure
+ make
+```
 I'm sure this isn't the minimal set of operations, but it works ;)
 
-release packages
+### release packages
 
 Check the projects file releases repository on sourceforge and download the latest version.
+
 unpacking the source
 
 Unpack your source tarball.
 
 if you got a bzip2 package use
-
  
-tar vxjf nepenthes-VERSION.tar.bz2
+`tar vxjf nepenthes-VERSION.tar.bz2`
 
 else
-
  
-tar vxzf nepenthes-VERSION.tar.gz
+`tar vxzf nepenthes-VERSION.tar.gz`
 
-patching the source
+## patching the source
 
 from time to time things show up, that have to be fixed
 
 patches are run against /, so you can apply them with
-
+```
 cd nepenthes-VERSION
 cat ../example_patch.diff | patch -p0
+```
 
-0.1.3 patches
+### 0.1.3 patches
+
 bugfixes
 
 you need them as we did mistakes :\
 
-    * nepenthes 0.1.3 logging path patch
-    * nepenthes 0.1.3 download-nepenthes connection close patch
-
-
+  * nepenthes 0.1.3 logging path patch
+  * nepenthes 0.1.3 download-nepenthes connection close patch
 
 features
 
 patches that add additional features, we recommend them
 
-    * nepenthes 0.1.3 advanced xor and bindshell patch ( highly recommended )
+  * nepenthes 0.1.3 advanced xor and bindshell patch ( highly recommended )
 
-0.1.4 patches
+### 0.1.4 patches
 
 none yet
-compiling the source
 
-Starting with 0.1.6 every depencie can be resolved with its own specific path. If you got everything in its normal path (we ignore FreeBSDs definition of normal path here), you won\u2019t need this, but if you need it, you dont want to miss it.
+## compiling the source
+
+Starting with 0.1.6 every depencie can be resolved with its own specific path. If you got everything in its normal path (we ignore FreeBSDs definition of normal path here), you won't need this, but if you need it, you dont want to miss it.
 
 For example
 
+```
 ./configure \
 --with-curl-include=/opt/curl/include/ \
 --with-curl-lib=/opt/curl/lib/ \
@@ -442,22 +426,25 @@ For example
 --with-magic-include=/opt/file/include/ \
 --with-magic-lib=/opt/file/lib/ \
 --prefix=/opt/nepenthes
+```
 
 check
 
-./configure --help 
+`./configure --help `
 
 If you rely on user defined pathes.
-linux
+
+### linux
 
 This worked for debian, Fedora Core 4 and SuSE 10 for me.
-
+```
 ./configure --prefix=/opt/nepenthes
 make
 make install
+```
 
-Mac OSX
-
+### Mac OSX
+```
 ./configure \
 --libdir=/opt/local/lib \
 --includedir=/opt/local/include/ \
@@ -465,47 +452,55 @@ Mac OSX
 
 make
 make install
+```
 
-NetBSD
+### NetBSD
 
 Some depencies ( curl, pcre ) hide in /usr/pkg/, so we have to include this path, including the path once is enough.
 
+```
 ./configure --prefix=/opt/nepenthes \
 --with-curl-include=/usr/pkg/include --with-curl-lib=/usr/pkg/lib
 
 make
 make install
+```
 
-OpenBSD
+### OpenBSD
 
 We assume you followed the advice and installed (gnu) file to /opt/file, and got a shell understanding \ escapes ...
 ports
 
+```
 ./configure \ 
 --with-curl-include=/usr/local/include/ --with-curl-lib=/usr/local/lib/ \
 --with-magic-include=/opt/file/include/ --with-magic-lib=/opt/file/lib/ \
 --prefix=/opt/nepenthes
-
+```
 plan b
 
 If you want plan b, ...
-
+```
 ./configure \
 --with-curl-include=/opt/curl/include/ --with-curl-lib=/opt/curl/lib/ \
 --with-adns-include=/opt/adns/include/ --with-adns-lib=/adns/lib/ \
 --with-pcre-include=/opt/pcre/include/ --with-pcre-lib=/opt/pcre/lib/ \
 --with-magic-include=/opt/file/include/   --with-magic-lib=/opt/file/lib/ \
 --prefix=/opt/nepenthes
+```
 
-cygwin
+### Cygwin
 
-cygwin g++ is a little special, won\u2019t compile the sourc out of the box, so we have to tweak it.
+cygwin g++ is a little special, won't compile the sourc out of the box, so we have to tweak it.
 
+```
 ./configure --prefix=/opt/nepenthes --with-adns-lib=/bin
 make
+```
 
 this *will* quit with
 
+```
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/include/c++/bits/stl_uninitialized.h: In membe
 r function `virtual int32_t nepenthes::VFSCommandCMD::run(std::vector<std::string, std::allocator<std::string> >*)':
 /usr/lib/gcc/i686-pc-cygwin/3.4.4/include/c++/bits/stl_uninitialized.h:82: warning: '__cur' might be used uninitialized in this function
@@ -516,26 +511,29 @@ make[2]: Leaving directory `/home/foobar/Svn/nepenthes/trunk/modules'
 make[1]: *** [all-recursive] Error 1
 make[1]: Leaving directory `/home/foobar/Svn/nepenthes/trunk'
 make: *** [all] Error 2
+```
 
-actually this is not nepenthes fault, but cygwins g++, and the error is not critical, it just fails as the compiler wants to warn us about a *possible* problem, and the Makefile.am says -Werror ( handle warnings as errors )
+actually this is not nepenthes fault, but cygwins `g++`, and the error is not critical, it just fails as the compiler wants to warn us about a *possible* problem, and the `Makefile.am` says `-Werror` ( handle warnings as errors )
 
-So, open modules/shellemu-winnt/Makefile.am with editor of your choice, and change
+So, open `modules/shellemu-winnt/Makefile.am` with editor of your choice, and change
 
-AM_CXXFLAGS = -Wall -Werror
-
+`AM_CXXFLAGS = -Wall -Werror`
 to
 
-AM_CXXFLAGS = -Wall
+`AM_CXXFLAGS = -Wall`
 
-this will still show the warning, but won\u2019t treat it as error any longer.
+this will still show the warning, but won't treat it as error any longer.
 
 then finish it
 
+```
 make
 make install
+```
 
-adjust the configuration
+## adjust the configuration
 
+```
 cd /opt/nepenthes
 
 less etc/nepenthes/nepenthes.conf
@@ -543,26 +541,28 @@ less etc/nepenthes/nepenthes.conf
 less etc/nepenthes/submit-norman.conf
 
 less etc/nepenthes/log-irc.conf
+```
 
-\u2019less\u2019 means you should have a look in the config file, and edit it using an editor of your choice.
+'less' means you should have a look in the config file, and edit it using an editor of your choice.
 
 If something fails, check the Trouble Shooting section. Compiling nepenthes can take some time, here it takes 1:20 minutes on an amd64 3500 cpu with one gb ram.
-update an existing configuration
 
-nepenthes won\u2019t overwrite your existing config files on make install that means if you update to a new version, and don\u2019t care about updating the configs, you may break your install.
+## update an existing configuration
+
+nepenthes won't overwrite your existing config files on make install that means if you update to a new version, and don't care about updating the configs, you may break your install.
 
 As of 0.1.7 there is a real need to do this.
 
 There are at least 2 ways of verifiying your config works
-the lazy way
+### the lazy way
 
 If you run the default config without any changes, just remove the etc/nepenthes dir, and make install again, it will copy all new versions of all config files.
-diff it
+### diff it
 
 this is the way to go if you tweaked your config.
 
 get this shellscript, and call it like
-
+```
 ./diffconfigs.sh /tmp/nepenthes-0.1.7 /opt/nepenthes
 
 #!/bin/sh
@@ -579,145 +579,167 @@ for i in $(find $SRCDIR | grep conf.dist$ | grep -v svn);
     diff $i $INSTALLDIR/$CFGNAME
   fi
 done
+```
 
 run it
 
 If everything went fine, run nepenthes.
 
-bin/nepenthes
+`bin/nepenthes`
 
-4. Current Status
+# 4. Current Status
 
 All in all Nepenthes is stable code,
 but some things are ... lets say a little raw
-Current status is everything which is marked \u201cwork\u201ding runs fine.
-4.1 Nepenthes core
-Component 	Status 	Comment
-Config File 	works 	-
-SocketManager 	works 	tcp and udp connections nonblocking, bufferd, no real rawsocket support
-ShellcodeManager 	works 	-
-SubmitManager 	works 	-
-EventManager 	works 	-
-LuaInterface 	planned?/dropped?	-
-ModuleManager 	works 	unloading modules at runtime is not really possible as its really hard to make sure there is no shared code left
-DNSManager 	works 	i love this one
-GeoLocationManager	works 	was a hack to draw some maps with dots where the attacker may be located, but the homies love it
+Current status is everything which is marked `work`ing runs fine.
 
-4.2 Nepenthes Modules
-4.2.1 download handler
-Name 	Protocol 	Status 	comment
-download_csend 	csend 	works 	
-download_curl 	http/ftp 	works 	not recommended
-download_tftp 	tftp 	works 	
-download_nepenthes	own 	works 	
-download_ftp 	ftp 	works 	can even do active ftp behind nat
-download_http 	http 	works 	
-download_rcp 	rcp 	should work 	the protocol sucks
-download_link 	linkbot 	works 	pretty smart thing
-download_creceive	creceive 	works 	
+## 4.1 Nepenthes core
 
-4.2.2 submit Handler
-Name 	status 	description
-submit_file 	works 	writes viri files to local disk
-submit_norman	works 	submits files to normans online sandbox
-submit_nepenthes	works 	submits files to some other box running nepenthes
-submit_postgres	removed 	removed due to issues with nonblocking postgres api
-submit_xmlrpc	works 	submit files to a xmlrpc server
-submit_gotek	works 	submit files to a gotek server
+|Component          | Status | Comment |
+|-------------------| ------ | ------- |
+|Config File        | works | -|
+|SocketManager      | works | tcp and udp connections nonblocking, bufferd, no real rawsocket support|
+|ShellcodeManager   | works | -|
+|SubmitManager      | works | -|
+|EventManager       | works | -|
+|LuaInterface       | planned?/dropped? | -|
+|ModuleManager      | works | unloading modules at runtime is not really possible as its really hard to make sure there is no shared code left|
+|DNSManager         | works | i love this one|
+|GeoLocationManager | works | was a hack to draw some maps with dots where the attacker may be located, but the homies love it|
 
-4.2.3 shellcode handler
-Name 	status 	comment
-sch_generic_createprocess 	old 	to be removed
-sch_generic_url 	old 	to be removed
-sch_generic_xor 	old 	to be removed
-sch_generic_linkxor 	old 	to be removed
-sch_generic_stuttgart 	old 	to be removed
-sch_generic_link_trans 	old 	to be removed
-sch_generic_link_bind_trans	old 	to be removed
-sch_namespace 	testing	tomorrow today
-sch_engine_unicode 	testing	tomorrow today
+## 4.2 Nepenthes Modules
+### 4.2.1 download handler
 
-4.2.4 vulnerability modules
-Port 	Vulnerbility 	Module 	a free field
-42 	MS04-006	vuln_wins	
-	MS04-045		
-80 	MS03-007	vuln_asn1	
-	MS03-051		
-	MS04-011	
-135 	MS03-039	vuln_dcom	
-	MS04-012		
-139 		vuln_netbiosname	
-	MS04-031	vuln_netdde	
-443 	FIXME	vuln_iis	
-445 	FIXME	vuln_asn1	
-	MS04-011	vuln_lsass	
-	MS04-012	vuln_dcom	
-	MS03-039		
-1023 		vuln_sasserftpd	
-1025 	FIXME	vuln_dcom	
-1434 	MS02-039	vuln_mssql	
-2103 	MS05-017	vuln_msmq	
-2105 	MS05-017	vuln_msmq	
-2107 	MS05-017	vuln_msmq	
-2745 		vuln_bagle	
-3127 		vuln_mydoom	
-3140 		vuln_optix	
-5000 	MS01-059	vuln_upnp	
-5554 		vuln_sasserftpd	
-17300 		vuln_kuang2	
-27347 		vuln_sub7	
+|Name              |Protocol|Status|comment|
+|------------------|--------|------|-------|
+|download_csend    |csend   |works ||
+|download_curl     |http/ftp|works |not recommended|
+|download_tftp     |tftp    |works ||
+|download_nepenthes|own     |works ||
+|download_ftp      |ftp     |works |can even do active ftp behind nat|
+|download_http     |http    |works ||
+|download_rcp      |rcp     |should work|the protocol sucks|
+|download_link     |linkbot |works |pretty smart thing|
+|download_creceive |creceive|works ||
 
-4.2.5 ShellEmulation modules
-4.2.5.1 shellemu-winnt
+### 4.2.2 submit Handler
+|Name|status|description|
+|------------------|--------|------|
+|submit_file|works|writes viri files to local disk|
+|submit_norman|works|submits files to normans online sandbox|
+|submit_nepenthes|works|submits files to some other box running nepenthes|
+|submit_postgres|removed|removed due to issues with nonblocking postgres api|
+|submit_xmlrpc|works|submit files to a xmlrpc server|
+|submit_gotek|works|submit files to a gotek server|
+
+### 4.2.3 shellcode handler
+|Name|status|comment|
+|------------------|--------|------|
+|sch_generic_createprocess|old|to be removed|
+|sch_generic_url|old|to be removed|
+|sch_generic_xor|old|to be removed|
+|sch_generic_linkxor|old|to be removed|
+|sch_generic_stuttgart|old|to be removed|
+|sch_generic_link_trans|old|to be removed|
+|sch_generic_link_bind_trans|old|to be removed|
+|sch_namespace|testing|tomorrow today|
+|sch_engine_unicode|testing|tomorrow today|
+
+### 4.2.4 vulnerability modules
+
+|Port|Vulnerbility|Module|a free field|
+|----|------------|------|------------|
+|42  |MS04-006    |vuln_wins||
+|    |MS04-045    |   ||
+|80  |MS03-007    |vuln_asn1||
+|    |MS03-051    |||
+|    |MS04-011    |||
+|135 |MS03-039    |vuln_dcom||
+|    |MS04-012    |||
+|139 |            |vuln_netbiosname||
+|    |MS04-031    |vuln_netdde||
+|443 |FIXME	      |vuln_iis||
+|445 |FIXME       |vuln_asn1||
+|    |MS04-011    |vuln_lsass||
+|    |MS04-012    |vuln_dcom||
+|    |MS03-039|||
+|1023|            |vuln_sasserftpd||
+|1025|FIXME       |vuln_dcom||
+|1434|MS02-039    |vuln_mssql||
+|2103|MS05-017    |vuln_msmq||
+|2105|MS05-017    |vuln_msmq||
+|2107|MS05-017    |vuln_msmq||
+|2745|            |vuln_bagle||
+|3127|            |vuln_mydoom||
+|3140|            |vuln_optix||
+|5000|MS01-059    |vuln_upnp||
+|5554|            |vuln_sasserftpd||
+|17300|           |vuln_kuang2||
+|27347|           |vuln_sub7||
+
+### 4.2.5 ShellEmulation modules
+#### 4.2.5.1 shellemu-winnt
 
 status: works
 
 description:
 
 provides a windows nt shell supporting all commands one needs to download a file.
-4.2.6 eXample modules
-Name 	Status 	Feature
-eXample 1	works 	writing a module
-eXample 2	works 	accepting connections, creating dialogues, *the module to write a vuln emu*
-eXample 3	works 	download handler example, downloads files from /dev/urandom
-eXample 4	works 	submit handler example, hexdumps downloaded files to stdout
-eXample 5	works 	eventhandler example, hooks some events
-eXample 6	works 	dnscallback example, resolve some async
-eXample 7	dropped 	raw sockets example, dropped
-eXample 8	works 	geolocation example, resolve some ips geolocation
 
-4.2.7 GeoLocationHandler
-Name 	status 	comment
-geolocation_hostip 		
-geolocation_geoip 		
-geolocation_ip2location		
+### 4.2.6 eXample modules
 
-4.2.8 DNSHandler
-Name 	status 	comment
-dnsresolve_adns	works 	resolve ips using libadns
-dnsresolve_uns 	planned 	resolve ips using libudns
+|Name |Status |Feature|
+|-----|-------|-------|
+|eXample 1|works |writing a module|
+|eXample 2|works |accepting connections, creating dialogues, *the module to write a vuln emu*|
+|eXample 3|works |download handler example, downloads files from /dev/urandom|
+|eXample 4|works |submit handler example, hexdumps downloaded files to stdout|
+|eXample 5|works |eventhandler example, hooks some events|
+|eXample 6|works |dnscallback example, resolve some async|
+|eXample 7|dropped |raw sockets example, dropped|
+|eXample 8|works |geolocation example, resolve some ips geolocation|
 
-5. Modules Interface
+### 4.2.7 GeoLocationHandler
 
-Refer to the online doxygen documentation of the eXample modules on FIXME.
-6. Contribute to Nepenthes
+|Name|status|comment|
+|----|------|-------|
+|geolocation_hostip|||
+|geolocation_geoip|||	
+|geolocation_ip2location|||
+
+### 4.2.8 DNSHandler
+|Name|status|comment|
+|----|------|-------|
+|dnsresolve_adns|works|resolve ips using libadns|
+|dnsresolve_uns|planned|resolve ips using libudns|
+
+# 5. Modules Interface
+
+Refer to the online doxygen documentation of the `eXample` modules on `FIXME`.
+
+# 6. Contribute to Nepenthes
 
 Post suggestions, bugs, patches, new modules to nepenthes.sf.net or mail them to nepenthesdev@gmail.com
 If you want to donate hardware, ipranges, whatever, mail us.
-7. Trouble Shooting
+
+# 7. Trouble Shooting
+
 7.1
 
 P: It does not work!
+
 S: find out why it does not work
 
 7.2
 
 P: the makefiles suck
+
 S: send us a patch using the auto(conf|make) foobar we are unable to use.
 
 7.3
 
 P: compiling fails
+
 S: google for it, if this does not help out, file a bugreport and mention your
     - operating system version
     - g++ version
@@ -729,11 +751,12 @@ S: google for it, if this does not help out, file a bugreport and mention your
 7.4
 
 P: nepenthes leaks memory
+
 S: first verify it _is_ a memoryleak
    currently all files downloaded are kept in memory until they are downloaded and submittet.
    then
    run nepenthes with      
-   valgrind --num-callers=12 --tool=memcheck --leak-check=yes --leak-resolution=high --show-reachable=yes -v  --logfile=valg bin/nepenthes
+   `valgrind --num-callers=12 --tool=memcheck --leak-check=yes --leak-resolution=high --show-reachable=yes -v  --logfile=valg bin/nepenthes`
    and mail us the valgrind logfiles to nepenthesdev@gmail.com
    or
    fix the memleak and post the patch to http://sf.net/projects/nepenthes
@@ -741,22 +764,26 @@ S: first verify it _is_ a memoryleak
 7.5
 
 P: i dont have any connection incoming!
+
 S: verify you are not firewalled.     
 
-8. FAQ
+# 8. FAQ
 8.0
 
 Q: Is this the official FAQ?
+
 A: Yes.
 
 8.1
 
 Q: Why choose Nepenthes as the name?
+
 A: read http://en.wikipedia.org/wiki/Nepenthes 
 
 8.2
 
 Q: What do you do with the samples committed to the nepenthes central server?
+
 A: We collect them.
    All samples are committed to clamav.
    Some samples get analysed.
@@ -764,6 +791,7 @@ A: We collect them.
 8.3
 
 Q: Can I get access to your malware database?
+
 A: In general No.
    If you think you will be able to persuade us that you should have access as you are an AV product vendor, 
    or do research in this field, mail us at samples@stargazer.at
@@ -772,11 +800,13 @@ A: In general No.
 8.4
 
 Q: I want to write my own modules, will you publish them?
+
 A: Depends. If the module adds new features 
-   - shellcodehandler
-   - downloadhandler
-   - submithandler
-   - vulnerability module
+ - shellcodehandler
+ - downloadhandler
+ - submithandler
+ - vulnerability module
+  
    and you are willing to accept the gpl license, there is a really good chance that we will.
    Of course, the feature also has to be useful.
    Submitting files to /dev/null can't be considered a good feature.
@@ -784,6 +814,7 @@ A: Depends. If the module adds new features
 8.5
 
 Q: Why don't you write the whole documentation in english?
+
 A: Although we know our English is poor, we think it's more useful to write poor English 
    than to write good Russian.
    Send us patches fixing this issue.
@@ -791,33 +822,39 @@ A: Although we know our English is poor, we think it's more useful to write poor
 8.6
 
 Q: is autocommiting files to sandbox.norman.no not a bad idea?
+
 A: so far we have committed about 400 files and nobody has complained yet.
    and we like getting the results via mail.
 
 8.7
 
 Q: how can i autocommit to clamav?
+
 A: clamav does not want to be the victim of autocommits
    if you use the submit-nepenthes, our central server will commit the files for you.
 
 8.8
 
 Q: how can i see whether the file i submitted to your central server has got a clamav signature?
+
 A: wait some time and then scan the file using clamscan
 
 8.9
 
 Q: why should i run nepenthes?
+
 A: you improve security in various ways which we can discuss over a beer.
 
 8.10
 
 Q: there is nothing in the cvs repository on sourceforge.net
+
 A: we use svn as we don't like cvs 
 
 8.11
 
 Q: can i get access to the svn?
+
 A: so far no as the svn is 'hosted' on a dialup.
 
 8.12
@@ -825,6 +862,7 @@ A: so far no as the svn is 'hosted' on a dialup.
 Q: i get 
    Got signal 25
    Exit 'cause of 25
+
 A: signal 25 is SIGFSZE, that means filesize exceeded, and mainly referrs to the logfiles 
    located in log/, rm them, rotate them, just get rid of it, and it will work again, fixed in 0.1.1
 
@@ -832,9 +870,10 @@ A: signal 25 is SIGFSZE, that means filesize exceeded, and mainly referrs to the
 
 Q: my avscanner complains about a virus in the nepenthes source package.
    like:
-   clamscan nepenthes-0.1.1.tar.gz: Trojan.Downloader.FTP.Gen-4 FOUND
+   `clamscan nepenthes-0.1.1.tar.gz: Trojan.Downloader.FTP.Gen-4 FOUND`
+
 A: actually this is not a false positive, but on the other hand it is a false positive ...
-   the tarball contains a file in doc/README.VFS containing wide used batchjobs viri use to download and execute themselves
+   the tarball contains a file in `doc/README.VFS` containing wide used batchjobs viri use to download and execute themselves
    on a remotehost once the gained a shell for documentation purposes.
    so your virusscanner is cool if he recognizes the file as a virus, but this single file does not make nepenthes a virus.
    as we dont want to sap av scanners we wont ask them to remove this signature.
@@ -845,6 +884,7 @@ A: actually this is not a false positive, but on the other hand it is a false po
 8.14
 
 Q: whats the problem with g++ 4.0.1?
+
 A: it will compile, and maybe even start, but it will fail if you resolve dns async.
    for some reason the destructor of list<unsigned long> segfaults the programm.
    to me this is a g++ 4 bug.
@@ -852,11 +892,7 @@ A: it will compile, and maybe even start, but it will fail if you resolve dns as
 8.15
 
 Q: what about OS X, or _any_ other big endian architecture?
+
 A: we guess it will compile, but we never had a look on endianess in any shellcodehandler.
    actually we can't say if it will work on big endian boxes, and as we do not own any big endian machine, we cant debug&fix it.
    if you want to donate a osx box so we can support big endian, mail us for a delievery address.
-
-
-
-   
-
