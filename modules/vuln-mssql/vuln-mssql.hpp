@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-mssql.hpp 318 2006-02-20 08:03:24Z common $ */
+ /* $Id: vuln-mssql.hpp 1644 2005-07-14 16:19:15Z dp $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

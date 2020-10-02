@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 695 2006-11-08 16:37:07Z common $
+# $Id: Makefile.am 718 2006-12-28 23:29:59Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -12,4 +12,4 @@ pkglib_LTLIBRARIES = dnsresolveadns.la
 
 dnsresolveadns_la_SOURCES = dnsresolve-adns.cpp dnsresolve-adns.hpp
 
-dnsresolveadns_la_LDFLAGS = -module -no-undefined -avoid-version
+dnsresolveadns_la_LDFLAGS = -module -no-undefined -avoid-version $(AM_LDFLAGS)

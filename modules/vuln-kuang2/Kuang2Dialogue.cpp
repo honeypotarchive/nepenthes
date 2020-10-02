@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: Kuang2Dialogue.cpp 550 2006-05-04 10:25:35Z common $ */
+ /* $Id: Kuang2Dialogue.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 
 
@@ -130,7 +130,7 @@ ConsumeLevel Kuang2Dialogue::incomingData(Message *msg)
 				m_FileName = kmsg->sdata;
 				logInfo("Kuang2 File upload requested %s %i\n",m_FileName.c_str(),m_FileSize);
 				m_State = KUANG2_FILETRANSFERR;
-				m_Download = new Download(msg->getLocalHost(),"kuang2://foo/bar",msg->getRemoteHost(),"some triggerline");
+				m_Download = new Download(msg->getLocalHost(),(char*)"kuang2://foo/bar",msg->getRemoteHost(),(char*)"some triggerline");
 				m_Buffer->clear();
 
 			} else

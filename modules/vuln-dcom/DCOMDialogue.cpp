@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: DCOMDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
+ /* $Id: DCOMDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include "DCOMDialogue.hpp"
 #include "Message.hpp"
@@ -37,6 +37,10 @@
 #include "dcom-shellcodes.h"
 #include "ShellcodeManager.hpp"
 #include "Utilities.hpp"
+
+
+#include "EventManager.hpp"
+#include "SocketEvent.hpp"
 
 
 #ifdef STDTAGS 
@@ -234,5 +238,5 @@ ConsumeLevel DCOMDialogue::connectionShutdown(Message *msg)
 void DCOMDialogue::dump()
 {
 	logWarn("Unknown %s Shellcode (Buffer %i bytes) (State %i)\n","DCOM",m_Buffer->getSize(),m_State);
-	g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)m_Buffer->getData(),m_Buffer->getSize());
+	HEXDUMP(m_Socket,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 }

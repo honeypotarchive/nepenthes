@@ -26,7 +26,7 @@
  *
  *******************************************************************************/
 
- /* $Id: PNPDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: PNPDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include <ctype.h>
 
@@ -47,6 +47,8 @@
 #include "Buffer.hpp"
 #include "Buffer.cpp"
 
+#include "EventManager.hpp"
+#include "SocketEvent.hpp"
 
 #ifdef STDTAGS 
 #undef STDTAGS 
@@ -276,5 +278,5 @@ ConsumeLevel PNPDialogue::connectionShutdown(Message *msg)
 void PNPDialogue::dump()
 {
 		logWarn("Unknown %s Shellcode (Buffer %i bytes) (State %i)\n","PNP",m_Buffer->getSize(),m_State);
-		g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)m_Buffer->getData(),m_Buffer->getSize());
+		HEXDUMP(m_Socket,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 }

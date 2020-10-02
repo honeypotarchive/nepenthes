@@ -25,12 +25,12 @@
  *
  *******************************************************************************/
 
- /* $Id: log-prelude.hpp 355 2006-02-23 15:42:43Z common $ */
+ /* $Id: log-prelude.hpp 1266 2007-05-12 11:42:09Z common $ */
 
 #include "config.h"
 
 #ifdef HAVE_LIBPRELUDE
-#include <prelude.h>
+#include <libprelude/prelude.h>
 #endif
 
 #include <string>

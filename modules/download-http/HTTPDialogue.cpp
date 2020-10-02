@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: HTTPDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
+ /* $Id: HTTPDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include "HTTPDialogue.hpp"
 
@@ -178,7 +178,7 @@ ConsumeLevel HTTPDialogue::connectionShutdown(Message *msg)
 	if ( end == NULL )
 	{
 		logWarn("HTTP ERROR header found %i\n", size);
-		g_Nepenthes->getUtilities()->hexdump((byte *)start,size);
+//		g_Nepenthes->getUtilities()->hexdump((byte *)start,size);
 		return CL_DROP;
 	}else
 	if ( end != NULL )

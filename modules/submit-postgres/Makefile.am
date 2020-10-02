@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 666 2006-10-14 22:52:57Z common $
+# $Id: Makefile.am 716 2006-12-28 23:01:12Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -13,5 +13,6 @@ pkglib_LTLIBRARIES = submitpostgres.la
 submitpostgres_la_SOURCES = submit-postgres.cpp submit-postgres.hpp 
 submitpostgres_la_SOURCES += PGDownloadContext.cpp PGDownloadContext.hpp 
 submitpostgres_la_SOURCES += bencoding.c bencoding.h
+submitpostgres_la_SOURCES += submit-postgres.conf.dist
 
 submitpostgres_la_LDFLAGS = -module -no-undefined -avoid-version

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SSHDialogue.hpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: SSHDialogue.hpp 1979 2005-09-14 12:08:59Z common $ */
 
 #include "config.h"
 #ifdef HAVE_LIBSSH

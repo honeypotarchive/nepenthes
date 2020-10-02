@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_leimbach_url_xor.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: sch_generic_leimbach_url_xor.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include "sch_generic_xor.hpp"
 #include "sch_generic_leimbach_url_xor.hpp"
@@ -203,7 +203,7 @@ sch_result LeimbachUrlXORXOR::handleShellcode(Message **msg)
 			pcre_free_substring(preload);
 			pcre_free_substring(xordecoder);
 
-			g_Nepenthes->getUtilities()->hexdump(l_crit,(byte *)newshellcode, len);			
+//			g_Nepenthes->getUtilities()->hexdump(l_crit,(byte *)newshellcode, len);			
 
 			Message *newMessage = new Message((char *)newshellcode, len, (*msg)->getLocalPort(), (*msg)->getRemotePort(),
 				   (*msg)->getLocalHost(), (*msg)->getRemoteHost(), (*msg)->getResponder(), (*msg)->getSocket());

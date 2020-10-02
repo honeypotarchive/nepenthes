@@ -16,7 +16,7 @@
 
 # nepenthes module meta-Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 661 2006-10-11 14:24:53Z common $
+# $Id: Makefile.am 1357 2007-08-23 13:15:26Z common $
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 VPATH = @srcdir@
@@ -110,6 +110,7 @@ LIB_ADNS = @LIB_ADNS@
 LIB_CAP = @LIB_CAP@
 LIB_CURL = @LIB_CURL@
 LIB_DL = @LIB_DL@
+LIB_EMU = @LIB_EMU@
 LIB_IPQ = @LIB_IPQ@
 LIB_LIBNET = @LIB_LIBNET@
 LIB_LIBY = @LIB_LIBY@
@@ -118,6 +119,7 @@ LIB_PCAP = @LIB_PCAP@
 LIB_PCRE = @LIB_PCRE@
 LIB_POSTGRES = @LIB_POSTGRES@
 LIB_PRELUDE = @LIB_PRELUDE@
+LIB_SSH = @LIB_SSH@
 LN_S = @LN_S@
 LOCALESTATEDIR = @LOCALESTATEDIR@
 LTLIBOBJS = @LTLIBOBJS@
@@ -136,6 +138,7 @@ PREFIX = @PREFIX@
 PROFILE_FALSE = @PROFILE_FALSE@
 PROFILE_TRUE = @PROFILE_TRUE@
 RANLIB = @RANLIB@
+SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
@@ -192,16 +195,16 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 SUBDIRS = download-creceive download-csend download-curl download-ftp download-http download-link download-tftp download-rcp\
           log-download log-irc \
-          submit-file submit-gotek submit-norman submit-postgres\
+          submit-file submit-gotek submit-norman submit-postgres submit-http submit-mwserv \
           shellcode-generic shellemu-winnt \
           vuln-asn1 vuln-bagle vuln-dcom vuln-iis vuln-kuang2 vuln-lsass \
           vuln-msdtc vuln-msmq vuln-mssql vuln-mydoom \
-          vuln-netbiosname vuln-netdde vuln-optix vuln-pnp vuln-sasserftpd \
+          vuln-netbiosname vuln-netdde vuln-optix vuln-pnp vuln-sasserftpd vuln-sav \
           vuln-sub7 vuln-upnp vuln-veritas vuln-wins vuln-dameware vuln-ssh vuln-realvnc \
           module-portwatch module-honeytrap module-bridge module-peiros\
           dnsresolve-adns \
           x-1 x-2 x-3 x-4 x-5 x-6 x-9 \
-          log-surfnet vuln-ftpd \
+          log-surfnet log-hexdump vuln-ftpd \
           log-prelude shellcode-signatures \
 	  sqlhandler-postgres           
 
@@ -217,9 +220,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  modules/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  modules/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  modules/Makefile
+	  $(AUTOMAKE) --foreign  modules/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

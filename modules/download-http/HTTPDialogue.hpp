@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: HTTPDialogue.hpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: HTTPDialogue.hpp 1986 2005-09-24 17:20:03Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

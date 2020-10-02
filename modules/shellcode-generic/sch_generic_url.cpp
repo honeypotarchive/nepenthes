@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_url.cpp 341 2006-02-20 09:51:00Z common $ */
+/* $Id: sch_generic_url.cpp 836 2007-02-06 15:16:50Z common $ */
 
 
 /* Additional notes:
@@ -119,7 +119,7 @@ sch_result GenericUrl::handleShellcode(Message **msg)
 
 	if((iResult = pcre_exec(m_pcre, 0, (char *) shellcode, len, 0, 0, (int *)piOutput, sizeof(piOutput)/sizeof(int32_t))) > 0)
 	{
-//		g_Nepenthes->getUtilities()->hexdump(STDTAGS,shellcode,len);
+//		HEXDUMP(m_Socket,shellcode,len);
 		const char * pUrl;
 
 		pcre_get_substring((char *) shellcode, (int *)piOutput, (int)iResult, 1, &pUrl);

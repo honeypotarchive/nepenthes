@@ -1,12 +1,11 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 321 2006-02-20 08:30:38Z common $
+# $Id: Makefile.am 718 2006-12-28 23:29:59Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
 AM_CPPFLAGS = -I$(top_srcdir)/nepenthes-core/include -I$(top_srcdir)/nepenthes-core/src -pipe -D _GNU_SOURCE
 AM_CXXFLAGS = -Wall -Werror
-AM_LDFLAGS = -lpcre
 
 pkglib_LTLIBRARIES = vulnbagle.la
 

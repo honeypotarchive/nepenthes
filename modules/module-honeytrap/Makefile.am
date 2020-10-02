@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 677 2006-10-25 20:28:05Z common $
+# $Id: Makefile.am 718 2006-12-28 23:29:59Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -15,4 +15,4 @@ modulehoneytrap_la_SOURCES += PCAPSocket.cpp PCAPSocket.hpp
 modulehoneytrap_la_SOURCES += TrapSocket.cpp TrapSocket.hpp
 modulehoneytrap_la_SOURCES += module-honeytrap.conf.dist
 
-modulehoneytrap_la_LDFLAGS = -module -no-undefined -avoid-version
+modulehoneytrap_la_LDFLAGS = -module -no-undefined -avoid-version $(AM_LDFLAGS)

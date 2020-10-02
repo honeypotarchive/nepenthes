@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: OPTIXDownloadDialogue.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: OPTIXDownloadDialogue.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include "vuln-optix.hpp"
 #include "OPTIXDownloadDialogue.hpp"
@@ -133,7 +133,7 @@ ConsumeLevel OPTIXDownloadDialogue::incomingData(Message *msg)
 
 				msg->getResponder()->doRespond("+OK REDY",strlen("+OK REDY"));
 				m_State = OPTIX_DL_FILETRANSFERR;
-				m_Download = new Download(msg->getRemoteHost(),"optix://foo/bar",msg->getRemoteHost(),"some triggerline");
+				m_Download = new Download(msg->getRemoteHost(),(char *)"optix://foo/bar",msg->getRemoteHost(),(char *)"some triggerline");
 			}
 			break;
 		}

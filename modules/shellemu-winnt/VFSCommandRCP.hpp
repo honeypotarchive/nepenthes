@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: VFSCommandRCP.hpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: VFSCommandRCP.hpp 2259 2006-01-13 20:33:39Z common $ */
 
 #include "VFSCommand.hpp"
 

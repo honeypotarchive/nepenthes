@@ -25,9 +25,9 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-msdtc.hpp 339 2006-02-20 09:45:09Z common $ */
+ /* $Id: vuln-msdtc.hpp 2197 2005-12-15 21:18:37Z common $ */
 
- /* $Id: vuln-msdtc.hpp 339 2006-02-20 09:45:09Z common $ */
+ /* $Id: vuln-msdtc.hpp 2197 2005-12-15 21:18:37Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

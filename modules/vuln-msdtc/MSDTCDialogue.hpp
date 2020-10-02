@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: MSDTCDialogue.hpp 339 2006-02-20 09:45:09Z common $ */
+ /* $Id: MSDTCDialogue.hpp 2197 2005-12-15 21:18:37Z common $ */
 
 #ifndef HAVE_MSDTCDIALOGUE_HPP
 #define HAVE_MSDTCDIALOGUE_HPP

@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 695 2006-11-08 16:37:07Z common $
+# $Id: Makefile.am 725 2007-01-02 08:31:38Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,6 @@ AM_LDFLAGS = ${LIB_SSH}
 
 pkglib_LTLIBRARIES = vulnssh.la
 
-vulnssh_la_SOURCES =  vuln-ssh.cpp vuln-ssh.hpp SSHSocket.cpp SSHSocket.hpp SSHDialogue.cpp SSHDialogue.hpp vuln-ssh.conf.dist
+vulnssh_la_SOURCES =  vuln-ssh.cpp vuln-ssh.hpp SSHSocket.cpp SSHSocket.hpp SSHDialogue.cpp SSHDialogue.hpp
 
-vulnssh_la_LDFLAGS = -module -no-undefined -avoid-version
+vulnssh_la_LDFLAGS = -module -no-undefined -avoid-version $(AM_LDFLAGS)

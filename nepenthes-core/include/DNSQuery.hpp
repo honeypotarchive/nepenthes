@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DNSQuery.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: DNSQuery.hpp 836 2007-02-06 15:16:50Z common $ */
 
 #ifndef HAVE_DNSQUERY_HPP
 #define HAVE_DNSQUERY_HPP
@@ -56,6 +56,7 @@ namespace nepenthes
 		virtual ~DNSQuery();
 
 		virtual DNSCallback *getCallback();
+		virtual void cancelCallback();
 		virtual string getDNS();
 		virtual uint16_t getQueryType();
 		virtual void *getObject();

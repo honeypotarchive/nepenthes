@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 696 2006-11-09 20:54:24Z common $
+# $Id: Makefile.am 718 2006-12-28 23:29:59Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -33,5 +33,5 @@ shellcodesignatures_la_SOURCES += sch_engine_unicode.cpp sch_engine_unicode.hpp
 shellcodesignatures_la_SOURCES += sch_namespace_konstanzxor.cpp sch_namespace_konstanzxor.hpp
 shellcodesignatures_la_SOURCES += sch_namespace_alphanumericxor.cpp sch_namespace_alphanumericxor.hpp
 
-shellcodesignatures_la_LDFLAGS = -module -no-undefined -avoid-version
+shellcodesignatures_la_LDFLAGS = -module -no-undefined -avoid-version $(AM_LDFLAGS)
 

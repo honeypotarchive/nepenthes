@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Socket.hpp 566 2006-06-19 13:11:14Z common $ */
+/* $Id: Socket.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifndef HAVE_SOCKET_HPP
 #define HAVE_SOCKET_HPP
@@ -111,6 +111,7 @@ namespace nepenthes
         virtual int32_t doRecv()=0;
 
         virtual int32_t doWrite(char *msg,uint32_t len)=0;
+//		virtual int32_t doWrite(const char *msg,uint32_t len)=0;
 
         virtual bool checkTimeout()=0;
 		virtual bool handleTimeout()=0;

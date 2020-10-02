@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SMBDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
+ /* $Id: SMBDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include <ctype.h>
 
@@ -43,7 +43,12 @@
 #include "Utilities.hpp"
 #include "ShellcodeManager.hpp"
 
+#include "EventManager.hpp"
+#include "SocketEvent.hpp"
+
 #include "vuln-asn1.hpp"
+
+
 
 #ifdef STDTAGS 
 #undef STDTAGS 
@@ -227,5 +232,5 @@ ConsumeLevel SMBDialogue::connectionShutdown(Message *msg)
 void SMBDialogue::dump()
 {
 	logWarn("Unknown %s Shellcode (Buffer %i bytes) (State %i)\n","ASN1_SMB",m_Buffer->getSize(),m_State);
-	g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)m_Buffer->getData(),m_Buffer->getSize());
+	HEXDUMP(m_Socket,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 }

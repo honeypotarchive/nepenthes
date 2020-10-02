@@ -103,6 +103,7 @@ LIB_ADNS = @LIB_ADNS@
 LIB_CAP = @LIB_CAP@
 LIB_CURL = @LIB_CURL@
 LIB_DL = @LIB_DL@
+LIB_EMU = @LIB_EMU@
 LIB_IPQ = @LIB_IPQ@
 LIB_LIBNET = @LIB_LIBNET@
 LIB_LIBY = @LIB_LIBY@
@@ -111,6 +112,7 @@ LIB_PCAP = @LIB_PCAP@
 LIB_PCRE = @LIB_PCRE@
 LIB_POSTGRES = @LIB_POSTGRES@
 LIB_PRELUDE = @LIB_PRELUDE@
+LIB_SSH = @LIB_SSH@
 LN_S = @LN_S@
 LOCALESTATEDIR = @LOCALESTATEDIR@
 LTLIBOBJS = @LTLIBOBJS@
@@ -129,6 +131,7 @@ PREFIX = @PREFIX@
 PROFILE_FALSE = @PROFILE_FALSE@
 PROFILE_TRUE = @PROFILE_TRUE@
 RANLIB = @RANLIB@
+SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
@@ -211,9 +214,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  nepenthes-core/include/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  nepenthes-core/include/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  nepenthes-core/include/Makefile
+	  $(AUTOMAKE) --foreign  nepenthes-core/include/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \

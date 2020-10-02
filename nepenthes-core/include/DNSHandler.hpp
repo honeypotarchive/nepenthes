@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DNSHandler.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: DNSHandler.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_DNSHANDLER_HPP
 #define HAVE_DNSHANDLER_HPP

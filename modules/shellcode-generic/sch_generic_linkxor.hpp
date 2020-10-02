@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_linkxor.hpp 318 2006-02-20 08:03:24Z common $ */
+/* $Id: sch_generic_linkxor.hpp 1681 2005-07-23 19:30:24Z dp $ */
  
 
 #ifndef HAVE_LINKXOR_HPP

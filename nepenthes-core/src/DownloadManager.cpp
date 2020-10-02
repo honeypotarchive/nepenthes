@@ -25,9 +25,10 @@
  *
  *******************************************************************************/
 
-/* $Id: DownloadManager.cpp 505 2006-04-09 16:39:36Z oxff $ */
+/* $Id: DownloadManager.cpp 1548 2008-02-14 11:18:18Z common $ */
 
 #include <string>
+#include <sys/param.h>
 
 #include "DownloadManager.hpp"
 #include "DownloadHandler.hpp"
@@ -114,15 +115,15 @@ bool  DownloadManager::Exit()
  * these cool makros are taken from the clamav mailing list  
  * 
  */
-//#ifndef BIG_ENDIAN
-//	#define SWAP_ORDER(x) (x)
-//#else
+#if BYTE_ORDER == BIG_ENDIAN
+	#define SWAP_ORDER(x) (x)
+#else
 	#define SWAP_ORDER(x) ( \
 		((x & 0xff) << 24) | \
 		((x & 0xff00) << 8) | \
 		((x & 0xff0000) >> 8 ) | \
 		((x & 0xff000000) >> 24 ))
-//#endif
+#endif
 
 #define PACKADDR(a, b, c, d) SWAP_ORDER((((uint32_t)(a) << 24) | ((b) << 16) | ((c) << 8) | (d)))
 #define MAKEMASK(bits)	SWAP_ORDER(((uint32_t)(0xffffffff << (32-bits))))
@@ -277,9 +278,6 @@ void DownloadManager::doList()
  */
 bool DownloadManager::isLocalAddress(uint32_t ulAddress)
 {
-	if ( !ulAddress || ulAddress == 0xFFFFFFFF )
-		return false; // not an ip
-
 	for ( uint32_t i = 0; i < sizeof(m_irLocalRanges) / sizeof(ip_range_t); i++ )
 		if ( (ulAddress & m_irLocalRanges[i].m_ulMask) == m_irLocalRanges[i].m_ulAddress )
 			return true;
@@ -301,7 +299,7 @@ bool DownloadManager::downloadUrl(Download *down)
 	SubmitEvent se(EV_DOWNLOAD,down);
 	g_Nepenthes->getEventMgr()->handleEvent(&se);
 
-	if (down->getDownloadUrl()->getPort() <= 0 || down->getDownloadUrl()->getPort() > 65536)
+	if ( down->getDownloadUrl()->getPort() <= 0 || down->getDownloadUrl()->getPort() > 65536 )
 	{
 		logWarn("malformed url 0<port<65536  , %s \n",down->getUrl().c_str());
 		delete down;
@@ -315,67 +313,47 @@ bool DownloadManager::downloadUrl(Download *down)
 	{	// address is either dns or invalid ip
 		logSpam("Host %s is valid ip \n",down->getDownloadUrl()->getHost().c_str());
 		bool bReplaceHost = false;
-		if (isLocalAddress(ulAddress) == true)
+		if ( isLocalAddress(ulAddress) == true )
 		{ // local ip
-			if (m_ReplaceLocalIps)
+			if ( m_ReplaceLocalIps )
 			{
 				bReplaceHost = true;
 				logInfo("Link %s  has local address, replacing with real ip \n",down->getUrl().c_str());
 
-			}else
+			}
+			else
 			{
 				logDebug(" Address %s is local, we will not download \n",inet_ntoa( *(in_addr *)&ulAddress));
 				delete down;
 				return false;
 			}
-            
-			
-		}else
-		{
-			if (ulAddress == 0) // replace 0.0.0.0
-			{
-				bReplaceHost = true;
-			}
 		}
 
-		if (bReplaceHost)
+		if ( bReplaceHost )
 		{
-/*			pDown->m_sUri  = pDown->m_pUri->m_protocol;
-			pDown->m_sUri += "://";
-			pDown->m_sUri += inet_ntoa( *(in_addr *)&pDown->m_ulAddress);
-			pDown->m_sUri += "/";
-			pDown->m_sUri += pDown->m_pUri->m_file;			 // fixme port
-			pDown->m_pUri->m_host = inet_ntoa( *(in_addr *)&pDown->m_ulAddress);
-*/	
-			string sUrl =	down->getDownloadUrl()->getProtocol();
+			string sUrl =   down->getDownloadUrl()->getProtocol();
 			sUrl += "://";
+
 			uint32_t newaddr = down->getRemoteHost();
 			sUrl += inet_ntoa(*(in_addr *)&newaddr);
 			down->getDownloadUrl()->setHost(newaddr);
+			logInfo("Replaced Address, new URL is %s \n",sUrl.c_str());
 
-#ifdef WIN32
-			char *port = (char *)malloc(7);
-			memset(port,0,7);
-			_snprintf(port,7,":%i/",down->getDownloadUrl()->getPort());
-            sUrl += port;
-			free(port);
-#else
 			char *port;
 			asprintf(&port,":%i/",down->getDownloadUrl()->getPort());
-            sUrl += port;
+			sUrl += port;
 			free(port);
-#endif
+
 			sUrl += down->getDownloadUrl()->getPath();
 			down->setUrl(&sUrl);
-			logInfo("Replaced Address, new URL is %s \n",sUrl.c_str());
 		}
 	}
 
 
 	list <DownloadHandlerTuple>::iterator handler;
-	for(handler = m_DownloadHandlers.begin(); handler != m_DownloadHandlers.end(); handler++)
+	for ( handler = m_DownloadHandlers.begin(); handler != m_DownloadHandlers.end(); handler++ )
 	{
-		if(handler->m_Protocol == down->getDownloadUrl()->getProtocol())
+		if ( handler->m_Protocol == down->getDownloadUrl()->getProtocol() )
 		{
 			logInfo("Handler %s will download %s \n",handler->m_Handler->getDownloadHandlerName().c_str(),down->getUrl().c_str());
 			handler->m_Handler->download(down);
@@ -405,9 +383,9 @@ bool DownloadManager::downloadUrl(Download *down)
  * 
  * @return returns downloadUrl(Download *) return value
  */
-bool DownloadManager::downloadUrl(uint32_t localhost, char *url, uint32_t address, char *triggerline, uint8_t downloadflags, DownloadCallback *callback, void *obj)
+bool DownloadManager::downloadUrl(uint32_t localhost, char *url, uint32_t address, const char *triggerline, uint8_t downloadflags, DownloadCallback *callback, void *obj)
 {
-	Download *down = new Download(localhost, url,address,triggerline, callback,obj);
+	Download *down = new Download(localhost, url,address, (char *)triggerline, callback,obj);
 	down->addDownloadFlags(downloadflags);
 	return downloadUrl(down);
 }

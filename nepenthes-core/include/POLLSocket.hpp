@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: POLLSocket.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: POLLSocket.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifndef HAVE_POLLSOCKET_HPP
 #define HAVE_POLLSOCKET_HPP
@@ -57,6 +57,8 @@ public:
 		virtual bool checkTimeout();
 		virtual bool handleTimeout();
 		bool doRespond(char *msg, uint32_t len);
+		bool doRespond(const char *msg, uint32_t len);
+
 	};
 }
 

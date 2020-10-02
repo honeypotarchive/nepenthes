@@ -26,7 +26,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-irc.cpp 675 2006-10-23 17:01:53Z common $ */
+ /* $Id: log-irc.cpp 1250 2007-05-03 15:30:06Z oxff $ */
 
 #include <ctype.h>
 
@@ -80,7 +80,7 @@ LogIrc::LogIrc(Nepenthes *nepenthes)// : LogHandler(nepenthes->getLogMgr())
 {
 	m_ModuleName        = "log-irc";
 	m_ModuleDescription = "log to irc (optionally using tor)";
-	m_ModuleRevision    = "$Rev: 675 $";
+	m_ModuleRevision    = "$Rev: 1250 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;
@@ -171,7 +171,7 @@ bool LogIrc::Init()
 	}
 //	m_Nepenthes->getSocketMgr()->bindTCPSocket(0,10002,0,45,this);
 
-	g_Nepenthes->getLogMgr()->addLogger(this,l_dl|l_sub);
+	g_Nepenthes->getLogMgr()->addLogger(this,l_all);
 	return true;
 }
 

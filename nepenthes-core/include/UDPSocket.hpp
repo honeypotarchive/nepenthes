@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UDPSocket.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: UDPSocket.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 
 #include "Socket.hpp"
@@ -57,6 +57,8 @@ public:
         bool checkTimeout();
 		bool handleTimeout();
 		bool doRespond(char *msg, uint32_t len);
+		bool doRespond(const char *msg, uint32_t len);
+
 	private:
 		list <UDPPacket *> m_TxPackets;
 	};

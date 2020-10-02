@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_linkxor.cpp 341 2006-02-20 09:51:00Z common $ */ 
+/* $Id: sch_generic_linkxor.cpp 2215 2005-12-23 16:54:36Z common $ */ 
 
 #include "sch_generic_linkxor.hpp"
 #include "Nepenthes.hpp"

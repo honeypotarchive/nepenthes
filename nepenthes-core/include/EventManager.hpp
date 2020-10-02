@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: EventManager.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: EventManager.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifndef HAVE_EVENTMANAGER_HPP
 #define HAVE_EVENTMANAGER_HPP
@@ -72,10 +72,11 @@ namespace nepenthes
 		bool Exit();
 
 		virtual uint16_t registerEvent(char *name);
+//		virtual uint16_t registerEvent(const char *name);
 //		virtual int32_t	 getEventbyName(char *name);
     private:
 
-		bool registerInternalEvent(char *name, uint16_t number);
+		bool registerInternalEvent(const char *name, uint16_t number);
 
 
         list <EventHandler *> m_EventHandlers;

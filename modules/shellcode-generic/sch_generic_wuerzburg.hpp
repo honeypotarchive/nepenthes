@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_wuerzburg.hpp 318 2006-02-20 08:03:24Z common $ */
+ /* $Id: sch_generic_wuerzburg.hpp 1700 2005-07-26 21:19:44Z dp $ */
 
 #ifndef HAVE_LSASS_WUERZBURG_HPP
 #define HAVE_LSASS_WUERZBURG_HPP

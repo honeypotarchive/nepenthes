@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: FILESocket.hpp 321 2006-02-20 08:30:38Z common $ */
+/* $Id: FILESocket.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifdef WIN32
 
@@ -57,6 +57,8 @@ public:
 		bool checkTimeout();
 		bool handleTimeout();
 		bool doRespond(char *msg, uint32_t len);
+		bool doRespond(const char *msg, uint32_t len);
+
 	private:
 		string m_FilePath;
 		int32_t m_Flags;

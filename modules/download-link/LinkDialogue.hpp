@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: LinkDialogue.hpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: LinkDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 #ifndef HAVE_LINKDIALOGUE_HPP
 #define HAVE_LINKDIALOGUE_HPP
 

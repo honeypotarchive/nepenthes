@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CReceiveDialogue.cpp 630 2006-08-30 10:02:20Z common $ */
+ /* $Id: CReceiveDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include "CReceiveDialogue.hpp"
 
@@ -87,7 +87,7 @@ CReceiveDialogue::CReceiveDialogue(Socket *socket)//, Download *down)
 
 CReceiveDialogue::~CReceiveDialogue()
 {
-//	g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)m_Buffer->getData(),m_Buffer->getSize());
+//	HEXDUMP(m_Socket,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 //	delete m_Buffer;
 	delete m_Download;
 }

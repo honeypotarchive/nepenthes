@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: MSMQDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: MSMQDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 
 
@@ -43,6 +43,8 @@
 #include "Nepenthes.hpp"
 #include "LogManager.hpp"
 
+#include "EventManager.hpp"
+#include "SocketEvent.hpp"
 
 using namespace nepenthes;
 
@@ -73,7 +75,7 @@ MSMQDialogue::~MSMQDialogue()
 	case MSMQ_NULL:
 	case MSMQ_SHELLCODE:
 		logWarn("Unknown MSMQ exploit %i bytes State %i\n",m_Buffer->getSize(), m_State);
-		g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *) m_Buffer->getData(), m_Buffer->getSize());
+		HEXDUMP(m_Socket,(byte *) m_Buffer->getData(), m_Buffer->getSize());
 		break;
 
 	case MSMQ_DONE:

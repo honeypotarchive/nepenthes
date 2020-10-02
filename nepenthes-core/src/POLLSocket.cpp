@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: POLLSocket.cpp 341 2006-02-20 09:51:00Z common $ */
+/* $Id: POLLSocket.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include "POLLSocket.hpp"
 
@@ -118,6 +118,11 @@ int32_t POLLSocket::doWrite(char *msg, uint32_t len)
 }
 
 bool POLLSocket::doRespond(char *msg, uint32_t len)
+{
+	return false;
+}
+
+bool POLLSocket::doRespond(const char *msg, uint32_t len)
 {
 	return false;
 }

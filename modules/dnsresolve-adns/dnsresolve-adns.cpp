@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: dnsresolve-adns.cpp 550 2006-05-04 10:25:35Z common $ */
+ /* $Id: dnsresolve-adns.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include <sys/poll.h>
 #include <errno.h>
@@ -47,6 +47,7 @@
 
 
 #include "EventManager.hpp"
+#include "Nepenthes.hpp"
 
 using namespace std;
 

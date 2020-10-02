@@ -24,7 +24,7 @@
  *             contact nepenthesdev@users.sourceforge.net  
  *
  *******************************************************************************/
-/* $Id: shellemu-winnt.cpp 321 2006-02-20 08:30:38Z common $ */
+/* $Id: shellemu-winnt.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -51,7 +51,7 @@ WinNTShell::WinNTShell(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "shellemu module";
 	m_ModuleDescription = "privdes a factory for winnt shell dialogues";
-	m_ModuleRevision    = "$Rev: 321 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "WinNTShell DialogueFactory";

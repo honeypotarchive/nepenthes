@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: FILESocket.cpp 330 2006-02-20 09:20:44Z common $ */
+/* $Id: FILESocket.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifdef WIN32
 	// win32 cant do this
@@ -143,6 +143,11 @@ bool FILESocket::handleTimeout()
 }
 
 bool FILESocket::doRespond(char *msg, uint32_t len)
+{
+	return false;
+}
+
+bool FILESocket::doRespond(const char *msg, uint32_t len)
 {
 	return false;
 }

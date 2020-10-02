@@ -24,7 +24,7 @@
  *             contact nepenthesdev@users.sourceforge.net  
  *
  *******************************************************************************/
-/* $Id: DialogueFactoryManager.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: DialogueFactoryManager.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifndef HAVE_DIALOGUEFACTORYMANAGER_HPP
 #define HAVE_DIALOGUEFACTORYMANAGER_HPP
@@ -62,7 +62,7 @@ namespace nepenthes
 
 		virtual bool registerFactory(DialogueFactory *diaf);
 		virtual bool unregisterFactory(DialogueFactory *diaf);
-		virtual DialogueFactory *getFactory(char *factoryname);
+		virtual DialogueFactory *getFactory(const char *factoryname);
 	protected:
 		list <DialogueFactory *> m_Factories;
 	};

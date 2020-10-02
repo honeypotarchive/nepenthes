@@ -26,7 +26,7 @@
  *******************************************************************************/
 
 
-/* $Id: sch_generic_cmd.cpp 550 2006-05-04 10:25:35Z common $ */
+/* $Id: sch_generic_cmd.cpp 836 2007-02-06 15:16:50Z common $ */
 
 
 
@@ -95,7 +95,7 @@ sch_result GenericCMD::handleShellcode(Message **msg)
 	if((iResult = pcre_exec(m_pcre, 0, (char *) shellcode, len, 0, 0, (int *)piOutput, sizeof(piOutput)/sizeof(int32_t))) > 0)
 	{
 //		logDebug("GenricCMD (improve pcre debug) (%i bytes)\n",(*msg)->getSize());
-//		g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)(*msg)->getMsg(),(*msg)->getSize());
+//		HEXDUMP(m_Socket,(byte *)(*msg)->getMsg(),(*msg)->getSize());
  
 		const char * pRemoteCommand;
 

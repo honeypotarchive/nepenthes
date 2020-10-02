@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: LSASSDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: LSASSDialogue.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include <ctype.h>
 
@@ -46,6 +46,8 @@
 #include "Buffer.hpp"
 #include "Buffer.cpp"
 
+#include "EventManager.hpp"
+#include "SocketEvent.hpp"
 
 #ifdef STDTAGS 
 #undef STDTAGS 
@@ -144,7 +146,7 @@ ConsumeLevel LSASSDialogue::incomingData(Message *msg)
 				 logDebug("Valid LSASS HOD Stage #3 (%i)\n",sizeof(lsass_hod_req3));
 				 m_State = LSASS_HOD_STAGE4;
 				 m_Buffer->clear();
-                 char *osversion = "W i n d o w s   5 . 1 ";
+                 const char *osversion = "W i n d o w s   5 . 1 ";
 				 memcpy(reply+48,osversion,strlen(osversion));
 				 msg->getResponder()->doRespond(reply,256);
 				 return CL_ASSIGN;
@@ -281,6 +283,6 @@ ConsumeLevel LSASSDialogue::connectionShutdown(Message *msg)
 void LSASSDialogue::dump()
 {
 	logWarn("Unknown %s Shellcode (Buffer %i bytes) (State %i)\n","LSASS",m_Buffer->getSize(),m_State);
-	g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)m_Buffer->getData(),m_Buffer->getSize());
+	HEXDUMP(m_Socket,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 }
 

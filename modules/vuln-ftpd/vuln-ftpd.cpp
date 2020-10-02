@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: vuln-ftpd.cpp 550 2006-05-04 10:25:35Z common $ */
+/* $Id: vuln-ftpd.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 /* vuln-ftp written by Harald Lampesberger, contact harald.lampesberger@fork.at 
  * thx to the developers of nepenthes for the help! */
@@ -55,6 +55,9 @@
 
 #include "Utilities.hpp"
 
+#include "EventManager.hpp"
+#include "SocketEvent.hpp"
+
 #ifdef STDTAGS 
 	#undef STDTAGS 
 #endif
@@ -81,7 +84,7 @@ FTPd::FTPd(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-ftp";
 	m_ModuleDescription = "vuln-ftp simulates known vulnerabilities of some wellknown win32 ftp servers";
-	m_ModuleRevision    = "$Rev: 550 $";
+	m_ModuleRevision    = "$Rev: 1410 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "vuln-ftp Factory";
@@ -175,7 +178,7 @@ FTPdDialogue::FTPdDialogue(Socket *socket)
 	m_ConsumeLevel = CL_ASSIGN;
 	m_Shellcode = new Buffer(4096);
 	m_Buffer = new Buffer(4096);
-	char * banner1 = "220 ---freeFTPd 1.0---warFTPd 1.65---\r\n";    
+	const char * banner1 = "220 ---freeFTPd 1.0---warFTPd 1.65---\r\n";    
 	m_Socket->doRespond(banner1, strlen(banner1));
 	m_state = FTP_NULL;
 }
@@ -196,16 +199,16 @@ FTPdDialogue::~FTPdDialogue()
  */
 ConsumeLevel FTPdDialogue::incomingData(Message *msg)
 {
-	char* s_quit                = "221-Quit.\r\n221 Goodbye!\r\n";
-	char* s_user_ok             = "331 User OK, Password required\r\n";
+	const char* s_quit                = "221-Quit.\r\n221 Goodbye!\r\n";
+	const char* s_user_ok             = "331 User OK, Password required\r\n";
 	//char* s_unknown_command  	= "500-Unknown Command\r\n";
-	char* s_server_error        = "501 Server Error\r\n";
-	char* s_not_logged_in       = "530 You are not logged in\r\n";
-	char* s_auth_failed         = "530 Authentication failed, sorry\r\n";
+	const char* s_server_error        = "501 Server Error\r\n";
+	const char* s_not_logged_in       = "530 You are not logged in\r\n";
+	const char* s_auth_failed         = "530 Authentication failed, sorry\r\n";
 
-	char* cmd_user = "USER";
-	char* cmd_pass = "PASS";
-	char* cmd_quit = "QUIT";
+	const char* cmd_user = "USER";
+	const char* cmd_pass = "PASS";
+	const char* cmd_quit = "QUIT";
 
 	uint32_t threshold = 40;
 
@@ -220,7 +223,7 @@ ConsumeLevel FTPdDialogue::incomingData(Message *msg)
 	uint32_t i = 0;
 	bool buffercut=false;
 
-	g_Nepenthes->getUtilities()->hexdump((byte *) m_Buffer->getData(),m_Buffer->getSize());
+//	g_Nepenthes->getUtilities()->hexdump((byte *) m_Buffer->getData(),m_Buffer->getSize());
 	while ( i < m_Buffer->getSize() )
 	{
 		buffercut = false;
@@ -418,7 +421,7 @@ ConsumeLevel FTPdDialogue::connectionShutdown(Message *msg)
 void FTPdDialogue::dump()
 {
 	logWarn("Unknown exploit %i bytes \n",m_Shellcode->getSize());
-	g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *) m_Shellcode->getData(), m_Shellcode->getSize());
+	HEXDUMP(m_Socket,(byte *) m_Shellcode->getData(), m_Shellcode->getSize());
 }
 
 ftp_exploit FTPdDialogue::identExploit(string line)
@@ -440,7 +443,7 @@ ftp_exploit FTPdDialogue::identExploit(string line)
 
 		// warFTPd 1.65 exploit
 		// Win32 Opcode List
-		char* opcodes[3] = {"\xe2\x31\x02\x75", "\x54\x1d\xab\x71", "\x72\x93\xab\x71"}; 
+		const char* opcodes[3] = {"\xe2\x31\x02\x75", "\x54\x1d\xab\x71", "\x72\x93\xab\x71"}; 
 
 		if ( line.size() > 500 )
 		{

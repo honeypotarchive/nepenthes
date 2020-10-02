@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: LinkDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
+ /* $Id: LinkDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 
 #include <ctype.h>
@@ -122,7 +122,7 @@ ConsumeLevel LinkDialogue::incomingData(Message *msg)
 	case LINK_NULL:
 		{
 			m_Buffer->add(msg->getMsg(),msg->getSize());
-//			g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)m_Buffer->getData(),m_Buffer->getSize());
+//			HEXDUMP(m_Socket,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 			msg->getResponder()->doRespond((char *)&m_Challenge,4);
 
 			m_State = LINK_FILE;

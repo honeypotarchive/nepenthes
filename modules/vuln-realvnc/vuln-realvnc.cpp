@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-realvnc.cpp 618 2006-08-16 17:47:51Z common $ */
+ /* $Id: vuln-realvnc.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include <ctype.h>
 
@@ -87,7 +87,7 @@ VulnRealVNC::VulnRealVNC(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-2";
 	m_ModuleDescription = "eXample Module 2 -binding sockets & setting up a dialogue example-";
-	m_ModuleRevision    = "$Rev: 618 $";
+	m_ModuleRevision    = "$Rev: 836 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "x-2 Factory";
@@ -246,7 +246,7 @@ ConsumeLevel RealVNCDialogue::incomingData(Message *msg)
 	{
 	
 		logSpam("VNC_HANDSHAKE\n");
-		g_Nepenthes->getUtilities()->hexdump((byte *)m_Buffer->getData(),m_Buffer->getSize());
+//		g_Nepenthes->getUtilities()->hexdump((byte *)m_Buffer->getData(),m_Buffer->getSize());
 		if (m_Buffer->getSize() >= strlen(rfb_version_003_008) && 
 			memcmp(m_Buffer->getData(),rfb_version_003_008,strlen(rfb_version_003_008)) == 0)
 		{
@@ -262,7 +262,7 @@ ConsumeLevel RealVNCDialogue::incomingData(Message *msg)
 	if ( m_State == VNC_AUTH)
 	{
     	logSpam("VNC_AUTH\n");
-		g_Nepenthes->getUtilities()->hexdump((byte *)m_Buffer->getData(),m_Buffer->getSize());
+//		g_Nepenthes->getUtilities()->hexdump((byte *)m_Buffer->getData(),m_Buffer->getSize());
 		if (m_Buffer->getSize() >= 1 )
 		{
 			if (1)// *(char *) (m_Buffer->getData()) == 1)
@@ -546,7 +546,7 @@ ConsumeLevel RealVNCDialogue::incomingData(Message *msg)
 
 				case 6:
 					logSpam("ClientReq: CutEvent\n");
-					g_Nepenthes->getUtilities()->hexdump((byte *)m_Buffer->getData(),m_Buffer->getSize());
+//					g_Nepenthes->getUtilities()->hexdump((byte *)m_Buffer->getData(),m_Buffer->getSize());
 					if (m_Buffer->getSize() >= 8 )
 					{
 						uint32_t cpbytes;

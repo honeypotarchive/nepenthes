@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DNSQuery.cpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: DNSQuery.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include "DNSQuery.hpp"
 
@@ -52,6 +52,15 @@ DNSQuery::~DNSQuery()
 DNSCallback *DNSQuery::getCallback()
 {
 	return m_Callback;
+}
+
+
+/**
+ * chancel the callback
+ */
+void DNSQuery::cancelCallback()
+{
+	m_Callback = NULL;
 }
 
 /**

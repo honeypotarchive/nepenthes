@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: log-surfnet.cpp 676 2006-10-25 18:19:53Z common $ */
+/* $Id: log-surfnet.cpp 932 2007-02-21 14:16:50Z common $ */
 
 #include <sstream>
 #include <sys/types.h>
@@ -76,7 +76,7 @@ LSContext::LSContext()
 	m_attackID = 0;
 	m_closed = false;
 
-	m_severity = 0;
+	m_severity = -1;
 }
 
 
@@ -108,7 +108,7 @@ LogSurfNET::LogSurfNET(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "log-surfnet";
 	m_ModuleDescription = "log various malicious events to postgresql";
-	m_ModuleRevision    = "$Rev: 676 $";
+	m_ModuleRevision    = "$Rev: 932 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "LogSurfNETEventHandler";
@@ -471,7 +471,13 @@ void LogSurfNET::handleTCPclose(Socket *socket, uint32_t attackid)
 			(uint32_t) ((intptr_t)socket), 
 			attackid);
 
-	m_SocketTracker[(uintptr_t) socket].m_closed = true;
+	if (m_SocketTracker[(uintptr_t) socket].m_Details.size() > 0)
+	{
+    	m_SocketTracker[(uintptr_t) socket].m_closed = true;
+	}else
+	{
+		m_SocketTracker.erase((uintptr_t)socket);
+	}
 }
 
 void LogSurfNET::handleDialogueAssignAndDone(Socket *socket, Dialogue *dia, uint32_t attackid)
@@ -649,6 +655,19 @@ bool LogSurfNET::sqlSuccess(SQLResult *result)
 		m_SocketTracker[(uintptr_t)s].m_Details.pop_front();
 	}
 
+	if (m_SocketTracker[(uintptr_t)s].m_severity != -1)
+	{
+		string query;
+
+		query = "SELECT surfnet_attack_update_severity('";
+		query += itos(m_SocketTracker[(uintptr_t)s].m_attackID);
+		query += "','";
+		query += itos(m_SocketTracker[(uintptr_t)s].m_severity);
+		query += "');";
+
+		m_SQLHandler->addQuery(&query,NULL,NULL);
+	}
+
 	if (m_SocketTracker[(uintptr_t)s].m_closed == true)
 	{
 		m_SocketTracker.erase((uintptr_t)s);
@@ -660,6 +679,11 @@ bool LogSurfNET::sqlSuccess(SQLResult *result)
 bool LogSurfNET::sqlFailure(SQLResult *result)
 {
 	logPF();
+
+	Socket *s;
+	s = (Socket *)result->getObject();
+	logCrit("Getting attackid for socket %x failed, dropping the whole attack, forgetting all details\n",(uintptr_t)s);
+	m_SocketTracker.erase((uintptr_t)s);
 	return true;
 }
 

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: OPTIXShellDialogue.hpp 318 2006-02-20 08:03:24Z common $ */
+ /* $Id: OPTIXShellDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
 
 #ifndef HAVE_OPTIXSHELLDIALOGUE_HPP
 #define HAVE_OPTIXSHELLDIALOGUE_HPP

@@ -25,9 +25,10 @@
  *
  *******************************************************************************/
 
- /* $Id: CTRLDialogue.cpp 590 2006-07-09 18:35:30Z common $ */
+ /* $Id: CTRLDialogue.cpp 1493 2007-12-13 21:29:01Z rui $ */
  
 #include <sys/types.h>
+#include <sys/param.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -366,7 +367,7 @@ bool CTRLDialogue::parsePass(char *msg)
 
 void CTRLDialogue::sendType()
 {
-	char *nmsg = "TYPE I\r\n";
+	const char *nmsg = "TYPE I\r\n";
 	m_Socket->doRespond(nmsg,strlen(nmsg));
 	logDebug("FTPSEND: '%s'\n",nmsg);
 }
@@ -455,10 +456,17 @@ void CTRLDialogue::sendPort()
 	
 
 	asprintf(&nmsg,"PORT %d,%d,%d,%d,%d,%d\r\n",
+#if BYTE_ORDER == BIG_ENDIAN
+			(int32_t)(ip >> 24) & 0xff,
+			(int32_t)(ip >> 16) & 0xff,
+			(int32_t)(ip >> 8) & 0xff,
+			(int32_t)ip & 0xff,
+#else
 			(int32_t)ip & 0xff,
 			(int32_t)(ip >> 8) & 0xff,
 			(int32_t)(ip >> 16) & 0xff,
 			(int32_t)(ip >> 24) & 0xff,
+#endif
 			(int32_t)(port >> 8) & 0xff,
 			(int32_t)port & 0xff);
 	logDebug("FTPSEND: '%s'\n",nmsg);
@@ -506,7 +514,7 @@ bool CTRLDialogue::parseRetr(char *msg)
 void CTRLDialogue::sendQuit()
 {
 	
-	char *nmsg = "QUIT\r\n";
+	const char *nmsg = "QUIT\r\n";
 	
 	logDebug("FTPSEND: '%s'\n",nmsg);
 	m_Socket->doRespond(nmsg,strlen(nmsg));

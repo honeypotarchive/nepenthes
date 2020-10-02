@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_konstanz_xor.hpp 321 2006-02-20 08:30:38Z common $ */
+/* $Id: sch_generic_konstanz_xor.hpp 1797 2005-08-08 19:36:30Z common $ */
  
 
 #ifndef HAVE_KONSTANZ_HPP

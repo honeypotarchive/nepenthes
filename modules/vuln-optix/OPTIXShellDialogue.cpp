@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: OPTIXShellDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: OPTIXShellDialogue.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include "vuln-optix.hpp"
 #include "OPTIXShellDialogue.hpp"
@@ -107,7 +107,7 @@ ConsumeLevel OPTIXShellDialogue::incomingData(Message *msg)
 	case OPTIX_AUTHED:
 		if (m_Buffer->getSize() >= 6)
 		{	
-			g_Nepenthes->getUtilities()->hexdump((byte *)m_Buffer->getData(),m_Buffer->getSize());
+//			g_Nepenthes->getUtilities()->hexdump((byte *)m_Buffer->getData(),m_Buffer->getSize());
 			// we could do this with pcre ...
        		if (memcmp(m_Buffer->getData(),"019¬\r\n",6) == 0)
            	{
@@ -116,7 +116,7 @@ ConsumeLevel OPTIXShellDialogue::incomingData(Message *msg)
 
 				// this will just open the optix downloadmanagers bind socket it its closed
 				
-				g_Nepenthes->getDownloadMgr()->downloadUrl(msg->getLocalHost(),"optix://localhost:500/file",msg->getRemoteHost(),"optix foobar",0);
+				g_Nepenthes->getDownloadMgr()->downloadUrl(msg->getLocalHost(),(char *)"optix://localhost:500/file",msg->getRemoteHost(),(char *)"optix foobar",0);
 			}
         }
 		break;

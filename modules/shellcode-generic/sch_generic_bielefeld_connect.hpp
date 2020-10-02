@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_bielefeld_connect.hpp 318 2006-02-20 08:03:24Z common $ */
+ /* $Id: sch_generic_bielefeld_connect.hpp 1733 2005-08-01 10:23:55Z common $ */
 
 #ifndef HAVE_BIELEFELDCONNECT_HPP
 #define HAVE_BIELEFELDCONNECT_HPP

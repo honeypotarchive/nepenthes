@@ -27,7 +27,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-dameware.hpp 330 2006-02-20 09:20:44Z common $ */
+ /* $Id: vuln-dameware.hpp 1941 2005-09-07 10:40:01Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

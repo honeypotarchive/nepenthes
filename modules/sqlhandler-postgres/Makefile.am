@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 695 2006-11-08 16:37:07Z common $
+# $Id: Makefile.am 718 2006-12-28 23:29:59Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -12,4 +12,4 @@ pkglib_LTLIBRARIES = sqlhandlerpostgres.la
 
 sqlhandlerpostgres_la_SOURCES = sqlhandler-postgres.cpp sqlhandler-postgres.hpp
 
-sqlhandlerpostgres_la_LDFLAGS = -module -no-undefined -avoid-version
+sqlhandlerpostgres_la_LDFLAGS = -module -no-undefined -avoid-version $(AM_LDFLAGS)

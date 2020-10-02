@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sqlhandler-postgres.cpp 657 2006-10-08 15:02:44Z common $ */
+/* $Id: sqlhandler-postgres.cpp 1264 2007-05-12 10:29:49Z common $ */
 
 #include <ctype.h>
 //#include <openssl/ssl.h>
@@ -62,7 +62,7 @@ SQLHandlerFactoryPostgres::SQLHandlerFactoryPostgres(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "sqlhandler-postgres";
 	m_ModuleDescription = "use postgres' async socket interface for smooth queries";
-	m_ModuleRevision    = "$Rev: 657 $";
+	m_ModuleRevision    = "$Rev: 1264 $";
 
 
 	m_Nepenthes = nepenthes;
@@ -145,6 +145,7 @@ SQLHandlerPostgres::SQLHandlerPostgres(Nepenthes *nepenthes, string server, stri
 	m_PGTable   = table;
 	m_PGUser    = user;
 	m_PGPass    = passwd;
+	m_PGOptions	= options;
 
 	m_Callback = cb;
 }
@@ -759,6 +760,10 @@ bool SQLHandlerPostgres::dnsResolved(DNSResult *result)
 	"' dbname = '" + m_PGTable + 
 	"' user = '" + m_PGUser + 
 	"' password = '" + m_PGPass +"'";
+
+	if ( m_PGOptions.size() > 0 )
+		ConnectString += m_PGOptions;
+	
 
 	if (m_PGConnection != NULL)
 		PQfinish(m_PGConnection);

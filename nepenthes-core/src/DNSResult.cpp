@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DNSResult.cpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: DNSResult.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include "DNSResult.hpp"
 #include "Nepenthes.hpp"
@@ -89,7 +89,7 @@ DNSResult::DNSResult(adns_answer *answer, char *dns, uint16_t querytype, void *o
 			while ( test->i != -1 )
 			{
 				m_TXT.append(test->str,test->i);
-				g_Nepenthes->getUtilities()->hexdump((byte *)test->str,test->i);
+//				g_Nepenthes->getUtilities()->hexdump((byte *)test->str,test->i);
 				test++;
 			}
 		}

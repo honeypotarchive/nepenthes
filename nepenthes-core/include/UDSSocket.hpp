@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UDSSocket.hpp 321 2006-02-20 08:30:38Z common $ */
+/* $Id: UDSSocket.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include "Socket.hpp"
 #include "Responder.hpp"
@@ -50,5 +50,7 @@ public:
 		bool checkTimeout();
 		bool handleTimeout();
 		bool doRespond(char *msg, uint32_t len);
+		bool doRespond(const char *msg, uint32_t len);
+
 	};
 }

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Event.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: Event.hpp 836 2007-02-06 15:16:50Z common $ */
 
 #ifndef HAVE_EVENT_HPP
 #define HAVE_EVENT_HPP
@@ -70,6 +70,8 @@ namespace nepenthes
 #define EV_DIALOGUE_ASSIGN_AND_DONE 23
 
 #define EV_SHELLCODE_DONE		24
+
+#define EV_HEXDUMP				25
 
 	class Event
     {

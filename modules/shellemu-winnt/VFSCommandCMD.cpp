@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandCMD.cpp 330 2006-02-20 09:20:44Z common $ */
+/* $Id: VFSCommandCMD.cpp 1956 2005-09-10 15:32:08Z common $ */
  
 #include "VFSCommandCMD.hpp"
 #include "VFSNode.hpp"

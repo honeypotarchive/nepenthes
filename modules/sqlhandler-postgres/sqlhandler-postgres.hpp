@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sqlhandler-postgres.hpp 657 2006-10-08 15:02:44Z common $ */
+ /* $Id: sqlhandler-postgres.hpp 904 2007-02-15 22:32:17Z common $ */
 
 #include "config.h"
 
@@ -141,6 +141,7 @@ namespace nepenthes
 		string m_PGTable;
 		string m_PGUser;
 		string m_PGPass;
+		string m_PGOptions;
 
 	};
 

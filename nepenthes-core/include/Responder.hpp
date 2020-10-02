@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Responder.hpp 321 2006-02-20 08:30:38Z common $ */
+/* $Id: Responder.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifndef HAVE_RESPONDER_H
 #define HAVE_RESPONDER_H
@@ -40,6 +40,7 @@ namespace nepenthes
     public:
 		virtual ~Responder() {};
         virtual bool doRespond(char *msg, uint32_t len)=0;
+		virtual bool doRespond(const char *msg, uint32_t len)=0;
 
     };
 

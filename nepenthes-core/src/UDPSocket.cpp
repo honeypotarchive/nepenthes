@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UDPSocket.cpp 645 2006-09-22 11:39:38Z common $ */
+/* $Id: UDPSocket.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include <errno.h>
 #include <sys/types.h>
@@ -489,5 +489,10 @@ bool UDPSocket::handleTimeout()
 bool UDPSocket::doRespond(char *msg, uint32_t len)
 {
 	return doWrite(msg,len);
+}
+
+bool UDPSocket::doRespond(const char *msg, uint32_t len)
+{
+	return doRespond((char *)msg, len);
 }
 

@@ -3,12 +3,12 @@
 # Process this file with autoconf to produce a configure script.
 # nepenthes meta-Makefile
 # Maximillian Dornseif 2005
-# $Id: configure.ac 703 2006-11-13 19:48:54Z common $
+# $Id: configure.ac 1549 2008-02-14 11:45:25Z common $
 
 AC_PREREQ(2.59)
-AC_INIT([nepenthes], [0.2.0], [dornseif@informatik.rwth-aachen.de])
-AM_INIT_AUTOMAKE([nepenthes], [0.2.0])
-AC_REVISION([$Id: configure.ac 703 2006-11-13 19:48:54Z common $])
+AC_INIT([nepenthes], [0.2.2], [nepenthesdev@gmail.com])
+AM_INIT_AUTOMAKE([nepenthes], [0.2.2])
+AC_REVISION([$Id: configure.ac 1549 2008-02-14 11:45:25Z common $])
 
 AC_PREFIX_DEFAULT(/opt/nepenthes)
 AC_CONFIG_SRCDIR([nepenthes-core/include/Buffer.hpp])
@@ -200,6 +200,13 @@ AC_SUBST([LIB_LIBY])
 
 # libdl
 AC_SUBST([LIB_DL])
+
+# libssh
+AC_SUBST([LIB_SSH])
+
+# libemu
+AC_SUBST([LIB_EMU])
+
 
 dnl **************************************************
 dnl * libdl linking flag                             *
@@ -662,6 +669,69 @@ fi
 
 
 
+dnl **************************************************
+dnl * libemu support                                  *
+dnl **************************************************
+
+AC_ARG_WITH(emu-lib,
+    [  --with-emu-lib=PATH	specify path to libemu library],
+    [emu_lib=$withval],
+    [emu_lib=no])
+AC_ARG_WITH(emu-include,
+    [  --with-emu-include=PATH	specify path to libemu include files],
+    [emu_inc=$withval],
+    [emu_inc=no])
+
+AC_ARG_ENABLE(emu, [  --enable-emu	Enable Support [default=auto]], 
+		    enable_emu="$enableval", enable_emu="no")
+
+
+if test x$enable_emu = xyes; then
+
+  AC_MSG_CHECKING(for libemu - x86 emulation library)
+
+  dnl **************************************************
+  dnl * emu headers                                  *
+  dnl **************************************************
+
+  orig_cppflags=$CPPFLAGS
+  
+  if test "x$emu_inc" != xno; then
+    CPPFLAGS="-I$emu_inc $CPPFLAGS"
+  fi
+  
+  AC_CHECK_HEADER(emu/emu.h, [found=yes], [found=no])
+
+  if test "x$found" != "xno"; then
+
+
+    dnl **************************************************
+    dnl * emu lib                                      *
+    dnl **************************************************
+	
+    orig_ldflags=$LDFLAGS
+    if test "x$emu_lib" != "xno"; then
+        LDFLAGS="-L$emu_lib $LDFLAGS"
+    fi
+    AC_CHECK_LIB(emu, emu_new, [found=yes], [found=no])
+    
+    if test "x$found" != "xyes"; then
+        LDFLAGS=$orig_ldflags
+    fi
+  else    
+     CPPFLAGS=$orig_cppflags
+
+  fi
+
+  if test "x$found" != "xyes"; then
+    enable_emu=no
+  else
+    AC_DEFINE(HAVE_EMU, 1 , [Define if we have emu client library])
+    LIB_EMU="-lemu"
+  fi
+fi  
+
+
 
 
 dnl **************************************************
@@ -788,12 +858,11 @@ else
         AC_DEFINE(HAVE_LIBPRELUDE, 1,[Define if you want to use libprelude]) 
 	PRELUDE_LDFLAGS=`$LIBPRELUDE_CONFIG --ldflags`
 	PRELUDE_LIBS=`$LIBPRELUDE_CONFIG --libs`
-	PRELUDE_CPPFLAGS=`$LIBPRELUDE_CONFIG --cflags`
+	PRELUDE_CPPFLAGS=`$LIBPRELUDE_CONFIG --pthread-cflags`
 	
 	LIB_PRELUDE="$PRELUDE_LIBS"
 	LDFLAG_PRELUDE="$PRELUDE_LDFLAGS"
-	CPPFLAG="$PRELUDE_CPPFLAGS"
-	
+	CPPFLAGS="$CPPFLAGS $PRELUDE_CPPFLAGS"
     fi
 fi
 
@@ -913,6 +982,8 @@ AC_CONFIG_FILES([Makefile
                  modules/submit-gotek/Makefile
                  modules/submit-norman/Makefile
                  modules/submit-postgres/Makefile
+                 modules/submit-http/Makefile
+                 modules/submit-mwserv/Makefile
                  modules/vuln-asn1/Makefile
                  modules/vuln-bagle/Makefile
                  modules/vuln-dameware/Makefile
@@ -931,6 +1002,7 @@ AC_CONFIG_FILES([Makefile
                  modules/vuln-pnp/Makefile
                  modules/vuln-realvnc/Makefile
                  modules/vuln-sasserftpd/Makefile
+		 modules/vuln-sav/Makefile
                  modules/vuln-ssh/Makefile
                  modules/vuln-sub7/Makefile
                  modules/vuln-upnp/Makefile
@@ -943,7 +1015,9 @@ AC_CONFIG_FILES([Makefile
                  modules/x-5/Makefile
                  modules/x-6/Makefile
                  modules/x-9/Makefile
+                 modules/log-hexdump/Makefile
 		 ])
+#		 modules/shellcode-emulation/Makefile
 #		 modules/module-upnp/Makefile		 
 #		 modules/log-prelude/Makefile
 #                modules/module-drone/Makefile		 

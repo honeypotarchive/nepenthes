@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: RCPDialogue.cpp 557 2006-05-31 05:18:45Z common $ */
+ /* $Id: RCPDialogue.cpp 1410 2007-10-12 13:07:23Z common $ */
  
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -94,14 +94,14 @@ ConsumeLevel RCPDialogue::connectionEstablished()
 	m_Buffer = new Buffer(1024);
 
 	char zerobyte = 0;
-	char *request ="rcp -f ";
+	const char *request ="rcp -f ";
     m_Socket->doWrite((char *)&zerobyte,1);
 
 	m_Buffer->add((void *)m_Download->getDownloadUrl()->getUser().c_str(),m_Download->getDownloadUrl()->getUser().size());
 	m_Buffer->add(&zerobyte,1);
 	m_Buffer->add((void *)m_Download->getDownloadUrl()->getUser().c_str(),m_Download->getDownloadUrl()->getUser().size());
 	m_Buffer->add(&zerobyte,1);
-	m_Buffer->add(request,strlen(request));
+	m_Buffer->add((void *)request,strlen(request));
 	m_Buffer->add((void *)m_Download->getDownloadUrl()->getPath().c_str(),m_Download->getDownloadUrl()->getPath().size());
 	m_Buffer->add(&zerobyte,1);
 

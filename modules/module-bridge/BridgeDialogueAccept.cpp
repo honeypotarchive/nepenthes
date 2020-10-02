@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: BridgeDialogueAccept.cpp 646 2006-09-23 17:51:49Z common $ */
+/* $Id: BridgeDialogueAccept.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include <ctype.h>
 
@@ -87,7 +87,7 @@ BridgeDialogueAccept::~BridgeDialogueAccept()
 		((BridgeDialogueConnect*) m_ConnectDialogue)->setBridge(NULL);
 	}
 
-	char *cmd_str[3] = {"tftp","echo","ftp"};
+	const char *cmd_str[3] = {"tftp","echo","ftp"};
 
 	uint32_t cmd,i;
 

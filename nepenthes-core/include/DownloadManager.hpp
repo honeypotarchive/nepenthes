@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DownloadManager.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: DownloadManager.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifndef HAVE_DOWNLOADMANAGER_HPP
 #define HAVE_DOWNLOADMANAGER_HPP
@@ -82,7 +82,7 @@ namespace nepenthes
         virtual ~DownloadManager();
 		bool isLocalAddress(uint32_t ulAddress);
         virtual bool downloadUrl(Download *down);  
-        virtual bool downloadUrl(uint32_t localhost, char *url, uint32_t address, char *triggerline, uint8_t downloadflags, DownloadCallback *callback=NULL, void *obj=NULL);
+        virtual bool downloadUrl(uint32_t localhost, char *url, uint32_t address, const char *triggerline, uint8_t downloadflags, DownloadCallback *callback=NULL, void *obj=NULL);
 		virtual bool downloadUrl(uint32_t localhost, char *proto, char *user, char *pass, char *host, char *port, char *file, uint32_t address, uint8_t downloadflags);
 
         virtual bool registerDownloadHandler(DownloadHandler * handler, const char * protocol);

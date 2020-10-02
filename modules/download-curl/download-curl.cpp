@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-curl.cpp 550 2006-05-04 10:25:35Z common $ */
+ /* $Id: download-curl.cpp 748 2007-01-18 23:25:39Z oxff $ */
 
 #include "download-curl.hpp"
 #include "LogManager.hpp"
@@ -55,7 +55,7 @@ CurlDownloadHandler::CurlDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "Curl Download Module";
 	m_ModuleDescription = "provides widly used protocols (http/ftp)";
-	m_ModuleRevision    = "$Rev: 550 $";
+	m_ModuleRevision    = "$Rev: 748 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "CurlDownloadHandlerEventHandler";
@@ -230,7 +230,9 @@ bool CurlDownloadHandler::download(Download *down)
 				 down->getDownloadUrl()->getPort(),
 				 down->getDownloadUrl()->getPath().c_str());
 //        string auth = down->getDownloadUrl()->getUser() + ":" + down->getDownloadUrl()->getPass();
+#if LIBCURL_VERSION_NUM < 0x071000
 		curl_easy_setopt(pCurlHandle, CURLOPT_SOURCE_USERPWD,(char *)down->getDownloadUrl()->getAuth().c_str());
+#endif
 		curl_easy_setopt(pCurlHandle, CURLOPT_USERPWD,(char *)down->getDownloadUrl()->getAuth().c_str());
 		curl_easy_setopt(pCurlHandle, CURLOPT_URL			, url);
 		curl_easy_setopt(pCurlHandle, CURLOPT_FTP_RESPONSE_TIMEOUT, 120);	// 2 min ftp timeout

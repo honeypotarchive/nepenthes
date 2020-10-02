@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-veritas.hpp 318 2006-02-20 08:03:24Z common $ */
+ /* $Id: vuln-veritas.hpp 1670 2005-07-17 23:06:17Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

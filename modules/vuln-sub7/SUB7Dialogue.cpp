@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SUB7Dialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: SUB7Dialogue.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include <ctype.h>
 
@@ -143,7 +143,7 @@ ConsumeLevel SUB7Dialogue::incomingData(Message *msg)
 			m_FileSize = atoi(filesize);
 			m_State = SUB7_FILETRANSFERR;
 			m_Buffer->clear();
-			m_Download = new Download(msg->getRemoteHost(),"sub7://foo/bar",msg->getRemoteHost(),"some triggerline");
+			m_Download = new Download(msg->getRemoteHost(),(char *)"sub7://foo/bar",msg->getRemoteHost(),(char *)"some triggerline");
 			free(filesize);
 		}
 		break;

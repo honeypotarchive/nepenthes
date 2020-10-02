@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-link.hpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: download-link.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #ifndef HAVE_CSENDDOWNLOADHANDLER_HPP
 #define HAVE_CSENDDOWNLOADHANDLER_HPP

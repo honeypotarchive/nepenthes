@@ -35,11 +35,13 @@ nepenthes
 //  "submitnorman.so",              "submit-norman.conf",           ""
 //  "submitnepenthes.so",           "submit-nepenthes.conf",        ""  // send to download-nepenthes in other nepenthes instances
 //  "submitxmlrpc.so",        	    "submit-xmlrpc.conf",           ""  // submit files to a xmlrpc server
+//  "submithttp.so",                "submit-http.conf",             ""  // submit files to a web server
 
 // logging
     "logdownload.so",               "log-download.conf",            ""
 //  "logirc.so",                    "log-irc.conf",                 ""  // needs configuration
-
+//  "logprelude.so",                "log-prelude.conf",             "" 
+//  "loghexdump.so"                 "" 				    ""
 
 // dumping and logging
     "moduleportwatch.so",           "module-portwatch.conf",        ""

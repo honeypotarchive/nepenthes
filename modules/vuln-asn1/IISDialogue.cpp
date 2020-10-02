@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: IISDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: IISDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include <ctype.h>
 
@@ -42,6 +42,9 @@
 #include "Utilities.hpp"
 
 #include "Socket.hpp"
+
+#include "EventManager.hpp"
+#include "SocketEvent.hpp"
 
 #ifdef STDTAGS 
 #undef STDTAGS 
@@ -79,7 +82,7 @@ IISDialogue::~IISDialogue()
 	case IIS_POST:
 	case IIS_GET:
 		logWarn("Unknown IIS %i bytes State %i\n",m_Buffer->getSize(), m_State);		
-		g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *) m_Buffer->getData(), m_Buffer->getSize());
+		HEXDUMP(m_Socket,(byte *) m_Buffer->getData(), m_Buffer->getSize());
 		break;
 
 	case IIS_SEARCH:
@@ -102,7 +105,7 @@ IISDialogue::~IISDialogue()
 ConsumeLevel IISDialogue::incomingData(Message *msg)
 {
 	m_Buffer->add(msg->getMsg(),msg->getSize());
-//	g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *) m_Buffer->getData(), m_Buffer->getSize());
+//	HEXDUMP(m_Socket,(byte *) m_Buffer->getData(), m_Buffer->getSize());
 
 	// FIXME this can only recognize urldownloadtofile foobar
 

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CSendDialogue.hpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: CSendDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #ifndef HAVE_CSENDDIALOGUE_HPP
 #define HAVE_CSENDDIALOGUE_HPP

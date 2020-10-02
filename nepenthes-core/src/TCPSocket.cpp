@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: TCPSocket.cpp 645 2006-09-22 11:39:38Z common $ */
+/* $Id: TCPSocket.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include "config.h"
 
@@ -838,5 +838,10 @@ bool TCPSocket::doRespond(char *msg, uint32_t len)
 		return true;
 	else
 		return false;
+}
+
+bool TCPSocket::doRespond(const char *msg, uint32_t len)
+{
+	return doRespond((char *)msg, len);
 }
 

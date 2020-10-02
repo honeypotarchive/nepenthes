@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-http.hpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: download-http.hpp 2001 2005-09-27 13:54:35Z common $ */
 
 #ifndef HAVE_DOWNLOAD_HTTP_HPP
 #define HAVE_DOWNLOAD_HTTP_HPP

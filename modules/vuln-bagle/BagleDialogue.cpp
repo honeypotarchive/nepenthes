@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: BagleDialogue.cpp 538 2006-04-30 12:46:21Z common $ */
+ /* $Id: BagleDialogue.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include <ctype.h>
 
@@ -124,7 +124,7 @@ ConsumeLevel BagleDialogue::incomingData(Message *msg)
 		}
 		
 		logCrit("Unknown Bagle Auth (%i)\n",m_Buffer->getSize());
-		g_Nepenthes->getUtilities()->hexdump(l_crit | STDTAGS ,(byte *)m_Buffer->getData(),m_Buffer->getSize());
+//		g_Nepenthes->getUtilities()->hexdump(l_crit | STDTAGS ,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 		if (m_Buffer->getSize() > 128 )
 			return CL_DROP;
 
@@ -156,7 +156,7 @@ ConsumeLevel BagleDialogue::incomingData(Message *msg)
 				m_FileSize = ntohs (*(uint32_t *)msg->getMsg());
 				logInfo("Unexpected but detected: Bagle Binary Stream (%i bytes)\n",m_FileSize);
 				m_State = BAGLE_BINARY;
-				m_Download = new Download(m_Socket->getRemoteHost(),"bagle://",m_Socket->getRemoteHost(),"bagle://foo/bar");
+				m_Download = new Download(m_Socket->getRemoteHost(),(char *)"bagle://",m_Socket->getRemoteHost(),(char *)"bagle://foo/bar");
 				m_Download->getDownloadBuffer()->addData(msg->getMsg()+4,msg->getSize()-4);
 				return CL_ASSIGN_AND_DONE;
 			}

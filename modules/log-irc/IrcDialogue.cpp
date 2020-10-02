@@ -26,7 +26,7 @@
  *
  *******************************************************************************/
 
- /* $Id: IrcDialogue.cpp 552 2006-05-05 22:49:40Z common $ */
+ /* $Id: IrcDialogue.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include <ctype.h>
 #include <string>
@@ -357,7 +357,7 @@ ConsumeLevel IrcDialogue::connectionShutdown(Message *msg)
 struct FlagMapping
 {
 	int32_t	m_LogFlag;
-	char 	*m_ColorFlag;
+	const char 	*m_ColorFlag;
 };
 
 const struct FlagMapping colors[] =

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: DWDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: DWDialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include "DWDialogue.hpp"
 
@@ -47,6 +47,9 @@
 #include "Config.hpp"
 
 #include "Utilities.hpp"
+
+#include "EventManager.hpp"
+#include "SocketEvent.hpp"
 
 #ifdef STDTAGS 
 #undef STDTAGS 
@@ -209,5 +212,5 @@ ConsumeLevel DWDialogue::connectionShutdown(Message *msg)
 void DWDialogue::dump()
 {
 	logWarn("Unknown %s Shellcode (Buffer %i bytes) (State %i)\n","DameWare",m_Buffer->getSize(),m_State);
-	g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)m_Buffer->getData(),m_Buffer->getSize());
+	HEXDUMP(m_Socket,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 }

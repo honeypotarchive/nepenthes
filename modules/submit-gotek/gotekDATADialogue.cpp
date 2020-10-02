@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: gotekDATADialogue.cpp 515 2006-04-14 00:12:48Z common $ */
+ /* $Id: gotekDATADialogue.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include <stdint.h>
 #include <sys/types.h>
@@ -173,7 +173,7 @@ ConsumeLevel gotekDATADialogue::incomingData(Message *msg)
  			byte hashme[1032];
 			memset(hashme,0,1032);
 
-			g_Nepenthes->getUtilities()->hexdump(g_GotekSubmitHandler->getCommunityKey(),1024);
+//			g_Nepenthes->getUtilities()->hexdump(g_GotekSubmitHandler->getCommunityKey(),1024);
 			memcpy(hashme,g_GotekSubmitHandler->getCommunityKey(),1024);
 			memcpy(hashme+1024,&sessionkey,8);
 			g_Nepenthes->getUtilities()->sha512(hashme, 1032, hash);

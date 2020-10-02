@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandFTP.cpp 555 2006-05-31 05:02:23Z common $ */
+/* $Id: VFSCommandFTP.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include <ctype.h>
  
@@ -425,7 +425,6 @@ bool VFSCommandFTP::startDownload(string host, string port, string user, string 
 		logSpam("VFSCommandFTP Setting Hosts %i %i\n",remotehost,localhost);
 		remotehost = m_VFS->getDialogue()->getSocket()->getRemoteHost();
 		localhost  = m_VFS->getDialogue()->getSocket()->getLocalHost();
-
 	}
 
 	logSpam("VFSCommandFTP LocalHost %s\n",inet_ntoa(*(in_addr *)&localhost));
@@ -441,7 +440,7 @@ bool VFSCommandFTP::startDownload(string host, string port, string user, string 
 	}else
 	{
 		g_Nepenthes->getDownloadMgr()->downloadUrl(	localhost,
-													"ftp",
+													(char *)"ftp",
 												   (char *)user.c_str(),
 												   (char *)pass.c_str(), 
 												   (char *)host.c_str(), 

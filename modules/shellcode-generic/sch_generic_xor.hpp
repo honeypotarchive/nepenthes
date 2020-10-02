@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_xor.hpp 336 2006-02-20 09:38:38Z common $ */
+ /* $Id: sch_generic_xor.hpp 1410 2007-10-12 13:07:23Z common $ */
 
 #ifndef HAVE_GENERICXOR_HPP
 #define HAVE_GENERICXOR_HPP
@@ -39,8 +39,8 @@ namespace nepenthes
 {
 	struct XORPcreHelper
 	{
-		char *m_PCRE;
-		char *m_Name;
+		const char *m_PCRE;
+		const char *m_Name;
 		uint16_t m_Options; // will use this later
 
 	};

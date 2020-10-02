@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: LogManager.cpp 675 2006-10-23 17:01:53Z common $ */
+/* $Id: LogManager.cpp 836 2007-02-06 15:16:50Z common $ */
 
 #include <stdarg.h>
 #include <assert.h>
@@ -146,7 +146,7 @@ void LogManager::log(uint32_t mask, const char *message)
 {
 	if ( m_Loggers.size() == 0)
 	{
-		printf("%s",message);
+//		printf("%s",message);
 		return;
 	}
 

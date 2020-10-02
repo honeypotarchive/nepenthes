@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandRREDIR.cpp 550 2006-05-04 10:25:35Z common $ */ 
+/* $Id: VFSCommandRREDIR.cpp 1410 2007-10-12 13:07:23Z common $ */ 
 
 #include "VFSCommandRREDIR.hpp"
 #include "VFSNode.hpp"
@@ -78,7 +78,7 @@ int32_t VFSCommandRREDIR::run(vector<string> *paramlist)
 	}
 	
 	file->addData((char *)m_VFS->getStdOut()->c_str(),m_VFS->getStdOut()->size());
-	file->addData("\n",1);
+	file->addData((char *)"\n",1);
 	logDebug("file is '%.*s' \n",file->getSize(),(char *)file->getData());
 	m_VFS->freeStdout();
 

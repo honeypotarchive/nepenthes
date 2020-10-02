@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DialogueFactoryManager.cpp 550 2006-05-04 10:25:35Z common $ */
+/* $Id: DialogueFactoryManager.cpp 1410 2007-10-12 13:07:23Z common $ */
 
 #include "DialogueFactoryManager.hpp"
 #include "DialogueFactory.hpp"
@@ -89,7 +89,7 @@ bool DialogueFactoryManager::unregisterFactory(DialogueFactory *diaf)
 	return true;
 }
 
-DialogueFactory *DialogueFactoryManager::getFactory(char *factoryname)
+DialogueFactory *DialogueFactoryManager::getFactory(const char *factoryname)
 {
 	list <DialogueFactory *>::iterator diaf;
 	for (diaf = m_Factories.begin();diaf != m_Factories.end();diaf++)

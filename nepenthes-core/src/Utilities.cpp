@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Utilities.cpp 550 2006-05-04 10:25:35Z common $ */
+/* $Id: Utilities.cpp 1358 2007-08-23 13:16:07Z common $ */
 
 #ifdef WIN32
 #include <memory.h>
@@ -372,6 +372,9 @@ void Utilities::hexdump(uint32_t mask, byte *data, uint32_t len)
 		fclose(f);
 
 		g_Nepenthes->getLogMgr()->logf(mask,"Stored Hexdump %s (0x%08x , 0x%08x).\n", md5.c_str(), (uint32_t)((intptr_t)data), len);
+	}else
+	{
+		g_Nepenthes->getLogMgr()->logf(l_crit, "Could not open %s (%s)\n", md5.c_str(), strerror(errno));
 	}
 
 
