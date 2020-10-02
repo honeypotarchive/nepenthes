@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_bind.cpp 2096 2005-10-23 18:59:41Z common $ */
+ /* $Id: sch_generic_bind.cpp 2198 2005-12-15 21:24:42Z common $ */
 
 #include <netinet/in.h>
 
@@ -147,7 +147,7 @@ sch_result GenericBind::handleShellcode(Message **msg)
 
 			pcre_get_substring((char *) shellcode, output, result, 1, &match);
 
-			port = ntohs(*(uint32_t *) match);
+			port = ntohs(*(uint16_t *) match);
 			logInfo("Detected Generic listenshell shellcode #%s, :%u \n",(*it)->m_Name.c_str(), port);
 			pcre_free_substring(match);
 

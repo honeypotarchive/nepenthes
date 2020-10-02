@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: geolocation-hostip.cpp 2111 2005-10-25 18:17:01Z common $ */
+ /* $Id: geolocation-hostip.cpp 2206 2005-12-16 15:15:13Z common $ */
 
 #include "config.h"
 
@@ -93,7 +93,7 @@ GeoLocationHostIp::GeoLocationHostIp(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "geolocation-hostip";
 	m_ModuleDescription = "resolve ips to coordinates using hostip.info";
-	m_ModuleRevision    = "$Rev: 2111 $";
+	m_ModuleRevision    = "$Rev: 2206 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;
@@ -134,8 +134,8 @@ bool GeoLocationHostIp::geoLocate(GeoLocationQuery *query)
 	uint32_t ip = query->getAddress();
 	logSpam("GeoLocationHostIp looking up info for %x %s %x\n",query->getCallback(),inet_ntoa(*(in_addr *)&ip),query->getObject());
 
-	string url = "http://www.hostip.info/api/get.html?ip=";
-	url += inet_ntoa(*(in_addr *)&ip);
+	string url = "http://api.hostip.info/get_html.php?ip=";
+    url += inet_ntoa(*(in_addr *)&ip);
 	url += "&position=true";
 
 	g_Nepenthes->getDownloadMgr()->downloadUrl(INADDR_ANY, (char *)url.c_str(),0,"internal usage",DF_INTERNAL_DOWNLOAD,this,query);

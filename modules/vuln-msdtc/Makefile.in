@@ -16,7 +16,7 @@
 
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2205 2005-12-16 13:09:23Z common $
+# $Id: Makefile.am 2202 2005-12-15 22:03:51Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -40,7 +40,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-subdir = modules/shellemu-winnt
+subdir = modules/vuln-msdtc
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -58,13 +58,9 @@ am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(pkglibdir)"
 pkglibLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
-shellemuwinnt_la_LIBADD =
-am_shellemuwinnt_la_OBJECTS = VFS.lo shellemu-winnt.lo VFSDir.lo \
-	VFSFile.lo WinNTShellDialogue.lo VFSCommandCMD.lo \
-	VFSCommandDir.lo VFSCommandECHO.lo VFSCommandFTP.lo \
-	VFSCommandREDIR.lo VFSCommandRREDIR.lo VFSCommandTFTP.lo \
-	VFSCommandSTART.lo
-shellemuwinnt_la_OBJECTS = $(am_shellemuwinnt_la_OBJECTS)
+vulnmsdtc_la_LIBADD =
+am_vulnmsdtc_la_OBJECTS = vuln-msdtc.lo MSDTCDialogue.lo
+vulnmsdtc_la_OBJECTS = $(am_vulnmsdtc_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -84,8 +80,8 @@ LTCOMPILE = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) \
 CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(shellemuwinnt_la_SOURCES)
-DIST_SOURCES = $(shellemuwinnt_la_SOURCES)
+SOURCES = $(vulnmsdtc_la_SOURCES)
+DIST_SOURCES = $(vulnmsdtc_la_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -197,17 +193,9 @@ AUTOMAKE_OPTIONS = foreign
 AM_CPPFLAGS = -I$(top_srcdir)/nepenthes-core/include -I$(top_srcdir)/nepenthes-core/src -pipe -D _GNU_SOURCE
 AM_CXXFLAGS = -Wall -Werror
 AM_LDFLAGS = -lpcre
-pkglib_LTLIBRARIES = shellemuwinnt.la
-shellemuwinnt_la_SOURCES = VFS.cpp VFS.hpp shellemu-winnt.cpp \
-	shellemu-winnt.hpp VFSCommand.hpp VFSNode.hpp VFSDir.cpp \
-	VFSDir.hpp VFSFile.cpp VFSFile.hpp WinNTShellDialogue.cpp \
-	WinNTShellDialogue.hpp VFSCommandCMD.cpp VFSCommandCMD.hpp \
-	VFSCommandDir.cpp VFSCommandDir.hpp VFSCommandECHO.cpp \
-	VFSCommandECHO.hpp VFSCommandFTP.cpp VFSCommandFTP.hpp \
-	VFSCommandREDIR.cpp VFSCommandREDIR.hpp VFSCommandRREDIR.cpp \
-	VFSCommandRREDIR.hpp VFSCommandTFTP.cpp VFSCommandTFTP.hpp \
-	VFSCommandSTART.cpp VFSCommandSTART.hpp
-shellemuwinnt_la_LDFLAGS = -module -no-undefined -avoid-version
+pkglib_LTLIBRARIES = vulnmsdtc.la
+vulnmsdtc_la_SOURCES = vuln-msdtc.cpp vuln-msdtc.hpp MSDTCDialogue.cpp MSDTCDialogue.hpp vuln-msdtc.conf.dist msdtc-shellcodes.hpp
+vulnmsdtc_la_LDFLAGS = -module -no-undefined -avoid-version
 all: all-am
 
 .SUFFIXES:
@@ -221,9 +209,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  modules/shellemu-winnt/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign  modules/vuln-msdtc/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign  modules/shellemu-winnt/Makefile
+	  $(AUTOMAKE) --foreign  modules/vuln-msdtc/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -268,8 +256,8 @@ clean-pkglibLTLIBRARIES:
 	  echo "rm -f \"$${dir}/so_locations\""; \
 	  rm -f "$${dir}/so_locations"; \
 	done
-shellemuwinnt.la: $(shellemuwinnt_la_OBJECTS) $(shellemuwinnt_la_DEPENDENCIES) 
-	$(CXXLINK) -rpath $(pkglibdir) $(shellemuwinnt_la_LDFLAGS) $(shellemuwinnt_la_OBJECTS) $(shellemuwinnt_la_LIBADD) $(LIBS)
+vulnmsdtc.la: $(vulnmsdtc_la_OBJECTS) $(vulnmsdtc_la_DEPENDENCIES) 
+	$(CXXLINK) -rpath $(pkglibdir) $(vulnmsdtc_la_LDFLAGS) $(vulnmsdtc_la_OBJECTS) $(vulnmsdtc_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -277,19 +265,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFS.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSCommandCMD.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSCommandDir.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSCommandECHO.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSCommandFTP.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSCommandREDIR.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSCommandRREDIR.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSCommandSTART.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSCommandTFTP.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSDir.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/VFSFile.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WinNTShellDialogue.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shellemu-winnt.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MSDTCDialogue.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vuln-msdtc.Plo@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \

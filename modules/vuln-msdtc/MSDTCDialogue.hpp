@@ -25,80 +25,60 @@
  *
  *******************************************************************************/
 
- /* $Id: CTRLDialogue.hpp 2212 2005-12-16 23:51:58Z common $ */
+ /* $Id: MSDTCDialogue.hpp 2197 2005-12-15 21:18:37Z common $ */
 
-#include "DialogueFactory.hpp"
-#include "Module.hpp"
-#include "ModuleManager.hpp"
-#include "SocketManager.hpp"
-#include "Nepenthes.hpp"
+#ifndef HAVE_MSDTCDIALOGUE_HPP
+#define HAVE_MSDTCDIALOGUE_HPP
+
 #include "Dialogue.hpp"
-#include "Socket.hpp"
-#include "DNSCallback.hpp"
 
 using namespace std;
 
+#define DCE_VERSION_MAJOR       0x05
+#define DCE_VERSION_MINOR       0x00
+#define DCE_PKT_BIND            0x0B
+#define DCE_PKT_BINDACK         0x0C
+#define DCE_PKT_BINDNACK        0x0D
+#define DCE_PKT_REQUEST         0x00
+#define DCE_PKT_FAULT           0x03
+#define DCE_PKT_RESPONSE        0x02
+#define DCE_PKT_ALTCONT         0x0E
+#define DCE_PKT_ALTCONTRESP     0x0F
+#define DCE_PKT_BINDRESP        0x10
+
 namespace nepenthes
 {
+	typedef enum {
+		MSDTC_STATE_NULL=0,
+		MSDTC_STATE_REQUEST_1,
+		MSDTC_STATE_DONE
+	} msdtc_state;
 
-	typedef enum 
-	{
-		FTP_CONNECTED,
-		FTP_USER,
-		FTP_PASS,
-		FTP_TYPE,
-		FTP_CWD,
-		FTP_PORT,
-//		FTP_EPASV,
-		FTP_RETR,
-		FTP_QUIT
-	} ftp_down_state;
-
-	class Download;
-	class FTPContext;
 	class Buffer;
 
-	class CTRLDialogue : public Dialogue
+	class MSDTCDialogue : public Dialogue
 	{
 	public:
-		CTRLDialogue(Socket *socket, Download *down);
-		~CTRLDialogue();
+		MSDTCDialogue(Socket *socket);
+		~MSDTCDialogue();
 		ConsumeLevel incomingData(Message *msg);
 		ConsumeLevel outgoingData(Message *msg);
 		ConsumeLevel handleTimeout(Message *msg);
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
-
-        void setContext(FTPContext *context);
-		void setDownload(Download *down);
-
-
-		void  sendUser();
-		bool parseUser(char *msg);
-
-		void  sendPass();
-		bool parsePass(char *msg);
-
-		void  sendType();
-		bool parseType(char *msg);
-
-		void  sendCWD();
-		bool parseCWD(char *msg);
-
-		void  sendPort();
-		bool parsePort(char *msg);
-
-		void  sendRetr();
-		bool parseRetr(char *msg);
-
-		void  sendQuit();
-		bool parseQuit(char *msg);
+		void dump();
 
 	protected:
-		Download 	*m_Download;
-        FTPContext  *m_Context;
+		msdtc_state	m_State;
+		string		m_Shellcode;
 		Buffer		*m_Buffer;
 
-		ftp_down_state m_State;
 	};
+
+
+
+
+
 }
+
+#endif

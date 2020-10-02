@@ -25,33 +25,17 @@
  *
  *******************************************************************************/
 
- /* $Id: VFSCommandFTP.hpp 2211 2005-12-16 23:49:21Z common $ */
-
-#include <stdint.h>
+ /* $Id: VFSCommandSTART.hpp 2205 2005-12-16 13:09:23Z common $ */
 
 #include "VFSCommand.hpp"
 
-
 namespace nepenthes
 {
-	typedef enum 
-	{
-		NEXT_IS_SOMETHING,
-		NEXT_IS_HOST,
-		NEXT_IS_PORT,
-		NEXT_IS_USER,
-		NEXT_IS_PASS,
-		NEXT_IS_FILE,
-		NEXT_IS_PATH
-	} ftp_command_state;
-
-	class VFSCommandFTP : public VFSCommand
+	class VFSCommandSTART : public VFSCommand
 	{
 	public:
-		VFSCommandFTP(VFSNode *parent,VFS *vfs);
-		~VFSCommandFTP();
+		VFSCommandSTART(VFSNode *parent,VFS *vfs);
+		~VFSCommandSTART();
     	int32_t run(vector<string> *paramlist);
-	private:
-		bool startDownload(string host, string port, string user, string pass, string path, string file, uint8_t);
 	};
 }

@@ -3,12 +3,12 @@
 # Process this file with autoconf to produce a configure script.
 # nepenthes meta-Makefile
 # Maximillian Dornseif 2005
-# $Id: configure.ac 2195 2005-12-01 20:23:46Z common $
+# $Id: configure.ac 2213 2005-12-18 19:04:59Z common $
 
 AC_PREREQ(2.59)
-AC_INIT([nepenthes], [0.1.4], [dornseif@informatik.rwth-aachen.de])
-AM_INIT_AUTOMAKE([nepenthes], [0.1.4])
-AC_REVISION([$Id: configure.ac 2195 2005-12-01 20:23:46Z common $])
+AC_INIT([nepenthes], [0.1.5], [dornseif@informatik.rwth-aachen.de])
+AM_INIT_AUTOMAKE([nepenthes], [0.1.5])
+AC_REVISION([$Id: configure.ac 2213 2005-12-18 19:04:59Z common $])
 
 AC_PREFIX_DEFAULT(/opt/nepenthes)
 AC_CONFIG_SRCDIR([nepenthes-core/include/Buffer.hpp])
@@ -678,6 +678,7 @@ AC_CONFIG_FILES([Makefile
 		 modules/dnsresolve-adns/Makefile
 		 modules/geolocation-ip2location/Makefile
 		 modules/log-surfnet/Makefile		 
+		 modules/vuln-msdtc/Makefile
 		 ])
 #                modules/module-drone/Makefile		 
 #		 modules/log-surfnet/Makefile])

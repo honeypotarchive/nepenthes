@@ -25,7 +25,9 @@
  *
  *******************************************************************************/
 
- /* $Id: CTRLDialogue.hpp 2212 2005-12-16 23:51:58Z common $ */
+ /* $Id: vuln-msdtc.hpp 2197 2005-12-15 21:18:37Z common $ */
+
+ /* $Id: vuln-msdtc.hpp 2197 2005-12-15 21:18:37Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -34,71 +36,27 @@
 #include "Nepenthes.hpp"
 #include "Dialogue.hpp"
 #include "Socket.hpp"
-#include "DNSCallback.hpp"
 
 using namespace std;
 
 namespace nepenthes
 {
 
-	typedef enum 
-	{
-		FTP_CONNECTED,
-		FTP_USER,
-		FTP_PASS,
-		FTP_TYPE,
-		FTP_CWD,
-		FTP_PORT,
-//		FTP_EPASV,
-		FTP_RETR,
-		FTP_QUIT
-	} ftp_down_state;
+	class ShellcodeHandler;
 
-	class Download;
-	class FTPContext;
-	class Buffer;
-
-	class CTRLDialogue : public Dialogue
+	class MSDTCVuln : public Module , public DialogueFactory
 	{
 	public:
-		CTRLDialogue(Socket *socket, Download *down);
-		~CTRLDialogue();
-		ConsumeLevel incomingData(Message *msg);
-		ConsumeLevel outgoingData(Message *msg);
-		ConsumeLevel handleTimeout(Message *msg);
-		ConsumeLevel connectionLost(Message *msg);
-		ConsumeLevel connectionShutdown(Message *msg);
-
-        void setContext(FTPContext *context);
-		void setDownload(Download *down);
-
-
-		void  sendUser();
-		bool parseUser(char *msg);
-
-		void  sendPass();
-		bool parsePass(char *msg);
-
-		void  sendType();
-		bool parseType(char *msg);
-
-		void  sendCWD();
-		bool parseCWD(char *msg);
-
-		void  sendPort();
-		bool parsePort(char *msg);
-
-		void  sendRetr();
-		bool parseRetr(char *msg);
-
-		void  sendQuit();
-		bool parseQuit(char *msg);
-
+		MSDTCVuln(Nepenthes *);
+		~MSDTCVuln();
+		Dialogue *createDialogue(Socket *socket);
+		bool Init();
+		bool Exit();
 	protected:
-		Download 	*m_Download;
-        FTPContext  *m_Context;
-		Buffer		*m_Buffer;
-
-		ftp_down_state m_State;
+		list <ShellcodeHandler *> m_ShellcodeHandlers;
 	};
+
+
+
 }
+extern nepenthes::Nepenthes *g_Nepenthes;
