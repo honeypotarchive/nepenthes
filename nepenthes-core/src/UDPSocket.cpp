@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UDPSocket.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: UDPSocket.cpp 1952 2005-09-09 21:18:37Z common $ */
 
 #include <errno.h>
 #include <sys/types.h>
@@ -78,7 +78,7 @@ UDPSocket::UDPSocket(Nepenthes *nepenthes,uint32_t localhost, uint32_t remotehos
 	m_Type = ST_UDP|ST_CONNECT;
 
 	m_CanSend = true;
-	m_Status = SS_NULL;
+	m_Status = SS_CONNECTED;
 	m_Polled = false;
 }
 
@@ -110,7 +110,7 @@ UDPSocket::UDPSocket(Nepenthes *nepenthes, uint32_t localhost, int32_t port, tim
 	m_Type = ST_UDP | ST_BIND;
 
 	m_CanSend = true;
-	m_Status = SS_NULL;
+	m_Status = SS_CONNECTED;
 	m_Polled = false;
 	m_Nepenthes = nepenthes;
 }

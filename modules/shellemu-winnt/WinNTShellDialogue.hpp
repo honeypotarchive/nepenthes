@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: WinNTShellDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: WinNTShellDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 #ifndef HAVE_WINNTSHELLDIALOGUE_HPP
 #define HAVE_WINNTSHELLDIALOGUE_HPP
@@ -46,6 +46,8 @@ namespace nepenthes
 		ConsumeLevel handleTimeout(Message *msg);
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
+
+		ConsumeLevel connectionEstablished();
 	protected:
 		FILE 		*m_File;
 		VFS			m_VFS;

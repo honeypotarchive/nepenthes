@@ -57,7 +57,7 @@
 
  
 
-/* $Id: Utilities.hpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: Utilities.hpp 1957 2005-09-10 15:32:24Z common $ */
 #ifndef HAVE_UTILITIES_HPP
 #define HAVE_UTILITIES_HPP
 
@@ -177,7 +177,7 @@ namespace nepenthes
 		static void b64enc(unsigned char *in, int32_t inlen, unsigned char *out);
 		static void b64dec(unsigned char *in, int32_t inlen, unsigned char *out);
 
-
+		string m_HexdumpPath;
 	};
 }
 

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: TCPSocket.hpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: TCPSocket.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 #include "Socket.hpp"
 #include "Responder.hpp"
@@ -55,6 +55,8 @@ public:
 		bool checkTimeout();
 		bool handleTimeout();
 		bool doRespond(char *msg, uint32_t len);
+
+		void setStatus(socket_state i);
 	protected:
 		list <Packet *> m_TxPackets; 
 	};

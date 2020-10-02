@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandTFTP.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: VFSCommandTFTP.cpp 1956 2005-09-10 15:32:08Z common $ */
 
 #include "VFSCommandTFTP.hpp"
 #include "VFSNode.hpp"
@@ -36,6 +36,11 @@
 #include "DownloadManager.hpp"
 #include "Dialogue.hpp"
 #include "Socket.hpp"
+
+#ifdef STDTAGS 
+#undef STDTAGS 
+#endif
+#define STDTAGS l_shell
 
 using namespace nepenthes;
 using namespace std;
@@ -67,13 +72,13 @@ int32_t VFSCommandTFTP::run(vector<string> *paramlist)
 	url += "/";
 	url += file;
 
-	logInfo("vfs command %s \n",url.c_str());
+	logDebug("vfs command %s \n",url.c_str());
 
 	uint32_t remotehost=0;
 	if (m_VFS->getDialogue()->getSocket() != NULL)
 	{
 		remotehost = m_VFS->getDialogue()->getSocket()->getRemoteHost();
 	}
-	g_Nepenthes->getDownloadMgr()->downloadUrl((char *)url.c_str(),remotehost,(char *)url.c_str());
+	g_Nepenthes->getDownloadMgr()->downloadUrl((char *)url.c_str(),remotehost,(char *)url.c_str(),0);
     return 0;
 }

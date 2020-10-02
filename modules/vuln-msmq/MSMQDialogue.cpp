@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: MSMQDialogue.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: MSMQDialogue.cpp 1965 2005-09-11 18:51:38Z common $ */
 
 
 
@@ -119,12 +119,16 @@ ConsumeLevel MSMQDialogue::incomingData(Message *msg)
 		{
 			Message *Msg = new Message((char *)m_Buffer->getData(), m_Buffer->getSize(),m_Socket->getLocalPort(), m_Socket->getRemotePort(),
 									   m_Socket->getLocalHost(), m_Socket->getRemoteHost(), m_Socket, m_Socket);
-			if ( g_Nepenthes->getShellcodeMgr()->handleShellcode(&Msg) == SCH_DONE )
+			sch_result sch = g_Nepenthes->getShellcodeMgr()->handleShellcode(&Msg);
+			delete Msg;
+
+			if ( sch == SCH_DONE )
 			{
 				m_Buffer->clear();
 				m_State = MSMQ_DONE;
+				return CL_ASSIGN_AND_DONE;
 			}
-			delete Msg;
+			
 
 		}
 		break;

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DNSManager.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: DNSManager.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #ifdef WIN32
 
@@ -70,7 +70,7 @@ bool DNSManager::Init()
 		return false;
 	}
 
-	logInfo("%s","[+] adns_init() Success\n");
+	logDebug("%s","adns_init() Success\n");
 	return true;
 #endif
 	
@@ -175,7 +175,7 @@ void DNSManager::callBack()
 		case 0:
 			{
 				m_Queue--;
-				logInfo("resolved dns %s (%i left) \n", query->getDNS().c_str(),m_Queue);
+				logDebug("resolved dns %s (%i left) \n", query->getDNS().c_str(),m_Queue);
 				DNSResult result(answer,(char *)query->getDNS().c_str(), query->getObject());
 				if (answer->nrrs == 0)
 				{
@@ -191,7 +191,7 @@ void DNSManager::callBack()
 			break;
 		default:
 			m_Queue--;
-			logInfo("resolving %s failed (%i left) \n", answer->cname, m_Queue);
+			logWarn("resolving %s failed (%i left) \n", answer->cname, m_Queue);
 			break;
 		}
 	}

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_lsass_hod_bind.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_lsass_hod_bind.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <netinet/in.h>
 
@@ -95,7 +95,7 @@ bool HODBind::Init()
     
 
 
-	logInfo("pcre is %s \n",oc192bindpcre);
+//	logInfo("pcre is %s \n",oc192bindpcre);
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;

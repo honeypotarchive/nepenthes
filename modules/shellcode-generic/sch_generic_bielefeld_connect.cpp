@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_bielefeld_connect.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_generic_bielefeld_connect.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <netinet/in.h>
 
@@ -74,7 +74,7 @@ bool BieleFeldConnect::Init()
 	"\\x57\\x53\\xff\\x57\\xf8\\x53\\xff\\x57\\xfc\\x50\\xff"
 	"\\x57\\xec";
 
-	logInfo("pcre is %s \n",pattern);
+//	logInfo("pcre is %s \n",pattern);
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;

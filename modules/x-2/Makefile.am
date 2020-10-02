@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 1945 2005-09-07 14:38:46Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,6 @@ AM_LDFLAGS = -lpcre
 
 pkglib_LTLIBRARIES = x2.la
 
-x2_la_SOURCES = x-2.cpp x-2.hpp
+x2_la_SOURCES = x-2.cpp x-2.hpp x-2.conf.dist
 
 x2_la_LDFLAGS = -module -no-undefined -avoid-version

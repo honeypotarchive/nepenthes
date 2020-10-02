@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_link_trans.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_generic_link_trans.cpp 1956 2005-09-10 15:32:08Z common $ */
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -99,7 +99,7 @@ bool LinkTrans::Init()
     
 
 
-	logInfo("pcre is %s \n", linkPCRE);
+//	logInfo("pcre is %s \n", linkPCRE);
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;
@@ -159,7 +159,7 @@ sch_result LinkTrans::handleShellcode(Message **msg)
 		unsigned char *base64Key = g_Nepenthes->getUtilities()->b64encode_alloc(authKey,4);
 
 		asprintf(&url,"link://%s:%i/%s",inet_ntoa(*(in_addr *)&address),port,base64Key);
-		g_Nepenthes->getDownloadMgr()->downloadUrl(url,(*msg)->getRemoteHost(),url);
+		g_Nepenthes->getDownloadMgr()->downloadUrl(url,(*msg)->getRemoteHost(),url,0);
 		free(url);
 		free(base64Key);
 

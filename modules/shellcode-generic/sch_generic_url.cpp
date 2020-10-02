@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_url.cpp 1931 2005-08-30 15:04:44Z dp $ */
+/* $Id: sch_generic_url.cpp 1956 2005-09-10 15:32:08Z common $ */
 
 
 /* Additional notes:
@@ -122,9 +122,9 @@ sch_result GenericUrl::handleShellcode(Message **msg)
 
 		pcre_get_substring((char *) shellcode, piOutput, iResult, 1, &pUrl);
 
-		logDebug("Detected generic prepended unencoded URL Shellcode: \"%s\"\n", pUrl);
-		// FIXME hier das file ziehen
-		m_ShellcodeManager->getNepenthes()->getDownloadMgr()->downloadUrl((char *)pUrl,(*msg)->getRemoteHost(),"generic url decoder");
+		logInfo("Detected generic prepended unencoded URL Shellcode: \"%s\"\n", pUrl);
+		
+		m_ShellcodeManager->getNepenthes()->getDownloadMgr()->downloadUrl((char *)pUrl,(*msg)->getRemoteHost(),"generic url decoder",0);
 		pcre_free_substring(pUrl);
 		bMatch = true;
 	}

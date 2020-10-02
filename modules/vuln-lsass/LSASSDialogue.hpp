@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: LSASSDialogue.hpp 1691 2005-07-25 23:18:33Z common $ */
+ /* $Id: LSASSDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 
 #include "DialogueFactory.hpp"
@@ -66,7 +66,7 @@ namespace nepenthes
 		ConsumeLevel handleTimeout(Message *msg);
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
-		void syncState(ConsumeLevel cl);
+		void dump();
 
 	protected:
 		lsass_state m_State;

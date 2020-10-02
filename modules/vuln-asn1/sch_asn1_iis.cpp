@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_asn1_iis.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_asn1_iis.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <netinet/in.h>
 
@@ -67,7 +67,7 @@ bool ASN1IISBase64::Init()
 
 
 
-	logInfo("pcre is %s \n",oc192bindpcre);
+//	logInfo("pcre is %s \n",oc192bindpcre);
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;
@@ -105,7 +105,7 @@ sch_result ASN1IISBase64::handleShellcode(Message **msg)
 
 	if ((iResult = pcre_exec(m_pcre, 0, (char *) shellcode, len, 0, 0, piOutput, sizeof(piOutput)/sizeof(int32_t))) > 0)
 	{
-		logSpam("Found ASN1Base64 .. %i\n",len);
+		logInfo("Found ASN1Base64 .. %i\n",len);
 //		g_Nepenthes->getUtilities()->hexdump((unsigned char *)shellcode,len);
 		const char * pCode;
 
@@ -126,9 +126,6 @@ sch_result ASN1IISBase64::handleShellcode(Message **msg)
 		*msg = nmsg;
 		free(decoded); 
 		return SCH_REPROCESS;
-	}else
-	{
-		logSpam("Nothing found %i\n",len);
 	}
 	return SCH_NOTHING;
 }

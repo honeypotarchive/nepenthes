@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: ShellcodeManager.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: ShellcodeManager.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include "ShellcodeManager.hpp"
 #include "ShellcodeHandler.hpp"
@@ -147,7 +147,7 @@ sch_result ShellcodeManager::fileCheck(Message **nmsg)
  */
 sch_result ShellcodeManager::handleShellcode(Message **msg)
 {
-	logDebug("SCHMGR Msg ptr is %x \n",(uint32_t )*msg);
+//	logDebug("SCHMGR Msg ptr is %x \n",(uint32_t )*msg);
 	list <ShellcodeHandler *>::iterator shandler;
 
 	
@@ -161,11 +161,6 @@ sch_result ShellcodeManager::handleShellcode(Message **msg)
 
 	for(shandler = m_ShellcodeHandlers.begin();shandler != m_ShellcodeHandlers.end();shandler++)
 	{
-		if ((uint32_t )*nmsg == 0xffffffff )
-		{
-			logCrit("ERROR SCHMGR Msg ptr is %x %s ( pre  sch %x)\n",(uint32_t )*nmsg,(uint32_t )nnmsg, (uint32_t )*shandler);
-			return SCH_NOTHING;
-		}
 /*		if (notme.size() > 0)
 		{
 			bool skip = false;
@@ -209,13 +204,6 @@ sch_result ShellcodeManager::handleShellcode(Message **msg)
             break;
 			
 
-		}
-		if ((uint32_t )*nmsg == 0xffffffff )
-		{
-        	logCrit("ERROR SCHMGR Msg ptr is %x should be %x ( post sch %x)\n",(uint32_t )*nmsg,(uint32_t )nnmsg, (uint32_t )*shandler);
-//			logCrit("FIXING THIS BULLSHIT %x -> %x\n",(uint32_t )*nmsg,(uint32_t )nnmsg);
-//			nmsg = &nnmsg;
-			return SCH_NOTHING;
 		}
 	}
 

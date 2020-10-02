@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_netdde_hod_bind.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_netdde_hod_bind.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -92,7 +92,7 @@ bool HODBind::Init()
 	"\\x77\\x44\\x56\\x57\\x50\\x50\\x50\\x40\\x50\\x48\\x50\\x50\\xFF\\x75\\x34\\x50"
 	"\\xFF\\x55\\x08\\xF7\\xD0\\x50\\xFF\\x36\\xFF\\x55\\x10\\xFF\\x77\\x38\\xFF\\x55"
 	"\\x28\\xFF\\x55";
-	logInfo("pcre is %s \n",thcconnectpcre);
+//	logInfo("pcre is %s \n",thcconnectpcre);
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: VERITASDialogue.hpp 1670 2005-07-17 23:06:17Z common $ */
+ /* $Id: VERITASDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -60,9 +60,9 @@ namespace nepenthes
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
 
+		void dump();
 	protected:
 		Buffer *m_Buffer;
-
 		veritas_state m_State;
 
 	};

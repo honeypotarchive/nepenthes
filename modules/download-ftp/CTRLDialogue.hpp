@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CTRLDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: CTRLDialogue.hpp 1960 2005-09-11 16:20:00Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -45,9 +45,11 @@ namespace nepenthes
 	{
 		FTP_USER,
 		FTP_PASS,
+		FTP_TYPE,
 		FTP_PORT,
-		FTP_EPASV,
-		FTP_RETR
+//		FTP_EPASV,
+		FTP_RETR,
+		FTP_QUIT
 	} ftp_down_state;
 
 	class Download;
@@ -67,7 +69,26 @@ namespace nepenthes
 
         void setContext(FTPContext *context);
 		void setDownload(Download *down);
-		
+
+
+		void  sendUser();
+		bool parseUser(char *msg);
+
+		void  sendPass();
+		bool parsePass(char *msg);
+
+		void  sendType();
+		bool parseType(char *msg);
+
+		void  sendPort();
+		bool parsePort(char *msg);
+
+		void  sendRetr();
+		bool parseRetr(char *msg);
+
+		void  sendQuit();
+		bool parseQuit(char *msg);
+
 	protected:
 		Download 	*m_Download;
         FTPContext  *m_Context;

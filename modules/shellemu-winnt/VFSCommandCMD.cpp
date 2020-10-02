@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id */
+/* $Id: VFSCommandCMD.cpp 1956 2005-09-10 15:32:08Z common $ */
  
 #include "VFSCommandCMD.hpp"
 #include "VFSNode.hpp"
@@ -37,6 +37,12 @@
 #include "DownloadManager.hpp"
 #include "Dialogue.hpp"
 #include "Socket.hpp"
+
+
+#ifdef STDTAGS 
+#undef STDTAGS 
+#endif
+#define STDTAGS l_shell
 
 using namespace nepenthes;
 using namespace std;

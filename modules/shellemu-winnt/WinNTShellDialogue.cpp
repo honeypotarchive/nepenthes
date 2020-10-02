@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: WinNTShellDialogue.cpp 1939 2005-08-30 17:21:16Z common $ */ 
+/* $Id: WinNTShellDialogue.cpp 1952 2005-09-09 21:18:37Z common $ */ 
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -58,10 +58,6 @@ WinNTShellDialogue::WinNTShellDialogue(Socket *socket)
 
 	m_ConsumeLevel = CL_ASSIGN;
 
-	if (m_Socket != NULL)
-	{
-    	m_Socket->doRespond(WIN32_HEADER,strlen(WIN32_HEADER));
-	}
 	m_File = NULL;
 	m_VFS.Init(this);
 }
@@ -70,6 +66,12 @@ WinNTShellDialogue::~WinNTShellDialogue()
 {
 	if (m_File != NULL)
 		fclose(m_File);
+}
+
+ConsumeLevel WinNTShellDialogue::connectionEstablished()
+{
+	m_Socket->doRespond(WIN32_HEADER,strlen(WIN32_HEADER));
+	return m_ConsumeLevel;
 }
 
 ConsumeLevel WinNTShellDialogue::incomingData(Message *msg)

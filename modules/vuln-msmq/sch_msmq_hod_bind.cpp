@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_msmq_hod_bind.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_msmq_hod_bind.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -91,7 +91,7 @@ bool HODBind::Init()
 	"\\x92\\xA2\\xF8\\xB4\\xDD\\x91\\xFB\\xE1\\x4B\\x0A\\xD4\\x5F\\xF6\\x3B\\xE4\\x57"
 	"\\x4A\\x0A\\xD2\\xC8\\xC9\\xF5\\x04\\x37";
 
-	logInfo("pcre is %s \n",thcconnectpcre);
+//	logInfo("pcre is %s \n",thcconnectpcre);
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;

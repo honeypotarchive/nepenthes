@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandECHO.cpp 1927 2005-08-27 21:56:59Z dp $ */ 
+/* $Id: VFSCommandECHO.cpp 1947 2005-09-08 17:30:06Z common $ */ 
 
 #include "VFSCommandECHO.hpp"
 #include "VFSNode.hpp"
@@ -33,6 +33,11 @@
 #include "Nepenthes.hpp"
 #include "LogManager.hpp"
 #include "VFS.hpp"
+
+#ifdef STDTAGS 
+#undef STDTAGS 
+#endif
+#define STDTAGS l_shell
 
 using namespace nepenthes;
 using namespace std;

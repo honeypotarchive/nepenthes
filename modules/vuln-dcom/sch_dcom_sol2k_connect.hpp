@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_dcom_sol2k_connect.hpp 1879 2005-08-22 17:16:33Z md $ */
+ /* $Id$ */
 
 #ifndef HAVE_SOL2KCONNECT_HPP
 #define HAVE_SOL2KCONNECT_HPP

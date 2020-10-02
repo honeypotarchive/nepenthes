@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: FILESocket.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: FILESocket.cpp 1952 2005-09-09 21:18:37Z common $ */
 
 #ifdef WIN32
 	// win32 cant do this
@@ -65,7 +65,7 @@ FILESocket::FILESocket(Nepenthes *nepenthes, char *filepath, int32_t flags)
 
 	setRemoteHost(0);
 	setRemotePort(0);
-	m_Status = SS_NULL;
+	m_Status = SS_CONNECTED;
 	m_Type = ST_ACCEPT | ST_FILE;
 	m_Polled = false;
 }

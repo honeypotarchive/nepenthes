@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CReceiveDialogue.cpp 1926 2005-08-27 20:52:47Z dp $ */
+ /* $Id: CReceiveDialogue.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include "CReceiveDialogue.hpp"
 
@@ -56,7 +56,7 @@
 #ifdef STDTAGS 
 #undef STDTAGS 
 #endif
-#define STDTAGS l_mod
+#define STDTAGS l_dl | l_dia | l_hlr
 
 using namespace nepenthes;
 

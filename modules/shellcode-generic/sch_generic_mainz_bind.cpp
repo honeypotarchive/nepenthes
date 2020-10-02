@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_mainz_bind.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_generic_mainz_bind.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <netinet/in.h>
 
@@ -68,7 +68,7 @@ bool MainzBind::Init()
 	"\\x04\\x6A\\x10\\x57\\x53\\xFF\\x57\\xF0\\x6A\\x01\\x53"
 	"\\xFF\\x57\\xF4\\x50\\x50\\x53\\xFF\\x57\\xF8";
 
-	logInfo("pcre is %s \n",pattern);
+//	logInfo("pcre is %s \n",pattern);
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;

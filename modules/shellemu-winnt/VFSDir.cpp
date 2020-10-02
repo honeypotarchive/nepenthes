@@ -25,13 +25,18 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSDir.cpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: VFSDir.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 
 #include "VFSDir.hpp"
 #include "VFSFile.hpp"
 #include "LogManager.hpp"
 #include "Nepenthes.hpp"
+
+#ifdef STDTAGS 
+#undef STDTAGS 
+#endif
+#define STDTAGS l_shell
 
 using namespace nepenthes;
 

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-file.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: submit-file.cpp 1947 2005-09-08 17:30:06Z common $ */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -53,7 +53,7 @@ FileSubmitHandler::FileSubmitHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-file";
 	m_ModuleDescription = "module providing a file to file submitter";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 1947 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-file";
@@ -124,7 +124,7 @@ void FileSubmitHandler::Submit(Download *down)
 			{
 				logCrit("writing to file %s failed %i <-> %i\n",path.c_str(),size,down->getDownloadBuffer()->getLength());
 			}
-			logInfo("wrote file %s %i to disk \n",path.c_str(),down->getDownloadBuffer()->getLength());
+			logDebug("wrote file %s %i to disk \n",path.c_str(),down->getDownloadBuffer()->getLength());
 			fclose(f);
 			break;
 		}

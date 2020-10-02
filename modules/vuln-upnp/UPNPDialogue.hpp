@@ -26,7 +26,7 @@
  *
  *******************************************************************************/
 
- /* $Id: UPNPDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: UPNPDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -60,6 +60,7 @@ namespace nepenthes
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
 
+		void dump();
 	protected:
 		Buffer *m_Buffer;
 

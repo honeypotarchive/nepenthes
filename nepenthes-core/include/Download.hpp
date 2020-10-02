@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Download.hpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: Download.hpp 1957 2005-09-10 15:32:24Z common $ */
 #ifndef HAVE_DOWNLOAD_HPP
 #define HAVE_DOWNLOAD_HPP
 
@@ -34,6 +34,10 @@
 
 //#include "EvCID.hpp"
 using namespace std;
+
+
+
+#define DF_TYPE_BINARY	0x0000001
 
 namespace nepenthes
 {
@@ -62,6 +66,9 @@ namespace nepenthes
 		virtual void setFileType(char *type);
 		virtual string getFileType();
 
+		uint8_t	getDownloadFlags();
+		void	addDownloadFlags(uint8_t flags);
+
 	protected:
 		string  m_Url;
 		string  m_TriggerLine;
@@ -73,6 +80,8 @@ namespace nepenthes
 		uint32_t m_Address;
 		DownloadUrl *m_DownloadUrl;
 		DownloadBuffer  *m_DownloadBuffer;
+
+		uint8_t	m_DownloadFlags;
 
 	};
 }

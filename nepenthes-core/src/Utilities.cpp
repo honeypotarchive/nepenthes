@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Utilities.cpp 1938 2005-08-30 17:20:39Z common $ */
+/* $Id: Utilities.cpp 1957 2005-09-10 15:32:24Z common $ */
 
 #ifdef WIN32
 #include <memory.h>
@@ -35,16 +35,18 @@
 
 #include <string.h>
 #include <sys/types.h>
-# include <inttypes.h>
+#include <inttypes.h>
+
 #include "Utilities.hpp"
 #include "LogManager.hpp"
+#include "Config.hpp"
 
 using namespace nepenthes;
 
 
 Utilities::Utilities()
 {
-
+	
 }
 
 Utilities::~Utilities()
@@ -383,7 +385,11 @@ void Utilities::hexdump(uint32_t mask, byte *data, uint32_t len)
 {
 	char conv[] = "0123456789abcdef";
 
-	string md5 = "var/log/hexdumps/";
+	if (m_HexdumpPath.size() == 0)
+	{
+		m_HexdumpPath = g_Nepenthes->getConfig()->getValString("nepenthes.utilities.hexdump_path");
+	}
+	string md5 = m_HexdumpPath;
 	md5.append(md5sum((char *)data, len));
 	md5.append(".bin");
 

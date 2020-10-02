@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: WINSDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: WINSDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 
 #ifndef HAVE_WINSDIALOGUE_HPP
@@ -55,6 +55,9 @@ namespace nepenthes
 		ConsumeLevel handleTimeout(Message *msg);
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
+
+		void dump();
+
 	protected:
 		Buffer		*m_Buffer;
 		wins_state	m_State;

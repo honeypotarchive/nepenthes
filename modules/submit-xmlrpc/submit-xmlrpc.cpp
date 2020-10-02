@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-xmlrpc.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: submit-xmlrpc.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 
 #include "submit-xmlrpc.hpp"
@@ -78,7 +78,7 @@ SubmitXMLRPC::SubmitXMLRPC(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-xmlrpc";
 	m_ModuleDescription = "submit files to xmlrpc";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 1947 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-xmlrpc";
@@ -204,7 +204,7 @@ void SubmitXMLRPC::Hit(Download *down)
 
 bool SubmitXMLRPC::dnsResolved(DNSResult *result)
 {
-	logInfo("url %s resolved %i for %x\n",result->getDNS().c_str(), result->getIP4List().size(), (uint32_t) result->getObject());
+	logDebug("url %s resolved %i for %x\n",result->getDNS().c_str(), result->getIP4List().size(), (uint32_t) result->getObject());
 
 	list <uint32_t> resolved = result->getIP4List();
 	uint32_t host = resolved.front();
@@ -217,7 +217,7 @@ bool SubmitXMLRPC::dnsResolved(DNSResult *result)
 
 bool SubmitXMLRPC::dnsFailure(DNSResult *result)
 {
-
+	// FIXME HARD
 	return true;
 }
 

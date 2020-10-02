@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: DCOMDialogue.hpp 1690 2005-07-25 23:17:51Z common $ */
+ /* $Id: DCOMDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 #ifndef HAVE_DCOMDIALOGUE_HPP
 #define HAVE_DCOMDIALOGUE_HPP
@@ -69,7 +69,7 @@ namespace nepenthes
 		ConsumeLevel handleTimeout(Message *msg);
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
-		void syncState(ConsumeLevel cl);
+		void dump();
 
 	protected:
 		dcom_state	m_State;

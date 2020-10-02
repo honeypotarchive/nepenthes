@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: PNPDialogue.hpp 1841 2005-08-15 14:48:03Z common $ */
+ /* $Id: PNPDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 
 #include "DialogueFactory.hpp"
@@ -66,6 +66,7 @@ namespace nepenthes
 		ConsumeLevel handleTimeout(Message *msg);
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
+		void dump();
 //		void syncState(ConsumeLevel cl);
 
 	protected:

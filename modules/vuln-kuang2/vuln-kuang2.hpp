@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-kuang2.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-kuang2.hpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -40,11 +40,11 @@ using namespace std;
 namespace nepenthes
 {
 
-	class MydoomVuln : public Module , public DialogueFactory
+	class Kuang2Vuln : public Module , public DialogueFactory
 	{
 	public:
-		MydoomVuln(Nepenthes *);
-		~MydoomVuln();
+		Kuang2Vuln(Nepenthes *);
+		~Kuang2Vuln();
 		Dialogue *createDialogue(Socket *socket);
 		bool Init();
 		bool Exit();

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_xor.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_generic_xor.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 
 /* Additional notes:
@@ -174,7 +174,7 @@ sch_result GenericXOR::handleShellcode(Message **msg)
 			memcpy(decodedMessage, match, totalsize);
 			pcre_free_substring(match);
 
-			logDebug("Detected generic XOR decoder #%i size length has %d bytes, size is %d, totalsize %d.\n",i, codesizeLen, codesize, totalsize);
+			logInfo("Detected generic XOR decoder #%i size length has %d bytes, size is %d, totalsize %d.\n",i, codesizeLen, codesize, totalsize);
 
 			if( codesize > totalsize )
 				logWarn("%s\n", "codesize > totalsize - broken shellcode?");

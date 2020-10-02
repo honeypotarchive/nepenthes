@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: BagleDialogue.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: BagleDialogue.cpp 1956 2005-09-10 15:32:08Z common $ */
 
 #include <ctype.h>
 
@@ -147,7 +147,7 @@ ConsumeLevel BagleDialogue::incomingData(Message *msg)
 					}
 				}
 				logInfo("Bagle URL %s \n",url);
-				g_Nepenthes->getDownloadMgr()->downloadUrl(url,msg->getRemoteHost(),url);
+				g_Nepenthes->getDownloadMgr()->downloadUrl(url,msg->getRemoteHost(),url,0);
 				free(url);
 				return CL_DROP;
 				

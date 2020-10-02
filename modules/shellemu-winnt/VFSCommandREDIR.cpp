@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandREDIR.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: VFSCommandREDIR.cpp 1947 2005-09-08 17:30:06Z common $ */
  
 #include "VFSCommandREDIR.hpp"
 #include "VFSNode.hpp"
@@ -34,6 +34,11 @@
 #include "LogManager.hpp"
 #include "VFS.hpp"
 #include "VFSFile.hpp"
+
+#ifdef STDTAGS 
+#undef STDTAGS 
+#endif
+#define STDTAGS l_shell
 
 using namespace nepenthes;
 using namespace std;
@@ -67,26 +72,26 @@ int32_t VFSCommandREDIR::run(vector<string> *paramlist)
 	VFSFile *file = m_VFS->getCurrentDir()->getFile((char *)&*it->c_str());
 	if (file == NULL)
     {
-		logInfo("Creating new file '%s' \n",&*it->c_str());
+		logDebug("Creating new file '%s' \n",&*it->c_str());
 		file = m_VFS->getCurrentDir()->createFile((char *)&*it->c_str(),0,0);
 	}else
 	{
-		logInfo("truncating file '%s' \n",&*it->c_str());
+		logDebug("truncating file '%s' \n",&*it->c_str());
 		file->truncateFile();
 	}
 	
 	file->addData((char *)m_VFS->getStdOut()->c_str(),m_VFS->getStdOut()->size());
 	file->addData("\n",1);
-	logInfo("file is '%.*s' \n",file->getSize(),(char *)file->getData());
+	logDebug("file is '%.*s' \n",file->getSize(),(char *)file->getData());
 	m_VFS->freeStdout();
 
 /*	list <string> slist = *paramlist;
 	list <string>::iterator it;
 	for (it=slist.begin();it!=slist.end();it++)
 	{
-		logInfo("REDIR dest '%s' \n",(*it).c_str());
+		logDebug("REDIR dest '%s' \n",(*it).c_str());
 	}
-	logInfo("REDIR Content %s\n",m_VFS->getStdOut().c_str());
+	logDebug("REDIR Content %s\n",m_VFS->getStdOut().c_str());
 	*ret = "";
 */
 	return 0;

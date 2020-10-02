@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-creceive.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: download-creceive.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <ctype.h>
 
@@ -51,11 +51,10 @@
 
 #include "DialogueFactoryManager.hpp"
 
-
 #ifdef STDTAGS 
 #undef STDTAGS 
 #endif
-#define STDTAGS l_mod
+#define STDTAGS l_dl | l_hlr | l_mod
 
 using namespace nepenthes;
 
@@ -87,7 +86,7 @@ CReceiveDownloadHandler::CReceiveDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "download-creceive";
 	m_ModuleDescription = "downloads file bei rx";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 1947 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "download-creceive";

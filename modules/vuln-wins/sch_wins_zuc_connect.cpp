@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_wins_zuc_connect.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_wins_zuc_connect.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 
 #include <arpa/inet.h>
@@ -88,7 +88,7 @@ bool ZUCConnect::Init()
 	"\\xEB\\x67\\x2A\\x8F\\x34\\x40\\x9C\\x57\\x76\\x57\\x79\\xF9\\x52\\x74\\x65\\xA2"
 	"\\x40\\x90\\x6C\\x34\\x75\\x60\\x33\\xF9\\x7E\\xE0\\x5F\\xE0";
 
-	logInfo("pcre is %s \n",hatsquadbindpcre);
+//	logInfo("pcre is %s \n",hatsquadbindpcre);
 	const char * pcreEerror;
 	int32_t pcreErrorPos;
 	if((m_pcre = pcre_compile(hatsquadbindpcre, PCRE_DOTALL, &pcreEerror, &pcreErrorPos, 0)) == NULL)

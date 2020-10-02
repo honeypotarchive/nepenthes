@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: FILEDialogue.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: FILEDialogue.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include "FILEDialogue.hpp"
 #include "CTRLDialogue.hpp"
@@ -37,9 +37,12 @@
 #include "Download.hpp"
 #include "DownloadBuffer.hpp"
 
-
-
 #include "SubmitManager.hpp"
+
+#ifdef STDTAGS 
+#undef STDTAGS 
+#endif
+#define STDTAGS l_dl | l_dia | l_hlr
 
 using namespace nepenthes;
 
@@ -94,7 +97,7 @@ ConsumeLevel FILEDialogue::incomingData(Message *msg)
 		return CL_DROP;
 	}
 
-	logInfo("Got %i bytes data\n",msg->getMsgLen());
+//	logSpam("Got %i bytes data\n",msg->getMsgLen());
 	m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getMsgLen());
 	return CL_ASSIGN;
 }

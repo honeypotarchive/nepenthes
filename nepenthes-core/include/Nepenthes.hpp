@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Nepenthes.hpp 1928 2005-08-28 17:22:14Z common $ */
+/* $Id: Nepenthes.hpp 1947 2005-09-08 17:30:06Z common $ */
 
 
 #ifndef HAVE_NEPENTHES_HPP
@@ -96,7 +96,7 @@ typedef unsigned char byte;
 #define logInfo(format, ...) logWrite(l_info	| STDTAGS , format, __VA_ARGS__)
 #define logWarn(format, ...) logWrite(l_warn	| STDTAGS , format, __VA_ARGS__)
 #define logCrit(format, ...) logWrite(l_crit	| STDTAGS , format, __VA_ARGS__)
-#define logPF() logInfo("<in %s>\n", __PRETTY_FUNCTION__)
+#define logPF() logSpam("<in %s>\n", __PRETTY_FUNCTION__)
 
 #endif
 

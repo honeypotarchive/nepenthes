@@ -3,12 +3,12 @@
 # Process this file with autoconf to produce a configure script.
 # nepenthes meta-Makefile
 # Maximillian Dornseif 2005
-# $Id: configure.ac 1935 2005-08-30 16:37:36Z common $
+# $Id: configure.ac 1964 2005-09-11 18:50:44Z common $
 
 AC_PREREQ(2.59)
-AC_INIT([nepenthes], [0.1.1], [dornseif@informatik.rwth-aachen.de])
-AM_INIT_AUTOMAKE([nepenthes], [0.1.1])
-AC_REVISION([$Id: configure.ac 1935 2005-08-30 16:37:36Z common $])
+AC_INIT([nepenthes], [0.1.2], [dornseif@informatik.rwth-aachen.de])
+AM_INIT_AUTOMAKE([nepenthes], [0.1.2])
+AC_REVISION([$Id: configure.ac 1964 2005-09-11 18:50:44Z common $])
 
 AC_PREFIX_DEFAULT(/opt/nepenthes)
 AC_CONFIG_SRCDIR([nepenthes-core/include/Buffer.hpp])
@@ -265,13 +265,15 @@ AC_CONFIG_FILES([Makefile
                  modules/vuln-upnp/Makefile
                  modules/vuln-veritas/Makefile
                  modules/vuln-wins/Makefile
+                 modules/vuln-dameware/Makefile
                  modules/x-1/Makefile
                  modules/x-2/Makefile
                  modules/x-3/Makefile
                  modules/x-4/Makefile
-                modules/x-5/Makefile                 
+                 modules/x-5/Makefile                 
                  modules/x-6/Makefile
                  modules/x-7/Makefile])
+#                modules/module-drone/Makefile
 #                modules/vuln-netbios/Makefile
                  
 AC_OUTPUT

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Download.cpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: Download.cpp 1957 2005-09-10 15:32:24Z common $ */
 
 #include "Download.hpp"
 #include "DownloadUrl.hpp"
@@ -43,6 +43,8 @@ Download::Download(char *url,uint32_t address,char *triggerline)
 	m_DownloadBuffer= new DownloadBuffer();
 	m_Address 		= address;
 	m_FileType = "";
+
+	m_DownloadFlags = 0;
 }
 
 Download::~Download()
@@ -123,4 +125,16 @@ string  Download::getSHA512Sum()
 		SHA512Sum += ((m_SHA512Sum[i] & 0xF) < 10 ? (m_SHA512Sum[i] & 0xF) + '0' : (m_SHA512Sum[i] & 0xF) + ('a' - 10));
 	}
 	return SHA512Sum;
+}
+
+
+
+void Download::addDownloadFlags(uint8_t flag)
+{
+	m_DownloadFlags |= flag;
+}
+
+uint8_t Download::getDownloadFlags()
+{
+	return m_DownloadFlags;
 }

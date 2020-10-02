@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Socket.hpp 1936 2005-08-30 16:38:45Z common $ */
+/* $Id: Socket.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 #ifndef HAVE_SOCKET_HPP
 #define HAVE_SOCKET_HPP
@@ -35,7 +35,7 @@
 #endif
 
 #include <sys/socket.h>
-
+#include "Dialogue.hpp"
 
 #include <list>
 #include <string>
@@ -63,12 +63,13 @@ using namespace std;
 
 typedef enum
 {
+	SS_CONNECTED,			// cool sockets without problems
 	SS_CONNECTING,
 	SS_TIMEOUT,
 	SS_RECONNECT,
 	SS_CLOSED,		// intended to use with udp&tftp
-	SS_CLEANQUIT,	// dont allow any more writing on the socket, if the send que is empty, close socket and set status to SS_CLOSED
-	SS_NULL			// cool sockets without problems
+	SS_CLEANQUIT	// dont allow any more writing on the socket, if the send que is empty, close socket and set status to SS_CLOSED
+
 } socket_state;
 
 namespace nepenthes
@@ -181,6 +182,8 @@ namespace nepenthes
         bool 		m_CanSend;
 
         Nepenthes   *m_Nepenthes;
+
+		ConsumeLevel m_HighestConsumeLevel; 
 
     };
 

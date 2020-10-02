@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_dcom_sol2k_bind.hpp 1879 2005-08-22 17:16:33Z md $ */
+ /* $Id$ */
 
 #ifndef HAVE_SOL2KSHELL_HPP
 #define HAVE_SOL2KSHELL_HPP

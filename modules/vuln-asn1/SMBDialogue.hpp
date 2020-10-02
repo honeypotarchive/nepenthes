@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SMBDialogue.hpp 1689 2005-07-25 23:16:44Z common $ */
+ /* $Id: SMBDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -58,7 +58,8 @@ namespace nepenthes
 		ConsumeLevel handleTimeout(Message *msg);
 		ConsumeLevel connectionLost(Message *msg);
 		ConsumeLevel connectionShutdown(Message *msg);
-		void syncState(ConsumeLevel cl);
+
+		void dump();
 
 	protected:
 		Buffer		*m_Buffer;

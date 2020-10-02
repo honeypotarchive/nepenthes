@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: POLLSocket.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: POLLSocket.cpp 1952 2005-09-09 21:18:37Z common $ */
 
 #include "POLLSocket.hpp"
 
@@ -34,7 +34,7 @@ using namespace nepenthes;
 POLLSocket::POLLSocket(Nepenthes *nepenthes)
 {
 	m_Type = ST_POLL|ST_CONNECT|ST_NODEL;
-	m_Status = SS_NULL;
+	m_Status = SS_CONNECTED;
 	m_CanSend = false;
 
 	setLocalPort(0);

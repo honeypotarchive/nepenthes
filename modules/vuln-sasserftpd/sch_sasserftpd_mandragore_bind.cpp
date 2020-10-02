@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_sasserftpd_mandragore_bind.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: sch_sasserftpd_mandragore_bind.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -87,7 +87,7 @@ bool MandragoreBind::Init()
 		"\\xC8\\x21\\x0E";
 
 
-	logInfo("pcre is %s \n",pcre);
+//	logInfo("pcre is %s \n",pcre);
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;
@@ -96,9 +96,6 @@ bool MandragoreBind::Init()
 		logCrit("MandragoreBind could not compile pattern \n\t\"%s\"\n\t Error:\"%s\" at Position %u", 
 				pcre, pcreEerror, pcreErrorPos);
 		return false;
-	}else
-	{
-		logInfo("Compiled Pattern %s \n",__PRETTY_FUNCTION__);
 	}
 	return true;
 }

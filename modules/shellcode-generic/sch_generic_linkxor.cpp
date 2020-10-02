@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_linkxor.cpp 1927 2005-08-27 21:56:59Z dp $ */ 
+/* $Id: sch_generic_linkxor.cpp 1947 2005-09-08 17:30:06Z common $ */ 
 
 #include "sch_generic_linkxor.hpp"
 #include "Nepenthes.hpp"
@@ -125,7 +125,7 @@ sch_result LinkXOR::handleShellcode(Message **msg)
 		key = *substring;
 		pcre_free_substring(substring);
 
-		logDebug("Found linkbot XOR decoder, key 0x%02x, payload is 0x%04x bytes long.\n", key, payloadLen);
+		logInfo("Found linkbot XOR decoder, key 0x%02x, payload is 0x%04x bytes long.\n", key, payloadLen);
 
 		pcre_get_substring((char *)shellcode, offvec, result, 4, &substring);
 		payload = (byte *)malloc(payloadLen);

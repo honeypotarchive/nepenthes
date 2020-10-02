@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-kuang2.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-kuang2.cpp 1947 2005-09-08 17:30:06Z common $ */
 
 #include <ctype.h>
 
@@ -55,8 +55,8 @@ Nepenthes *g_Nepenthes;
 
 /**
  * The Constructor
- * creates a new MydoomVuln Module, 
- * MydoomVuln is an example for binding a socket & setting up the Dialogue & DialogueFactory
+ * creates a new Kuang2Vuln Module, 
+ * Kuang2Vuln is an example for binding a socket & setting up the Dialogue & DialogueFactory
  * 
  * 
  * it can be used as a shell emu to allow trigger commands 
@@ -68,11 +68,11 @@ Nepenthes *g_Nepenthes;
  * 
  * @param nepenthes the pointer to our Nepenthes
  */
-MydoomVuln::MydoomVuln(Nepenthes *nepenthes)
+Kuang2Vuln::Kuang2Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-kuang2";
 	m_ModuleDescription = "emulates the kuang2 backdoor";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 1947 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Kuang2 Dialogue Factory";
@@ -81,7 +81,7 @@ MydoomVuln::MydoomVuln(Nepenthes *nepenthes)
 	g_Nepenthes = nepenthes;
 }
 
-MydoomVuln::~MydoomVuln()
+Kuang2Vuln::~Kuang2Vuln()
 {
 
 }
@@ -95,7 +95,7 @@ MydoomVuln::~MydoomVuln()
  * @return returns true if everything was fine, else false
  *         false indicates a fatal error
  */
-bool MydoomVuln::Init()
+bool Kuang2Vuln::Init()
 {
 	logPF();
 	if ( m_Config == NULL )
@@ -128,7 +128,7 @@ bool MydoomVuln::Init()
 	return true;
 }
 
-bool MydoomVuln::Exit()
+bool Kuang2Vuln::Exit()
 {
 	return true;
 }
@@ -136,13 +136,13 @@ bool MydoomVuln::Exit()
 /**
  * DialogueFactory::createDialogue(Socket *)
  * 
- * creates a new MydoomVulnDialogue
+ * creates a new Kuang2VulnDialogue
  * 
  * @param socket the socket the DIalogue has to use, can be NULL if the Dialogue can handle it
  * 
  * @return returns the new created dialogue
  */
-Dialogue *MydoomVuln::createDialogue(Socket *socket)
+Dialogue *Kuang2Vuln::createDialogue(Socket *socket)
 {
 	return new Kuang2Dialogue(socket);
 }
@@ -161,7 +161,7 @@ Dialogue *MydoomVuln::createDialogue(Socket *socket)
 extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
-        *module = new MydoomVuln(nepenthes);
+        *module = new Kuang2Vuln(nepenthes);
         return 1;
     } else {
         return 0;
