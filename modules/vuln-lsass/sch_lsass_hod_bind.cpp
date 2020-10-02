@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_lsass_hod_bind.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: sch_lsass_hod_bind.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include <netinet/in.h>
 
@@ -119,9 +119,9 @@ bool HODBind::Exit()
 sch_result HODBind::handleShellcode(Message **msg)
 {
 	logPF();
-	logSpam("Shellcode is %i bytes long \n",(*msg)->getMsgLen());
+	logSpam("Shellcode is %i bytes long \n",(*msg)->getSize());
 	char *shellcode = (*msg)->getMsg();
-	uint32_t len = (*msg)->getMsgLen();
+	uint32_t len = (*msg)->getSize();
 
 	int32_t piOutput[10 * 3];
 	int32_t iResult; 

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Manager.hpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: Manager.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_MANAGER_HPP
 #define HAVE_MANAGER_HPP
@@ -35,6 +35,10 @@ namespace nepenthes
 
 	class Nepenthes;
 
+	/**
+	 * a Manager wont do something in general, 
+	 * a Manager will have Handlers working for him.
+	 */
 	class Manager
 	{
 	public:

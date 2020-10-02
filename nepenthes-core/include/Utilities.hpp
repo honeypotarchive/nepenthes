@@ -57,7 +57,7 @@
 
  
 
-/* $Id: Utilities.hpp 1957 2005-09-10 15:32:24Z common $ */
+/* $Id: Utilities.hpp 2043 2005-10-04 15:59:52Z common $ */
 #ifndef HAVE_UTILITIES_HPP
 #define HAVE_UTILITIES_HPP
 
@@ -116,6 +116,10 @@ namespace nepenthes
 	typedef sha256_ctx sha224_ctx;
 
 
+	/**
+	 * the utilities provide stuff nobody else has
+	 * md5 hashing, sha1 hashing, hexdumping, base64 de/encoding ...
+	 */
 	class Utilities
 	{
 	public:
@@ -163,6 +167,7 @@ namespace nepenthes
 		virtual void sha512_transf(sha512_ctx *ctx, unsigned char *message, uint32_t block_nb);
 		virtual string sha512sum(unsigned char *msg, uint32_t len);
 
+		virtual string escapeXMLString(char *str);
 	private:
 		void MD5Transform(md5_uint32 buf[4], const unsigned char in[64]);
 

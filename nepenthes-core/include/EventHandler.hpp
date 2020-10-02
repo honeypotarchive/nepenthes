@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: EventHandler.hpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: EventHandler.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_EVENTHANDLER_HPP
 #define HAVE_EVENTHANDLER_HPP
@@ -55,6 +55,9 @@ namespace nepenthes
 	class EventManager;
 	class Event;	
 
+	/**
+	 * if you are interested in Events, you should get an EventHandler, register to the EventManager ,and set flags for the Events you are interested in.
+	 */
     class EventHandler
     {
     public:

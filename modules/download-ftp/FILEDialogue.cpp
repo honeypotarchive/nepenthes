@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: FILEDialogue.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: FILEDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include "FILEDialogue.hpp"
 #include "CTRLDialogue.hpp"
@@ -97,8 +97,8 @@ ConsumeLevel FILEDialogue::incomingData(Message *msg)
 		return CL_DROP;
 	}
 
-//	logSpam("Got %i bytes data\n",msg->getMsgLen());
-	m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getMsgLen());
+//	logSpam("Got %i bytes data\n",msg->getSize());
+	m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getSize());
 	return CL_ASSIGN;
 }
 

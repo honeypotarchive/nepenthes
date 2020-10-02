@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SubmitEvent.hpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: SubmitEvent.hpp 1985 2005-09-24 17:17:45Z common $ */
 
 #ifndef HAVE_SUBMIT_EVENT_HPP
 #define HAVE_SUBMIT_EVENT_HPP
@@ -42,7 +42,7 @@ namespace nepenthes
 	class SubmitEvent : public Event
 	{
 	public:
-		SubmitEvent(event_type e, Download *down)
+		SubmitEvent(uint32_t e, Download *down)
 		{
 			m_EventType = e;
 			m_Download = down;

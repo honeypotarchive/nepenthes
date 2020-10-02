@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: POLLSocket.hpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: POLLSocket.hpp 1974 2005-09-14 10:57:28Z common $ */
 
 #ifndef HAVE_POLLSOCKET_HPP
 #define HAVE_POLLSOCKET_HPP
@@ -41,7 +41,7 @@ namespace nepenthes
 	class POLLSocket : public Socket
 	{
 public:
-	POLLSocket(Nepenthes *nepenthes);
+	POLLSocket();
 
 	virtual ~POLLSocket() {};
 		bool bindPort();

@@ -1,5 +1,5 @@
 # nepenthes meta-Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 2128 2005-10-31 16:05:47Z common $
 
 SUBDIRS = src include

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-ftp.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: download-ftp.cpp 2113 2005-10-25 21:49:33Z common $ */
 
 #include <ctype.h>
 
@@ -84,7 +84,7 @@ FTPDownloadHandler::FTPDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "download-ftp";
 	m_ModuleDescription = "painless simple activex-2l ftp client";
-	m_ModuleRevision    = "$Rev: 1947 $";
+	m_ModuleRevision    = "$Rev: 2113 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "download-ftp";
@@ -173,7 +173,7 @@ bool FTPDownloadHandler::download(Download *down)
 	}else
 	{
 		logInfo("url has %s ip, we will download it now\n",down->getUrl().c_str());
-		Socket *socket = g_Nepenthes->getSocketMgr()->connectTCPHost(0,host,down->getDownloadUrl()->getPort(),30);
+		Socket *socket = g_Nepenthes->getSocketMgr()->connectTCPHost(down->getLocalHost(),host,down->getDownloadUrl()->getPort(),30);
 		CTRLDialogue *dia = new CTRLDialogue(socket,down);
 		socket->addDialogue(dia);
 		FTPContext *context = new FTPContext(down,dia);
@@ -191,7 +191,7 @@ bool FTPDownloadHandler::dnsResolved(DNSResult *result)
 	logInfo("url %s resolved \n",result->getDNS().c_str());
 	uint32_t host = result->getIP4List().front();
 	Download *down = (Download *) result->getObject();
-	Socket *socket = g_Nepenthes->getSocketMgr()->connectTCPHost(0,host,down->getDownloadUrl()->getPort(),30);
+	Socket *socket = g_Nepenthes->getSocketMgr()->connectTCPHost(down->getLocalHost(),host,down->getDownloadUrl()->getPort(),30);
 	CTRLDialogue *dia = new CTRLDialogue(socket,down);
 	socket->addDialogue(dia);
 	FTPContext *context = new FTPContext(down,dia);

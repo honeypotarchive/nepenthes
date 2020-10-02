@@ -25,13 +25,15 @@
  *
  *******************************************************************************/
 
- /* $Id: x-5.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: x-5.cpp 1992 2005-09-24 17:28:12Z common $ */
 
 #include "x-5.hpp"
 #include "LogManager.hpp"
 #include "EventManager.hpp"
 #include "SocketEvent.hpp"
 #include "Socket.hpp"
+
+#include "EventHandler.cpp"
 
 using namespace nepenthes;
 
@@ -48,6 +50,7 @@ using namespace nepenthes;
  * we need this pointer for logInfo() etc
  */
 Nepenthes *g_Nepenthes;
+uint16_t myevent;
 
 /**
  * Constructor
@@ -65,7 +68,7 @@ X5::X5(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-5";
 	m_ModuleDescription = "eXample Module 5 -eventhandler example-";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 1992 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "X5EventHandler";
@@ -103,6 +106,9 @@ bool X5::Init()
     m_Events.set(EV_SOCK_TCP_ACCEPT);
 	m_Events.set(EV_TIMEOUT);
 	REG_EVENT_HANDLER(this);
+	myevent = g_Nepenthes->getEventMgr()->registerEvent("EV_X5_TEST_EVENT");
+	m_Events.set(myevent);
+	logInfo("My personal Event is %i\n",myevent);
 	return true;
 }
 
@@ -139,6 +145,7 @@ uint32_t X5::handleEvent(Event *event)
 	case EV_TIMEOUT:
 		m_Timeout = time(NULL) + rand()%23;
 		logInfo("X5 EVENT Timeout %i\n",(int32_t)time(NULL));
+		g_Nepenthes->getEventMgr()->handleEvent(new SocketEvent(NULL,myevent));
 		break;
 
 	default:

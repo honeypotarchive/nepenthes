@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: TFTPDownloadHandler.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: TFTPDownloadHandler.cpp 2102 2005-10-25 08:36:48Z common $ */
 
 
 #include <fcntl.h>
@@ -61,7 +61,7 @@ TFTPDownloadHandler::TFTPDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "TFTP Download Module";
 	m_ModuleDescription = "provides a downloadhandler for tftp protocol";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 2102 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="tftp download handler";
@@ -120,7 +120,7 @@ bool TFTPDownloadHandler::download(Download *down)
 	int32_t Port = down->getDownloadUrl()->getPort();
 	uint32_t Host = inet_addr(down->getDownloadUrl()->getHost().c_str());
 
-	Socket *socket = m_Nepenthes->getSocketMgr()->connectUDPHost(INADDR_ANY,Host,Port,7);
+	Socket *socket = m_Nepenthes->getSocketMgr()->connectUDPHost(down->getLocalHost(),Host,Port,7);
 
 	Dialogue *dia = createDialogue(socket);
     ((TFTPDialogue*)dia)->setDownload(down);

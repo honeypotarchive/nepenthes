@@ -25,10 +25,10 @@
  *
  *******************************************************************************/
 
- /* $Id: FTPContext.hpp 1923 2005-08-27 18:10:01Z dp $ */
+ /* $Id: FTPContext.hpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include <stdint.h>
-#include "DNSHandler.hpp"
+#include "DNSCallback.hpp"
 
 namespace nepenthes
 {
@@ -36,7 +36,7 @@ namespace nepenthes
 	class FILEDialogue;
 	class CTRLDialogue;
 
-	class FTPContext //: public DNSHandler
+	class FTPContext //: public DNSCallback
 	{
 
 	public:

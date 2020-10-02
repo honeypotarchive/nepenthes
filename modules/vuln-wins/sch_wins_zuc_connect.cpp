@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_wins_zuc_connect.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: sch_wins_zuc_connect.cpp 2106 2005-10-25 14:28:39Z common $ */
 
 
 #include <arpa/inet.h>
@@ -112,7 +112,7 @@ sch_result ZUCConnect::handleShellcode(Message **msg)
 {
 	logPF();
 	char *shellcode = (*msg)->getMsg();
-	uint32_t len = (*msg)->getMsgLen();
+	uint32_t len = (*msg)->getSize();
 
 	int32_t piOutput[10 * 3];
 	int32_t iResult; 
@@ -139,7 +139,7 @@ sch_result ZUCConnect::handleShellcode(Message **msg)
 
 		logInfo("WINS ZUC Connectback %s:%i\n",inet_ntoa(*(in_addr *)&host),port);
 
-		Socket *sock = g_Nepenthes->getSocketMgr()->connectTCPHost(0,host,port,30);
+		Socket *sock = g_Nepenthes->getSocketMgr()->connectTCPHost((*msg)->getLocalHost(),host,port,30);
 		DialogueFactory *diaf;
 		if ( (diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL )
 		{

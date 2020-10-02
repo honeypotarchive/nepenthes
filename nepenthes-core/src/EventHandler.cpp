@@ -25,38 +25,55 @@
  *
  *******************************************************************************/
 
-/* $Id: EventHandler.cpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: EventHandler.cpp 2045 2005-10-04 17:46:04Z common $ */
 
 #include "Event.hpp"
 #include "EventHandler.hpp"
 
 using namespace nepenthes;
-/*
-string EventHandler::getEventHandlerDescription()
-{
-	return m_EventHandlerDescription;
-}
-
-string EventHandler::getEventHandlerName()
-{
-	return m_EventHandlerName;
-}
-*/
-
+/**
+ * test if a EventHandler wants a specific Event 
+ * 
+ * @param event  the event to test
+ * 
+ * @return true if the EventHandler wants the Event
+ *         else false
+ */
 bool EventHandler::testEvent(Event *event)
 {
 	return m_Events.test(event->getType());
 };
+
+
+/**
+ * get the EventHandler's description
+ * 
+ * @return the EventHandlers description as string
+ */
 string EventHandler::getEventHandlerDescription()
 {
 	return m_EventHandlerDescription;
 };
+
+
+/**
+ * get the EventHandler's name
+ * 
+ * @return the EventHandlers name as string
+ */
 
 string EventHandler::getEventHandlerName()
 {
 	return m_EventHandlerName;
 };
 
+
+/**
+ * check if a EventHandler experienced a timeout
+ * 
+ * @return true if the EventHandler wants EV_TIMEOUT and he timed out 
+ *         else false
+ */
 bool EventHandler::isTimeout()
 {
 	if ( m_Events.test(EV_TIMEOUT) && m_Timeout < time(NULL) )

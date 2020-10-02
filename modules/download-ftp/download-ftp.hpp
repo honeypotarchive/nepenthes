@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-ftp.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: download-ftp.hpp 2001 2005-09-27 13:54:35Z common $ */
 
 #ifndef HAVE_DOWNLOAD_FTP_HPP
 #define HAVE_DOWNLOAD_FTP_HPP
@@ -39,7 +39,7 @@
 #include "Socket.hpp"
 
 #include "DownloadHandler.hpp"
-#include "DNSHandler.hpp"
+#include "DNSCallback.hpp"
 
 using namespace std;
 
@@ -48,7 +48,7 @@ namespace nepenthes
 
 	class FTPContext;
 
-	class FTPDownloadHandler : public Module , public DialogueFactory , public DownloadHandler , public DNSHandler
+	class FTPDownloadHandler : public Module , public DialogueFactory , public DownloadHandler , public DNSCallback
 	{
 	public:
 		FTPDownloadHandler(Nepenthes *);

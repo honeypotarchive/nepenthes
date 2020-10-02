@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SubmitHandler.hpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: SubmitHandler.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_SUBMITHANDLER_HPP
 #define HAVE_SUBMITHANDLER_HPP
@@ -39,6 +39,13 @@ namespace nepenthes
 	class Download;
 	class SubmitManager;
 
+	/**
+	 * the SubmitHandler will get all the data a Download received, 
+	 * and can do whatever he wants with it.
+	 * store it, burn it ...
+	 * so, if you are interested in all the malware which gets downloaded, 
+	 * register as a SubmitHandler on the SubmitManager
+	 */
 	class SubmitHandler
     {
 //	FileSubmitHandler(FileSubmitManager *pParent);

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UDPSocket.hpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: UDPSocket.hpp 2046 2005-10-04 18:12:20Z common $ */
 
 
 #include "Socket.hpp"
@@ -38,8 +38,8 @@ namespace nepenthes
 	class UDPSocket : public Socket
 	{
 public:
-		UDPSocket(Nepenthes *nepenthes,uint32_t localhost, uint32_t remotehost, int32_t remoteport, time_t connectiontimeout);
-		UDPSocket(Nepenthes *nepenthes, uint32_t localhost, int32_t port, time_t bindtimeout, time_t accepttimeout);
+		UDPSocket(Nepenthes *nepenthes,uint32_t localhost, uint32_t remotehost, uint16_t remoteport, time_t connectiontimeout);
+		UDPSocket(Nepenthes *nepenthes, uint32_t localhost, uint16_t port, time_t bindtimeout, time_t accepttimeout);
 		~UDPSocket();
 
 		bool bindPort();

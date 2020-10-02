@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Message.hpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: Message.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_MESSAGE_HPP
 #define HAVE_MESSAGE_HPP
@@ -41,6 +41,11 @@ namespace nepenthes
 
 
 
+	/**
+	 * the Message is our encapsulation class for data we sent and receive.
+	 * the deal is, we always have the full context of the Message, 
+	 * the socket, and stuff like that
+	 */
     class Message
     {
 
@@ -53,7 +58,7 @@ namespace nepenthes
         virtual ~Message();
 
         virtual char            *getMsg();
-        virtual uint32_t    getMsgLen();
+        virtual uint32_t    getSize();
         virtual uint32_t   getLocalHost();
         virtual uint32_t    getLocalPort();
         virtual uint32_t   getRemoteHost();

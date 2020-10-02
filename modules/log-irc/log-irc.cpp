@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-irc.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: log-irc.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include <ctype.h>
 
@@ -79,12 +79,12 @@ LogIrc::LogIrc(Nepenthes *nepenthes)// : LogHandler(nepenthes->getLogMgr())
 {
 	m_ModuleName        = "log-irc";
 	m_ModuleDescription = "log to irc using tor";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 2001 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;
 
-	m_DNSHandlerName	= "log-irc DNSHandler";
+	m_DNSCallbackName	= "log-irc DNSCallback";
 
 	m_State = LIRC_INIT;
 

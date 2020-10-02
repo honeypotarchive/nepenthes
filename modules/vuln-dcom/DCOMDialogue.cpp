@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: DCOMDialogue.cpp 1952 2005-09-09 21:18:37Z common $ */
+ /* $Id: DCOMDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include "DCOMDialogue.hpp"
 #include "Message.hpp"
@@ -69,9 +69,9 @@ ConsumeLevel DCOMDialogue::incomingData(Message *msg)
 {
 	logPF();
 
-	m_Buffer->add(msg->getMsg(),msg->getMsgLen());
+	m_Buffer->add(msg->getMsg(),msg->getSize());
 
-//	g_Nepenthes->getUtilities()->hexdump((byte *)msg->getMsg(),msg->getMsgLen());
+//	g_Nepenthes->getUtilities()->hexdump((byte *)msg->getMsg(),msg->getSize());
 	char reply[512];
 	for (int32_t i=0;i<512;i++)
 	{
@@ -220,7 +220,7 @@ ConsumeLevel DCOMDialogue::incomingData(Message *msg)
 /*
 				else
 				{
-					logDebug("Unknown DCOM Shellcode (%i bytes)\n",msg->getMsgLen());
+					logDebug("Unknown DCOM Shellcode (%i bytes)\n",msg->getSize());
 					g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *)m_Buffer->getData(),m_Buffer->getSize());
 				}
 */

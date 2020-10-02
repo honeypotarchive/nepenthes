@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: ModuleManager.hpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: ModuleManager.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_MODULEMANAGER_HPP
 #define HAVE_MODULEMANAGER_HPP
@@ -44,6 +44,10 @@ namespace nepenthes
 	class Nepenthes;
 	class Module;
 
+	/**
+	 * the ModuleManager takes care of loading all modules at runtime 
+	 * and providing the module config file.
+	 */
     class ModuleManager :public Manager
     {
     public:

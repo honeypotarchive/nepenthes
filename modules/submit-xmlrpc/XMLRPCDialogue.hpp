@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: XMLRPCDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
+ /* $Id: XMLRPCDialogue.hpp 2006 2005-09-29 21:47:12Z common $ */
 
 #include "submit-xmlrpc.hpp"
 
@@ -67,40 +67,6 @@ namespace nepenthes
 
 
 
-	};
-
-
-	class Buffer;
-	class XMLRPCContext;
-
-	typedef enum
-	{
-		XMLRPC_HEADER,
-		XMLRPC_CONTENT
-	} xmlrpc_state;
-
-	class XMLRPCDialogue : public Dialogue
-	{
-	public:
-		XMLRPCDialogue(Socket *socket, XMLRPCContext *ctx, bool pipeline);
-		~XMLRPCDialogue();
-		ConsumeLevel incomingData(Message *msg);
-		ConsumeLevel outgoingData(Message *msg);
-		ConsumeLevel handleTimeout(Message *msg);
-		ConsumeLevel connectionLost(Message *msg);
-		ConsumeLevel connectionShutdown(Message *msg);
-
-	protected:
-		Buffer *m_Buffer;
-
-		XMLRPCContext 	*m_XMLRPCContext;
-
-
-		xmlrpc_state m_State;
-
-		HTTPHeader *m_HTTPHeader;
-
-		bool m_HTTPPipeline;
 	};
 
 }

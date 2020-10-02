@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_sasserftpd_mandragore_connect.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: sch_sasserftpd_mandragore_connect.cpp 2106 2005-10-25 14:28:39Z common $ */
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -111,9 +111,9 @@ bool MandragoreConnect::Exit()
 sch_result MandragoreConnect::handleShellcode(Message **msg)
 {
 	logPF();
-	logSpam("Shellcode is %i bytes long \n",(*msg)->getMsgLen());
+	logSpam("Shellcode is %i bytes long \n",(*msg)->getSize());
 	char *shellcode = (*msg)->getMsg();
-	uint32_t len = (*msg)->getMsgLen();
+	uint32_t len = (*msg)->getSize();
 
 	int32_t ovec[10 * 3];
 	int32_t matchCount; 
@@ -139,7 +139,7 @@ sch_result MandragoreConnect::handleShellcode(Message **msg)
 
 		logInfo("Mandragore ConnectBack Shell at %s:%d, \n",	inet_ntoa(*(in_addr *)&address), port);
 
-		Socket *sock = g_Nepenthes->getSocketMgr()->connectTCPHost(0,address,port,30);
+		Socket *sock = g_Nepenthes->getSocketMgr()->connectTCPHost((*msg)->getLocalHost(),address,port,30);
 		DialogueFactory *diaf;
 		if ((diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL)
 		{

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CTRLDialogue.hpp 1960 2005-09-11 16:20:00Z common $ */
+ /* $Id: CTRLDialogue.hpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -34,7 +34,7 @@
 #include "Nepenthes.hpp"
 #include "Dialogue.hpp"
 #include "Socket.hpp"
-#include "DNSHandler.hpp"
+#include "DNSCallback.hpp"
 
 using namespace std;
 
@@ -43,6 +43,7 @@ namespace nepenthes
 
 	typedef enum 
 	{
+		FTP_CONNECTED,
 		FTP_USER,
 		FTP_PASS,
 		FTP_TYPE,

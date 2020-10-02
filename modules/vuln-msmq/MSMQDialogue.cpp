@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: MSMQDialogue.cpp 1965 2005-09-11 18:51:38Z common $ */
+ /* $Id: MSMQDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 
 
@@ -99,7 +99,7 @@ MSMQDialogue::~MSMQDialogue()
 ConsumeLevel MSMQDialogue::incomingData(Message *msg)
 {
 
-	m_Buffer->add(msg->getMsg(),msg->getMsgLen());
+	m_Buffer->add(msg->getMsg(),msg->getSize());
 
 	switch (m_State)
 	{

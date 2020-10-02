@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-mssql.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-mssql.cpp 1971 2005-09-13 14:40:24Z common $ */
 
 #include <ctype.h>
 
@@ -74,7 +74,7 @@ MSSQLVuln::MSSQLVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-mssql";
 	m_ModuleDescription = "emulate the MS02-061 flaw";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 1971 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "mssql Dialogue Factory";
@@ -113,7 +113,7 @@ bool MSSQLVuln::Init()
 		return false;
 	}
 
-	m_Nepenthes->getSocketMgr()->bindTCPSocket(0,port,0,timeout,this);
+	m_Nepenthes->getSocketMgr()->bindUDPSocket(0,port,0,timeout,this);
 	return true;
 }
 

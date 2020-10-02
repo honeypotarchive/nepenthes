@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SMBNameDialogue.cpp 1926 2005-08-27 20:52:47Z dp $ */
+ /* $Id: SMBNameDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include <ctype.h>
 
@@ -178,7 +178,7 @@ typedef struct
  */
 ConsumeLevel SMBNameDialogue::incomingData(Message *msg)
 {
-	m_Buffer->add(msg->getMsg(),msg->getMsgLen());
+	m_Buffer->add(msg->getMsg(),msg->getSize());
 
 	switch (m_State)
 	{

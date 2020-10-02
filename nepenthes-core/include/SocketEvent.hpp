@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SocketEvent.hpp 1874 2005-08-21 00:53:08Z common $ */
+/* $Id: SocketEvent.hpp 2086 2005-10-18 21:19:58Z common $ */
 
 #include "Event.hpp"
 
@@ -36,7 +36,7 @@ namespace nepenthes
 	class SocketEvent : public Event
 	{
 	public:
-		SocketEvent(Socket *socket, event_type e)
+		SocketEvent(Socket *socket, uint32_t e)
 		{
 			m_Socket = socket;
 			m_EventType = e;
@@ -60,7 +60,7 @@ namespace nepenthes
 	class MessageEvent: public Event
 	{
 	public:
-		MessageEvent(Message *msg, event_type e)
+		MessageEvent(Message *msg, uint32_t e)
 		{
 			m_Message = msg;
 			m_EventType = e;
@@ -75,5 +75,67 @@ namespace nepenthes
 	private:
 		Message *m_Message;
 	};
+
+
+
+	class ShellcodeHandler;
+
+	class ShellcodeEvent : public Event
+	{
+	public:
+		ShellcodeEvent(Socket *socket, ShellcodeHandler *handler, uint32_t e)
+		{
+			m_Socket = socket;
+			m_SCHandler = handler;
+			m_EventType = e;
+		}
+		~ShellcodeEvent()
+		{
+		}
+		virtual Socket *getSocket()
+		{
+			return m_Socket;
+		}
+		virtual ShellcodeHandler *getShellcodeHandler()
+		{
+			return m_SCHandler;
+		}
+	private:
+		Socket *m_Socket;
+		ShellcodeHandler *m_SCHandler;
+	};
+
+
+
+	class Dialogue;
+
+	class DialogueEvent : public Event
+	{
+	public:
+		DialogueEvent(Socket *socket, Dialogue *dia, uint32_t e)
+		{
+			m_Socket = socket;
+			m_Dialogue = dia;
+			m_EventType = e;
+		}
+
+		~DialogueEvent()
+		{
+		}
+
+		virtual Socket *getSocket()
+		{
+			return m_Socket;
+		}
+
+		virtual Dialogue *getDialogue()
+		{
+			return m_Dialogue;
+		}
+	private:
+		Socket *m_Socket;
+		Dialogue *m_Dialogue;
+	};
+
 
 }

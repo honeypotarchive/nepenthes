@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SubmitManager.hpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: SubmitManager.hpp 2043 2005-10-04 15:59:52Z common $ */
 #ifndef HAVE_SUBMITMANAGER_HPP
 #define HAVE_SUBMITMANAGER_HPP
 
@@ -49,6 +49,10 @@ namespace nepenthes
 	class SubmitHandler;
 
 
+	/**
+	 * When Downloads are done, the DownloadHandler will get them to the SubmitManager.
+	 * the SubmitManager simply gets the download to all his SubmitHandlers.
+	 */
     class SubmitManager : public Manager
     {
     public: 

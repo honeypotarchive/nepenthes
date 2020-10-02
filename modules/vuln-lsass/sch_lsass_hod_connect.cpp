@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_lsass_hod_connect.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: sch_lsass_hod_connect.cpp 2106 2005-10-25 14:28:39Z common $ */
 
 #include <netinet/in.h>
 
@@ -116,9 +116,9 @@ bool HODConnect::Exit()
 sch_result HODConnect::handleShellcode(Message **msg)
 {
 	logPF();
-	logSpam("Shellcode is %i bytes long \n",(*msg)->getMsgLen());
+	logSpam("Shellcode is %i bytes long \n",(*msg)->getSize());
 	char *shellcode = (*msg)->getMsg();
-	uint32_t len = (*msg)->getMsgLen();
+	uint32_t len = (*msg)->getSize();
 
 	int32_t piOutput[10 * 3];
 	int32_t iResult; 
@@ -148,7 +148,7 @@ sch_result HODConnect::handleShellcode(Message **msg)
 		logInfo("Detected Lsass HoD connectback shellcode, %s:%u  \n", inet_ntoa(*(in_addr *)&host), port);
 
 
-		Socket *sock = g_Nepenthes->getSocketMgr()->connectTCPHost(0,host,port,30);
+		Socket *sock = g_Nepenthes->getSocketMgr()->connectTCPHost((*msg)->getLocalHost(),host,port,30);
 		DialogueFactory *diaf;
 		if ((diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL)
 		{

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Packet.cpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: Packet.cpp 2001 2005-09-27 13:54:35Z common $ */
 #include <string.h>
 #include <stdlib.h>
 
@@ -49,7 +49,7 @@ char *Packet::getData()
 {
 	return m_Data;
 }
-uint32_t Packet::getLength()
+uint32_t Packet::getSize()
 {
 	return m_Length;
 }

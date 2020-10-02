@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_wins_hs_bind.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: sch_wins_hs_bind.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
@@ -114,7 +114,7 @@ sch_result HATSQUADBind::handleShellcode(Message **msg)
 {
 	logPF();
 	char *shellcode = (*msg)->getMsg();
-	uint32_t len = (*msg)->getMsgLen();
+	uint32_t len = (*msg)->getSize();
 
 	int32_t piOutput[10 * 3];
 	int32_t iResult; 

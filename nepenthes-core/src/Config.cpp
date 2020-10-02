@@ -25,9 +25,10 @@
  *
  *******************************************************************************/
 
-/* $Id: Config.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: Config.cpp 2155 2005-11-11 20:09:00Z common $ */
 
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "Config.hpp"
 
@@ -67,7 +68,7 @@ Config::~Config()
 }
 
 
-// drone.identity.nick
+
 // char *strsep(char **stringp, const char *delim);
 ConfigItem *Config::findKey(const char *key)
 {

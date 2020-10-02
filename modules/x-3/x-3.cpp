@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-3.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: x-3.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 
 #include <fcntl.h>
@@ -74,7 +74,7 @@ X3::X3(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-3";
 	m_ModuleDescription = "eXample Module 3 -download handler example-";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 2001 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="urandom download handler";
@@ -213,9 +213,9 @@ void X3Download::setDownload(Download *down)
  */
 ConsumeLevel X3Download::incomingData(Message *msg)
 {
-	logInfo("read %i bytes from %s \n",msg->getMsgLen(), m_Download->getDownloadUrl()->getPath().c_str());
-	m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getMsgLen());
-	if(m_Download->getDownloadBuffer()->getLength() < m_Download->getDownloadUrl()->getPort())
+	logInfo("read %i bytes from %s \n",msg->getSize(), m_Download->getDownloadUrl()->getPath().c_str());
+	m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getSize());
+	if(m_Download->getDownloadBuffer()->getSize() < m_Download->getDownloadUrl()->getPort())
         return CL_ASSIGN;
 
 	msg->getSocket()->getNepenthes()->getSubmitMgr()->addSubmission(m_Download);

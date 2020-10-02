@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: TCPSocket.hpp 1952 2005-09-09 21:18:37Z common $ */
+/* $Id: TCPSocket.hpp 2046 2005-10-04 18:12:20Z common $ */
 
 #include "Socket.hpp"
 #include "Responder.hpp"
@@ -38,9 +38,9 @@ namespace nepenthes
 	class TCPSocket : public Socket
 	{
 public:
-	TCPSocket(Nepenthes *nepenthes, uint32_t localaddress, int32_t port, time_t bindtimeout, time_t accepttimeout);	// bind socket 
-	TCPSocket(Nepenthes *nepenthes, int32_t socket, uint32_t localhost, int32_t localport, uint32_t  remotehost,int32_t remoteport, time_t accepttimeout); // accept socket
-	TCPSocket(Nepenthes *nepenthes,uint32_t localhost, uint32_t remotehost, int32_t remoteport, time_t connectiontimeout);	// connect with timeout
+	TCPSocket(Nepenthes *nepenthes, uint32_t localaddress, uint16_t port, time_t bindtimeout, time_t accepttimeout);	// bind socket 
+	TCPSocket(Nepenthes *nepenthes, int32_t socket, uint32_t localhost, uint16_t localport, uint32_t  remotehost,uint16_t remoteport, time_t accepttimeout); // accept socket
+	TCPSocket(Nepenthes *nepenthes,uint32_t localhost, uint32_t remotehost, uint16_t remoteport, time_t connectiontimeout);	// connect with timeout
 	~TCPSocket();
 		bool bindPort();
 		bool Init();

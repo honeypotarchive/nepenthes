@@ -25,13 +25,13 @@
  *
  *******************************************************************************/
 
-/* $Id: POLLSocket.cpp 1952 2005-09-09 21:18:37Z common $ */
+/* $Id: POLLSocket.cpp 1974 2005-09-14 10:57:28Z common $ */
 
 #include "POLLSocket.hpp"
 
 using namespace nepenthes;
 
-POLLSocket::POLLSocket(Nepenthes *nepenthes)
+POLLSocket::POLLSocket()
 {
 	m_Type = ST_POLL|ST_CONNECT|ST_NODEL;
 	m_Status = SS_CONNECTED;

@@ -25,12 +25,18 @@
  *
  *******************************************************************************/
 
-/* $Id: Manager.cpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: Manager.cpp 2045 2005-10-04 17:46:04Z common $ */
 
 #include "Manager.hpp"
 
 using namespace nepenthes;
 
+
+/**
+ * get the Nepenthes
+ * 
+ * @return returns pointer to the nepenthes
+ */
 Nepenthes *Manager::getNepenthes()
 {
 	return m_Nepenthes;

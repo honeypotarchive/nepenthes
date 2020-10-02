@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: OPTIXShellDialogue.cpp 1956 2005-09-10 15:32:08Z common $ */
+ /* $Id: OPTIXShellDialogue.cpp 2096 2005-10-23 18:59:41Z common $ */
 
 #include "vuln-optix.hpp"
 #include "OPTIXShellDialogue.hpp"
@@ -85,7 +85,7 @@ OPTIXShellDialogue::~OPTIXShellDialogue()
  */
 ConsumeLevel OPTIXShellDialogue::incomingData(Message *msg)
 {
-	m_Buffer->add(msg->getMsg(),msg->getMsgLen());
+	m_Buffer->add(msg->getMsg(),msg->getSize());
 
 	switch(m_State)
 	{
@@ -116,7 +116,7 @@ ConsumeLevel OPTIXShellDialogue::incomingData(Message *msg)
 
 				// this will just open the optix downloadmanagers bind socket it its closed
 				
-				g_Nepenthes->getDownloadMgr()->downloadUrl("optix://localhost:500/file",msg->getRemoteHost(),"optix foobar",0);
+				g_Nepenthes->getDownloadMgr()->downloadUrl(msg->getLocalHost(),"optix://localhost:500/file",msg->getRemoteHost(),"optix foobar",0);
 			}
         }
 		break;

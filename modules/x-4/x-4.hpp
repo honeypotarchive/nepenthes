@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-4.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: x-4.hpp 2059 2005-10-07 16:18:57Z common $ */
 
 #include "Module.hpp"
 #include "ModuleManager.hpp"
@@ -39,6 +39,11 @@ using namespace std;
 namespace nepenthes
 {
 
+	/**
+	 * X4
+	 * eXample SubmitHandler
+	 * will hexdump the submission to stdout
+	 */
 	class X4 : public Module , public SubmitHandler
 	{
 	public:

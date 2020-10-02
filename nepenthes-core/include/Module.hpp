@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Module.hpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: Module.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_MODULE_HPP
 #define HAVE_MODULE_HPP
@@ -47,6 +47,9 @@ namespace nepenthes
 	class Nepenthes;
 
 
+	/**
+	 * quite everything in nepenthes is a module, are you?
+	 */
     class Module 
     {
     public:

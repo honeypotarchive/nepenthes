@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DialogueFactory.hpp 1685 2005-07-24 01:09:11Z common $ */
+/* $Id: DialogueFactory.hpp 2043 2005-10-04 15:59:52Z common $ */
 #ifndef HAVE_DIALOGUEFACTORY_HPP
 #define HAVE_DIALOGUEFACTORY_HPP
 
@@ -38,6 +38,11 @@ namespace nepenthes
 	class Socket;
 	class Dialogue;
 
+	/**
+	 * whenever we bind a Socket, we have to assign a DialogueFactory.
+	 * the dialogueFactory will create Dialogues for accepted() connections
+	 * and assign this fresh Dialogue to the new Socket
+	 */
 	class DialogueFactory
     {
     public:

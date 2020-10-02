@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-norman.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: submit-norman.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 
 #include "submit-norman.hpp"
@@ -66,7 +66,7 @@ SubmitNorman::SubmitNorman(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-norman";
 	m_ModuleDescription = "submit files to sandbox.norman.no";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 2001 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-norman";
@@ -161,7 +161,7 @@ void SubmitNorman::Submit(Download *down)
     	m_Events.set(EV_TIMEOUT);
 	CURL *curl;
 
-	NormanContext *norm = new NormanContext((char *)m_Email.c_str(),down->getDownloadUrl()->getFile(),down->getDownloadBuffer()->getLength(),
+	NormanContext *norm = new NormanContext((char *)m_Email.c_str(),down->getDownloadUrl()->getFile(),down->getDownloadBuffer()->getSize(),
 										   down->getDownloadBuffer()->getData(), (char *)down->getMD5Sum().c_str());
 	curl = curl_easy_init();
 	if ( curl )

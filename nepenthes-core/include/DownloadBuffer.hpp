@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DownloadBuffer.hpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: DownloadBuffer.hpp 2043 2005-10-04 15:59:52Z common $ */
 #ifndef HAVE_DOWNLOADBUFFER_HPP
 #define HAVE_DOWNLOADBUFFER_HPP
 
@@ -36,6 +36,9 @@ using namespace std;
 
 namespace nepenthes
 {
+	/**
+	 * if we download something, we use this buffer class to store the result
+	 */
 	class DownloadBuffer
 	{
 	public:
@@ -44,7 +47,7 @@ namespace nepenthes
 		virtual ~DownloadBuffer();
 		virtual bool addData(char *pszData, uint32_t iDataLen);
 		virtual char *getData();
-		virtual uint32_t getLength();
+		virtual uint32_t getSize();
 		virtual bool cutFront(uint32_t len);
 	private:
 		char 		*m_Buffer;

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: XMLRPCContext.hpp 1915 2005-08-26 12:58:38Z md $ */
+ /* $Id: XMLRPCContext.hpp 2078 2005-10-11 20:43:28Z common $ */
 
 namespace nepenthes
 {
@@ -34,9 +34,9 @@ namespace nepenthes
 		CS_INIT_SESSION,
 		CS_OFFER_MALWARE,
 		CS_SEND_MALWARE,
-		CS_LOG_DOWNLOAD_SUCCESS,
-		CS_LOG_DOWNLOAD_ATTEMPT
 	} rpcctx_state;
+
+	class GeoLocationResult;
 
 	class XMLRPCContext
 	{
@@ -45,8 +45,13 @@ namespace nepenthes
 		~XMLRPCContext();
 		rpcctx_state getState();
 		void setState(rpcctx_state state);
-		string getRequest(bool pipeline);
+		string getRequest();
 		void setSessionID(char *sessionid);
+
+#ifdef HAVE_GEOLOCATION
+		void setLocation(GeoLocationResult *result);
+#endif
+
 	protected:
 		string m_MD5Sum;
 		string m_DownloadURL;
@@ -54,6 +59,14 @@ namespace nepenthes
 		unsigned char *m_FileBuffer;
 		uint32_t 	m_FileSize;
 		uint32_t	m_AttackerIP;
+		float 		m_AttackerLatitude;
+		float 		m_AttackerLongitude;
+
+#ifdef HAVE_GEOLOCATION
+		string 		m_AttackerCity;
+		string 		m_AttackerCountryShort;
+		string 		m_AttackerCountryLong;
+#endif
 
 		rpcctx_state m_State;
 		string m_SessionID;

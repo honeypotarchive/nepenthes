@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_konstanz_xor.cpp 1927 2005-08-27 21:56:59Z dp $ */ 
+/* $Id: sch_generic_konstanz_xor.cpp 2001 2005-09-27 13:54:35Z common $ */ 
 
 #include "sch_generic_konstanz_xor.hpp"
 #include "Nepenthes.hpp"
@@ -91,11 +91,11 @@ bool KonstanzXOR::Exit()
 sch_result KonstanzXOR::handleShellcode(Message **msg)
 {
 	logPF();
-	logSpam("Shellcode is %i bytes long \n",(*msg)->getMsgLen());
+	logSpam("Shellcode is %i bytes long \n",(*msg)->getSize());
 
 
 	unsigned char *shellcode = (unsigned char *)(*msg)->getMsg();
-	uint32_t len = (*msg)->getMsgLen();
+	uint32_t len = (*msg)->getSize();
 
 	int32_t offvec[10 * 3];
 	int32_t result;

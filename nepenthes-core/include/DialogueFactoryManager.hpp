@@ -24,7 +24,7 @@
  *             contact nepenthesdev@users.sourceforge.net  
  *
  *******************************************************************************/
-/* $Id: DialogueFactoryManager.hpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: DialogueFactoryManager.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_DIALOGUEFACTORYMANAGER_HPP
 #define HAVE_DIALOGUEFACTORYMANAGER_HPP
@@ -43,6 +43,14 @@ namespace nepenthes
 	class DialogueFactory;
 	class Nepenthes;
 
+	/**
+	 * Some DialogueFactories are independent, for example 
+	 * the "WintNTShell"
+	 * if you want to register a independent DialogueFactory so you can use it in a 
+	 * different module, register it here.
+	 * then ask the DialogueFactoryManager for the registerd DialogueFactory 
+	 * in the other module, and your done.
+	 */
 	class DialogueFactoryManager : public Manager
 	{
 	public:

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-nepenthes.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: submit-nepenthes.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include <arpa/inet.h>
 
@@ -67,7 +67,7 @@ SubmitNepenthes::SubmitNepenthes(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-nepenthes";
 	m_ModuleDescription = "give new toys to good friends";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 2001 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-nepenthes";
@@ -147,7 +147,7 @@ void SubmitNepenthes::Submit(Download *down)
 
 	socket->addDialogue(new SubmitNepenthesDialogue(socket,
 													down->getDownloadBuffer()->getData(),
-													down->getDownloadBuffer()->getLength(),
+													down->getDownloadBuffer()->getSize(),
 													(char *)down->getMD5Sum().c_str()
 													)
 						);

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: IISDialogue.cpp 1697 2005-07-26 01:25:55Z common $ */
+ /* $Id: IISDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include <ctype.h>
 
@@ -101,7 +101,7 @@ IISDialogue::~IISDialogue()
  */
 ConsumeLevel IISDialogue::incomingData(Message *msg)
 {
-	m_Buffer->add(msg->getMsg(),msg->getMsgLen());
+	m_Buffer->add(msg->getMsg(),msg->getSize());
 //	g_Nepenthes->getUtilities()->hexdump(STDTAGS,(byte *) m_Buffer->getData(), m_Buffer->getSize());
 
 	// FIXME this can only recognize urldownloadtofile foobar

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: NETDDEDialogue.cpp 1959 2005-09-10 15:59:27Z common $ */
+ /* $Id: NETDDEDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include <ctype.h>
 
@@ -99,7 +99,7 @@ NETDDEDialogue::~NETDDEDialogue()
  */
 ConsumeLevel NETDDEDialogue::incomingData(Message *msg)
 {
-	m_Buffer->add(msg->getMsg(),msg->getMsgLen());
+	m_Buffer->add(msg->getMsg(),msg->getSize());
 
 	switch (m_State)
 	{

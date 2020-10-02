@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CSendDownloadHandler.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: CSendDownloadHandler.cpp 2102 2005-10-25 08:36:48Z common $ */
 
 
 #include <fcntl.h>
@@ -57,7 +57,7 @@ CSendDownloadHandler::CSendDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "CSend Download Module";
 	m_ModuleDescription = "provides a downloadhandler for tcp protocol";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 2102 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="csend download handler";
@@ -113,7 +113,7 @@ bool CSendDownloadHandler::download(Download *down)
 	int32_t Port = down->getDownloadUrl()->getPort();
 	uint32_t Host = inet_addr(down->getDownloadUrl()->getHost().c_str());
 
-	Socket *socket = m_Nepenthes->getSocketMgr()->connectTCPHost(INADDR_ANY,Host,Port,m_ConnectTimeout);
+	Socket *socket = m_Nepenthes->getSocketMgr()->connectTCPHost(down->getLocalHost(),Host,Port,m_ConnectTimeout);
 
 	Dialogue *dia = createDialogue(socket);
     ((CSendDialogue*)dia)->setDownload(down);

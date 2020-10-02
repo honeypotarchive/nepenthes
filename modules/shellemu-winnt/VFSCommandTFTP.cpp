@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandTFTP.cpp 1956 2005-09-10 15:32:08Z common $ */
+/* $Id: VFSCommandTFTP.cpp 2096 2005-10-23 18:59:41Z common $ */
 
 #include "VFSCommandTFTP.hpp"
 #include "VFSNode.hpp"
@@ -75,10 +75,12 @@ int32_t VFSCommandTFTP::run(vector<string> *paramlist)
 	logDebug("vfs command %s \n",url.c_str());
 
 	uint32_t remotehost=0;
+	uint32_t localhost=0;
 	if (m_VFS->getDialogue()->getSocket() != NULL)
 	{
 		remotehost = m_VFS->getDialogue()->getSocket()->getRemoteHost();
+		localhost = m_VFS->getDialogue()->getSocket()->getLocalHost();
 	}
-	g_Nepenthes->getDownloadMgr()->downloadUrl((char *)url.c_str(),remotehost,(char *)url.c_str(),0);
+	g_Nepenthes->getDownloadMgr()->downloadUrl(localhost,(char *)url.c_str(),remotehost,(char *)url.c_str(),0);
     return 0;
 }

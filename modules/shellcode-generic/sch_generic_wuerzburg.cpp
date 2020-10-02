@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_wuerzburg.cpp 1956 2005-09-10 15:32:08Z common $ */
+ /* $Id: sch_generic_wuerzburg.cpp 2096 2005-10-23 18:59:41Z common $ */
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -121,7 +121,7 @@ sch_result Wuerzburg::handleShellcode(Message **msg)
 {
 	logPF();
 	char *shellcode = (*msg)->getMsg();
-	uint32_t len = (*msg)->getMsgLen();
+	uint32_t len = (*msg)->getSize();
 
 	int32_t ovec[10 * 3];
 	int32_t matchCount; 
@@ -149,7 +149,7 @@ sch_result Wuerzburg::handleShellcode(Message **msg)
 		char *url;
 
 		asprintf(&url,"csend://%s:%d",inet_ntoa(*(in_addr *)&address), port);
-		g_Nepenthes->getDownloadMgr()->downloadUrl(url, (*msg)->getRemoteHost(), url,0);
+		g_Nepenthes->getDownloadMgr()->downloadUrl((*msg)->getLocalHost(),url, (*msg)->getRemoteHost(), url,0);
 		free(url);
 
 //		Socket *sock = g_Nepenthes->getSocketMgr()->connectTCPHost(0,address,port,30);

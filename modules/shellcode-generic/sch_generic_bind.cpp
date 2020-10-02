@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_bind.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: sch_generic_bind.cpp 2096 2005-10-23 18:59:41Z common $ */
 
 #include <netinet/in.h>
 
@@ -114,15 +114,23 @@ bool GenericBind::Init()
 
 bool GenericBind::Exit()
 {
+	logPF();
+	while(m_Pcres.size() > 0)
+	{
+		pcre_free(m_Pcres.front()->m_Pcre);
+		delete m_Pcres.front();
+		m_Pcres.pop_front();
+	}
+
 	return true;
 }
 
 sch_result GenericBind::handleShellcode(Message **msg)
 {
 	logPF();
-	logSpam("Shellcode is %i bytes long \n",(*msg)->getMsgLen());
+	logSpam("Shellcode is %i bytes long \n",(*msg)->getSize());
 	char *shellcode = (*msg)->getMsg();
-	uint32_t len = (*msg)->getMsgLen();
+	uint32_t len = (*msg)->getSize();
 
 	int32_t output[10 * 3];
 

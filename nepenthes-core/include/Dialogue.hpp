@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Dialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
+/* $Id: Dialogue.hpp 2043 2005-10-04 15:59:52Z common $ */
 
 #ifndef HAVE_DIALOGUE_HPP
 #define HAVE_DIALOGUE_HPP
@@ -42,6 +42,8 @@ namespace nepenthes
     class Nepenthes;
     class Message;
 
+	/**
+	 */
 	typedef enum
 	{
 		CL_DROP,
@@ -52,6 +54,12 @@ namespace nepenthes
 	} ConsumeLevel;
 
 
+
+	/**
+	 * whenever we want to interact with a Socket, we assign a Dialogue.
+	 * the Dialogue implements the protocol the socket speaks
+	 * multiple Dialogues can be assigned to a Socket
+	 */
     class Dialogue
     {
     public:

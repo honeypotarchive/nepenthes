@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-4.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: x-4.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include "x-4.hpp"
 #include "Download.hpp"
@@ -61,7 +61,7 @@ X4::X4(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-4";
 	m_ModuleDescription = "eXample Module 4 -submit handler example-";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 2001 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "hexdump";
@@ -118,7 +118,7 @@ bool X4::Exit()
  */
 void X4::Submit(Download *down)
 {
-	m_Nepenthes->getUtilities()->hexdump((byte *)down->getDownloadBuffer()->getData(),down->getDownloadBuffer()->getLength());
+	m_Nepenthes->getUtilities()->hexdump((byte *)down->getDownloadBuffer()->getData(),down->getDownloadBuffer()->getSize());
 }
 
 /**

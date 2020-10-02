@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: WINSDialogue.cpp 1956 2005-09-10 15:32:08Z common $ */
+ /* $Id: WINSDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
 
 #include "WINSDialogue.hpp"
 #include "Message.hpp"
@@ -70,7 +70,7 @@ WINSDialogue::~WINSDialogue()
 ConsumeLevel WINSDialogue::incomingData(Message *msg)
 {
 	logPF();
-	m_Buffer->add(msg->getMsg(),msg->getMsgLen());
+	m_Buffer->add(msg->getMsg(),msg->getSize());
 
 
 	switch (m_State)

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DownloadUrl.hpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: DownloadUrl.hpp 2051 2005-10-05 16:46:29Z common $ */
 
 #ifndef HAVE_DOWNLOADURL_HPP
 #define HAVE_DOWNLOADURL_HPP
@@ -38,6 +38,23 @@ using namespace std;
 
 namespace nepenthes
 {
+
+
+	/**
+	 * protocoll/port mapping for various protocols
+	 */
+	typedef struct portTable
+	{
+		const char      *protocolName;
+		uint16_t         port;
+	};
+
+
+	/**
+	 * the download url
+	 * splits up a url in its parts
+	 * you can query each part
+	 */
 	class DownloadUrl
 	{
 	public:

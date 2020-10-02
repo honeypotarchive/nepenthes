@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-5.hpp 1926 2005-08-27 20:52:47Z dp $ */
+ /* $Id: x-5.hpp 2055 2005-10-06 19:49:38Z common $ */
 
 #include "Module.hpp"
 #include "ModuleManager.hpp"
@@ -38,6 +38,10 @@ using namespace std;
 namespace nepenthes
 {
 
+	/**
+	 * X5
+	 * eXample EventHandler
+     */
 	class X5 : public Module , public EventHandler
 	{
 	public:
