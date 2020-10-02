@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: dnsresolve-adns.cpp 2075 2005-10-11 15:47:43Z common $ */
+ /* $Id: dnsresolve-adns.cpp 2192 2005-12-01 20:11:14Z common $ */
 
 #include <sys/poll.h>
 #include <errno.h>
@@ -56,6 +56,10 @@ Nepenthes *g_Nepenthes;
 
 DNSResolverADNS::DNSResolverADNS(Nepenthes *nepenthes)
 {
+	m_ModuleName        = "dnsresolve-adns";
+	m_ModuleDescription = "resolve dns async";
+	m_ModuleRevision    = "$rev$";
+
 	m_DNSHandlerName = "DNSResolverADNS";
 	m_Queue = 0;
 

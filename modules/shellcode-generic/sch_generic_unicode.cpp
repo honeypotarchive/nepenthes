@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_unicode.cpp 2140 2005-11-03 14:44:02Z common $ */
+/* $Id: sch_generic_unicode.cpp 2186 2005-11-27 01:56:48Z common $ */
 
 
 #include "sch_generic_unicode.hpp"
@@ -127,17 +127,18 @@ sch_result GenericUniCode::handleShellcode(Message **msg)
 	}
 
 
-	logSpam("Got %i 00  %i -> %i bytes \n",maxuni,maxstart,maxstopp);
+	
 
 	if ( maxuni > 2000 )
 	{
-
+		logInfo("Got unicode Exploit %i 00  %i -> %i bytes \n",maxuni,maxstart,maxstopp);
 
 		byte *output;
         uint32_t outputLen=0;
 
 		unicodeTryDecode(shellcode, len, &output, &outputLen);
 
+//		g_Nepenthes->getUtilities()->hexdump(l_crit, output, outputLen);			
 
 		Message *newMessage = new Message((char *)output, outputLen, (*msg)->getLocalPort(), (*msg)->getRemotePort(),
 										  (*msg)->getLocalHost(), (*msg)->getRemoteHost(), (*msg)->getResponder(), (*msg)->getSocket());

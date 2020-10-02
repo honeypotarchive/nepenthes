@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: FileLogger.hpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: FileLogger.hpp 2185 2005-11-26 18:41:16Z common $ */
 
 #ifndef FILELOFFER_HPP
 #define FILELOFFER_HPP
@@ -47,7 +47,7 @@ namespace nepenthes
 		virtual void	setLogFile(const char *filename);
 
 	private:
-		const char		*m_Filename;
+		char		*m_Filename;
 	};
 
 }

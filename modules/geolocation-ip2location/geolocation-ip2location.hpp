@@ -25,21 +25,16 @@
  *
  *******************************************************************************/
 
- /* $Id: geolocation-ip2location.hpp 2078 2005-10-11 20:43:28Z common $ */
+ /* $Id: geolocation-ip2location.hpp 2190 2005-12-01 20:09:59Z common $ */
 
 
 #include "config.h"
 
 #ifdef HAVE_GEOLOCATION
 
-#ifdef HAVE_LIBIP2LOCATION_H
-#include <Ip2Location.h>
+#ifdef HAVE_LIBIP2LOCATION
+#include <IP2Location.h>
 #endif
-
-extern "C"
-{
-    #include "Ip2Location.h"
-}
 
 #include "Module.hpp"
 #include "ModuleManager.hpp"
@@ -67,9 +62,9 @@ namespace nepenthes
 		bool geoLocate(GeoLocationQuery *query);
 
 	private:
-//#ifdef HAVE_LIBIP2LOCATION_H
-		Ip2Location *m_Ip2Location;
-//#endif
+#ifdef HAVE_LIBIP2LOCATION
+		IP2Location *m_Ip2Location;
+#endif
 
 	};
 }

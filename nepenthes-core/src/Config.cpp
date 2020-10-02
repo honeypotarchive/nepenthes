@@ -25,10 +25,11 @@
  *
  *******************************************************************************/
 
-/* $Id: Config.cpp 2155 2005-11-11 20:09:00Z common $ */
+/* $Id: Config.cpp 2194 2005-12-01 20:13:02Z common $ */
 
 #include <stdlib.h>
 #include <ctype.h>
+#include <stdio.h>
 
 #include "Config.hpp"
 

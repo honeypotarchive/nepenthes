@@ -26,7 +26,7 @@
  *******************************************************************************/
 
 
-/* $Id: sch_generic_cmd.cpp 2001 2005-09-27 13:54:35Z common $ */
+/* $Id: sch_generic_cmd.cpp 2178 2005-11-26 15:01:27Z common $ */
 
 
 
@@ -63,7 +63,7 @@ GenericCMD::~GenericCMD()
 
 bool GenericCMD::Init()
 {
-	const char *createprocesspcre = ".*(cmd.*/.*\\x00).*";
+	const char *createprocesspcre = ".*(cmd.* /.*\\x00).*";
 	const char * pcreEerror;
 	int32_t pcreErrorPos;
 	if((m_pcre = pcre_compile(createprocesspcre, PCRE_DOTALL, &pcreEerror, &pcreErrorPos, 0)) == NULL)

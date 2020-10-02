@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: FileLogger.cpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: FileLogger.cpp 2185 2005-11-26 18:41:16Z common $ */
 
 #ifdef WIN32
 #include <time.h>
@@ -51,12 +51,18 @@ FileLogger::FileLogger(LogManager *lm) //: LogHandler(lm)
 
 FileLogger::~FileLogger()
 {
+	if( m_Filename != NULL)
+		free(m_Filename);
+	
 }
 
 
 void FileLogger::setLogFile(const char *filename)
 {
-	m_Filename = filename;
+	if( m_Filename != NULL)
+		free(m_Filename);
+
+	m_Filename = strdup(filename);
 }
 
 

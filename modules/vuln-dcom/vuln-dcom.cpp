@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-dcom.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-dcom.cpp 2184 2005-11-26 17:52:46Z common $ */
 
 
 #include <ctype.h>
@@ -59,7 +59,7 @@ DCOMVuln::DCOMVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-dcom";
 	m_ModuleDescription = "emulate the dcom vuln";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 2184 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "dcom vuln Factory";
@@ -110,7 +110,9 @@ bool DCOMVuln::Init()
 // removed as they were not seen during the last 2 month and need a new pcre
 //	m_ShellcodeHandlers.push_back( new SOL2KBind	(m_Nepenthes->getShellcodeMgr())); 
 //	m_ShellcodeHandlers.push_back( new SOL2KConnect	(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back( new OC192Bind	(m_Nepenthes->getShellcodeMgr()));
+
+// replaced by adenau xor & Parthenstein Bind
+//	m_ShellcodeHandlers.push_back( new OC192Bind	(m_Nepenthes->getShellcodeMgr()));
 
 
 	list <ShellcodeHandler *>::iterator handler;

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: XMLRPCParser.cpp 2093 2005-10-19 12:05:22Z dp $ */
+ /* $Id: XMLRPCParser.cpp 2193 2005-12-01 20:12:10Z common $ */
 
  
 #ifndef _GNU_SOURCE
@@ -38,7 +38,7 @@
 #include <assert.h>
 #include <ctype.h>
 #include <stdint.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 
 #ifndef HAVE_STRNDUP
