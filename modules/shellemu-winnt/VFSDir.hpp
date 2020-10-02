@@ -25,12 +25,13 @@
  *
  *******************************************************************************/
 
- /* $Id: VFSDir.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: VFSDir.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include <list>
 #include <string>
 
 #include "VFSNode.hpp"
+#include <stdint.h>
 
 using namespace std;
 
@@ -50,7 +51,7 @@ namespace nepenthes
 		virtual VFSDir *createDirectory(char *dirname);
 		virtual VFSFile *getFile(char *filename);
 
-		virtual VFSFile *createFile(char *name, char *data, unsigned int len);
+		virtual VFSFile *createFile(char *name, char *data, uint32_t len);
 		virtual list <VFSNode *> *getList();
 		virtual VFSCommand *createCommand(VFSCommand *command);
 	};

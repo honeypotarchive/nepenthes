@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandECHO.cpp 1644 2005-07-14 16:19:15Z dp $ */ 
+/* $Id: VFSCommandECHO.cpp 1927 2005-08-27 21:56:59Z dp $ */ 
 
 #include "VFSCommandECHO.hpp"
 #include "VFSNode.hpp"
@@ -50,7 +50,7 @@ VFSCommandECHO::~VFSCommandECHO()
 
 } 
 
-int VFSCommandECHO::run(vector<string> *paramlist)
+int32_t VFSCommandECHO::run(vector<string> *paramlist)
 {
 	m_VFS->getStdOut()->clear();
 	vector<string>::iterator it;

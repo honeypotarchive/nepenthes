@@ -26,7 +26,7 @@
  *******************************************************************************/
 
 
-/* $Id: VFSFile.cpp 1644 2005-07-14 16:19:15Z dp $ */ 
+/* $Id: VFSFile.cpp 1926 2005-08-27 20:52:47Z dp $ */ 
 
 #include "Buffer.hpp"
 #include "Buffer.cpp"
@@ -38,7 +38,7 @@
 using namespace nepenthes;
 using namespace std;
 
-VFSFile::VFSFile(VFSNode *parentnode, char *name, char *data, unsigned int len)
+VFSFile::VFSFile(VFSNode *parentnode, char *name, char *data, uint32_t len)
 {
 	m_ParentNode = parentnode;
 	if (len == 0)
@@ -55,7 +55,7 @@ VFSFile::~VFSFile()
 	delete m_Buffer;
 }
 
-unsigned int VFSFile::addData(char *data, unsigned int len)
+uint32_t VFSFile::addData(char *data, uint32_t len)
 {
 	m_Buffer->add(data,len);
 	return 0;
@@ -71,7 +71,7 @@ void VFSFile::truncateFile()
 	m_Buffer->clear();
 }
 
-unsigned int VFSFile::getSize()
+uint32_t VFSFile::getSize()
 {
 	return m_Buffer->getSize();
 }

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-curl.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: download-curl.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include "download-curl.hpp"
 #include "LogManager.hpp"
@@ -53,7 +53,7 @@ CurlDownloadHandler::CurlDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "Curl Download Module";
 	m_ModuleDescription = "provides widly used protocols (http/ftp)";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "CurlDownloadHandlerEventHandler";
@@ -122,7 +122,7 @@ bool CurlDownloadHandler::Exit()
 	return true;
 }
 
-unsigned int CurlDownloadHandler::handleEvent(Event *event)
+uint32_t CurlDownloadHandler::handleEvent(Event *event)
 {
 //	logPF();
 	logSpam("<in %s> (%i downloads in queue)\n",__PRETTY_FUNCTION__,m_Queued);
@@ -132,7 +132,7 @@ unsigned int CurlDownloadHandler::handleEvent(Event *event)
 		return 1;
 	}
 
-	int iQueue=0;
+	int32_t iQueue=0;
 	while ( curl_multi_perform(m_CurlStack, &iQueue) == CURLM_CALL_MULTI_PERFORM );
 
 	if ( m_Queued > iQueue )
@@ -231,13 +231,13 @@ bool CurlDownloadHandler::download(Download *down)
 
 size_t CurlDownloadHandler::WriteCallback(char *buffer, size_t size, size_t nitems, void *userp)
 {
-	int iSize = size * nitems;
+	int32_t iSize = size * nitems;
 	Download *down = (Download *)userp;
 	down->getDownloadBuffer()->addData(buffer,iSize);
 	return iSize;
 }
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new CurlDownloadHandler(nepenthes);

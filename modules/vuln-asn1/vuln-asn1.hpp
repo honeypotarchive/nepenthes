@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-asn1.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-asn1.hpp 1923 2005-08-27 18:10:01Z dp $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -52,8 +52,8 @@ namespace nepenthes
 		bool Exit();
 
 	protected:
-		unsigned short m_SMBPort;
-		unsigned short m_IISPort;
+		uint16_t m_SMBPort;
+		uint16_t m_IISPort;
 		list <ShellcodeHandler *> m_ShellcodeHandlers;
 	};		
 

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: module-portwatch.cpp 1693 2005-07-26 00:05:41Z common $ */
+ /* $Id: module-portwatch.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -79,7 +79,7 @@ WatchModule::WatchModule(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "module-portwatch";
 	m_ModuleDescription = "look for activity on new ports";
-	m_ModuleRevision    = "$Rev: 1693 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Watch Factory";
@@ -112,7 +112,7 @@ bool WatchModule::Init()
 	}
 
 	StringList sList;
-	int timeout;
+	int32_t timeout;
 	try
 	{
 		sList = *m_Config->getValStringList("module-portwatch.ports");
@@ -123,7 +123,7 @@ bool WatchModule::Init()
 		return false;
 	}
 
-	unsigned int i = 0;
+	uint32_t i = 0;
 	while (i < sList.size())
 	{
 		m_Nepenthes->getSocketMgr()->bindTCPSocket(0,atoi(sList[i]),0,timeout,this);
@@ -155,7 +155,7 @@ Dialogue *WatchModule::createDialogue(Socket *socket)
 }
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new WatchModule(nepenthes);

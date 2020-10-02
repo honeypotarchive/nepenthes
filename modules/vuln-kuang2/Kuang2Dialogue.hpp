@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: Kuang2Dialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: Kuang2Dialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -62,13 +62,13 @@ namespace nepenthes
 {
 	typedef struct
 	{
-		unsigned int command;
+		uint32_t command;
 		union
 		{
 			char bdata[1024-4];
 			struct
 			{
-				unsigned int param;
+				uint32_t param;
 				char sdata[1024-8];
 			};
 		};
@@ -100,7 +100,7 @@ namespace nepenthes
 		Download *m_Download;
 
 		string m_FileName;
-		unsigned int m_FileSize;
+		uint32_t m_FileSize;
 	};
 }
 

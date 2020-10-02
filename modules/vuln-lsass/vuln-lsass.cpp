@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-lsass.cpp 1664 2005-07-15 03:33:39Z common $ */
+ /* $Id: vuln-lsass.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -76,7 +76,7 @@ LSASSVuln::LSASSVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-lsass2";
 	m_ModuleDescription = "modules provides lsass emulation";
-	m_ModuleRevision    = "$Rev: 1664 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "LSASSDialogue Factory";
@@ -111,7 +111,7 @@ bool LSASSVuln::Init()
 	}
 
 	StringList sList;
-	int timeout;
+	int32_t timeout;
 	try
 	{
 		sList = *m_Config->getValStringList("vuln-lsass.ports");
@@ -122,7 +122,7 @@ bool LSASSVuln::Init()
 		return false;
 	}
 
-	unsigned int i = 0;
+	uint32_t i = 0;
 	while (i < sList.size())
 	{
 		m_Nepenthes->getSocketMgr()->bindTCPSocket(0,atoi(sList[i]),0,timeout,this);
@@ -171,7 +171,7 @@ Dialogue *LSASSVuln::createDialogue(Socket *socket)
 }
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new LSASSVuln(nepenthes);

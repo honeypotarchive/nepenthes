@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-msmq.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-msmq.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -77,7 +77,7 @@ MSMQVuln::MSMQVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-msmq";
 	m_ModuleDescription = "provides Dialogue & factory for MS05-017";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "MSMQ Dialogue Factory";
@@ -110,7 +110,7 @@ bool MSMQVuln::Init()
 	}
 
 	StringList sList;
-	int timeout;
+	int32_t timeout;
 	try
 	{
 		sList = *m_Config->getValStringList("vuln-msmq.ports");
@@ -121,7 +121,7 @@ bool MSMQVuln::Init()
 		return false;
 	}
 
-	unsigned int i = 0;
+	uint32_t i = 0;
 	while (i < sList.size())
 	{
 		m_Nepenthes->getSocketMgr()->bindTCPSocket(0,atoi(sList[i]),0,timeout,this);
@@ -173,7 +173,7 @@ Dialogue *MSMQVuln::createDialogue(Socket *socket)
 
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new MSMQVuln(nepenthes);

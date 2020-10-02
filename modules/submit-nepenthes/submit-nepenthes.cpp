@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-nepenthes.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: submit-nepenthes.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <arpa/inet.h>
 
@@ -67,7 +67,7 @@ SubmitNepenthes::SubmitNepenthes(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-nepenthes";
 	m_ModuleDescription = "give new toys to good friends";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-nepenthes";
@@ -166,7 +166,7 @@ void SubmitNepenthes::Hit(Download *down)
 	return;
 }
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if(version == MODULE_IFACE_VERSION)
 	{

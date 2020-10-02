@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SubmitNepenthesDialogue.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: SubmitNepenthesDialogue.cpp 1926 2005-08-27 20:52:47Z dp $ */
  
 #include "SubmitNepenthesDialogue.hpp"
 #include "Message.hpp"
@@ -42,7 +42,7 @@ using namespace nepenthes;
  * 
  * @param socket the Socket the Dialogue has to use
  */
-SubmitNepenthesDialogue::SubmitNepenthesDialogue(Socket *socket, char *file, unsigned int len, char *md5sum)
+SubmitNepenthesDialogue::SubmitNepenthesDialogue(Socket *socket, char *file, uint32_t len, char *md5sum)
 {
 	m_Socket = socket;
     m_DialogueName = "SubmitNepenthesDialogue";

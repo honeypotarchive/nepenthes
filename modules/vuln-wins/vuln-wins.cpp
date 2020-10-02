@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-wins.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-wins.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -61,7 +61,7 @@ WINSVuln::WINSVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-wins";
 	m_ModuleDescription = "emulate the wins vuln";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "wins vuln Factory";
@@ -91,7 +91,7 @@ bool WINSVuln::Init()
 	}
 
 	StringList sList;
-	int timeout;
+	int32_t timeout;
 	try
 	{
 		sList = *m_Config->getValStringList("vuln-wins.ports");
@@ -102,7 +102,7 @@ bool WINSVuln::Init()
 		return false;
 	}
 
-	unsigned int i = 0;
+	uint32_t i = 0;
 	while (i < sList.size())
 	{
 		m_Nepenthes->getSocketMgr()->bindTCPSocket(0,atoi(sList[i]),0,timeout,this);
@@ -151,7 +151,7 @@ Dialogue *WINSVuln::createDialogue(Socket *socket)
 	return new WINSDialogue(socket);
 }
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new WINSVuln(nepenthes);

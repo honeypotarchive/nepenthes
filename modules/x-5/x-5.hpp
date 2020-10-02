@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-5.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: x-5.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include "Module.hpp"
 #include "ModuleManager.hpp"
@@ -46,7 +46,7 @@ namespace nepenthes
 		bool Init();
 		bool Exit();
 
-		unsigned int handleEvent(Event *event);
+		uint32_t handleEvent(Event *event);
 	};
 
 }

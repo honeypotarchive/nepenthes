@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-download.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: log-download.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include <stdio.h>
 
@@ -51,7 +51,7 @@ namespace nepenthes
 		bool Init();
 		bool Exit();
 
-		unsigned int handleEvent(Event *event);
+		uint32_t handleEvent(Event *event);
 
 	protected:
 		FILE *m_DownloadFile;

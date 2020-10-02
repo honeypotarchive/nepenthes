@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandTFTP.cpp 1771 2005-08-03 21:44:07Z common $ */
+/* $Id: VFSCommandTFTP.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include "VFSCommandTFTP.hpp"
 #include "VFSNode.hpp"
@@ -53,7 +53,7 @@ VFSCommandTFTP::~VFSCommandTFTP()
 
 } 
 
-int VFSCommandTFTP::run(vector<string> *paramlist)
+int32_t VFSCommandTFTP::run(vector<string> *paramlist)
 { // "tftp.exe -i 84.60.21.184 get IExplore327.exe"
 
 	vector <string> slist = *paramlist;
@@ -69,7 +69,7 @@ int VFSCommandTFTP::run(vector<string> *paramlist)
 
 	logInfo("vfs command %s \n",url.c_str());
 
-	unsigned long remotehost=0;
+	uint32_t remotehost=0;
 	if (m_VFS->getDialogue()->getSocket() != NULL)
 	{
 		remotehost = m_VFS->getDialogue()->getSocket()->getRemoteHost();

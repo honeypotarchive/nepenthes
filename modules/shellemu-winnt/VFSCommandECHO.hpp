@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: VFSCommandECHO.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: VFSCommandECHO.hpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include "VFSCommand.hpp"
 
@@ -36,6 +36,6 @@ namespace nepenthes
 	public:
 		VFSCommandECHO(VFSNode *parent,VFS *vfs);
 		~VFSCommandECHO();
-    	int run(vector<string> *paramlist);
+    	int32_t run(vector<string> *paramlist);
 	};
 }

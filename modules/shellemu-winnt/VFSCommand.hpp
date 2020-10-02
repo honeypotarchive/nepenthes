@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: VFSCommand.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: VFSCommand.hpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #ifndef HAVE_VFSCOMMANDECHO
 #define HAVE_VFSCOMMANDECHO
@@ -47,8 +47,8 @@ namespace nepenthes
 	{
 	public:
 //        virtual ~VFSCommand(){};
-//		virtual int run(string *params, VFSDir *dir)=0;
-		virtual int run(vector<string> *paramlist)=0;
+//		virtual int32_t run(string *params, VFSDir *dir)=0;
+		virtual int32_t run(vector<string> *paramlist)=0;
 	protected:
 		VFS		*m_VFS;
 	};

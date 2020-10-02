@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CSendDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: CSendDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #ifndef HAVE_CSENDDIALOGUE_HPP
 #define HAVE_CSENDDIALOGUE_HPP
@@ -41,7 +41,7 @@ namespace nepenthes
 		~CSendDialogue();
 
 		void setDownload(Download *down);
-		void setMaxFileSize(unsigned long i);
+		void setMaxFileSize(uint32_t i);
 
 		ConsumeLevel incomingData(Message *msg);
 		ConsumeLevel outgoingData(Message *msg);
@@ -53,7 +53,9 @@ namespace nepenthes
 
 	protected:
 		Download *m_Download;
-		unsigned long m_MaxFileSize;
+		uint32_t m_MaxFileSize;
+		bool	m_CuttedOffset;
+		uint32_t m_ExpectedFileSize;
 	};
 }
 

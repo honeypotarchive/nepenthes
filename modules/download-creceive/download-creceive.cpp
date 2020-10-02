@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-creceive.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: download-creceive.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -87,7 +87,7 @@ CReceiveDownloadHandler::CReceiveDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "download-creceive";
 	m_ModuleDescription = "downloads file bei rx";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "download-creceive";
@@ -154,8 +154,8 @@ Dialogue *CReceiveDownloadHandler::createDialogue(Socket *socket)
  */
 bool CReceiveDownloadHandler::download(Download *down)
 {
-//	unsigned long host = inet_addr(down->getDownloadUrl()->getHost().c_str());
-	unsigned short port = down->getDownloadUrl()->getPort();
+//	uint32_t host = inet_addr(down->getDownloadUrl()->getHost().c_str());
+	uint16_t port = down->getDownloadUrl()->getPort();
 
 	Socket *sock ;
 	if ((sock= g_Nepenthes->getSocketMgr()->bindTCPSocket(0,port,30,30)) != NULL)
@@ -170,7 +170,7 @@ bool CReceiveDownloadHandler::download(Download *down)
     return true;
 }
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new CReceiveDownloadHandler(nepenthes);

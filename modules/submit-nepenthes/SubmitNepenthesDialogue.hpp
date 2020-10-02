@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SubmitNepenthesDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: SubmitNepenthesDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include <string>
 
@@ -53,7 +53,7 @@ namespace nepenthes
 	class SubmitNepenthesDialogue : public Dialogue
 	{
 	public:
-		SubmitNepenthesDialogue(Socket *socket, char *file, unsigned int len, char *md5sum);
+		SubmitNepenthesDialogue(Socket *socket, char *file, uint32_t len, char *md5sum);
 		~SubmitNepenthesDialogue();
 		ConsumeLevel incomingData(Message *msg);
 		ConsumeLevel outgoingData(Message *msg);
@@ -65,7 +65,7 @@ namespace nepenthes
 		download_state m_State;
         string				m_MD5Sum;
 		char *m_File;
-		unsigned int m_FileSize;
+		uint32_t m_FileSize;
 	};
 };
 

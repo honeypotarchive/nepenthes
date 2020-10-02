@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: DownloadNepenthesDialogue.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: DownloadNepenthesDialogue.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 
 #include <sys/types.h>
@@ -104,7 +104,7 @@ ConsumeLevel DownloadNepenthesDialogue::incomingData(Message *msg)
 		if (msg->getMsgLen() == 34)	// sizof md5sum +\r\n
 		{
 			//check if its a valid md5sum
-			int i;
+			int32_t i;
 			for (i=0;i<32;i++)
 			{
                 if (!isalnum(msg->getMsg()[i]))
@@ -115,7 +115,7 @@ ConsumeLevel DownloadNepenthesDialogue::incomingData(Message *msg)
 			}
 
 			// check if we already got that file
-			// int stat(const char *file_name, struct stat *buf);
+			// int32_t stat(const char *file_name, struct stat *buf);
 
 			string md5sum(msg->getMsg(),msg->getMsgLen());
 			md5sum[32] = '\0';

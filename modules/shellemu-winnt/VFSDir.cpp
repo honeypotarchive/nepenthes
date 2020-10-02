@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSDir.cpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: VFSDir.cpp 1926 2005-08-27 20:52:47Z dp $ */
 
 
 #include "VFSDir.hpp"
@@ -87,7 +87,7 @@ VFSDir* VFSDir::getDirectory(char *dirname)
 }
 
 
-VFSFile *VFSDir::createFile(char *name,char *data, unsigned int len)
+VFSFile *VFSDir::createFile(char *name,char *data, uint32_t len)
 {
 	VFSFile *file = new VFSFile(this,name,data,len);
 	m_Nodes.push_back(file);

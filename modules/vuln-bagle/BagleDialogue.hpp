@@ -1,4 +1,4 @@
- /* $Id: BagleDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: BagleDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -36,6 +36,6 @@ namespace nepenthes
 		bagle_state m_State;
 		Buffer 		*m_Buffer;
 		Download 	*m_Download;
-		unsigned long 	m_FileSize;
+		uint32_t 	m_FileSize;
 	};
 }

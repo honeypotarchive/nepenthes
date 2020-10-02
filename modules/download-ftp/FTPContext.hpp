@@ -25,8 +25,9 @@
  *
  *******************************************************************************/
 
- /* $Id: FTPContext.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: FTPContext.hpp 1923 2005-08-27 18:10:01Z dp $ */
 
+#include <stdint.h>
 #include "DNSHandler.hpp"
 
 namespace nepenthes
@@ -43,8 +44,8 @@ namespace nepenthes
 		FTPContext(Download *down, CTRLDialogue *dia);
 		~FTPContext();
 
-		void setActiveFTPBindPort(unsigned short port);
-		unsigned short getActiveFTPBindPort();
+		void setActiveFTPBindPort(uint16_t port);
+		uint16_t getActiveFTPBindPort();
 		Download *getDownload();
 		CTRLDialogue *getCTRLDialogue();
 
@@ -54,7 +55,7 @@ namespace nepenthes
 
 		CTRLDialogue    *m_CDialogue;
 
-		unsigned short 	m_ActiveFtpBindPort;
+		uint16_t 	m_ActiveFtpBindPort;
 	};
 
 }

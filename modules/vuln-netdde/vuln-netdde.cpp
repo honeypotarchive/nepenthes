@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-netdde.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-netdde.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -87,7 +87,7 @@ NETDDEVuln::NETDDEVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-upnp";
 	m_ModuleDescription = "provides Factory & dialogues for the upnp vuln";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "NETDDE Factory";
@@ -114,8 +114,8 @@ bool NETDDEVuln::Init()
 {
 	m_ModuleManager = m_Nepenthes->getModuleMgr();
 
-	int timeout;
-	int port;
+	int32_t timeout;
+	int32_t port;
 	try
 	{
 		port = 		m_Config->getValInt("vuln-netdde.port");
@@ -177,7 +177,7 @@ Dialogue *NETDDEVuln::createDialogue(Socket *socket)
 
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new NETDDEVuln(nepenthes);

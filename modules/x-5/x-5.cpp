@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-5.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: x-5.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include "x-5.hpp"
 #include "LogManager.hpp"
@@ -65,7 +65,7 @@ X5::X5(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-5";
 	m_ModuleDescription = "eXample Module 5 -eventhandler example-";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "X5EventHandler";
@@ -126,7 +126,7 @@ bool X5::Exit()
  * 
  * @return return 0
  */
-unsigned int X5::handleEvent(Event *event)
+uint32_t X5::handleEvent(Event *event)
 {
 	logPF();
 	logInfo("Event %i\n",event->getType());
@@ -138,7 +138,7 @@ unsigned int X5::handleEvent(Event *event)
 
 	case EV_TIMEOUT:
 		m_Timeout = time(NULL) + rand()%23;
-		logInfo("X5 EVENT Timeout %i\n",(int)time(NULL));
+		logInfo("X5 EVENT Timeout %i\n",(int32_t)time(NULL));
 		break;
 
 	default:
@@ -148,7 +148,7 @@ unsigned int X5::handleEvent(Event *event)
 }
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new X5(nepenthes);

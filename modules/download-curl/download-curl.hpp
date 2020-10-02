@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-curl.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: download-curl.hpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <curl/curl.h>
 #include <curl/types.h> /* new for v7 */
@@ -54,13 +54,13 @@ namespace nepenthes
 		bool Init();
 		bool Exit();
 		bool download(Download *down);
-		unsigned int handleEvent(Event *event);
+		uint32_t handleEvent(Event *event);
 
 		static size_t WriteCallback(char *buffer, size_t size, size_t nitems, void *userp);
 	protected:
 		CURLM * m_CurlStack;
-		int 	m_Queued;
-		unsigned int m_MaxFileSize;
+		int32_t 	m_Queued;
+		uint32_t m_MaxFileSize;
 	};
 
 }

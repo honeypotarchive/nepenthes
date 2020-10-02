@@ -26,7 +26,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-nepenthes.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: submit-nepenthes.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include "Module.hpp"
 #include "ModuleManager.hpp"
@@ -51,9 +51,9 @@ namespace nepenthes
 		void Submit(Download *down);
 		void Hit(Download *down);
 	protected:
-		unsigned int	m_Host;
-		unsigned int 	m_Port;
-		unsigned int 	m_ConnectTimeout;
+		uint32_t	m_Host;
+		uint32_t 	m_Port;
+		uint32_t 	m_ConnectTimeout;
 
 
 	};

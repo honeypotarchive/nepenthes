@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SUB7Dialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: SUB7Dialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -64,7 +64,7 @@ namespace nepenthes
 	protected:
 		sub7_state 	m_State;
 		Buffer 		*m_Buffer;
-		unsigned int		m_FileSize;
+		uint32_t		m_FileSize;
 		Download 			*m_Download;
 	};
 

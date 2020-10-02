@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-norman.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: submit-norman.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 
 #include "submit-norman.hpp"
@@ -66,7 +66,7 @@ SubmitNorman::SubmitNorman(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-norman";
 	m_ModuleDescription = "submit files to sandbox.norman.no";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-norman";
@@ -186,7 +186,7 @@ void SubmitNorman::Submit(Download *down)
 
 size_t SubmitNorman::WriteCallback(char *buffer, size_t size, size_t nitems, void *userp)
 {
-	int iSize = size * nitems;
+	int32_t iSize = size * nitems;
 	return iSize;
 }
 
@@ -203,7 +203,7 @@ void SubmitNorman::Hit(Download *down)
 	return;
 }
 
-unsigned int SubmitNorman::handleEvent(Event *event)
+uint32_t SubmitNorman::handleEvent(Event *event)
 {
 	logPF();
 	if(event->getType() != EV_TIMEOUT)
@@ -212,7 +212,7 @@ unsigned int SubmitNorman::handleEvent(Event *event)
 		return 1;
 	}
 
-	int iQueue=0;
+	int32_t iQueue=0;
 	while ( curl_multi_perform(m_CurlStack, &iQueue) == CURLM_CALL_MULTI_PERFORM );
 
 	if ( m_Queued > iQueue )
@@ -252,7 +252,7 @@ unsigned int SubmitNorman::handleEvent(Event *event)
 	return 0;
 }
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if(version == MODULE_IFACE_VERSION)
 	{

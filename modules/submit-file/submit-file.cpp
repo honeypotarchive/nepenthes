@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-file.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: submit-file.cpp 1927 2005-08-27 21:56:59Z dp $ */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -53,7 +53,7 @@ FileSubmitHandler::FileSubmitHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-file";
 	m_ModuleDescription = "module providing a file to file submitter";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-file";
@@ -101,7 +101,7 @@ void FileSubmitHandler::Submit(Download *down)
 	string path = m_FilePath +  down->getMD5Sum();
 
 	struct stat s;
-	int retval;
+	int32_t retval;
 	if ((retval = stat(path.c_str(),&s)) == 0)
 	{
 		logInfo("Already knowing file %s %i \n",path.c_str(),down->getDownloadBuffer()->getLength());
@@ -141,7 +141,7 @@ void FileSubmitHandler::Hit(Download *down)
 }
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if(version == MODULE_IFACE_VERSION)
 	{

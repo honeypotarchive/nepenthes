@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandRREDIR.cpp 1644 2005-07-14 16:19:15Z dp $ */ 
+/* $Id: VFSCommandRREDIR.cpp 1927 2005-08-27 21:56:59Z dp $ */ 
 
 #include "VFSCommandRREDIR.hpp"
 #include "VFSNode.hpp"
@@ -51,7 +51,7 @@ VFSCommandRREDIR::~VFSCommandRREDIR()
 
 } 
 
-int VFSCommandRREDIR::run(vector<string> *paramlist)
+int32_t VFSCommandRREDIR::run(vector<string> *paramlist)
 {
 
 	

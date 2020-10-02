@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-1.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: x-1.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include "x-1.hpp"
 #include "LogManager.hpp"
@@ -57,7 +57,7 @@ X1::X1(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-1";
 	m_ModuleDescription = "eXample Module 1 -loading modules example-";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 	g_Nepenthes = nepenthes;
 }
@@ -93,7 +93,7 @@ bool X1::Exit()
 
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new X1(nepenthes);

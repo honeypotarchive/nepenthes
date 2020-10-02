@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: VFSCommandREDIR.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: VFSCommandREDIR.hpp 1927 2005-08-27 21:56:59Z dp $ */
 
 
 #include "VFSCommand.hpp"
@@ -37,6 +37,6 @@ namespace nepenthes
 	public:
 		VFSCommandREDIR(VFSNode *parent,VFS *vfs);
 		~VFSCommandREDIR();
-    	int run(vector<string> *paramlist);
+    	int32_t run(vector<string> *paramlist);
 	};
 }

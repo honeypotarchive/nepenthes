@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: OPTIXDownloadDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: OPTIXDownloadDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 
 #ifndef HAVE_OPTIXDOWNLOADDIALOGUE_HPP
@@ -71,7 +71,7 @@ namespace nepenthes
 		Download 			*m_Download;
 		pcre 				*m_pcre;
 		Buffer 				*m_Buffer;
-		unsigned int		m_FileSize;
+		uint32_t		m_FileSize;
     };
 };
 

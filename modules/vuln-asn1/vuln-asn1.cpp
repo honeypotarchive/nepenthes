@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-asn1.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-asn1.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -84,7 +84,7 @@ ASN1Vuln::ASN1Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-asn1";
 	m_ModuleDescription = "provides dialogues and factories for asn1 flaw";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "ASN1 Dialogue Factory";
@@ -113,7 +113,7 @@ bool ASN1Vuln::Init()
 {
 	m_ModuleManager = m_Nepenthes->getModuleMgr();
 
-	int timeout;
+	int32_t timeout;
 	try
 	{
 		m_SMBPort 	= m_Config->getValInt("vuln-asn1.smbport");
@@ -179,7 +179,7 @@ Dialogue *ASN1Vuln::createDialogue(Socket *socket)
 
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new ASN1Vuln(nepenthes);

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-link.cpp 1693 2005-07-26 00:05:41Z common $ */
+ /* $Id: download-link.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 
 #include <fcntl.h>
@@ -57,7 +57,7 @@ LinkDownloadHandler::LinkDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "Link Download Module";
 	m_ModuleDescription = "provides a downloadhandler for link protocol";
-	m_ModuleRevision    = "$Rev: 1693 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="link download handler";
@@ -110,8 +110,8 @@ bool LinkDownloadHandler::download(Download *down)
 
 	if (down->getDownloadUrl()->getProtocol() == "link")
 	{
-    	int Port = down->getDownloadUrl()->getPort();
-		unsigned long Host = inet_addr(down->getDownloadUrl()->getHost().c_str());
+    	int32_t Port = down->getDownloadUrl()->getPort();
+		uint32_t Host = inet_addr(down->getDownloadUrl()->getHost().c_str());
 
 		Socket *socket = m_Nepenthes->getSocketMgr()->connectTCPHost(INADDR_ANY,Host,Port,m_ConnectTimeout);
 
@@ -122,7 +122,7 @@ bool LinkDownloadHandler::download(Download *down)
 	if (down->getDownloadUrl()->getProtocol() == "blink")
 	{
 		Socket *socket;
-		int port = down->getDownloadUrl()->getPort();
+		int32_t port = down->getDownloadUrl()->getPort();
 		if ( ( socket = g_Nepenthes->getSocketMgr()->bindTCPSocket(0,port,30,30)) != NULL )
 		{
 			socket->addDialogueFactory(this);
@@ -140,7 +140,7 @@ bool LinkDownloadHandler::download(Download *down)
 
 		m_BindContexts.push_back(ctx);
 
-//		unsigned long host = down->getAddress();
+//		uint32_t host = down->getAddress();
 		return true;
 
 	}
@@ -207,7 +207,7 @@ void LinkDownloadHandler::socketClosed(Socket *socket)
 	}
 }
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new LinkDownloadHandler(nepenthes);

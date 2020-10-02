@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-dcom.cpp 1664 2005-07-15 03:33:39Z common $ */
+ /* $Id: vuln-dcom.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 
 #include <ctype.h>
@@ -59,7 +59,7 @@ DCOMVuln::DCOMVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-dcom";
 	m_ModuleDescription = "emulate the dcom vuln";
-	m_ModuleRevision    = "$Rev: 1664 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "dcom vuln Factory";
@@ -87,7 +87,7 @@ bool DCOMVuln::Init()
 	}
 
 	StringList sList;
-	int timeout;
+	int32_t timeout;
 	try
 	{
 		sList = *m_Config->getValStringList("vuln-dcom.ports");
@@ -98,7 +98,7 @@ bool DCOMVuln::Init()
 		return false;
 	}
 
-	unsigned int i = 0;
+	uint32_t i = 0;
 	while (i < sList.size())
 	{
 		m_Nepenthes->getSocketMgr()->bindTCPSocket(0,atoi(sList[i]),0,timeout,this);
@@ -107,8 +107,9 @@ bool DCOMVuln::Init()
 
 	m_ModuleManager = m_Nepenthes->getModuleMgr();
 
-	m_ShellcodeHandlers.push_back( new SOL2KBind	(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back( new SOL2KConnect	(m_Nepenthes->getShellcodeMgr()));
+// removed as they were not seen during the last 2 month and need a new pcre
+//	m_ShellcodeHandlers.push_back( new SOL2KBind	(m_Nepenthes->getShellcodeMgr())); 
+//	m_ShellcodeHandlers.push_back( new SOL2KConnect	(m_Nepenthes->getShellcodeMgr()));
 	m_ShellcodeHandlers.push_back( new OC192Bind	(m_Nepenthes->getShellcodeMgr()));
 
 
@@ -147,7 +148,7 @@ Dialogue *DCOMVuln::createDialogue(Socket *socket)
 	return new DCOMDialogue(socket);
 }
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new DCOMVuln(nepenthes);

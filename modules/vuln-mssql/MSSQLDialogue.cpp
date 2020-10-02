@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: MSSQLDialogue.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: MSSQLDialogue.cpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ MSSQLDialogue::~MSSQLDialogue()
 ConsumeLevel MSSQLDialogue::incomingData(Message *msg)
 {
 //	logWarn(" UDP MSG '%.*s'\n",msg->getMsgLen(), msg->getMsg());
-	unsigned long ip=msg->getRemoteHost();
+	uint32_t ip=msg->getRemoteHost();
 
 	if (msg->getMsgLen() >= sizeof(thc_badbuffer)-1 &&
 		memcmp(msg->getMsg(),thc_badbuffer,sizeof(thc_badbuffer)-1) == 0

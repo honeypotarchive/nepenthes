@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
  
- /* $Id: shellcode-generic.hpp 1749 2005-08-02 15:46:24Z common $ */
+ /* $Id: shellcode-generic.hpp 1923 2005-08-27 18:10:01Z dp $ */
 
 #include "Module.hpp"
 #include "ModuleManager.hpp"
@@ -43,6 +43,7 @@ namespace nepenthes
 	{
 		pcre *m_Pcre;
 		string m_Name;
+		uint16_t m_Offset; // we need this for agobot csend
 	};
 
 

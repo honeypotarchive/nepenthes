@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CReceiveDialogue.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: CReceiveDialogue.cpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include "CReceiveDialogue.hpp"
 
@@ -78,8 +78,8 @@ CReceiveDialogue::CReceiveDialogue(Socket *socket)//, Download *down)
 
 	m_ConsumeLevel = CL_ASSIGN;
 	char *url;
-	unsigned long host = socket->getRemoteHost();
-	unsigned short port = socket->getRemotePort();
+	uint32_t host = socket->getRemoteHost();
+	uint16_t port = socket->getRemotePort();
 	asprintf(&url,"creceive://%s:%i",inet_ntoa(*(in_addr *)&host),port);
     m_Download = new Download(url,socket->getRemoteHost(),url);
 	free(url);

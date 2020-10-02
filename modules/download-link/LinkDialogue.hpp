@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: LinkDialogue.hpp 1662 2005-07-15 03:16:27Z common $ */
+ /* $Id: LinkDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
 #ifndef HAVE_LINKDIALOGUE_HPP
 #define HAVE_LINKDIALOGUE_HPP
 
@@ -54,7 +54,7 @@ namespace nepenthes
 	class LinkDialogue : public Dialogue
 	{
 	public:
-		LinkDialogue(Socket *socket, Download *down, unsigned long maxfilesize);
+		LinkDialogue(Socket *socket, Download *down, uint32_t maxfilesize);
 		~LinkDialogue();
 		ConsumeLevel incomingData(Message *msg);
 		ConsumeLevel outgoingData(Message *msg);
@@ -67,7 +67,7 @@ namespace nepenthes
 
 		unsigned char m_Challenge[4];
 		Download	*m_Download;
-		unsigned long m_MaxFileSize;
+		uint32_t m_MaxFileSize;
 	};
 
 }

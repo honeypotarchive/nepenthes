@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: TFTPDownloadHandler.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: TFTPDownloadHandler.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #ifndef HAVE_TFTPDOWNLOADHANDLER_HPP
 #define HAVE_TFTPDOWNLOADHANDLER_HPP
@@ -59,8 +59,8 @@ namespace nepenthes
 		Dialogue *createDialogue(Socket *socket);
 	private:
 		list <TFTPDialogue *> m_Downloads;
-		unsigned int m_MaxFileSize;
-		unsigned int m_MaxResends;
+		uint32_t m_MaxFileSize;
+		uint32_t m_MaxResends;
 	};
 
 

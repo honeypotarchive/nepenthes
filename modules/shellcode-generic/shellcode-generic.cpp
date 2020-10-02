@@ -34,7 +34,7 @@
  */
 
  
- /* $Id: shellcode-generic.cpp 1754 2005-08-02 23:02:14Z common $ */
+ /* $Id: shellcode-generic.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include "shellcode-generic.hpp"
 
@@ -51,6 +51,8 @@
 #include "sch_generic_mainz_bind.hpp"
 #include "sch_generic_bind.hpp"
 #include "sch_generic_connect.hpp"
+#include "sch_generic_konstanz_xor.hpp"
+#include "sch_generic_connect_trans.hpp"
 
 #include "ShellcodeManager.hpp"
 #include "Nepenthes.hpp"
@@ -71,7 +73,7 @@ GenericShellcodeHandler::GenericShellcodeHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "generic shellcode module";
 	m_ModuleDescription = "prove xor, url and createprocess shelldecoder";
-	m_ModuleRevision    = "$Rev: 1754 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_ShellcodeHandlers.push_back(new GenericXOR(m_Nepenthes->getShellcodeMgr()));
@@ -87,6 +89,8 @@ GenericShellcodeHandler::GenericShellcodeHandler(Nepenthes *nepenthes)
 //	m_ShellcodeHandlers.push_back(new MainzBind(m_Nepenthes->getShellcodeMgr()));
 	m_ShellcodeHandlers.push_back(new GenericBind(m_Nepenthes->getShellcodeMgr()));
 	m_ShellcodeHandlers.push_back(new GenericConnect(m_Nepenthes->getShellcodeMgr()));
+	m_ShellcodeHandlers.push_back(new KonstanzXOR(m_Nepenthes->getShellcodeMgr()));
+	m_ShellcodeHandlers.push_back(new GenericConnectTrans(m_Nepenthes->getShellcodeMgr()));
 
 	g_Nepenthes = nepenthes;
 	g_GenericShellcodeHandler = this;
@@ -100,7 +104,7 @@ GenericShellcodeHandler::~GenericShellcodeHandler()
 struct pcremap
 {
 	char 			*m_pcreString;
-    unsigned int	*m_retval;
+    uint32_t	*m_retval;
 	pcre    		**m_pcre;
 };
 */
@@ -145,7 +149,7 @@ bool GenericShellcodeHandler::Exit()
 }
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new GenericShellcodeHandler(nepenthes);

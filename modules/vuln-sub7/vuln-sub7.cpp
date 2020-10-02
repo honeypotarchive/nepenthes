@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-sub7.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-sub7.cpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <ctype.h>
 
@@ -73,7 +73,7 @@ SUB7Vuln::SUB7Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-sub7";
 	m_ModuleDescription = "emulate the sub7 backdoor";
-	m_ModuleRevision    = "$Rev: 1644 $";
+	m_ModuleRevision    = "$Rev: 1927 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "SUB7DialogueFactory";
@@ -106,7 +106,7 @@ bool SUB7Vuln::Init()
 	}
 
 	StringList sList;
-	int timeout;
+	int32_t timeout;
 	try
 	{
 		sList = *m_Config->getValStringList("vuln-sub7.ports");
@@ -117,7 +117,7 @@ bool SUB7Vuln::Init()
 		return false;
 	}
 
-	unsigned int i = 0;
+	uint32_t i = 0;
 	while (i < sList.size())
 	{
 		m_Nepenthes->getSocketMgr()->bindTCPSocket(0,atoi(sList[i]),0,timeout,this);
@@ -150,7 +150,7 @@ Dialogue *SUB7Vuln::createDialogue(Socket *socket)
 
 
 
-extern "C" int module_init(int version, Module **module, Nepenthes *nepenthes)
+extern "C" int32_t module_init(int32_t version, Module **module, Nepenthes *nepenthes)
 {
 	if (version == MODULE_IFACE_VERSION) {
         *module = new SUB7Vuln(nepenthes);

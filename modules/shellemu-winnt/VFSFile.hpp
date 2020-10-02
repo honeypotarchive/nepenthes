@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: VFSFile.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: VFSFile.hpp 1927 2005-08-27 21:56:59Z dp $ */
 
 #include <list>
 #include <string>
@@ -42,14 +42,14 @@ namespace nepenthes
 	class VFSFile : public VFSNode
 	{
 	public:
-		VFSFile(VFSNode *parentnode, char *name, char *data, unsigned int len);
+		VFSFile(VFSNode *parentnode, char *name, char *data, uint32_t len);
 		~VFSFile();
-		virtual unsigned int addData(char *data,unsigned int len);
+		virtual uint32_t addData(char *data,uint32_t len);
 		virtual char *getData();
-		virtual unsigned int getSize();
+		virtual uint32_t getSize();
 		void truncateFile();
 	protected:
-		int m_Size;
+		int32_t m_Size;
 		Buffer  *m_Buffer;
 
 	};

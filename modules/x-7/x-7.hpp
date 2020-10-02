@@ -26,7 +26,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-7.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: x-7.hpp 1926 2005-08-27 20:52:47Z dp $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -67,7 +67,7 @@ namespace nepenthes
 
 typedef struct dns_header
 {
-  unsigned short  transid;
+  uint16_t  transid;
 /*#if defined (WORDS_BIGENDIAN)
   u_int16_t flag_qr:1,
             flag_opcode:4,
@@ -100,10 +100,10 @@ typedef struct dns_header
 
 typedef struct dns_rr{
   char name[NAME_SIZE];
-  unsigned short type;
-  unsigned short tclass;
-  unsigned long ttl;
-  unsigned short rdatalen;
+  uint16_t type;
+  uint16_t tclass;
+  uint32_t ttl;
+  uint16_t rdatalen;
   char data[NAME_SIZE];
 } dns_rr_t;
 

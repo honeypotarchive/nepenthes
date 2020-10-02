@@ -25,10 +25,12 @@
  *
  *******************************************************************************/
 
- /* $Id: LinkDialogue.cpp 1675 2005-07-19 00:43:07Z common $ */
+ /* $Id: LinkDialogue.cpp 1926 2005-08-27 20:52:47Z dp $ */
 
 
 #include <ctype.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #include "LinkDialogue.hpp"
 
@@ -66,7 +68,7 @@ using namespace nepenthes;
  * 
  * @param socket the Socket the Dialogue has to use
  */
-LinkDialogue::LinkDialogue(Socket *socket, Download *down, unsigned long maxfilesize)
+LinkDialogue::LinkDialogue(Socket *socket, Download *down, uint32_t maxfilesize)
 {
 
 	unsigned char *response = g_Nepenthes->getUtilities()->b64decode_alloc((unsigned char *)down->getDownloadUrl()->getPath().c_str());
