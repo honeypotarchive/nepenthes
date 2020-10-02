@@ -16,7 +16,7 @@
 
 # nepenthes meta-Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 527 2006-04-23 17:48:01Z common $
+# $Id: Makefile.am 691 2006-10-30 19:05:21Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -99,6 +99,7 @@ CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
+CPPFLAG_PRELUDE = @CPPFLAG_PRELUDE@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
@@ -114,19 +115,34 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
+GREP = @GREP@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LDFLAG_PRELUDE = @LDFLAG_PRELUDE@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBCURL_CONFIG = @LIBCURL_CONFIG@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
 LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
+LIB_ADNS = @LIB_ADNS@
+LIB_CAP = @LIB_CAP@
+LIB_CURL = @LIB_CURL@
+LIB_DL = @LIB_DL@
+LIB_IPQ = @LIB_IPQ@
+LIB_LIBNET = @LIB_LIBNET@
+LIB_LIBY = @LIB_LIBY@
+LIB_MAGIC = @LIB_MAGIC@
+LIB_PCAP = @LIB_PCAP@
+LIB_PCRE = @LIB_PCRE@
+LIB_POSTGRES = @LIB_POSTGRES@
+LIB_PRELUDE = @LIB_PRELUDE@
 LN_S = @LN_S@
 LOCALESTATEDIR = @LOCALESTATEDIR@
 LTLIBOBJS = @LTLIBOBJS@
@@ -151,12 +167,10 @@ STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
 YACC = @YACC@
-ac_ct_AR = @ac_ct_AR@
+YFLAGS = @YFLAGS@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
 am__fastdepCC_TRUE = @am__fastdepCC_TRUE@
 am__fastdepCXX_FALSE = @am__fastdepCXX_FALSE@
@@ -173,23 +187,30 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
+docdir = $(prefix)/share/doc
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
@@ -198,7 +219,6 @@ AUTOMAKE_OPTIONS = foreign
 SUBDIRS = nepenthes-core modules 
 #tools
 EXTRA_DIST = configure.ac CHANGES doc/README.VFS doc/logo-shaded.svg doc/nepenthes.8 conf/nepenthes.conf.dist
-docdir = $(prefix)/share/doc
 doc_DATA = doc/README.VFS doc/logo-shaded.svg
 
 #sysconf_DATA = conf/nepenthes.conf.dist
@@ -693,7 +713,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/doc/nepenthes.8 $(DESTDIR)$(mandir)/man8/nepenthes.8;
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache/nepenthes
-	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache/nepenthes/geolocation
+	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache/nepenthes/pcap
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache/nepenthes/signatures
 
 	$(INSTALL_DATA) modules/shellcode-signatures/shellcode-signatures.sc $(DESTDIR)$(localstatedir)/cache/nepenthes/signatures
@@ -701,7 +721,9 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/spool
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/spool/nepenthes
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/spool/nepenthes/gotek
+	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/spool/nepenthes/submitpostgres
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/log
+	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/log/pcap
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/binaries
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/hexdumps
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

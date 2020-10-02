@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: Kuang2Dialogue.cpp 343 2006-02-20 17:11:57Z common $ */
+ /* $Id: Kuang2Dialogue.cpp 550 2006-05-04 10:25:35Z common $ */
 
 
 
@@ -151,7 +151,7 @@ ConsumeLevel Kuang2Dialogue::incomingData(Message *msg)
 			} else
 			if ( m_Buffer->getSize() > 128 )
 			{
-				logCrit("%s","unhandeld kuang2 command \n");
+				logCrit("unhandeld kuang2 command \n");
             	return CL_DROP;
 			}
 		}

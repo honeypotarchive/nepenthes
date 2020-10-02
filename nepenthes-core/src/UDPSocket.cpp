@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UDPSocket.cpp 370 2006-03-06 21:54:56Z oxff $ */
+/* $Id: UDPSocket.cpp 645 2006-09-22 11:39:38Z common $ */
 
 #include <errno.h>
 #include <sys/types.h>
@@ -147,8 +147,9 @@ UDPSocket::~UDPSocket()
 bool UDPSocket::bindPort()
 {
 	struct sockaddr_in addrBind;
-	addrBind.sin_family = AF_INET;
+	memset(&addrBind,0,sizeof(struct sockaddr_in));
 
+	addrBind.sin_family = AF_INET;
 	addrBind.sin_addr.s_addr = getLocalHost();
 	addrBind.sin_port = htons(getLocalPort());
 
@@ -215,9 +216,37 @@ bool UDPSocket::Exit()
 
 bool UDPSocket::connectHost()
 {
-	logInfo("UDP 'connecting' %s:%i \n",inet_ntoa(* (in_addr *)&m_RemoteHost), m_RemotePort);
+	string localhost, remotehost;
+	localhost = inet_ntoa(* (in_addr *)&m_LocalHost);
+	remotehost = inet_ntoa(* (in_addr *)&m_RemoteHost);
+	logDebug("UDP 'connecting' %s:%i -> %s:%i \n",localhost.c_str(),m_LocalPort, remotehost.c_str(), m_RemotePort);
 	
 	m_Socket=socket(AF_INET, SOCK_DGRAM, 0);
+
+	if(m_Socket < 0)
+	{
+		logCrit("Error creating Socket %s \n",strerror(errno));
+		return false;
+	}
+
+	struct sockaddr_in addrBind;
+	memset(&addrBind,0,sizeof(struct sockaddr_in));
+
+	addrBind.sin_family = AF_INET;
+
+	addrBind.sin_addr.s_addr = getLocalHost();
+	addrBind.sin_port = htons(getLocalPort());
+
+	if ( bind(m_Socket, (struct sockaddr *) &addrBind, sizeof(addrBind)) < 0 )
+	{
+		logCrit("Could not Bind Socket for (udp) connectHost %i\n%s\n", m_LocalPort,strerror(errno));
+		return false;
+	}
+
+	int32_t iSize = sizeof(addrBind);
+	getsockname(m_Socket, (struct sockaddr *) &addrBind, (socklen_t *) &iSize);
+	m_LocalPort = ntohs( ( (sockaddr_in *)&addrBind)->sin_port ) ;
+
 
 #ifdef WIN32
 	int32_t iMode = 0;
@@ -226,18 +255,9 @@ bool UDPSocket::connectHost()
 	fcntl(m_Socket, F_SETFL, O_NONBLOCK);
 #endif
 
-
-	sockaddr_in ssin; 
-
-	ssin.sin_family=AF_INET;
-	ssin.sin_port=htons(m_RemotePort);
-	ssin.sin_addr.s_addr=m_RemoteHost;
     m_LastAction = time(NULL);
 
-	if(m_Socket > 0)
-		return true;
-	logCrit("Error creating Socket %s \n",strerror(errno));
-	return false;
+	return true;
 }
 
 Socket * UDPSocket::acceptConnection()
@@ -380,7 +400,7 @@ int32_t UDPSocket::doWrite(char *msg, uint32_t len)
 //	logPF();
 	if (m_CanSend == false)
 	{
-		logCrit("%s","Some read only attached Module wants to write on a Socket\n");
+		logCrit("Some read only attached Module wants to write on a Socket\n");
 		return -1;
 	}
 	UDPPacket *packet = new UDPPacket(getRemoteHost(),getRemotePort(),msg,len);
@@ -393,7 +413,7 @@ int32_t UDPSocket::doWriteTo(uint32_t ip, uint16_t port, char *msg, uint32_t len
 //	logPF();
 	if (m_CanSend == false)
 	{
-		logCrit("%s","Some read only attached Module wants to write on a Socket\n");
+		logCrit("Some read only attached Module wants to write on a Socket\n");
 		return -1;
 	}
 	UDPPacket *packet = new UDPPacket(ip,port,msg,len);

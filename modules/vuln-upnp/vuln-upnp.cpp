@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-upnp.cpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: vuln-upnp.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ UPNPVuln::UPNPVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-upnp";
 	m_ModuleDescription = "provides Factory & dialogues for the upnp vuln";
-	m_ModuleRevision    = "$Rev: 321 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "UPNP Factory";
@@ -120,7 +120,7 @@ bool UPNPVuln::Init()
 		timeout = m_Config->getValInt("vuln-upnp.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

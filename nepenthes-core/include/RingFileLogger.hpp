@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: RingFileLogger.hpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: RingFileLogger.hpp 664 2006-10-11 18:25:03Z dp $ */
 
 #ifndef RINGFILELOGGER_HPP
 #define RINGFILELOGGER_HPP
@@ -47,6 +47,7 @@ namespace nepenthes
 		virtual void	setLogFileFormat(char *logFileFormat);
 		virtual void	setMaxFiles(uint8_t count);
 		virtual void	setMaxSize(size_t size);
+		virtual bool	setOwnership(uid_t uid, gid_t gid);
 
 	private:
 		virtual void	rotate();

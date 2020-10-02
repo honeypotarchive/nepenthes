@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandRREDIR.cpp 330 2006-02-20 09:20:44Z common $ */ 
+/* $Id: VFSCommandRREDIR.cpp 550 2006-05-04 10:25:35Z common $ */ 
 
 #include "VFSCommandRREDIR.hpp"
 #include "VFSNode.hpp"
@@ -65,7 +65,7 @@ int32_t VFSCommandRREDIR::run(vector<string> *paramlist)
 
 	if (params.size() == 0)
 	{
-		logWarn("%s","VFS Command RREDIR with out arg \n");
+		logWarn("VFS Command RREDIR with out arg \n");
 		return 0;
 	}
 

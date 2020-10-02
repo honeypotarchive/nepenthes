@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-link.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: download-link.cpp 550 2006-05-04 10:25:35Z common $ */
 
 
 #include <fcntl.h>
@@ -57,7 +57,7 @@ LinkDownloadHandler::LinkDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "Link Download Module";
 	m_ModuleDescription = "provides a downloadhandler for link protocol";
-	m_ModuleRevision    = "$Rev: 332 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="link download handler";
@@ -77,7 +77,7 @@ bool LinkDownloadHandler::Init()
 
 	if (m_Config == NULL)
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -87,7 +87,7 @@ bool LinkDownloadHandler::Init()
 	}
 	catch(...)
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

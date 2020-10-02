@@ -16,7 +16,7 @@
 
 # nepenthes Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 500 2006-04-08 18:57:15Z common $
+# $Id: Makefile.am 695 2006-11-08 16:37:07Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -61,8 +61,6 @@ am_nepenthes_OBJECTS = Buffer.$(OBJEXT) Compatibility.$(OBJEXT) \
 	DownloadHandler.$(OBJEXT) DownloadBuffer.$(OBJEXT) \
 	Download.$(OBJEXT) DownloadUrl.$(OBJEXT) \
 	EventManager.$(OBJEXT) EventHandler.$(OBJEXT) \
-	GeoLocationManager.$(OBJEXT) GeoLocationHandler.$(OBJEXT) \
-	GeoLocationQuery.$(OBJEXT) GeoLocationResult.$(OBJEXT) \
 	LogManager.$(OBJEXT) LogHandler.$(OBJEXT) \
 	ConsoleLogger.$(OBJEXT) FileLogger.$(OBJEXT) \
 	RingFileLogger.$(OBJEXT) LuaFunctions.$(OBJEXT) \
@@ -73,8 +71,9 @@ am_nepenthes_OBJECTS = Buffer.$(OBJEXT) Compatibility.$(OBJEXT) \
 	POLLSocket.$(OBJEXT) FILESocket.$(OBJEXT) Responder.$(OBJEXT) \
 	ShellcodeManager.$(OBJEXT) ShellcodeHandler.$(OBJEXT) \
 	SubmitManager.$(OBJEXT) SubmitHandler.$(OBJEXT) \
-	UploadManager.$(OBJEXT) UploadQuery.$(OBJEXT) \
-	UploadResult.$(OBJEXT) Utilities.$(OBJEXT)
+	SQLCallback.$(OBJEXT) SQLHandler.$(OBJEXT) \
+	SQLManager.$(OBJEXT) SQLQuery.$(OBJEXT) SQLResult.$(OBJEXT) \
+	Utilities.$(OBJEXT)
 nepenthes_OBJECTS = $(am_nepenthes_OBJECTS)
 nepenthes_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -107,6 +106,7 @@ CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
+CPPFLAG_PRELUDE = @CPPFLAG_PRELUDE@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
@@ -122,19 +122,34 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
+GREP = @GREP@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LDFLAG_PRELUDE = @LDFLAG_PRELUDE@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBCURL_CONFIG = @LIBCURL_CONFIG@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
 LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
+LIB_ADNS = @LIB_ADNS@
+LIB_CAP = @LIB_CAP@
+LIB_CURL = @LIB_CURL@
+LIB_DL = @LIB_DL@
+LIB_IPQ = @LIB_IPQ@
+LIB_LIBNET = @LIB_LIBNET@
+LIB_LIBY = @LIB_LIBY@
+LIB_MAGIC = @LIB_MAGIC@
+LIB_PCAP = @LIB_PCAP@
+LIB_PCRE = @LIB_PCRE@
+LIB_POSTGRES = @LIB_POSTGRES@
+LIB_PRELUDE = @LIB_PRELUDE@
 LN_S = @LN_S@
 LOCALESTATEDIR = @LOCALESTATEDIR@
 LTLIBOBJS = @LTLIBOBJS@
@@ -159,12 +174,10 @@ STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
 YACC = @YACC@
-ac_ct_AR = @ac_ct_AR@
+YFLAGS = @YFLAGS@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
 am__fastdepCC_TRUE = @am__fastdepCC_TRUE@
 am__fastdepCXX_FALSE = @am__fastdepCXX_FALSE@
@@ -181,45 +194,52 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = foreign
 AM_CPPFLAGS = -I../include -I ../.. -Wall -Werror
+AM_LDFLAGS = ${LIB_MAGIC} ${LIB_CAP} ${LIB_DL}
 nepenthes_SOURCES = Buffer.cpp Compatibility.cpp Config.cpp \
 	Dialogue.cpp DialogueFactory.cpp DialogueFactoryManager.cpp \
 	DNSManager.cpp DNSHandler.cpp DNSQuery.cpp DNSResult.cpp \
 	DNSCallback.cpp DownloadManager.cpp DownloadHandler.cpp \
 	DownloadBuffer.cpp Download.cpp DownloadUrl.cpp \
-	EventManager.cpp EventHandler.cpp GeoLocationManager.cpp \
-	GeoLocationHandler.cpp GeoLocationQuery.cpp \
-	GeoLocationResult.cpp LogManager.cpp LogHandler.cpp \
-	ConsoleLogger.cpp FileLogger.cpp RingFileLogger.cpp \
-	LuaFunctions.cpp LuaInterface.cpp Message.cpp \
-	ModuleManager.cpp Module.cpp Nepenthes.cpp Manager.cpp \
-	Packet.cpp SocketManager.cpp Socket.cpp TCPSocket.cpp \
-	UDPSocket.cpp POLLSocket.cpp FILESocket.cpp Responder.cpp \
-	ShellcodeManager.cpp ShellcodeHandler.cpp SubmitManager.cpp \
-	SubmitHandler.cpp UploadManager.cpp UploadQuery.cpp \
-	UploadResult.cpp Utilities.cpp
+	EventManager.cpp EventHandler.cpp LogManager.cpp \
+	LogHandler.cpp ConsoleLogger.cpp FileLogger.cpp \
+	RingFileLogger.cpp LuaFunctions.cpp LuaInterface.cpp \
+	Message.cpp ModuleManager.cpp Module.cpp Nepenthes.cpp \
+	Manager.cpp Packet.cpp SocketManager.cpp Socket.cpp \
+	TCPSocket.cpp UDPSocket.cpp POLLSocket.cpp FILESocket.cpp \
+	Responder.cpp ShellcodeManager.cpp ShellcodeHandler.cpp \
+	SubmitManager.cpp SubmitHandler.cpp SQLCallback.cpp \
+	SQLHandler.cpp SQLManager.cpp SQLQuery.cpp SQLResult.cpp \
+	Utilities.cpp
 all: all-am
 
 .SUFFIXES:
@@ -312,10 +332,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/EventManager.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FILESocket.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FileLogger.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GeoLocationHandler.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GeoLocationManager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GeoLocationQuery.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/GeoLocationResult.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LogHandler.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LogManager.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LuaFunctions.Po@am__quote@
@@ -329,6 +345,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Packet.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Responder.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RingFileLogger.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SQLCallback.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SQLHandler.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SQLManager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SQLQuery.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SQLResult.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ShellcodeHandler.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ShellcodeManager.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Socket.Po@am__quote@
@@ -337,9 +358,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SubmitManager.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TCPSocket.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/UDPSocket.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/UploadManager.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/UploadQuery.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/UploadResult.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Utilities.Po@am__quote@
 
 .cpp.o:

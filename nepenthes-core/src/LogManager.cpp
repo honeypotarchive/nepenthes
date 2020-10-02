@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: LogManager.cpp 505 2006-04-09 16:39:36Z oxff $ */
+/* $Id: LogManager.cpp 675 2006-10-23 17:01:53Z common $ */
 
 #include <stdarg.h>
 #include <assert.h>
@@ -33,6 +33,7 @@
 #include "LogManager.hpp"
 #include "LogHandlerEntry.hpp"
 #include "LogHandler.hpp"
+#include "Nepenthes.hpp"
 
 using namespace nepenthes;
 
@@ -53,6 +54,7 @@ LogManager::LogManager()
  */
 LogManager::~LogManager()
 {
+	logPF();
 	// unregister all loggers.
 	list<LogHandlerEntry *>::iterator it;
 
@@ -61,6 +63,8 @@ LogManager::~LogManager()
 //		delete (*it)->m_Lh;
 		delete (*it);
 	}
+	
+	m_Loggers.clear();
 }
 
 
@@ -117,6 +121,20 @@ void LogManager::addLogger(LogHandler *lh, uint32_t filterMask)
 	#endif
 }
 
+bool LogManager::delLogger(LogHandler *lh)
+{
+	list<LogHandlerEntry *>::iterator it;
+	for( it = m_Loggers.begin(); it != m_Loggers.end(); it++ )
+	{
+		if ((*it)->m_Lh == lh)
+		{
+        	m_Loggers.erase(it);
+			delete *it;
+			return true;
+		}
+	}
+	return false;
+}
 
 /**
  * write a log message.
@@ -126,6 +144,12 @@ void LogManager::addLogger(LogHandler *lh, uint32_t filterMask)
  */
 void LogManager::log(uint32_t mask, const char *message)
 {
+	if ( m_Loggers.size() == 0)
+	{
+		printf("%s",message);
+		return;
+	}
+
 	list<LogHandlerEntry *>::iterator it;
 
 	// walk all loggers and log where desired.
@@ -232,4 +256,24 @@ void LogManager::setColor(bool setting)
 bool LogManager::getColorSetting()
 {
 	return m_useColor;
+}
+
+
+/**
+ * Ensure file ownership for all attached loggers.
+ *
+ * @param user The desired username.
+ * @param group The desired group.
+ *
+ * @return false if at least one logger failed, true otherwise.
+ */
+bool LogManager::setOwnership(int32_t uid, int32_t gid)
+{
+	list<LogHandlerEntry *>::iterator it;
+
+	for ( it = m_Loggers.begin(); it != m_Loggers.end(); it++ )
+		if ( !(*it)->m_Lh->setOwnership(uid, gid) )
+			return false;
+
+	return true;
 }

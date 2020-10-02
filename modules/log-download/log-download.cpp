@@ -25,7 +25,13 @@
  *
  *******************************************************************************/
 
- /* $Id: log-download.cpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: log-download.cpp 588 2006-07-08 15:25:45Z common $ */
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 
 #include "log-download.hpp"
 #include "LogManager.hpp"
@@ -67,7 +73,7 @@ LogDownload::LogDownload(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "log-download";
 	m_ModuleDescription = "logs all downloads to a file";
-	m_ModuleRevision    = "$Rev: 321 $";
+	m_ModuleRevision    = "$Rev: 588 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "LogDownloadEventHandler";
@@ -106,7 +112,7 @@ bool LogDownload::Init()
 	
 	if ( m_Config == NULL )
 	 {
-		 logCrit("%s","I need a config\n");
+		 logCrit("I need a config\n");
 		 return false;
 	 }
 
@@ -129,7 +135,7 @@ bool LogDownload::Init()
 
 	 } catch ( ... )
 	 {
-		 logCrit("%s","Error setting needed vars, check your config\n");
+		 logCrit("Error setting needed vars, check your config\n");
 		 return false;
 	 }
 
@@ -178,22 +184,35 @@ uint32_t LogDownload::handleEvent(Event *event)
 	time(&stamp);
 
 	localtime_r(&stamp, &t);
+	uint32_t localhost,remotehost;
+	string slocalhost;
+	string sremotehost;
 
+	
 
 	switch(event->getType())
 	{
 	case EV_DOWNLOAD:
 		{
-			SubmitEvent *se = (SubmitEvent *)event;
+            SubmitEvent *se = (SubmitEvent *)event;
 			Download *down = se->getDownload();
+
+			localhost = down->getLocalHost();
+			remotehost = down->getRemoteHost();
+
+			slocalhost = inet_ntoa(*(in_addr *)&localhost);
+			sremotehost = inet_ntoa(*(in_addr *)&remotehost);
+
 			// we use ISO 8601 %Y-%m-%dT%H:%M:%S
-			fprintf(m_DownloadFile, "[%04d-%02d-%02dT%02d:%02d:%02d] %s\n", 
+			fprintf(m_DownloadFile, "[%04d-%02d-%02dT%02d:%02d:%02d] %s -> %s %s\n", 
 					t.tm_year + 1900,
 					t.tm_mon + 1, 
 					t.tm_mday, 
 					t.tm_hour, 
 					t.tm_min, 
 					t.tm_sec,
+					sremotehost.c_str(),
+					slocalhost.c_str(),
 					down->getUrl().c_str()
 					);
 			fflush(m_DownloadFile);
@@ -204,13 +223,23 @@ uint32_t LogDownload::handleEvent(Event *event)
 		{
 			SubmitEvent *se = (SubmitEvent *)event;
 			Download *down = se->getDownload();
-			fprintf(m_SubmitFile, "[%04d-%02d-%02dT%02d:%02d:%02d] %s %s\n", 
+
+			localhost = down->getLocalHost();
+			remotehost = down->getRemoteHost();
+
+			slocalhost = inet_ntoa(*(in_addr *)&localhost);
+			sremotehost = inet_ntoa(*(in_addr *)&remotehost);
+
+
+			fprintf(m_SubmitFile, "[%04d-%02d-%02dT%02d:%02d:%02d] %s -> %s %s %s\n", 
 					t.tm_year + 1900,
 					t.tm_mon + 1, 
 					t.tm_mday, 
 					t.tm_hour, 
 					t.tm_min, 
 					t.tm_sec,
+					sremotehost.c_str(),
+					slocalhost.c_str(),
 					down->getUrl().c_str(),
 					down->getMD5Sum().c_str()
 					);
@@ -219,7 +248,7 @@ uint32_t LogDownload::handleEvent(Event *event)
 		break;
 
 	default:
-		logWarn("%s","this should not happen\n");
+		logWarn("this should not happen\n");
 	}
 	return 0;
 }

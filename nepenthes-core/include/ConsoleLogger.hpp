@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: ConsoleLogger.hpp 321 2006-02-20 08:30:38Z common $ */
+/* $Id: ConsoleLogger.hpp 664 2006-10-11 18:25:03Z dp $ */
 
 #ifndef CONSOLELOGGER_HPP
 #define CONSOLELOGGER_HPP
@@ -44,6 +44,7 @@ namespace nepenthes
 						ConsoleLogger(LogManager *lm);
 		virtual			~ConsoleLogger();
 		virtual void	log(uint32_t mask, const char *message);
+		virtual bool	setOwnership(uid_t uid, gid_t gid) { return true; }
 	};
 
 }

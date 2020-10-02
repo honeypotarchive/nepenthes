@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: ModuleManager.cpp 505 2006-04-09 16:39:36Z oxff $ */
+/* $Id: ModuleManager.cpp 612 2006-08-10 15:31:56Z common $ */
 
 #include <dlfcn.h>
 
@@ -154,7 +154,7 @@ bool ModuleManager::Init()
 }
 
 /**
- * unload all modules
+ * unload all modules in reverse order
  * 
  * @return 
  */
@@ -162,17 +162,17 @@ bool ModuleManager::Exit()
 {
 	while ( m_Modules.size() > 0 )
 	{
-		void *handle = m_Modules.front()->getDlHandle();
-		m_Modules.front()->Exit();
+		void *handle = m_Modules.back()->getDlHandle();
+		m_Modules.back()->Exit();
 
-		if ( m_Modules.front()->getConfig() != NULL )
+		if ( m_Modules.back()->getConfig() != NULL )
 		{
-        	delete m_Modules.front()->getConfig();
+        	delete m_Modules.back()->getConfig();
 		}
 
-		delete m_Modules.front();
+		delete m_Modules.back();
 		dlclose(handle);
-		m_Modules.pop_front();
+		m_Modules.pop_back();
 	}
 	return true;
 
@@ -200,24 +200,24 @@ bool ModuleManager::registerModule(string *modulepath, string *configpath)
 
     if ( handle == NULL )
     {
-        logCrit("dlerror %s\n",dlerror ());
-        logCrit("%s\n","handle == NULL ");
+        logCrit("Failed to load library \"%s\": %s\n", modulepath->c_str(), dlerror());
         return false;
     }
 
     module_init = (module_init_proc)dlsym(handle, "module_init");
     if ( module_init == NULL )
     {
-        logCrit("%s\n","module_init == NULL" );
+        logCrit("Cannot obtain symbol \"module_init\" from \"%s\": %s\n", modulepath->c_str(), dlerror());
         dlclose (handle);
         return false;
     }
+
 
     Module *newmodule;
     if ( module_init (MODULE_IFACE_VERSION, &newmodule, m_Nepenthes) != 1 )
     {
 
-        logCrit("%s\n","module_init() != 1" );
+        logCrit("Module \"%s\" library failed to initialize\n", modulepath->c_str());
         dlclose (handle);
         return false;
     }
@@ -249,7 +249,7 @@ bool ModuleManager::registerModule(string *modulepath, string *configpath)
 
 	if ( newmodule->Init() == false )
 	{
-		logCrit("Loading Module %s failed, Module->Init() returned false\n", modulepath->c_str());
+		logCrit("Module instance of \"%s\" using configuration \"%s\" failed to initialize\n", modulepath->c_str(), configpath->c_str());
 		delete newmodule;
 		dlclose (handle);
 		return false;

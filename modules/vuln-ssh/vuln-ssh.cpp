@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-ssh.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: vuln-ssh.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 #include <signal.h>
@@ -76,7 +76,7 @@ SSHVuln::SSHVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-ssh";
 	m_ModuleDescription = "log ssh bruteforces";
-	m_ModuleRevision    = "$Rev: 332 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;
@@ -100,7 +100,7 @@ bool SSHVuln::Init()
 {
 /*	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -112,7 +112,7 @@ bool SSHVuln::Init()
 		timeout = m_Config->getValInt("x-2.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

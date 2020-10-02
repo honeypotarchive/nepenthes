@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CSendDownloadHandler.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: CSendDownloadHandler.cpp 550 2006-05-04 10:25:35Z common $ */
 
 
 #include <fcntl.h>
@@ -57,7 +57,7 @@ CSendDownloadHandler::CSendDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "CSend Download Module";
 	m_ModuleDescription = "provides a downloadhandler for tcp protocol";
-	m_ModuleRevision    = "$Rev: 332 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="csend download handler";
@@ -79,7 +79,7 @@ bool CSendDownloadHandler::Init()
 
 	if (m_Config == NULL)
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -89,7 +89,7 @@ bool CSendDownloadHandler::Init()
 	}
 	catch(...)
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

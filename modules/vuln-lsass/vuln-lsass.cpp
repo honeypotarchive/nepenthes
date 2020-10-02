@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-lsass.cpp 439 2006-03-27 18:11:55Z common $ */
+ /* $Id: vuln-lsass.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -74,7 +74,7 @@ LSASSVuln::LSASSVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-lsass2";
 	m_ModuleDescription = "modules provides lsass emulation";
-	m_ModuleRevision    = "$Rev: 439 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "LSASSDialogue Factory";
@@ -104,7 +104,7 @@ bool LSASSVuln::Init()
 	logPF();
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -116,7 +116,7 @@ bool LSASSVuln::Init()
 		timeout = m_Config->getValInt("vuln-lsass.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

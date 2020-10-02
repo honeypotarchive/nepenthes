@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SocketManager.hpp 500 2006-04-08 18:57:15Z common $ */
+/* $Id: SocketManager.hpp 605 2006-08-07 23:13:31Z common $ */
 
 #ifndef HAVE_SOCKETMANAGER_HPP
 #define HAVE_SOCKETMANAGER_HPP
@@ -67,6 +67,7 @@ namespace nepenthes
 		virtual Socket *connectTCPHost(uint32_t localHost, uint32_t remotehost, uint16_t localport, uint16_t remoteport,time_t connecttimeout);
 
 		virtual Socket *addPOLLSocket(POLLSocket *sock);
+		virtual bool removePOLLSocket(POLLSocket *sock);
 
 		bool doLoop(uint32_t polltimeout);
 

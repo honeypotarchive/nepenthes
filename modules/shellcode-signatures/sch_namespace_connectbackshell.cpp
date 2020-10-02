@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_namespace_connectbackshell.cpp 499 2006-04-08 18:40:14Z common $ */
+/* $Id: sch_namespace_connectbackshell.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -163,7 +163,7 @@ sch_result NamespaceConnectbackShell::handleShellcode(Message **msg)
 		DialogueFactory *diaf;
 		if ((diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL)
 		{
-			logCrit("%s","No WinNTShell DialogueFactory availible \n");
+			logCrit("No WinNTShell DialogueFactory availible \n");
 			return SCH_DONE;
 		}
 		sock->addDialogue(diaf->createDialogue(sock));

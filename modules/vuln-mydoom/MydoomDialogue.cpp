@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: MydoomDialogue.cpp 495 2006-04-08 17:52:19Z common $ */
+ /* $Id: MydoomDialogue.cpp 639 2006-09-07 14:32:26Z common $ */
 
 
 
@@ -117,10 +117,14 @@ ConsumeLevel MydoomDialogue::incomingData(Message *msg)
 				m_State = MYDOOM_FILETRANSFERR;
 				m_Buffer->cut(strlen(MydoomTrailor));
 
-				m_Download = new Download(msg->getRemoteHost(),"mydoom://foo/bar",msg->getRemoteHost(),"some triggerline");
+				string url = "mydoom://";
+				uint32_t remote = msg->getRemoteHost();
+				url += inet_ntoa(*(struct in_addr *)&remote);
+
+				m_Download = new Download(msg->getLocalHost(),(char *)url.c_str(),msg->getRemoteHost(),"some triggerline");
 				m_Download->getDownloadBuffer()->addData((char *)m_Buffer->getData(),m_Buffer->getSize());
 				m_Buffer->clear();
-				return CL_ASSIGN;
+				return CL_ASSIGN_AND_DONE;
 			}
 		}
 		if (m_Buffer->getSize() > 128 )
@@ -130,6 +134,7 @@ ConsumeLevel MydoomDialogue::incomingData(Message *msg)
 	case MYDOOM_FILETRANSFERR:
 		{
 			m_Download->getDownloadBuffer()->addData((char *)msg->getMsg(),msg->getSize());
+			return CL_ASSIGN;
 		}
 		break;
 
@@ -196,7 +201,6 @@ ConsumeLevel MydoomDialogue::connectionShutdown(Message *msg)
 	if (m_Download != NULL)
 	{
     	g_Nepenthes->getSubmitMgr()->addSubmission(m_Download);
-		return CL_ASSIGN_AND_DONE;
 	}
 	return CL_DROP;
 }

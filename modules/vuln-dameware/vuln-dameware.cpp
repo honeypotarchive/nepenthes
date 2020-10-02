@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-dameware.cpp 330 2006-02-20 09:20:44Z common $ */
+ /* $Id: vuln-dameware.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -78,7 +78,7 @@ DameWareVuln::DameWareVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-dameware";
 	m_ModuleDescription = "emulates the 2 known dameware bugs";
-	m_ModuleRevision    = "$Rev: 330 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "DameWare Dialogue Factory";
@@ -105,7 +105,7 @@ bool DameWareVuln::Init()
 {
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -117,7 +117,7 @@ bool DameWareVuln::Init()
 		timeout = m_Config->getValInt("vuln-dameware.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

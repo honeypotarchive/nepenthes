@@ -16,7 +16,7 @@
 
 # nepenthes module meta-Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 500 2006-04-08 18:57:15Z common $
+# $Id: Makefile.am 661 2006-10-11 14:24:53Z common $
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 VPATH = @srcdir@
@@ -74,6 +74,7 @@ CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
+CPPFLAG_PRELUDE = @CPPFLAG_PRELUDE@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
@@ -89,19 +90,34 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
+GREP = @GREP@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LDFLAG_PRELUDE = @LDFLAG_PRELUDE@
 LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
+LIBCURL_CONFIG = @LIBCURL_CONFIG@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
 LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
+LIB_ADNS = @LIB_ADNS@
+LIB_CAP = @LIB_CAP@
+LIB_CURL = @LIB_CURL@
+LIB_DL = @LIB_DL@
+LIB_IPQ = @LIB_IPQ@
+LIB_LIBNET = @LIB_LIBNET@
+LIB_LIBY = @LIB_LIBY@
+LIB_MAGIC = @LIB_MAGIC@
+LIB_PCAP = @LIB_PCAP@
+LIB_PCRE = @LIB_PCRE@
+LIB_POSTGRES = @LIB_POSTGRES@
+LIB_PRELUDE = @LIB_PRELUDE@
 LN_S = @LN_S@
 LOCALESTATEDIR = @LOCALESTATEDIR@
 LTLIBOBJS = @LTLIBOBJS@
@@ -126,12 +142,10 @@ STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
 YACC = @YACC@
-ac_ct_AR = @ac_ct_AR@
+YFLAGS = @YFLAGS@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
-ac_ct_RANLIB = @ac_ct_RANLIB@
-ac_ct_STRIP = @ac_ct_STRIP@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
 am__fastdepCC_TRUE = @am__fastdepCC_TRUE@
 am__fastdepCXX_FALSE = @am__fastdepCXX_FALSE@
@@ -148,42 +162,48 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+datarootdir = @datarootdir@
+docdir = @docdir@
+dvidir = @dvidir@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
 host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
+htmldir = @htmldir@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
 libexecdir = @libexecdir@
+localedir = @localedir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
+pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
+psdir = @psdir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-SUBDIRS = download-creceive download-csend download-curl download-ftp download-http download-link download-nepenthes download-tftp download-rcp\
-          upload-http \
+SUBDIRS = download-creceive download-csend download-curl download-ftp download-http download-link download-tftp download-rcp\
           log-download log-irc \
-          submit-file submit-gotek submit-nepenthes submit-norman submit-xmlrpc \
+          submit-file submit-gotek submit-norman submit-postgres\
           shellcode-generic shellemu-winnt \
           vuln-asn1 vuln-bagle vuln-dcom vuln-iis vuln-kuang2 vuln-lsass \
           vuln-msdtc vuln-msmq vuln-mssql vuln-mydoom \
           vuln-netbiosname vuln-netdde vuln-optix vuln-pnp vuln-sasserftpd \
-          vuln-sub7 vuln-upnp vuln-veritas vuln-wins vuln-dameware vuln-ssh \
-          module-portwatch \
-          geolocation-hostip geolocation-geoip geolocation-ip2location \
+          vuln-sub7 vuln-upnp vuln-veritas vuln-wins vuln-dameware vuln-ssh vuln-realvnc \
+          module-portwatch module-honeytrap module-bridge module-peiros\
           dnsresolve-adns \
-          x-1 x-2 x-3 x-4 x-5 x-6 x-8 \
+          x-1 x-2 x-3 x-4 x-5 x-6 x-9 \
           log-surfnet vuln-ftpd \
-          log-prelude shellcode-signatures
+          log-prelude shellcode-signatures \
+	  sqlhandler-postgres           
 
 all: all-recursive
 
@@ -492,7 +512,6 @@ uninstall-info: uninstall-info-recursive
 	mostlyclean mostlyclean-generic mostlyclean-libtool \
 	mostlyclean-recursive pdf pdf-am ps ps-am tags tags-recursive \
 	uninstall uninstall-am uninstall-info-am
-
 
 #          vuln-netbios
           # x-5 has linking issues on MacOS X

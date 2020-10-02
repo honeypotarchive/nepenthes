@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Nepenthes.cpp 505 2006-04-09 16:39:36Z oxff $ */
+/* $Id: Nepenthes.cpp 699 2006-11-11 09:20:15Z common $ */
 
 #include <config.h>
 
@@ -42,7 +42,7 @@
 #include <grp.h>
 #include <dirent.h>
 #include <sys/utsname.h>
-
+#include <ctype.h>
 
 #ifdef HAVE_LIBCAP
 #undef _POSIX_SOURCE
@@ -64,8 +64,8 @@
 #include "Utilities.hpp"
 #include "DialogueFactoryManager.hpp"
 #include "DNSManager.hpp"
-#include "GeoLocationManager.hpp"
-#include "UploadManager.hpp"
+
+#include "SQLManager.hpp"
 
 #include "Message.hpp"
 
@@ -77,9 +77,31 @@
 
 using namespace nepenthes;
 
-enum ColorSetting { colorAuto, colorAlways, colorNever };
+
 
 Nepenthes *g_Nepenthes;
+
+
+Options::Options()
+{
+	m_runMode = runNormal;
+	m_daemonize = false;
+	m_verbose = false;
+	m_setCaps = false;	
+	m_ringLogger = false;
+	m_color = colorAuto;
+
+	m_fileCheckArguments = NULL;
+	m_configPath = SYSCONFDIR "/nepenthes/nepenthes.conf";
+	m_workingDir = PREFIX;
+	m_changeUser = NULL;
+	m_changeGroup = NULL;
+	m_changeRoot = NULL;
+	m_diskTags = NULL;
+	m_consoleTags = NULL;
+}
+
+
 /**
  * the constructor
  * takes no argument
@@ -96,15 +118,14 @@ Nepenthes::Nepenthes()
 	m_DNSManager = NULL;
 	m_DownloadManager   = NULL;
 	m_EventManager  = NULL;
-#ifdef HAVE_GEOLOCATION
-	m_GeoLocationManager = NULL;
-#endif
-	m_LogManager    = NULL;
+	m_LogManager    = new LogManager;
 	m_ModuleManager = NULL;
 	m_ShellcodeManager  = NULL;
 	m_SocketManager = NULL;
 	m_SubmitManager = NULL;
 	m_Utilities = NULL;
+
+	m_SQLManager = NULL;
 
 	m_UID = 0;
 	m_GID = 0;
@@ -115,8 +136,10 @@ Nepenthes::Nepenthes()
  */
 Nepenthes::~Nepenthes()
 {
+	logPF();
+
 	if ( m_SocketManager != NULL )
-    	delete m_SocketManager;
+		m_SocketManager->Exit();
 
 	if (m_DownloadManager != NULL )
 		delete m_DownloadManager;
@@ -142,17 +165,18 @@ Nepenthes::~Nepenthes()
 	if (m_DialogueFactoryManager != NULL)
 		delete m_DialogueFactoryManager;
 
-#ifdef HAVE_GEOLOCATION
-	if (m_GeoLocationManager != NULL)
-		delete m_GeoLocationManager;
-#endif
-
 	if (m_DNSManager != NULL)
 		delete m_DNSManager;
 
 	if (m_LogManager != NULL)
 		delete m_LogManager;
 
+	if ( m_SocketManager != NULL )
+		delete m_SocketManager;
+
+	g_Nepenthes = NULL;
+	
+	printf("Quit\n");
 }
 
 /**
@@ -163,50 +187,24 @@ Nepenthes::~Nepenthes()
  * 
  * @return 0 if the application was shut down poperly, non-null if an error occured.
  */
-
-int32_t Nepenthes::run(int32_t argc, char **argv)
+bool Nepenthes::parseArguments(int32_t argc, char **argv, Options *options)
 {
-	bool run=true;
-	bool confcheck=false;
-	bool filecheck=false;
-	bool verbose=false;
-
-	char *filecheckarg =NULL;
-	char *confpath = SYSCONFDIR "/nepenthes/nepenthes.conf";
-	char *basedir;
-	char *workingdir = PREFIX;
-	char *chUser = NULL;
-	char *chGroup = NULL;
-	char *chRoot = NULL;
-	const char *consoleTags = 0, *diskTags = 0;
-	bool forcesetcaps=false;
-
-
-	string flpath;
-
-	string rlpath;	// ringlogger path, gets read from config
-	bool ringlog = false;
-	ColorSetting col = colorAuto;
-
-#ifdef WIN32
-
-#else
-
 	while( 1 )
 	{
 		int32_t option_index = 0;
 		static struct option long_options[] = {
             { "config", 		1, 0, 'c' },
 			{ "capabilities",	0, 0, 'C' },
-			{ "disk-log", 		1, 0, 'd' },	// FIXME
-			{ "file-check",		1, 0, 'f' },	// FIXME
+			{ "disk-log", 		1, 0, 'd' },
+			{ "daemonize",		0, 0, 'D' },
+			{ "file-check",		1, 0, 'f' },	
 			{ "group",			1, 0, 'g' },	
 			{ "help", 			0, 0, 'h' },
 			{ "large-help",		0, 0, 'H' },
 			{ "info",			0, 0, 'i' },
 			{ "check-config", 	0, 0, 'k' },
-			{ "log", 			1, 0, 'l' },	// FIXME
-			{ "logging-help",	0, 0, 'L' },	// FIXME
+			{ "log", 			1, 0, 'l' },	
+			{ "logging-help",	0, 0, 'L' },	
 			{ "color",	 		1, 0, 'o' },
 			{ "chroot",			1, 0, 'r' }, 
 			{ "ringlog",		0, 0, 'R' }, 
@@ -217,116 +215,109 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 			{ 0, 0, 0, 0 }
 		};
 
-		int32_t c = getopt_long(argc, argv, "c:Cd:f:g:hHikl:Lo:r:Ru:vVw:", long_options, (int *)&option_index);
+		int32_t c = getopt_long(argc, argv, "c:Cd:Df:g:hHikl:Lo:r:Ru:vVw:", long_options, (int *)&option_index);
 		if (c == -1)
 			break;
 
 		switch (c)
 		{
 
-		case 'b':
-			basedir = optarg;
-			break;
-
 		case 'C':
-			forcesetcaps = true;
+
+			options->m_setCaps = true;
 			break;
 
 
 		case 'c':
-			confpath = optarg;
+			options->m_configPath = optarg;
 			break;
 
-		case 'd':	// FIXME set disk loglevel
-			diskTags = optarg;
+		case 'd':
+			options->m_diskTags = optarg;
 			break;
+
+		case 'D':
+			options->m_daemonize = true;	
+            break;
+
 
 		case 'f':
-//			fprintf(stderr,"filecheck\n");
-			filecheckarg = optarg;
-			filecheck = true;
-			run=false;
+			options->m_fileCheckArguments = optarg;
+			options->m_runMode = runFileCheck;
 			break;
 
 
 		case 'g':
-			chGroup=optarg;
-			printf("Change Group to %s\n",chGroup);
+			options->m_changeGroup = optarg;
             break;
 
 		case 'h':
 			show_help(false);
-			run=false;
+			return false;
 			break;
 
 		case 'H':
 			show_help(true);
-			run=false;
+			return false;
 			break;
 
 		case 'i':
 			show_info();
-			run=false;
+			return false;
 			break;
 
-		case 'l':	// FIXME set console loglevel
-			consoleTags = optarg;
+		case 'l':
+			options->m_consoleTags = optarg;
 			break;
 
 		case 'L':
 			show_loghelp();
-			run=false;
+			return false;
 			break;
 
 		case 'k':
-            run = false;
-			confcheck = true;
-			break;
+            options->m_runMode = runConfigCheck;
+            break;
 
-		case 'o':	// FIXME set nocolor on console
-			if( !strcmp(optarg, "never") )
-				col = colorNever;
-			else if( !strcmp(optarg, "always") )
-				col = colorAlways;
-			else if( !strcmp(optarg, "auto") )
-				col = colorAuto;
+		case 'o':
+			if ( !strcmp(optarg, "never") )
+				options->m_color = colorNever;
+			else if ( !strcmp(optarg, "always") )
+				options->m_color = colorAlways;
+			else if ( !strcmp(optarg, "auto") )
+				options->m_color = colorAuto;
 			else
 			{
 				fprintf(stdout, "Invalid argument for --color; must be one of\n"
 						"`never', `always' or `auto'.\n");
-				run = false;
+				return false;
 			}
-
 			break;
 
 		case 'r':
-			chRoot = optarg;
-			printf("Change Root to %s \n",chRoot);
+			options->m_changeRoot = optarg;
 			break;
 
 		case 'R':
-			ringlog = true;
-			printf("Using ringlogger instead of filelogger, rotating logfiles by myself\n");
+			options->m_ringLogger = true;
 			break;
 
 		case 'u':
-            chUser = optarg;
-			printf("Change User to %s \n",chUser);
+            options->m_changeUser = optarg;
 			break;
 
 
 		case 'v':
-			printf("DOING VERBOSE\n");
-			verbose = true;
+			options->m_verbose = true;
 			break;
 
 		case 'V':
 			show_version();
-            run = false;
+			return false;
 			break;
-
-		case 'w':
-			workingdir = optarg;
+ 
+ 		case 'w':
+			options->m_workingDir = optarg;
 			break;
 
 		case '?':
@@ -339,422 +330,268 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 		}
 	}
 
+	return true;
+}
 
-	if( workingdir && chdir(workingdir) )
+
+/**
+ * start nepenthes, using command line arguments.
+ * 
+ * @param argc   number of arguments.
+ * @param argv   vector containing arguments.
+ * 
+ * @return 0 if the application was shut down poperly, non-null if an error occured.
+ */
+
+int32_t Nepenthes::run(int32_t argc, char **argv)
+{
+	Options             opt;
+
+
+	if( !parseArguments(argc, argv, &opt) )
+		return -1;
+
+
+	if( opt.m_workingDir != NULL && chdir(opt.m_workingDir) )
 	{
-		logCrit("Cannot change working diretory to %s: %s.\n", workingdir, strerror(errno));
+		logCrit("Cannot change working diretory to %s: %s.\n", opt.m_workingDir, strerror(errno));
 		return -1;
 	}
-#endif
+
+	if( opt.m_changeUser != NULL && !changeUser(opt.m_changeUser) )
+		return -1;
+
+	if( opt.m_changeGroup != NULL && !changeGroup(opt.m_changeGroup) )
+		return -1;
 
 
-	// lookup the userid & groupid we have to switch to
-	if ( chUser != NULL )
+	show_logo();
+	show_version();
+
+
+
+	if ( opt.m_runMode != runFileCheck || opt.m_verbose )
 	{
-		if ( changeUser(chUser) == false )
-		{
-			run=false;
-		}
+		m_LogManager->registerTag(l_crit,   "crit");
+		m_LogManager->registerTag(l_warn,   "warn");
+		m_LogManager->registerTag(l_debug,  "debug");
+		m_LogManager->registerTag(l_info,   "info");
+		m_LogManager->registerTag(l_spam,   "spam");
+		m_LogManager->registerTag(l_net,    "net");
+		m_LogManager->registerTag(l_script, "script");
+		m_LogManager->registerTag(l_shell,  "shell");
+		m_LogManager->registerTag(l_mem,    "mem");
+		m_LogManager->registerTag(l_sc,     "sc");
+		m_LogManager->registerTag(l_dl,     "down");
+		m_LogManager->registerTag(l_mgr,    "mgr");
+		m_LogManager->registerTag(l_hlr,    "handler");
+		m_LogManager->registerTag(l_dia,    "dia");
+		m_LogManager->registerTag(l_sub,    "submit");
+		m_LogManager->registerTag(l_ev,     "event");
+		m_LogManager->registerTag(l_mod,    "module");
+		m_LogManager->registerTag(l_stdtag, "fixme");
 
-	}
-	if ( chGroup != NULL )
-	{
-		if ( changeGroup(chGroup) == false)
-		{
-			run=false;
-		}
-	}
-
-
-
-	if(run == true || confcheck == true || filecheck == true)
-	{
-		if (run == true)
-		{
-            show_logo();
-			show_version();
-		}
-
-		m_LogManager        = new LogManager();
-		if (filecheck == false || verbose == true )
-		{
-			m_LogManager->registerTag(l_crit,   "crit");
-			m_LogManager->registerTag(l_warn,   "warn");
-			m_LogManager->registerTag(l_debug,  "debug");
-			m_LogManager->registerTag(l_info,   "info");
-			m_LogManager->registerTag(l_spam,   "spam");
-			m_LogManager->registerTag(l_net,    "net");
-			m_LogManager->registerTag(l_script, "script");
-			m_LogManager->registerTag(l_shell,  "shell");
-			m_LogManager->registerTag(l_mem,    "mem");
-			m_LogManager->registerTag(l_sc,     "sc");
-			m_LogManager->registerTag(l_dl,     "down");
-			m_LogManager->registerTag(l_mgr,    "mgr");
-			m_LogManager->registerTag(l_hlr,    "handler");
-			m_LogManager->registerTag(l_dia,    "dia");
-			m_LogManager->registerTag(l_sub,    "submit");
-			m_LogManager->registerTag(l_ev,     "event");
-			m_LogManager->registerTag(l_mod,    "module");
-			m_LogManager->registerTag(l_stdtag, "fixme");
-
-			if( consoleTags )
-				m_LogManager->addLogger(new ConsoleLogger(m_LogManager), m_LogManager->parseTagString(consoleTags));
-			else
-				m_LogManager->addLogger(new ConsoleLogger(m_LogManager), l_all);
-		}
-
-
-		if ( run == true || filecheck == true)
-		{
-        	m_DialogueFactoryManager = new DialogueFactoryManager(this);
-
-			m_DownloadManager   = new DownloadManager(this);
-			m_EventManager      = new EventManager(this);
-
-#ifdef HAVE_GEOLOCATION
-			m_GeoLocationManager = new GeoLocationManager(this);
-#endif 
-
-			m_UploadManager		= new UploadManager(this);
-			//	m_Lua				= new Lua
-			m_ModuleManager     = new ModuleManager(this);
-			m_ShellcodeManager  = new ShellcodeManager(this);
-			m_SocketManager     = new SocketManager(this);
-			m_SubmitManager     = new SubmitManager(this);
-			m_Utilities         = new Utilities();
-			m_DNSManager        = new DNSManager(this);
-		}
+		if ( opt.m_consoleTags )
+			m_LogManager->addLogger(new ConsoleLogger(m_LogManager), m_LogManager->parseTagString(opt.m_consoleTags));
+		else
+			m_LogManager->addLogger(new ConsoleLogger(m_LogManager), l_all);
 	}
 
 
-	if ( run == true || confcheck == true || filecheck == true)
+	if ( opt.m_runMode == runNormal || opt.m_runMode == runFileCheck )
 	{
-		switch( col )
-		{
-			case colorAuto:
-				if( isatty(STDOUT_FILENO) )
-					m_LogManager->setColor(true);
-				else
-					m_LogManager->setColor(false);
-				break;
-			case colorNever:
-				m_LogManager->setColor(false);
-				break;
-			case colorAlways:
-				m_LogManager->setColor(true);
-				break;
-		}
+		m_DialogueFactoryManager = new DialogueFactoryManager(this);
 
-        m_Config = new Config;
-		logSpam("Trying to load Nepenthes Configuration from %s \n",confpath);
+		m_DownloadManager   = new DownloadManager(this);
+		m_EventManager      = new EventManager(this);
+
+		//	m_Lua				= new Lua
+		m_ModuleManager     = new ModuleManager(this);
+		m_ShellcodeManager  = new ShellcodeManager(this);
+		m_SocketManager     = new SocketManager(this);
+		m_SubmitManager     = new SubmitManager(this);
+		m_Utilities         = new Utilities();
+		m_DNSManager        = new DNSManager(this);
+		m_SQLManager        = new SQLManager(this);
+	}
+
+
+
+	switch ( opt.m_color )
+	{
+	case colorAuto:
+		if ( isatty(STDOUT_FILENO) )
+			m_LogManager->setColor(true);
+		else
+			m_LogManager->setColor(false);
+		break;
+
+	case colorNever:
+		m_LogManager->setColor(false);
+		break;
+
+	case colorAlways:
+		m_LogManager->setColor(true);
+		break;
+	}
+
+
+
+	/* load configuration. */
+	m_Config = new Config;
+	logSpam("Trying to load Nepenthes Configuration from %s \n", opt.m_configPath);
+	try
+	{
+		m_Config->load(opt.m_configPath);
+		logInfo("Loaded Nepenthes Configuration from \"%s\".\n", opt.m_configPath);
+	}
+	catch ( LoadError e )
+	{
+		fprintf(stderr, "Unable to load configuration file \"%s\": %s\n", opt.m_configPath, e.getMessage());
+		return -1;
+	}
+	catch ( ParseError e )
+	{
+		fprintf(stderr, "Parse error in \"%s\" on line %d: %s\n", opt.m_configPath, e.getLine(), e.getMessage());
+		return -1;
+	}
+
+	if ( opt.m_runMode == runConfigCheck ) // passed if we reach this
+		return 0;
+
+
+	if ( opt.m_ringLogger == true )
+	{
+		string rlpath;
 		try
 		{
-			m_Config->load(confpath);
-			logInfo("Loaded Nepenthes Configuration from \"%s\".\n",confpath);
-		} catch ( LoadError e )
-		{
-			printf("Unable to load configuration file \"%s\": %s\n", confpath, e.getMessage());
-			run = false;
-		} catch ( ParseError e )
-		{
-			printf("Parse error in \"%s\" on line %d: %s\n", confpath, e.getLine(), e.getMessage());
-			run = false;
+			rlpath = m_Config->getValString("nepenthes.logmanager.ring_logging_file");
 		}
-		
+		catch ( ... )
+		{
+			logCrit("Could not find nepenthes.logmanager.ring_logging_file in Config\n");
+			return false;
+		}
+
+
+		RingFileLogger *fl = new RingFileLogger(m_LogManager);
+
+		fl->setLogFileFormat((char *)rlpath.c_str());
+		fl->setMaxFiles(5);
+		fl->setMaxSize(1024 * 1024);
+
+		if ( opt.m_diskTags )
+			m_LogManager->addLogger(fl, m_LogManager->parseTagString(opt.m_diskTags));
+		else
+			m_LogManager->addLogger(fl, l_all);
+
+	}
+	else
+	{
+		string flpath;
+		try
+		{
+			flpath = m_Config->getValString("nepenthes.logmanager.file_logging_file");
+		}
+		catch ( ... )
+		{
+			logCrit("Could not find nepenthes.logmanager.file_logging_file in Config\n");
+			return false;
+		}
+
+		FileLogger *fl = new FileLogger(m_LogManager);
+		fl->setLogFile(flpath.c_str());
+		if ( opt.m_diskTags )
+			m_LogManager->addLogger(fl, m_LogManager->parseTagString(opt.m_diskTags));
+		else
+			m_LogManager->addLogger(fl, l_all);
+
 	}
 
-    if ( run == true )
-    {
-		if ( m_Config != NULL )
-		{
-			
-
-
-			if (ringlog == true)
-			{
-
-				try
-				{
-					rlpath = m_Config->getValString("nepenthes.logmanager.ring_logging_file");
-				} catch ( ... )
-				{
-					logCrit("%s","Could not find nepenthes.logmanager.ring_logging_file in Config\n");
-					run = false;
-				}
-
-
-				RingFileLogger *fl = new RingFileLogger(m_LogManager);
-
-				fl->setLogFileFormat((char *)rlpath.c_str());
-				fl->setMaxFiles(5);
-				fl->setMaxSize(1024 * 1024);
-
-				if ( diskTags )
-					m_LogManager->addLogger(fl, m_LogManager->parseTagString(diskTags));
-				else
-					m_LogManager->addLogger(fl, l_all);
-
-			}else
-			{
-				try
-				{
-					flpath = m_Config->getValString("nepenthes.logmanager.file_logging_file");
-				} catch ( ... )
-				{
-					logCrit("%s","Could not find nepenthes.logmanager.file_logging_file in Config\n");
-					run = false;
-				}
-
-				FileLogger *fl = new FileLogger(m_LogManager);
-				fl->setLogFile(flpath.c_str());
-				if ( diskTags )
-					m_LogManager->addLogger(fl, m_LogManager->parseTagString(diskTags));
-				else
-					m_LogManager->addLogger(fl, l_all);
-
-			}
-		}
+	if (opt.m_daemonize == true)
+	{
+		logInfo("running as daemon\n");
+		daemon(1,0);
+		logInfo("daemon process id is %i\n",getpid());
 	}
 
 
-	if (run == true || filecheck == true)
+	if (opt.m_runMode == runFileCheck || opt.m_runMode == runNormal )
 	{
 
-		if (filecheck == true)
-		{
-			run = true; 
-		}
-
         // socketManager will call WASStartup()
-		run = m_SocketManager->Init();
+		if ( m_SocketManager->Init() == false)
+			return -1;
 
 		
 
-		if (run == true )
-		{
-			run = m_ModuleManager->Init();
-			m_ModuleManager->doList();
-		}
+		if ( m_ModuleManager->Init() == false )
+			return -1;
 
-		if (run == true )
-		{
-			run = m_DNSManager->Init();
-			m_DNSManager->doList();
-		}
+		m_ModuleManager->doList();
+		
 
-#ifdef HAVE_GEOLOCATION
-		if (run == true )
-		{
-			run = m_GeoLocationManager->Init();
-		}
-#endif
+		if (m_DNSManager->Init() == false )
+			return -1;
 
-		if (run == true )
-		{
-			run = m_DownloadManager->Init();
-			m_DownloadManager->doList();
-		}
+		m_DNSManager->doList();
+		
 
-		if (run == true )
-		{
-			run = m_UploadManager->Init();
-			m_UploadManager->doList();
-		}
+		if (m_DownloadManager->Init() == false )
+			return -1;
 
-		if (run == true )
-		{
-			m_EventManager->doList();
-		}
+        m_DownloadManager->doList();
+		
 
-		if (run == true )
-		{
-			m_ShellcodeManager->doList();
-		}
+		m_EventManager->doList();
 
-		if (run == true )
-		{
-            m_SocketManager->doList();
-		}
+		m_ShellcodeManager->doList();
 
-		if (run == true )
-		{
-			run = m_SubmitManager->Init();
+        m_SocketManager->doList();
+		
+
+		if (m_SubmitManager->Init() == false)
+			return -1;
+
 			m_SubmitManager->doList();
-		}
+		
 
-		if (run == true )
-		{
-			m_DialogueFactoryManager->doList();
-		}
-
-
-		if (filecheck == true )
-		{
-			if (run == true)
-			{
-				run = false; 
-			}else
-			{
-				filecheck = false;
-			}
-		}
+		m_DialogueFactoryManager->doList();
+		m_SQLManager->doList();
 	}
 
 	// if we drop priviliges, we have to take care of the logfiles user/group permission
 	// if we do not drop privs, make sure the files are ours
 	// --common
-	if ( run == true )
+
+
+	if( !m_LogManager->setOwnership(m_UID, m_GID) )
+		return -1;
+
+	if ( setCapabilties() == false && opt.m_setCaps == true)
 	{
-#if defined(CYGWIN)  || defined(CYGWIN32) || defined(__CYGWIN__) || defined(__CYGWIN32__)  || defined(WIN32)
-
-#else
-		if ( ringlog == true )
-		{
-
-			uint16_t numrot=0;
-			for ( numrot = 0;numrot < 5; numrot++ )
-			{
-				char *lp=0;
-				asprintf(&lp,rlpath.c_str(),numrot);
-
-				struct stat st;
-				int32_t filestat = stat(lp, &st);
-
-				if ( filestat != 0 )
-				{
-					if ( errno == ENOENT )
-					{
-						logInfo("logfile %s does not exist yet\n",lp);
-						continue;
-					} else
-					{
-						logCrit("Could not access logfile %s '%s'\n",lp, strerror(errno));
-						run=false;
-					}
-				} else
-				{
-					if ( chown(lp,m_UID, m_GID) != 0 )
-					{
-						logCrit("Could not chown logfile %s '%s'\n",lp, strerror(errno));
-						run=false;
-					} else
-					{
-						char *curUser, *curGroup;
-						if ( chUser != NULL )
-						{
-							curUser = chUser;
-						} else
-						{
-							curUser = getpwuid(geteuid())->pw_name;
-						}
-
-						if ( chGroup != NULL )
-						{
-							curGroup = chGroup;
-						} else
-						{
-							curGroup = getgrgid(geteuid())->gr_name;
-						}
-
-						logInfo("Changed logfile %s owner to %i:%i (%s:%s)\n",lp, m_UID,m_GID,curUser,curGroup);
-					}
-				}
-				free(lp);
-			}
-
-		}else
-		{
-			struct stat st;
-			int32_t filestat = stat(flpath.c_str(), &st);
-
-			if ( filestat != 0 )
-			{
-				if ( errno == ENOENT )
-				{
-					logInfo("logfile %s does not exist yet\n",flpath.c_str());
-				} else
-				{
-					logCrit("Could not access logfile %s '%s'\n",flpath.c_str(), strerror(errno));
-					run=false;
-				}
-			} else
-			{
-				if ( chown(flpath.c_str(),m_UID, m_GID) != 0 )
-				{
-					logCrit("Could not chown logfile %s '%s'\n",flpath.c_str(), strerror(errno));
-					run=false;
-				} else
-				{
-					char *curUser, *curGroup;
-					if ( chUser != NULL )
-					{
-						curUser = chUser;
-					} else
-					{
-						curUser = getpwuid(geteuid())->pw_name;
-					}
-
-					if ( chGroup != NULL )
-					{
-						curGroup = chGroup;
-					} else
-					{
-						curGroup = getgrgid(geteuid())->gr_name;
-					}
-
-					logInfo("Changed logfile %s owner to %i:%i (%s:%s)\n",flpath.c_str(), m_UID,m_GID,curUser,curGroup);
-				}
-			}
-		}
-#endif
+		logCrit("As you asked to force capabilities, this is a critical error and we will terminate right now\n");
+		return -1;
 	}
 
-	if ( run == true  )
-	{
-		if ( setCapabilties() == false)
-		{
-			if ( forcesetcaps == true )
-			{
-				logCrit("%s","As you asked to force capabilities, this is a critical error and we will terminate right now\n");
-				run = false;
-			}
-		}
-	}
-
-	if ( run == true && chRoot != NULL )
-	{
-		if ( changeRoot(chRoot) == false )
-		{
-			run = false;
-		}
-	}
+	if (opt.m_changeRoot != NULL && changeRoot(opt.m_changeRoot) == false )
+		return -1;
 
 
 	// change process group id
-	if ( run == true && chGroup != NULL )
-	{
-
-		if ( changeGroup() == false )
-		{
-			run=false;
-		}
-	}
+	if ( opt.m_changeGroup != NULL &&  changeGroup() == false )
+		return -1;
 
 	// change process user id
-	if ( run == true && chUser != NULL )
-	{
-		if ( changeUser() == false )
-		{
-			run=false;
-		}
-	}
+	if ( opt.m_changeUser != NULL && changeUser() == false )
+		return -1;
 
-	if (filecheck)
+
+	if (opt.m_runMode == runFileCheck )
 	{
 		show_version();
-		fileCheckMain(filecheckarg,argc,optind,argv);
-	}
-	if( run == true )
+		fileCheckMain(opt.m_fileCheckArguments,argc,optind,argv);
+	}else
 	{
         doLoop();
 	}
@@ -796,7 +633,7 @@ bool Nepenthes::doLoop()
 #define FC_IS_NONOP 0x010
 
 
-bool Nepenthes::fileCheckMain(char *optval, int32_t argc, int32_t opti, char **argv)
+bool Nepenthes::fileCheckMain(const char *optval, int32_t argc, int32_t opti, char **argv)
 {
 	if ( opti >= argc )
 	{
@@ -1115,27 +952,14 @@ DNSManager *Nepenthes::getDNSMgr()
 }
 
 
-#ifdef HAVE_GEOLOCATION
 /**
- * get the GeoLocationManager
+ * get the SQLManager
  * 
- * @return returns the GeoLocationManager
+ * @return returns the SQLManager
  */
-GeoLocationManager *Nepenthes::getGeoMgr()
+SQLManager *Nepenthes::getSQLMgr()
 {
-	return m_GeoLocationManager;
-}
-
-#endif
-
-/**
- * get the UploadManager
- * 
- * @return returns the UploadManager
- */
-UploadManager *Nepenthes::getUploadMgr()
-{
-	return m_UploadManager;
+	return m_SQLManager;
 }
 
 /**
@@ -1183,7 +1007,7 @@ bool Nepenthes::reloadConfig()
  * @return returns true on success, 
  *         else false
  */
-bool Nepenthes::changeUser(char *user)
+bool Nepenthes::changeUser(const char *user)
 {
 	passwd * pass;                                
 
@@ -1273,7 +1097,7 @@ bool Nepenthes::changeUser()
  * 
  * @return returns true on success, else false
  */
-bool Nepenthes::changeGroup(char *gruppe)
+bool Nepenthes::changeGroup(const char *gruppe)
 {
 	struct group *grp;
 
@@ -1373,7 +1197,7 @@ bool Nepenthes::changeGroup()
  * @return return true on success,
  *         else false
  */
-bool Nepenthes::changeRoot(char *path)
+bool Nepenthes::changeRoot(const char *path)
 {
 	if ( chroot(path) < 0)
 	{
@@ -1395,15 +1219,17 @@ bool Nepenthes::setCapabilties()
 #ifdef HAVE_LIBCAP
 	// set caps
 	cap_t caps = cap_init();
-	cap_value_t capList[4] =
+	cap_value_t capList[6] =
 	{ 
 		CAP_SYS_CHROOT, 		// chroot()
 		CAP_NET_BIND_SERVICE, 	// bind() ports < 1024 
 		CAP_SETUID, 			// setuid()
-		CAP_SETGID				// setgid()
+		CAP_SETGID,				// setgid()
+		CAP_NET_RAW,			// pcap
+		CAP_NET_ADMIN			// route
 	};
 
-	unsigned num_caps = 4;
+	unsigned num_caps = 6;
 
 	cap_set_flag(caps, CAP_EFFECTIVE, 	num_caps, capList, CAP_SET);
 	cap_set_flag(caps, CAP_INHERITABLE, num_caps, capList, CAP_SET);
@@ -1413,8 +1239,8 @@ bool Nepenthes::setCapabilties()
 	{
 		cap_free(caps);
 		logCrit("Could not set capabilities '%s'\n",strerror(errno));
-		logCrit("%s","Maybe you did not load the kernel module 'capability' ?\n");
-		logCrit("%s","Try 'modprobe capability' \n");
+		logCrit("Maybe you did not load the kernel module 'capability' ?\n");
+		logCrit("Try 'modprobe capability' \n");
 		return false;
 	}
 	cap_free(caps);
@@ -1428,7 +1254,7 @@ bool Nepenthes::setCapabilties()
 
 	return true;
 #else
-	logCrit("%s","Compiled without support for capabilities, no way to run capabilities\n");
+	logCrit("Compiled without support for capabilities, no way to run capabilities\n");
 	return false;
 #endif	// HAVE_LIBCAP
 
@@ -1443,32 +1269,58 @@ bool Nepenthes::setCapabilties()
  */
 void SignalHandler(int32_t iSignal)
 {
-    printf("Got signal %i\n", iSignal);
-    switch(iSignal)
-    {
+	if ( g_Nepenthes != NULL )
+		logWarn("Got signal %i ('%s')\n", iSignal,strsignal(iSignal));
+
+	switch ( iSignal )
+	{
 	case SIGHUP:
-		logCrit("%s\n", "Got SIGHUP\nRereading Config File!\n");
-		g_Nepenthes->reloadConfig();
+		if ( g_Nepenthes != NULL )
+		{
+			logCrit("Got SIGHUP\nRereading Config File!\n\n");
+			g_Nepenthes->reloadConfig();
+		}
 		break;
 
 	case SIGINT:
-		logCrit("%s\n", "Got SIGINT\nStopping NOW!\n");
-		g_Nepenthes->stop();
+		if ( g_Nepenthes != NULL )
+		{
+			logCrit("Got SIGINT\nStopping NOW!\n\n");
+			g_Nepenthes->stop();
+		}
 		break;
 
 	case SIGABRT:
-		logCrit("%s\n", "Unhandled Exception");
+		if ( g_Nepenthes != NULL )
+			logCrit("Unhandled Exception\n");
 		exit(-1);
 		break;
 
 	case SIGSEGV:
-		logCrit("%s\n", "Segmentation Fault");
+		if ( g_Nepenthes != NULL )
+			logCrit("Segmentation Fault\n");
 		exit(-1);
 		break;
 
+	case SIGBUS:
+		if ( g_Nepenthes != NULL )
+			logCrit("Bus Error\n");
+		exit(-1);
+		break;
+
+	case SIGPIPE:
+		break;
+
+	case SIGCHLD:
+		break;
+
+
 	default:
-		logCrit("Exit 'cause of %i\n", iSignal);
-		g_Nepenthes->stop();
+		if ( g_Nepenthes != NULL )
+		{
+			logCrit("Exit 'cause of %i\n", iSignal);
+			g_Nepenthes->stop();
+		}
 	}
 }
 
@@ -1522,8 +1374,8 @@ int main(int32_t argc, char **argv)
 										// 
 	signal(SIGALRM,  SignalHandler);	//      14       Term    Timer signal from alarm(2)
 	signal(SIGTERM,  SignalHandler);	//      15       Term    Termination signal
-	signal(SIGUSR1,  SignalHandler);	//   30,10,16    Term    User-defined signal 1
-	signal(SIGUSR2,  SignalHandler);	//   31,12,17    Term    User-defined signal 2
+//	signal(SIGUSR1,  SignalHandler);	//   30,10,16    Term    User-defined signal 1
+//	signal(SIGUSR2,  SignalHandler);	//   31,12,17    Term    User-defined signal 2
 	signal(SIGCHLD,  SignalHandler);	//   20,17,18    Ign     Child stopped or terminated
 	signal(SIGCONT,  SignalHandler);	//   19,18,25            Continue if stopped
 //	signal(SIGSTOP,  SIG_IGN	  );	//   17,19,23    Stop    Stop process
@@ -1574,8 +1426,11 @@ int main(int32_t argc, char **argv)
 #endif
 #endif
 	
-	Nepenthes nepenthes;
-	return nepenthes.run(argc, argv);
+	Nepenthes *nepenthes = new Nepenthes();
+	int retval = nepenthes->run(argc, argv);
+	delete nepenthes;
+	printf("run is done %i\n",retval);
+	return retval;
 }
 
 void show_logo()
@@ -1649,6 +1504,7 @@ void show_help(bool defaults)
         {"c",	"config=FILE",		"use FILE as configuration file",				SYSCONFDIR "/nepenthes.conf"	},
 		{"C",	"capabilities",		"force kernel 'security' capabilities",	0						},
 		{"d",	"disk-log",			"disk logging tags, see -L",			0						},
+		{"D",	"daemonize",		"run as daemon",						0						},
 		{"f",	"file-check=OPTS",	"check file for known shellcode, OPTS can\n"
 			"                              be any combination of `rmknown' and\n"
 			"                              `rmnonop'; seperate by comma when needed",   0			},
@@ -1664,7 +1520,7 @@ void show_help(bool defaults)
 		{"R",	"ringlog",			"use ringlogger instead of filelogger",			"filelogger"	},
 		{"u",	"user=USER",				"switch to USER after startup",	"keep current user"},
 		{"g",	"group=GROUP",			"switch to GROUP after startup (use with -u)", "keep current group"},
-		{"v",	"version",			"show version",							""						},
+		{"V",	"version",			"show version",							""						},
 		{"w",	"workingdir=DIR",		"set the process' working dir to DIR",			PREFIX		},
 	};
 	show_version();
@@ -1724,6 +1580,12 @@ void show_help(bool defaults)
 
 #if defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
 #  define MY_ARCH "Alpha"
+#elif defined(__arm__)
+#  if defined(__ARMEB__)
+#    define MY_ARCH "ARMeb"
+#  else 
+#    define MY_ARCH "ARM"
+#  endif 
 #elif defined(i386) || defined(__i386__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL)
 #  define MY_ARCH "x86"
 #elif defined(__x86_64__) || defined(__amd64__)
@@ -1731,7 +1593,11 @@ void show_help(bool defaults)
 #elif defined(__ia64__) || defined(_IA64) || defined(__IA64__) || defined(_M_IA64)
 #  define MY_ARCH "Intel Architecture-64"
 #elif defined(__mips__) || defined(__mips) || defined(__MIPS__)
-#  define MY_ARCH "MIPS"
+#  if defined(__mips32__) || defined(__mips32)
+#    define MY_ARCH "MIPS32"
+#  else 
+#    define MY_ARCH "MIPS"
+#  endif 
 #elif defined(__hppa__) || defined(__hppa)
 #  define MY_ARCH "PA RISC"
 #elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) || defined(_M_PPC) || defined(__PPC) || defined(__PPC__)

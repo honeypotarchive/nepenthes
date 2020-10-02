@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-kuang2.cpp 330 2006-02-20 09:20:44Z common $ */
+ /* $Id: vuln-kuang2.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -72,7 +72,7 @@ Kuang2Vuln::Kuang2Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-kuang2";
 	m_ModuleDescription = "emulates the kuang2 backdoor";
-	m_ModuleRevision    = "$Rev: 330 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Kuang2 Dialogue Factory";
@@ -100,7 +100,7 @@ bool Kuang2Vuln::Init()
 	logPF();
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -112,7 +112,7 @@ bool Kuang2Vuln::Init()
 		timeout = m_Config->getValInt("vuln-kuang2.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

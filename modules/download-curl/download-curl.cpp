@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-curl.cpp 408 2006-03-23 15:45:48Z common $ */
+ /* $Id: download-curl.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include "download-curl.hpp"
 #include "LogManager.hpp"
@@ -55,7 +55,7 @@ CurlDownloadHandler::CurlDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "Curl Download Module";
 	m_ModuleDescription = "provides widly used protocols (http/ftp)";
-	m_ModuleRevision    = "$Rev: 408 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "CurlDownloadHandlerEventHandler";
@@ -80,7 +80,7 @@ bool CurlDownloadHandler::Init()
 
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -91,7 +91,7 @@ bool CurlDownloadHandler::Init()
 		ftpsupport = m_Config->getValInt("download-curl.enable-ftp");
     } catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

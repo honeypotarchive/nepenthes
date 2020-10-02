@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CReceiveDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: CReceiveDialogue.cpp 630 2006-08-30 10:02:20Z common $ */
 
 #include "CReceiveDialogue.hpp"
 
@@ -81,7 +81,7 @@ CReceiveDialogue::CReceiveDialogue(Socket *socket)//, Download *down)
 	uint32_t host = socket->getRemoteHost();
 	uint16_t port = socket->getRemotePort();
 	asprintf(&url,"creceive://%s:%i",inet_ntoa(*(in_addr *)&host),port);
-    m_Download = new Download(host,url,socket->getRemoteHost(),url);
+    m_Download = new Download(socket->getLocalHost(),url,socket->getRemoteHost(),url);
 	free(url);
 }
 
@@ -105,6 +105,10 @@ ConsumeLevel CReceiveDialogue::incomingData(Message *msg)
 {
 	logSpam("... DATA ... FIXME %i bytes \n",msg->getSize());
 	m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getSize());
+
+	if (m_Download->getDownloadBuffer()->getSize() > 1024 * 1024 * 4)	// hardcoded 4mb limit for now (tm)
+		return CL_DROP;
+
 	return CL_ASSIGN;
 }
 

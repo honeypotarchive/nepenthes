@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SMBDialogue.cpp 439 2006-03-27 18:11:55Z common $ */
+ /* $Id: SMBDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -133,14 +133,14 @@ ConsumeLevel SMBDialogue::incomingData(Message *msg)
 			Socket *socket;
 			if ( (socket = g_Nepenthes->getSocketMgr()->bindTCPSocket(0,8721,60,30)) == NULL )
 			{
-				logCrit("%s","Could not bind socket 8721 \n");
+				logCrit("Could not bind socket 8721 \n");
 				return CL_DROP;
 			}
 
 			DialogueFactory *diaf;
 			if ( (diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL )
 			{
-				logCrit("%s","No WinNTShell DialogueFactory availible \n");
+				logCrit("No WinNTShell DialogueFactory availible \n");
 				return CL_DROP;
 			}
 

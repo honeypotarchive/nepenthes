@@ -5,6 +5,7 @@
  *
  *
  * Copyright (C) 2005  Paul Baecher & Markus Koetter
+ * Copyright (C) 2006  Georg Wicherski
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,7 +26,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-irc.hpp 378 2006-03-12 22:53:58Z common $ */
+ /* $Id: log-irc.hpp 665 2006-10-12 11:55:53Z dp $ */
 
 #include <string>
 
@@ -57,17 +58,16 @@ namespace nepenthes
 	{
 	public:
 		LogIrc(Nepenthes *);
-//		LogIrc(LogHandler *lm);
 		~LogIrc();
 		Dialogue *createDialogue(Socket *socket);
 		bool Init();
 		bool Exit();
 
-        bool dnsResolved(DNSResult *result);
+        	bool dnsResolved(DNSResult *result);
 		bool dnsFailure(DNSResult *result);
 
 		void log(uint32_t mask, const char *message);
-
+		bool setOwnership(uid_t uid, gid_t gid) { return true; }
 
 		bool doStart();
 		bool doStopp();
@@ -83,15 +83,22 @@ namespace nepenthes
 		string getIrcChannel();
 		string getIrcChannelPass();
 		string getIrcUserModes();
-		string getIrcPass(); //server password
+		string getIrcPass();
+		
+		string getTorServer();
+		string getIrcServer();
+		
+		string getConnectCommand();
 
 
 		void setDialogue(IrcDialogue *);
+		
+		bool logMaskMatches(uint32_t mask);
+		void setLogPattern(const char *patternString);
 
 		bool useTor();
-
-	protected:
-
+		
+	private:
 		log_irc_state m_State;
 
 		bool m_UseTor;
@@ -116,6 +123,10 @@ namespace nepenthes
 
 		string m_IrcChannel;
 		string m_IrcChannelPass;
+		
+		uint32_t m_LogPatternNumeric;
+		
+		string m_ConnectCommand;
 
 		IrcDialogue *m_IrcDialogue;
 

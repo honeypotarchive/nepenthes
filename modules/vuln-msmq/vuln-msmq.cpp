@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-msmq.cpp 439 2006-03-27 18:11:55Z common $ */
+ /* $Id: vuln-msmq.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -76,7 +76,7 @@ MSMQVuln::MSMQVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-msmq";
 	m_ModuleDescription = "provides Dialogue & factory for MS05-017";
-	m_ModuleRevision    = "$Rev: 439 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "MSMQ Dialogue Factory";
@@ -104,7 +104,7 @@ bool MSMQVuln::Init()
 	logPF();
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -116,7 +116,7 @@ bool MSMQVuln::Init()
 		timeout = m_Config->getValInt("vuln-msmq.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

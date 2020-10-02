@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-2.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: x-2.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ X2::X2(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-2";
 	m_ModuleDescription = "eXample Module 2 -binding sockets & setting up a dialogue example-";
-	m_ModuleRevision    = "$Rev: 332 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "x-2 Factory";
@@ -112,7 +112,7 @@ bool X2::Init()
 {
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -124,7 +124,7 @@ bool X2::Init()
 		timeout = m_Config->getValInt("x-2.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

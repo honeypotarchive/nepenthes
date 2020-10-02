@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-mssql.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: vuln-mssql.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -74,7 +74,7 @@ MSSQLVuln::MSSQLVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-mssql";
 	m_ModuleDescription = "emulate the MS02-061 flaw";
-	m_ModuleRevision    = "$Rev: 332 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "mssql Dialogue Factory";
@@ -109,7 +109,7 @@ bool MSSQLVuln::Init()
 		timeout = m_Config->getValInt("vuln-mssql.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

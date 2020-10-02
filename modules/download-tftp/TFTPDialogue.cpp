@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: TFTPDialogue.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: TFTPDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <sys/types.h>
 #include <arpa/tftp.h>
@@ -160,6 +160,12 @@ ConsumeLevel TFTPDialogue::incomingData(Message *msg)
 				logInfo("Downloaded file %s %i bytes\n", m_Download->getUrl().c_str(), m_Download->getDownloadBuffer()->getSize());
 				msg->getSocket()->getNepenthes()->getSubmitMgr()->addSubmission(m_Download);
                 m_Socket->setStatus(SS_CLOSED);
+			}else
+			{
+				if( m_Download->getDownloadBuffer()->getSize() > 1024 * 1024 * 4 ) // hardcoded 4mb limit for now (tm)
+				{
+					return CL_DROP;
+				}
 			}
 		}
 		break;

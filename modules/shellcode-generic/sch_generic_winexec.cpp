@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_winexec.cpp 341 2006-02-20 09:51:00Z common $ */
+/* $Id: sch_generic_winexec.cpp 550 2006-05-04 10:25:35Z common $ */
 
 
 
@@ -103,7 +103,7 @@ sch_result GenericWinExec::handleShellcode(Message **msg)
 		
 		if (g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory") == NULL)
 		{
-			logCrit("%s","No WinNTShell DialogueFactory availible \n");
+			logCrit("No WinNTShell DialogueFactory availible \n");
 			return SCH_DONE;
 		}
 

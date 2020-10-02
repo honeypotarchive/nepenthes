@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-mydoom.cpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: vuln-mydoom.cpp 550 2006-05-04 10:25:35Z common $ */
 
 
 
@@ -75,7 +75,7 @@ MydoomVuln::MydoomVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-mydoome";
 	m_ModuleDescription = "emulates the mydoom backdoor";
-	m_ModuleRevision    = "$Rev: 321 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Mydoom Dialogue Factory";
@@ -103,7 +103,7 @@ bool MydoomVuln::Init()
    logPF();
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -115,7 +115,7 @@ bool MydoomVuln::Init()
 		timeout = m_Config->getValInt("vuln-mydoom.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

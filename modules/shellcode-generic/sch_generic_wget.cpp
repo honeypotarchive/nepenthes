@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_wget.cpp 372 2006-03-08 14:57:30Z common $ */
+/* $Id: sch_generic_wget.cpp 557 2006-05-31 05:18:45Z common $ */
 
 
 /* Additional notes:
@@ -38,6 +38,7 @@
  *
  */
 
+#include <ctype.h>
 
  
 #include "sch_generic_wget.hpp"
@@ -171,7 +172,7 @@ sch_result Genericwget::handleShellcode(Message **msg)
 		{
 			if (isprint(url[i]) == false)
 			{
-				logWarn("%s","wget url contained unprintable chars \n");
+				logWarn("wget url contained unprintable chars \n");
 				return SCH_NOTHING;
 			}
 		}

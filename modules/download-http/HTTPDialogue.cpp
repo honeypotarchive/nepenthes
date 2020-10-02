@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: HTTPDialogue.cpp 503 2006-04-08 21:32:47Z common $ */
+ /* $Id: HTTPDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include "HTTPDialogue.hpp"
 
@@ -92,6 +92,10 @@ ConsumeLevel HTTPDialogue::incomingData(Message *msg)
 //	logSpam("HTTP GET\n%.*s\n",msg->getSize(),msg->getMsg());
 //	g_Nepenthes->getUtilities()->hexdump((byte *)msg->getMsg(),msg->getSize());
 	m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getSize());
+
+	if (m_Download->getDownloadBuffer()->getSize() > 1024 * 1024 * 4)	// hardcoded 4mb limit for now (tm)
+		return CL_DROP;
+
 	return CL_ASSIGN;
 }
 

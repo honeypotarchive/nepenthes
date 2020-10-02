@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-iis.cpp 439 2006-03-27 18:11:55Z common $ */
+ /* $Id: vuln-iis.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -77,7 +77,7 @@ VulnIIS::VulnIIS(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-iis";
 	m_ModuleDescription = "provides Factory, Dialogues and ShellcodeHandler for IIS SSL bug";
-	m_ModuleRevision    = "$Rev: 439 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "VULNIIS Factory";
@@ -112,7 +112,7 @@ bool VulnIIS::Init()
 		timeout = m_Config->getValInt("vuln-iis.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

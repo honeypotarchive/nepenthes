@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-sasserftpd.cpp 439 2006-03-27 18:11:55Z common $ */
+ /* $Id: vuln-sasserftpd.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ SasserFTPDVuln::SasserFTPDVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-sasserftpd";
 	m_ModuleDescription = "provides Factory & dialogues for the sasserftpd vuln";
-	m_ModuleRevision    = "$Rev: 439 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "SasserFTPD Factory";
@@ -121,7 +121,7 @@ bool SasserFTPDVuln::Init()
 		timeout = m_Config->getValInt("vuln-sasserftpd.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

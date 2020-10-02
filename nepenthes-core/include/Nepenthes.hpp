@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Nepenthes.hpp 498 2006-04-08 18:32:39Z common $ */
+/* $Id: Nepenthes.hpp 652 2006-09-26 15:06:11Z common $ */
 
 #include "config.h"
 
@@ -39,6 +39,7 @@
 #endif
 
 #include <stdint.h>
+#include <string>
 
 typedef unsigned char byte;
 
@@ -71,19 +72,19 @@ typedef unsigned char byte;
 /* log shortcuts */
 //#define DEBUG 1
 
-#define logWrite(mask, format, ...) g_Nepenthes->getLogMgr()->logf(mask,format, __VA_ARGS__)
+#define logWrite(mask, logformat...) g_Nepenthes->getLogMgr()->logf(mask, logformat)
 
 #ifdef HAVE_DEBUG_LOGGING
-#define logSpam(format, ...) logWrite(l_spam 	| STDTAGS , format, __VA_ARGS__)
-#define logDebug(format, ...) logWrite(l_debug	| STDTAGS , format, __VA_ARGS__)
+#define logSpam(logformat...) logWrite(l_spam 	| STDTAGS , logformat)
+#define logDebug(logformat...) logWrite(l_debug	| STDTAGS , logformat)
 #else	// HAVE_DEBUG_LOGGING
-#define logSpam(format, ...) 
-#define logDebug(format, ...)
+#define logSpam(logformat...) 
+#define logDebug(logformat ...)
 #endif	// HAVE_DEBUG_LOGGING
 
-#define logInfo(format, ...) logWrite(l_info	| STDTAGS , format, __VA_ARGS__)
-#define logWarn(format, ...) logWrite(l_warn	| STDTAGS , format, __VA_ARGS__)
-#define logCrit(format, ...) logWrite(l_crit	| STDTAGS , format, __VA_ARGS__)
+#define logInfo(logformat...) logWrite(l_info	| STDTAGS , logformat)
+#define logWarn(logformat...) logWrite(l_warn	| STDTAGS , logformat)
+#define logCrit(logformat...) logWrite(l_crit	| STDTAGS , logformat)
 
 #ifdef HAVE_DEBUG_LOGGING
 #define logPF() logSpam("<in %s>\n", __PRETTY_FUNCTION__)
@@ -108,8 +109,8 @@ namespace nepenthes
 	class DialogueFactoryManager;
 	class DNSManager;
 	class Message;
-	class GeoLocationManager;
-	class UploadManager;
+	class SQLManager;
+	struct Options;
 
 
 /**
@@ -137,15 +138,10 @@ namespace nepenthes
 		virtual Utilities			*getUtilities();
 		virtual DialogueFactoryManager *getFactoryMgr();
 		virtual DNSManager 			*getDNSMgr();
-
-#ifdef HAVE_GEOLOCATION
-		virtual GeoLocationManager 	*getGeoMgr();
-#endif 
-
-		virtual UploadManager 		*getUploadMgr();
+		virtual SQLManager			*getSQLMgr();
 
 		virtual bool 				doLoop();
-		virtual int32_t 				run(int32_t argc, char **argv);
+		virtual int32_t 			run(int32_t argc, char **argv);
 		virtual bool				stop();
 		virtual bool 				reloadConfig();
 
@@ -155,40 +151,72 @@ namespace nepenthes
 		DownloadManager     *m_DownloadManager;
 		DNSManager          *m_DNSManager;
 		EventManager        *m_EventManager;
-#ifdef HAVE_GEOLOCATION
-		GeoLocationManager  *m_GeoLocationManager;
-#endif
 		LuaInterface        *m_Lua;
 		LogManager          *m_LogManager;
 		ModuleManager       *m_ModuleManager;
 		ShellcodeManager    *m_ShellcodeManager;
 		SubmitManager       *m_SubmitManager;
 		SocketManager       *m_SocketManager;
-		UploadManager       *m_UploadManager;
 		Utilities           *m_Utilities;
+		SQLManager 			*m_SQLManager;
 		
 		
-		
-		
+		virtual bool		parseArguments(int32_t argc, char **argv, Options *options);
 
 		bool				m_running;
 
 		uid_t				m_UID;
 		gid_t				m_GID;
 	protected:
-		bool fileCheckMain(char *filecheckarg,int32_t argc, int32_t opti, char **argv);
+		bool fileCheckMain(const char *filecheckarg,int32_t argc, int32_t opti, char **argv);
 		uint8_t fileCheckPrinter(const char *filename, uint8_t options);
 		int32_t fileCheck(const char *filename, Message **Msg);
 
-		bool changeUser(char *user);
-		bool changeGroup(char *group);
+		bool changeUser(const char *user);
+		bool changeGroup(const char *group);
 		bool changeUser();
 		bool changeGroup();
 
 		bool setCapabilties();
 
-		bool changeRoot(char *path);
-    };
+		bool changeRoot(const char *path);
+	};
+
+
+	enum ColorSetting
+	{
+		colorAuto, colorAlways, colorNever
+	};
+	enum RunMode
+	{
+		runNormal, runConfigCheck, runFileCheck
+	};
+
+	struct Options
+	{
+		Options();
+
+		RunMode         m_runMode; // runNormal, runConfigCheck, runFileCheck
+
+		bool 			m_daemonize;
+		bool            m_verbose;
+		bool            m_setCaps;
+		bool            m_ringLogger;
+		ColorSetting    m_color;
+
+		const char      *m_fileCheckArguments;
+		const char      *m_configPath;
+		const char      *m_workingDir;
+		const char      *m_changeUser;
+		const char      *m_changeGroup;
+		const char      *m_changeRoot;
+		const char      *m_diskTags;
+		const char      *m_consoleTags;
+
+		std::string     m_logFile;
+		std::string     m_ringLoggerFile;
+	};
+
 }
 
 extern nepenthes::Nepenthes *g_Nepenthes;

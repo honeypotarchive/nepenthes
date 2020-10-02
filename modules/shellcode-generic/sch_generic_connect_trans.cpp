@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_connect_trans.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: sch_generic_connect_trans.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -78,7 +78,7 @@ bool GenericConnectTrans::Init()
 		sList = *g_GenericShellcodeHandler->getConfig()->getValStringList("shellcode-generic.generic_connect_trans");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

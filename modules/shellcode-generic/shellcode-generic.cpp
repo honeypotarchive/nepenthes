@@ -34,7 +34,7 @@
  */
 
  
- /* $Id: shellcode-generic.cpp 500 2006-04-08 18:57:15Z common $ */
+ /* $Id: shellcode-generic.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include "shellcode-generic.hpp"
 
@@ -78,7 +78,7 @@ GenericShellcodeHandler::GenericShellcodeHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "generic shellcode module";
 	m_ModuleDescription = "prove xor, url and createprocess shelldecoder";
-	m_ModuleRevision    = "$Rev: 500 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 //	m_ShellcodeHandlers.push_back(new GenericXOR(m_Nepenthes->getShellcodeMgr()));
@@ -122,7 +122,7 @@ bool GenericShellcodeHandler::Init()
 {
 	if (m_Config == NULL)
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 

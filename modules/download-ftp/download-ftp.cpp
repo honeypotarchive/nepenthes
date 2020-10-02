@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-ftp.cpp 343 2006-02-20 17:11:57Z common $ */
+ /* $Id: download-ftp.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -86,7 +86,7 @@ FTPDownloadHandler::FTPDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "download-ftp";
 	m_ModuleDescription = "painless simple activex-2l ftp client";
-	m_ModuleRevision    = "$Rev: 343 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "download-ftp";
@@ -122,7 +122,7 @@ bool FTPDownloadHandler::Init()
 {
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -147,7 +147,7 @@ bool FTPDownloadHandler::Init()
 		}
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

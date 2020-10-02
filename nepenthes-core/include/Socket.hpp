@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Socket.hpp 341 2006-02-20 09:51:00Z common $ */
+/* $Id: Socket.hpp 566 2006-06-19 13:11:14Z common $ */
 
 #ifndef HAVE_SOCKET_HPP
 #define HAVE_SOCKET_HPP
@@ -148,7 +148,8 @@ namespace nepenthes
         virtual void          setRemoteHost(uint32_t i);
         virtual void          setLocalHost(uint32_t i);
         virtual uint32_t getLocalHost();
-        virtual uint32_t getRemoteHost();
+		virtual uint32_t getRemoteHost();
+		virtual bool getRemoteHWA(string *address);
         virtual list <DialogueFactory *>   * getFactories();
         virtual list <Dialogue *>          * getDialogst();
 

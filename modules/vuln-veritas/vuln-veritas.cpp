@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-veritas.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: vuln-veritas.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ VERITASVuln::VERITASVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-veritas";
 	m_ModuleDescription = "provides Factory & dialogues for the vertias vuln";
-	m_ModuleRevision    = "$Rev: 341 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "VERITAS Factory";
@@ -120,7 +120,7 @@ bool VERITASVuln::Init()
 		timeout = 	m_Config->getValInt("vuln-veritas.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

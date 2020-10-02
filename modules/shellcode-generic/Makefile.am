@@ -1,12 +1,12 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 372 2006-03-08 14:57:30Z common $
+# $Id: Makefile.am 695 2006-11-08 16:37:07Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
 AM_CPPFLAGS = -I$(top_srcdir)/nepenthes-core/include -I$(top_srcdir)/nepenthes-core/src -pipe -D _GNU_SOURCE
 AM_CXXFLAGS = -Wall -Werror
-AM_LDFLAGS = -lpcre
+AM_LDFLAGS = ${LIB_PCRE}
 
 pkglib_LTLIBRARIES = shellcodegeneric.la
 

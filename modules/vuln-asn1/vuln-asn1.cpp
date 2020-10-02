@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-asn1.cpp 439 2006-03-27 18:11:55Z common $ */
+ /* $Id: vuln-asn1.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -82,7 +82,7 @@ ASN1Vuln::ASN1Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-asn1";
 	m_ModuleDescription = "provides dialogues and factories for asn1 flaw";
-	m_ModuleRevision    = "$Rev: 439 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "ASN1 Dialogue Factory";
@@ -120,7 +120,7 @@ bool ASN1Vuln::Init()
 
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

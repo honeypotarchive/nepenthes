@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: LinkDialogue.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: LinkDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
 
 
 #include <ctype.h>
@@ -131,6 +131,8 @@ ConsumeLevel LinkDialogue::incomingData(Message *msg)
 
 	case LINK_FILE:
 		m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getSize());
+		if( m_Download->getDownloadBuffer()->getSize() > 1024 * 1024 * 4 ) // hardcoded 4mb filesize limit for now (tm)
+			return CL_DROP;
 		break;
 	}
 

@@ -3,12 +3,12 @@
 # Process this file with autoconf to produce a configure script.
 # nepenthes meta-Makefile
 # Maximillian Dornseif 2005
-# $Id: configure.ac 500 2006-04-08 18:57:15Z common $
+# $Id: configure.ac 703 2006-11-13 19:48:54Z common $
 
 AC_PREREQ(2.59)
-AC_INIT([nepenthes], [0.1.7], [dornseif@informatik.rwth-aachen.de])
-AM_INIT_AUTOMAKE([nepenthes], [0.1.7])
-AC_REVISION([$Id: configure.ac 500 2006-04-08 18:57:15Z common $])
+AC_INIT([nepenthes], [0.2.0], [dornseif@informatik.rwth-aachen.de])
+AM_INIT_AUTOMAKE([nepenthes], [0.2.0])
+AC_REVISION([$Id: configure.ac 703 2006-11-13 19:48:54Z common $])
 
 AC_PREFIX_DEFAULT(/opt/nepenthes)
 AC_CONFIG_SRCDIR([nepenthes-core/include/Buffer.hpp])
@@ -163,6 +163,160 @@ AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([strndup alarm bzero gethostbyname gethostname gettimeofday inet_ntoa localtime_r memmove memset munmap select socket strcasecmp strdup strerror strncasecmp strstr strtoul setresgid setresuid])
 
 
+# libadns 
+AC_SUBST([LIB_ADNS])
+
+# libpcre
+AC_SUBST([LIB_PCRE])
+
+# libcurl
+AC_SUBST([LIB_CURL])
+
+# libcapabilities
+AC_SUBST([LIB_CAP])
+
+# libmagic
+AC_SUBST([LIB_MAGIC])
+
+# libpq
+AC_SUBST([LIB_POSTGRES])
+
+# libprelude
+AC_SUBST([LIB_PRELUDE])
+AC_SUBST([LDFLAG_PRELUDE])
+AC_SUBST([CPPFLAG_PRELUDE])
+
+# libipq
+AC_SUBST([LIB_IPQ])
+
+# libpcap
+AC_SUBST([LIB_PCAP])
+
+# libnet
+AC_SUBST([LIB_LIBNET])
+
+# liby
+AC_SUBST([LIB_LIBY])
+
+# libdl
+AC_SUBST([LIB_DL])
+
+dnl **************************************************
+dnl * libdl linking flag                             *
+dnl **************************************************
+
+enable_dl=no;
+AC_CHECK_FUNC([dlopen],enable_dl="yes", enable_dl="no")
+
+if test x$enable_dl = "xno" ; then
+	AC_CHECK_LIB([dl],[dlopen],enable_dl="yes", enable_dl="no")
+	if test x$enable_dl = "xyes" ; then
+		LIB_DL="-ldl"
+	fi
+fi
+
+if test x$enable_dl = "xno" ; then
+	AC_CHECK_LIB([ldld],[dlopen],enable_dl="yes", enable_dl="no")
+	if test x$enable_dl = "xyes" ; then
+		LIB_DL="-ldl"
+	fi
+fi
+
+
+
+dnl **************************************************
+dnl * libipq support                                 *
+dnl **************************************************
+
+enable_ipq="yes"
+
+AC_ARG_ENABLE(ipq, [  --enable-ipq	enable support for libipq],
+		    [enable_ipq="$enableval"],[enable_ipq="yes"])
+
+AC_ARG_WITH(ipq-include,
+                      [  --with-ipq-include=DIR  libipq include dir],
+                      [ipq_inc="$withval"],[ipq_inc=no])
+AC_ARG_WITH(ipq-lib,
+                      [  --with-ipq-lib=DIR  libipq library dir],
+                      [ipq_lib="$withval"],[ipq_lib=no])
+
+
+if test x$enable_ipq = "xyes" ; then
+        if test x$ipq_inc != "xno"; then
+		CPPFLAGS="${CPPFLAGS} -I${ipq_inc}"
+	fi
+	
+	AC_CHECK_HEADER(libipq.h,[enable_ipq=yes],[enable_ipq=no])
+	
+	if test x$enable_ipq = "xyes" ; then
+		if test x$ipq_lib != "xno"; then
+			LDFLAGS="${LDFLAGS}  -L${ipq_lib}"
+		fi
+
+		AC_CHECK_LIB([ipq],[ipq_set_mode],enable_ipq="yes", enable_ipq="no")
+
+		if test x$enable_ipq = "xyes" ; then
+			LIB_IPQ="-lipq"
+			AC_DEFINE([HAVE_IPQ], [1], [Define to 1 if you have ip queue on linux])
+		fi
+	fi
+fi
+
+
+dnl **************************************************
+dnl * pcap support                                   *
+dnl **************************************************
+
+AC_ARG_ENABLE(pcap, [  --enable-pcap	enable support for packet capture library],
+		    [enable_pcap="$enableval"],[enable_pcap="yes"])
+
+
+AC_ARG_WITH(pcap_include,
+	[  --with-pcap-include=DIR  pcap include directory],
+	[pcap_inc="$withval"],[pcap_inc=no])
+
+AC_ARG_WITH(pcap_lib,
+	[  --with-pcap-lib=DIR  pcap library directory],
+	[pcap_lib="$withval"],[pcap_lib=no])
+
+if test x$enable_pcap = xyes; then
+	if test "$pcap_inc" != "no"; then
+	   CPPFLAGS="${CPPFLAGS} -I${pcap_inc}"
+	fi
+
+	AC_CHECK_HEADER(pcap.h,[enable_pcap=yes],[enable_pcap=no])
+
+	if test x$enable_pcap != "xno"; then
+
+		if test "$pcap_lib" != "no"; then
+			LDFLAGS="${LDFLAGS}  -L${pcap_lib}"
+		fi
+
+		AC_CHECK_LIB([pcap],[pcap_open_live],enable_pcap="yes", enable_pcap="no")
+		if test x$enable_pcap = "xyes" ; then
+			LIB_PCAP="-lpcap"
+			AC_DEFINE([HAVE_PCAP], [1], [Define to 1 if you have packet capture library])
+		fi
+	fi
+	
+fi	
+
+
+
+dnl **************************************************
+dnl * ipfw support                                   *
+dnl **************************************************
+
+AC_ARG_ENABLE(ipfw,
+[  --enable-ipfw            enable support for ipfw Divert on FreeBSD],
+                enable_ipfw="$enableval", enable_ipfw=no)
+
+if test x$enable_ipfw = "xyes"; then
+	AC_DEFINE([HAVE_IPFW], [1], [Define to 1 if you want ipfw divert on FreeBSD])
+fi	
+		
+
+
 dnl **************************************************
 dnl * debug logging                                  *
 dnl **************************************************
@@ -190,23 +344,37 @@ AC_ARG_WITH(curl-lib,
     [curl_lib=no])
 
 if test xyes = "xyes"; then
-    orig_cppflags=$CPPFLAGS
-  
+
+    AC_PATH_PROG(LIBCURL_CONFIG, curl-config, no)
+    if test "$LIBCURL_CONFIG" = "no" ; then
+	AC_MSG_ERROR([libcurl curl-config was not found in PATH])
+    fi
+
+
     if test "x$curl_inc" != xno; then
       CPPFLAGS="-I$curl_inc $CPPFLAGS"
     fi
 
-    orig_ldflags=$LDFLAGS
     if test "x$curl_lib" != "xno"; then
         LDFLAGS="-L$curl_lib $LDFLAGS"
     fi
 
+    orig_cppflags=$CPPFLAGS
+    orig_libs=$LIBS
+    
+    CPPFLAGS="$CPPFLAGS `curl-config --cflags`"
+    LIBS="$LIBS `curl-config --libs`"
+    
+
     AC_CHECK_LIB([curl], [curl_version],
              [AC_DEFINE(HAVE_LIBCURL, 1,
                        [Define if you want to use libcurl])
-              LIBS="-lcurl $LIBS"],
+             LIB_CURL="`curl-config --libs` -lcurl"],
              [AC_MSG_ERROR([libcurl is missing - install it please])
              ])
+
+    CPPFLAGS=$orig_cppflags
+    LIBS=$orig_libs
 fi
 	  
 
@@ -239,7 +407,7 @@ if test xyes = "xyes"; then
     AC_CHECK_LIB([pcre], [pcre_compile],
              [AC_DEFINE(HAVE_LIBPCRE, 1,
                         [Define if you want to use libpcre])
-              LIBS="-lpcre $LIBS"],
+              LIB_PCRE="-lpcre"],
              [AC_MSG_ERROR([libpcre is missing - install it please])
              ])
 fi	     
@@ -270,13 +438,19 @@ if test xyes = "xyes"; then
         LDFLAGS="-L$magic_lib $LDFLAGS"
     fi
 
+    
+    orig_libs=$LIBS
+    LIBS="-lz $LIBS"
 
     AC_CHECK_LIB([magic], [magic_open],
              [AC_DEFINE(HAVE_LIBMAGIC, 1,
                        [Define if you want to use libmagic])
-              LIBS="-lmagic $LIBS"],
+              LIB_MAGIC="-lmagic -lz"],
              [AC_MSG_ERROR([libmagic is missing - install it please])
              ])
+
+    LIBS=$orig_libs
+
     AC_CHECK_HEADERS(magic.h)
 fi
 
@@ -339,7 +513,7 @@ if test x$enable_ssh = xyes; then
     enable_ssh=no
   else
     AC_DEFINE(HAVE_LIBSSH,1,[Define wether we have libssh])
-    LIBS="-lssh $LIBS"
+    LIB_SSH="-lssh"
   fi
   
 fi  
@@ -405,7 +579,7 @@ if test x$enable_mysql = xyes; then
     enable_mysql=no
   else
     AC_DEFINE(HAVE_MYSQL, 1 , [Define if we have mysql client library])
-    LIBS="-lmysqlclient $LIBS"
+    LIB_MYSQL="-lmysqlclient"
   fi
 
   AC_MSG_RESULT($enable_mysql)  
@@ -474,10 +648,16 @@ if test x$enable_postgre = xyes; then
     enable_postgre=no
   else
     AC_DEFINE(HAVE_POSTGRES, 1 , [Define if we have postgre client library])
-    LIBS="-lpq $LIBS"
+    LIB_POSTGRES="-lpq"
+
+    have_pqserverversion=no
+    AC_CHECK_LIB(pq,PQserverVersion,[have_pqserverversion=yes],[have_pqserverversion=no])
+    if test "x$have_pqserverversion" != "xno"; then
+      AC_DEFINE(HAVE_PQSERVERVERSION, 1 , [Define if libpq supports PQserverVersion])
+    fi
+
   fi
 
-  AC_MSG_RESULT($enable_postgre)  
 fi  
 
 
@@ -504,158 +684,6 @@ AC_ARG_ENABLE(lfs,
  enable_lfs=yes]
  ,enable_lfs=no,)
 AC_MSG_RESULT($enableval)
-
-
-
-dnl **************************************************
-dnl * GeoLocation Support                            *
-dnl **************************************************
-
-AC_ARG_ENABLE(geolocation, [  --enable-geolocation	Enable GeoLocation [default=no]], 
-		    enable_geolocation="$enableval", enable_geolocation="no")
-
-AC_ARG_ENABLE(geolocation_hostip, [  --enable-geolocation-hostip	Enable GeoIP [default=auto]], 
-		    enable_geolocation_hostip="$enableval", enable_geolocation_hostip="yes")
-
-AC_ARG_ENABLE(geolocation_ip2location, [  --enable-geolocation-ip2location	Enable IP2Location [default=auto]], 
-		    enable_geolocation_ip2location="$enableval", enable_geolocation_ip2location="yes")
-		    
-AC_ARG_ENABLE(geolocation_geoip, [  --enable-geolocation-geoip	Enable GeoIP [default=auto]], 
-		    enable_geolocation_geoip="$enableval", enable_geolocation_geoip="yes")
-
-
-if test x$enable_geolocation = xyes; then
-
-
-  AC_DEFINE_UNQUOTED(HAVE_GEOLOCATION, 1, [Define wether we want to use GeoLocation])
-  
-
-  AC_ARG_WITH(geoip-include,
-    [  --with-geoip-include=PATH	specify path to GeoIP include files],
-    [geoip_inc=$withval],
-    [geoip_inc=no])
-
-  AC_ARG_WITH(geoip-lib,
-    [  --with-geoip-lib=PATH	specify path to GeoIP client library],
-    [geoip_lib=$withval],
-    [geoip_lib=no])
-
-
-  AC_ARG_WITH(ip2location-include,
-    [  --with-ip2location-include=PATH	specify path to IP2Location include files],
-    [ip2location_inc=$withval],
-    [ip2location_inc=no])
-
-  AC_ARG_WITH(ip2location-lib,
-    [  --with-ip2location-lib=PATH	specify path to IP2Location client library],
-    [ip2location_lib=$withval],
-    [ip2location_lib=no])
-
-
-  dnl **************************************************
-  dnl * GeoIP Support                                  *
-  dnl **************************************************
-
-  if test x$enable_geolocation_geoip = xyes; then
-
-    dnl **************************************************
-    dnl * GeoIP headers                                  *
-    dnl **************************************************
-
-    orig_cppflags=$CPPFLAGS
-  
-    if test "x$geoip_inc" != xno; then
-      CPPFLAGS="-I$geoip_inc $CPPFLAGS"
-    fi
-  
-    AC_CHECK_HEADER(GeoIP.h, [found=yes], [found=no])
-
-    if test "x$found" != "xno"; then
-      dnl **************************************************
-      dnl * GeoIP lib                                      *
-      dnl **************************************************
-	
-      orig_ldflags=$LDFLAGS
-      if test "x$geoip_lib" != "xno"; then
-          LDFLAGS="-L$geoip_lib $LDFLAGS"
-      fi
-      AC_CHECK_LIB([GeoIP], [GeoIP_open], [found=yes], [found=no])
-    
-      if test "x$found" != "xyes"; then
-          LDFLAGS=$orig_ldflags
-      fi
-    else    
-       CPPFLAGS=$orig_cppflags
-    fi
-
-    if test "x$found" != "xyes"; then
-      enable_geolocation_geoip=no
-    else
-      AC_DEFINE(HAVE_LIBGEOIP, 1,[Define if you want to use MaxMind's GeoIP])
-      LIBS="-lGeoIP $LIBS"
-    fi
-    
-  fi  
-
-    
-  
-
-
-
-  dnl **************************************************
-  dnl * IP2Location Support                            *
-  dnl **************************************************
-
-  if test x$enable_geolocation_ip2location = xyes; then
-
-    dnl **************************************************
-    dnl * IP2location headers                            *
-    dnl **************************************************
-
-    orig_cppflags=$CPPFLAGS
-  
-    if test "x$ip2location_inc" != xno; then
-      CPPFLAGS="-I$ip2location_inc $CPPFLAGS"
-    fi
-  
-    AC_CHECK_HEADER(IP2Location.h, [found=yes], [found=no])
-
-    if test "x$found" != "xno"; then
-      dnl **************************************************
-      dnl * IP2Location lib                                *
-      dnl **************************************************
-	
-      orig_ldflags=$LDFLAGS
-
-      if test "x$ip2location_lib" != "xno"; then
-          LDFLAGS="-L$ip2location_lib -lIP2Location $LDFLAGS"
-      fi
-      
-      AC_CHECK_LIB([IP2Location], [IP2Location_open], [found=yes], [found=no])
-    
-      if test "x$found" != "xyes"; then
-          LDFLAGS=$orig_ldflags
-      fi
-    else    
-       CPPFLAGS=$orig_cppflags
-    fi
-
-    if test "x$found" != "xyes"; then
-      enable_geolocation_ip2location=no
-    else
-      AC_DEFINE(HAVE_LIBIP2LOCATION, 1,[Define if you want to use IP2Location])
-      LIBS="-lIP2Location $LIBS"
-    fi
-  
-  fi  
-  
-else   
-  enable_geolocation_hostip=no
-  enable_geolocation_geoip=no
-  enable_geolocation_ip2location=no
-
-fi
-
 
 
 
@@ -697,7 +725,7 @@ if test x$enable_dnsresolve_adns = xyes; then
     AC_CHECK_LIB([adns], [adns_init],
            [AC_DEFINE(HAVE_LIBADNS, 1,
                       [Define if you want to use adns])
-            LIBS="-ladns $LIBS"],
+            LIB_ADNS="-ladns"],
      enable_dnsresolve_adns=no
    )
 fi
@@ -762,9 +790,9 @@ else
 	PRELUDE_LIBS=`$LIBPRELUDE_CONFIG --libs`
 	PRELUDE_CPPFLAGS=`$LIBPRELUDE_CONFIG --cflags`
 	
-	LIBS="$PRELUDE_LIBS $LIBS"
-	LDFLAGS="$PRELUDE_LDFLAGS $LDFLAGS"
-	CPPFLAGS="$PRELUDE_CPPFLAGS $CPPFLAGS"
+	LIB_PRELUDE="$PRELUDE_LIBS"
+	LDFLAG_PRELUDE="$PRELUDE_LDFLAGS"
+	CPPFLAG="$PRELUDE_CPPFLAGS"
 	
     fi
 fi
@@ -779,7 +807,7 @@ dnl **************************************************
 AC_MSG_CHECKING(whether to use libcap to improve security)
 AC_ARG_ENABLE(capabilities, [  --enable-capabilities	Enable capabilities [default=auto]], 
 		   [enable_capabilities="$enableval"], 
-		   [enable_capabilities="no"])
+		   [enable_capabilities="yes"])
 
 if test x$enable_capabilities = xno ; then
     AC_MSG_RESULT([no -- disabled by user])
@@ -809,7 +837,7 @@ else
     AC_CHECK_LIB(cap, cap_init, 
 	[
               AC_DEFINE(HAVE_LIBCAP, 1,[Define if libcap is available to restrict process capabilities])
-               LIBS="$LIBS -lcap"
+               LIB_CAP="-lcap"
                enable_capabilities="yes"
 	], 
 	[
@@ -818,7 +846,21 @@ else
 	])
     
 fi    
-    
+
+dnl **************************************************
+dnl * liby existence                                 *
+dnl **************************************************
+
+AC_CHECK_LIB(y, yyerror,
+	[	
+              LIB_LIBY="-ly"
+              enable_liby="yes"
+	], 
+	[
+               enable_liby="no"
+	])
+		
+
 
 
 AC_DEFUN([AC_DEFINE_DIR], [
@@ -846,29 +888,40 @@ AC_CONFIG_FILES([Makefile
                  nepenthes-core/include/Makefile
                  nepenthes-core/src/Makefile
                  modules/Makefile
+                 modules/dnsresolve-adns/Makefile
                  modules/download-creceive/Makefile
                  modules/download-csend/Makefile
                  modules/download-curl/Makefile
                  modules/download-ftp/Makefile
+                 modules/download-http/Makefile
                  modules/download-link/Makefile
-                 modules/download-nepenthes/Makefile
+                 modules/download-rcp/Makefile
                  modules/download-tftp/Makefile
                  modules/log-download/Makefile
                  modules/log-irc/Makefile
+                 modules/log-prelude/Makefile
+                 modules/log-surfnet/Makefile
+		 modules/module-bridge/Makefile
+                 modules/module-honeytrap/Makefile
                  modules/module-portwatch/Makefile
+		 modules/module-peiros/Makefile
+                 modules/shellcode-generic/Makefile
+                 modules/shellcode-signatures/Makefile
+                 modules/shellemu-winnt/Makefile
+                 modules/sqlhandler-postgres/Makefile
                  modules/submit-file/Makefile
                  modules/submit-gotek/Makefile
-                 modules/submit-nepenthes/Makefile
                  modules/submit-norman/Makefile
-                 modules/submit-xmlrpc/Makefile
-                 modules/shellcode-generic/Makefile
-                 modules/shellemu-winnt/Makefile
+                 modules/submit-postgres/Makefile
                  modules/vuln-asn1/Makefile
                  modules/vuln-bagle/Makefile
+                 modules/vuln-dameware/Makefile
                  modules/vuln-dcom/Makefile
+                 modules/vuln-ftpd/Makefile
                  modules/vuln-iis/Makefile
                  modules/vuln-kuang2/Makefile
                  modules/vuln-lsass/Makefile
+                 modules/vuln-msdtc/Makefile
                  modules/vuln-msmq/Makefile
                  modules/vuln-mssql/Makefile
                  modules/vuln-mydoom/Makefile
@@ -876,39 +929,28 @@ AC_CONFIG_FILES([Makefile
                  modules/vuln-netdde/Makefile
                  modules/vuln-optix/Makefile
                  modules/vuln-pnp/Makefile
+                 modules/vuln-realvnc/Makefile
                  modules/vuln-sasserftpd/Makefile
+                 modules/vuln-ssh/Makefile
                  modules/vuln-sub7/Makefile
                  modules/vuln-upnp/Makefile
                  modules/vuln-veritas/Makefile
                  modules/vuln-wins/Makefile
-                 modules/vuln-dameware/Makefile
-		 modules/vuln-ssh/Makefile
                  modules/x-1/Makefile
                  modules/x-2/Makefile
                  modules/x-3/Makefile
                  modules/x-4/Makefile
-                 modules/x-5/Makefile                 
+                 modules/x-5/Makefile
                  modules/x-6/Makefile
-                 modules/x-8/Makefile
-		 modules/geolocation-hostip/Makefile
-		 modules/geolocation-geoip/Makefile
-                 modules/download-http/Makefile
-		 modules/upload-http/Makefile
-		 modules/dnsresolve-adns/Makefile
-		 modules/geolocation-ip2location/Makefile
-		 modules/log-surfnet/Makefile		 
-		 modules/vuln-msdtc/Makefile
-		 modules/download-rcp/Makefile
-		 modules/vuln-ftpd/Makefile
-		 modules/log-prelude/Makefile
-		 modules/shellcode-signatures/Makefile		 
+                 modules/x-9/Makefile
 		 ])
+#		 modules/module-upnp/Makefile		 
 #		 modules/log-prelude/Makefile
 #                modules/module-drone/Makefile		 
 #		 modules/log-surfnet/Makefile])
 #                modules/vuln-netbios/Makefile
 #                 modules/module-baitnswitch/Makefile
-                 
+#		 modules/dnsresolve-udns/Makefile                 
                  
 AC_OUTPUT
 
@@ -916,14 +958,11 @@ echo
 echo "*** Dumping Nepenthes Configuration ***"
 echo "- Debug Logging               : $enable_debug_logging"
 echo ""
+echo "- link on liby                : $enable_liby"
+echo ""
 echo "- DNS Resolve                 "
 echo "  - Support adns              : $enable_dnsresolve_adns"
 echo ""
-echo "- Support GeoLocation         : $enable_geolocation"
-echo "  - Support hostip            : $enable_geolocation_hostip"
-echo "  - Support GeoIP             : $enable_geolocation_geoip"
-echo "  - Support IP2Location       : $enable_geolocation_ip2location"
-echo "" 
 echo "- Support Large Filesystem    : $enable_lfs"
 echo "" 
 echo "- Support MySQL               : $enable_mysql"
@@ -935,6 +974,11 @@ echo ""
 echo "- Support prelude             : $enable_prelude"
 echo "" 
 echo "- Support capabilities        : $enable_capabilities"
+echo ""
+echo "- Packet Monitoring/Sniffing"
+echo "  - linux ip_queue (ipq)      : $enable_ipq"
+echo "  - FBSD ipfw Divert sockets  : $enable_ipfw"
+echo "  - Packet Capture Lib (pcap) : $enable_pcap"
 
 # echo ""
 # echo "- Support ipv6                : $enable_ipv6"

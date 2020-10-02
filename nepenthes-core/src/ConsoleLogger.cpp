@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: ConsoleLogger.cpp 375 2006-03-09 18:10:55Z dp $ */
+/* $Id: ConsoleLogger.cpp 697 2006-11-11 09:17:19Z common $ */
 
 #include <stdio.h>
 #include <string>
@@ -33,9 +33,7 @@
 #include "Nepenthes.hpp"
 #include "LogManager.hpp"
 
-#ifdef WIN32
 #include <time.h>
-#endif
 
 using namespace nepenthes;
 using namespace std;

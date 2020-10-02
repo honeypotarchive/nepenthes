@@ -25,15 +25,19 @@
  *
  *******************************************************************************/
 
-/* $Id: FileLogger.cpp 336 2006-02-20 09:38:38Z common $ */
+/* $Id: FileLogger.cpp 697 2006-11-11 09:17:19Z common $ */
 
-#ifdef WIN32
 #include <time.h>
-#endif
 
 
 #include <stdio.h>
 #include <string>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <errno.h>
+#include <pwd.h>
+#include <grp.h>
 #include "FileLogger.hpp"
 #include "Nepenthes.hpp"
 #include "LogManager.hpp"
@@ -101,3 +105,51 @@ void FileLogger::log(uint32_t mask, const char *message)
 
 	fclose(f);
 }
+
+
+bool FileLogger::setOwnership(uid_t uid, gid_t gid)
+{
+#if !defined(CYGWIN) && !defined(CYGWIN32) && !defined(__CYGWIN__) && !defined(__CYGWIN32__) && !defined(WIN32)
+	if ( m_Filename == NULL )
+		return true;
+
+	struct stat s;
+	int32_t filestat = stat(m_Filename, &s);
+
+	if ( filestat != 0 )
+	{
+		if ( errno == ENOENT )
+		{
+			logInfo("Creating logfile %s\n",m_Filename);
+			FILE *f = fopen(m_Filename,"w");
+			if (f == NULL)
+			{
+				logCrit("Logfile %s does not exist, creating failed with %s\n", m_Filename,strerror(errno));
+				return false;
+			}
+			fclose(f);
+		}
+		else
+		{
+			logCrit("Could not access logfile %s: %s\n", m_Filename, strerror(errno));
+			return false;
+		}
+	}
+
+	if( s.st_uid != uid || s.st_gid != gid )
+	{
+		if ( chown(m_Filename, uid, gid) != 0 )
+		{
+			logCrit("Failed to change ownership for file %s: %s\n", m_Filename, strerror(errno));
+			return false;
+		}
+
+		logInfo("Logfile %s ownership is now %d:%d (%s:%s)\n", m_Filename, uid, gid, getpwuid(uid)->pw_name,
+			getgrgid(gid)->gr_name);
+	}
+#endif
+
+	return true;
+}
+
+

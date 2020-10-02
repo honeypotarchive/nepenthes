@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-sub7.cpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: vuln-sub7.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -73,7 +73,7 @@ SUB7Vuln::SUB7Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-sub7";
 	m_ModuleDescription = "emulate the sub7 backdoor";
-	m_ModuleRevision    = "$Rev: 321 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "SUB7DialogueFactory";
@@ -101,7 +101,7 @@ bool SUB7Vuln::Init()
    logPF();
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -113,7 +113,7 @@ bool SUB7Vuln::Init()
 		timeout = m_Config->getValInt("vuln-sub7.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

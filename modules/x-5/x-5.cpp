@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-5.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: x-5.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include "x-5.hpp"
 #include "LogManager.hpp"
@@ -68,7 +68,7 @@ X5::X5(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-5";
 	m_ModuleDescription = "eXample Module 5 -eventhandler example-";
-	m_ModuleRevision    = "$Rev: 332 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "X5EventHandler";
@@ -149,7 +149,7 @@ uint32_t X5::handleEvent(Event *event)
 		break;
 
 	default:
-		logWarn("%s","this should not happen\n");
+		logWarn("this should not happen\n");
 	}
 	return 0;
 }

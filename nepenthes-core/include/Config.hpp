@@ -25,10 +25,10 @@
  *
  *******************************************************************************/
 
-/* $Id: Config.hpp 321 2006-02-20 08:30:38Z common $ */
+/* $Id: Config.hpp 691 2006-10-30 19:05:21Z common $ */
 
-#ifndef CONFIG_H
-#define CONIFG_H
+#ifndef HAVE_CONFIG_HPP
+#define HAVE_CONFIG_HPP
 
 #include <vector>
 #include <map>

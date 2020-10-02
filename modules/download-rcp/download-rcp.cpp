@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-rcp.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: download-rcp.cpp 550 2006-05-04 10:25:35Z common $ */
 
 
 #include <fcntl.h>
@@ -59,7 +59,7 @@ RCPDownloadHandler::RCPDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "rcp Download Module";
 	m_ModuleDescription = "provides a downloadhandler for rcp";
-	m_ModuleRevision    = "$Rev: 341 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="rcp download handler";
@@ -79,7 +79,7 @@ bool RCPDownloadHandler::Init()
 /*
 	if (m_Config == NULL)
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -89,7 +89,7 @@ bool RCPDownloadHandler::Init()
 	}
 	catch(...)
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 */

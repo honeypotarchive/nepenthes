@@ -5,6 +5,7 @@
  *
  *
  * Copyright (C) 2005  Paul Baecher & Markus Koetter
+ * Copyright (C) 2005  Georg Wicherski
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,7 +26,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-irc.cpp 502 2006-04-08 19:20:15Z common $ */
+ /* $Id: log-irc.cpp 675 2006-10-23 17:01:53Z common $ */
 
 #include <ctype.h>
 
@@ -78,8 +79,8 @@ Nepenthes *g_Nepenthes;
 LogIrc::LogIrc(Nepenthes *nepenthes)// : LogHandler(nepenthes->getLogMgr())
 {
 	m_ModuleName        = "log-irc";
-	m_ModuleDescription = "log to irc using tor";
-	m_ModuleRevision    = "$Rev: 502 $";
+	m_ModuleDescription = "log to irc (optionally using tor)";
+	m_ModuleRevision    = "$Rev: 675 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;
@@ -116,7 +117,7 @@ bool LogIrc::Init()
 
 		if ( m_Config == NULL )
 		{
-			logCrit("%s","I need a config\n");
+			logCrit("I need a config\n");
 			return false;
 		}
 
@@ -138,11 +139,30 @@ bool LogIrc::Init()
 			m_IrcChannel   = m_Config->getValString("log-irc.irc.channel.name");
 			m_IrcChannelPass= m_Config->getValString("log-irc.irc.channel.pass");
 
-		} catch ( ... )
+		}
+		catch ( ... )
 		{
-			logCrit("%s","Error setting needed vars, check your config\n");
+			logCrit("Error setting needed vars, check your config\n");
 			return false;
 		}
+		
+		try
+		{
+			setLogPattern(m_Config->getValString("log-irc.tag-pattern"));
+		}
+		catch (...)
+		{
+			m_LogPatternNumeric = 0;
+		}
+		
+		try
+		{
+			m_ConnectCommand = string(m_Config->getValString("log-irc.irc.connect-command")) + "\r\n";
+		}
+		catch (...)
+		{
+		}
+		
 		m_State = LIRC_NULL;
 		doStart();
 		break;
@@ -211,6 +231,13 @@ bool LogIrc::doRestart()
 
 bool LogIrc::Exit()
 {
+	if (g_Nepenthes->getLogMgr()->delLogger(this) == true)
+	{
+		logDebug("Unregisterd from logmanager\n");
+	}else
+	{
+		logWarn("Could not unregister from logmanager\n");
+	}
 	return true;
 }
 
@@ -285,9 +312,17 @@ bool LogIrc::dnsFailure(DNSResult *result)
 void LogIrc::log(uint32_t mask, const char *message)
 {
 	if (m_IrcDialogue != NULL)
-	{
 		m_IrcDialogue->logIrc(mask, message);
-	}
+}
+
+string LogIrc::getTorServer()
+{
+	return m_TorServer;
+}
+
+string LogIrc::getIrcServer()
+{
+	return m_IrcServer;
 }
 
 uint32_t LogIrc::getIrcIP()
@@ -333,6 +368,31 @@ string LogIrc::getIrcChannelPass()
 string LogIrc::getIrcUserModes()
 {
 	return m_IrcUserModes;
+}
+
+string LogIrc::getConnectCommand()
+{
+	return m_ConnectCommand;
+}
+
+
+bool LogIrc::logMaskMatches(uint32_t mask)
+{
+	if(!m_LogPatternNumeric)
+	{
+		// copied from common's original code
+		return ((mask & l_dl || mask & l_sub) && mask & l_mgr && !(mask & l_spam)) || (mask & l_warn || mask & l_crit);
+	}
+	else
+	{
+		return (mask & m_LogPatternNumeric);
+	}
+}
+
+void LogIrc::setLogPattern(const char *patternString)
+{	
+	// this code just plain sucks, does not detect wrong pattern names...
+	m_LogPatternNumeric = g_Nepenthes->getLogMgr()->parseTagString(patternString);
 }
 
 void LogIrc::setDialogue(IrcDialogue *dia)

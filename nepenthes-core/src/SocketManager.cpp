@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SocketManager.cpp 500 2006-04-08 18:57:15Z common $ */
+/* $Id: SocketManager.cpp 615 2006-08-10 17:11:26Z common $ */
 
 #ifdef WIN32
 #include <winsock2.h>
@@ -93,13 +93,7 @@ SocketManager::SocketManager(Nepenthes *nepenthes)
  */
 SocketManager::~SocketManager()
 {
-	// FIXME CLOSE ALL SOCKETS
-	while(m_Sockets.size() > 0)
-	{
-		if ( !(m_Sockets.front()->getType() & ST_NODEL) )
-        	delete m_Sockets.front();
-		m_Sockets.pop_front();
-	}
+	Exit();
 }
 
 #define PROC_NET_DEV "/proc/net/dev"
@@ -148,7 +142,7 @@ bool  SocketManager::Init()
 			logInfo("Using %s as bind_address for all connections\n", inet_ntoa(*(struct in_addr *)&m_BindAddress));
 		}
 	} catch ( ... ) {
-		logCrit("%s","Could not find nepenthes.socketmanager.bind_address in config file, assuming no\n");
+		logCrit("Could not find nepenthes.socketmanager.bind_address in config file, assuming no\n");
 	}
 
 	return true;
@@ -156,6 +150,13 @@ bool  SocketManager::Init()
 
 bool  SocketManager::Exit()
 {
+	while(m_Sockets.size() > 0)
+	{
+		if ( !(m_Sockets.front()->getType() & ST_NODEL) )
+			delete m_Sockets.front();
+		m_Sockets.pop_front();
+	}
+
 	return true;
 }
 
@@ -228,7 +229,7 @@ bool SocketManager::doLoop(uint32_t polltimeout)
 		if ((*itSocket)->getsockOpt(SOL_SOCKET, SO_ERROR, &iError,(socklen_t *) &iSize) != 0 )
 		{
 			// socket is dead
-			logSpam("Socket %s is Dead\n",(*itSocket)->getDescription().c_str());
+			logSpam("Socket %i %s is Dead\n",(*itSocket)->getSocket(), (*itSocket)->getDescription().c_str());
 			(*itSocket)->unsetPolled();
 
 		} else
@@ -349,7 +350,7 @@ bool SocketManager::doLoop(uint32_t polltimeout)
 							Socket * socket = (*itSocket)->acceptConnection();
 							if ( socket == NULL )
 							{
-								logCrit("%s","Accept returned NULL ptr \n");
+								logCrit("Accept returned NULL ptr \n");
 							} else
 							{
 								m_Sockets.push_back(socket);
@@ -596,4 +597,24 @@ Socket *SocketManager::addPOLLSocket(POLLSocket *sock)
 	return sock;
 }
 
+bool SocketManager::removePOLLSocket(POLLSocket *sock)
+{
+	logPF();
+	list <Socket *>::iterator it;
+	for ( it = m_Sockets.begin();it != m_Sockets.end(); it++ )
+	{
+		if (sock == (*it))
+		{
+			/* this is really *bad*
+			 * as it may change the order of pollfd's
+			 * we should replace the socket to remove with a dead dummy socket who shares the same poll flags instead, and 
+			 * let the poll loop remove the socket instead
+			 * but this works for now, and does not make any problem, so ...
+			 */
+			m_Sockets.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
 

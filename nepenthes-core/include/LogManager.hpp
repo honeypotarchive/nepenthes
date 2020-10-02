@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: LogManager.hpp 375 2006-03-09 18:10:55Z dp $ */
+/* $Id: LogManager.hpp 675 2006-10-23 17:01:53Z common $ */
 
 #ifndef LOGMANAGER_HPP
 #define LOGMANAGER_HPP
@@ -55,14 +55,16 @@ namespace nepenthes
 	
 		void				registerTag(uint32_t bit, const char *tag);
 		virtual void		addLogger(LogHandler *lh, uint32_t filterMask);
+		virtual bool		delLogger(LogHandler *lh);
 		virtual void		log(uint32_t mask, const char *message);
 		virtual void		logf(uint32_t mask, const char *format, ...);
 		const char			*getTagName(uint32_t bit);
 		uint32_t			getTagId(const char *tag);
-		uint32_t			parseTagString(const char *tagString);
+		virtual uint32_t			parseTagString(const char *tagString);
 		void				setColor(bool setting);
 		bool				getColorSetting();
-	
+		bool				setOwnership(int32_t uid, int32_t gid);
+
 	private:
 		bool				m_useColor;
 		list<LogHandlerEntry *>	m_Loggers;

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-netdde.cpp 439 2006-03-27 18:11:55Z common $ */
+ /* $Id: vuln-netdde.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -84,7 +84,7 @@ NETDDEVuln::NETDDEVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-netdde";
 	m_ModuleDescription = "provides Factory & dialogues for the netdde vuln";
-	m_ModuleRevision    = "$Rev: 439 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "NETDDE Factory";
@@ -119,7 +119,7 @@ bool NETDDEVuln::Init()
 		timeout = 	m_Config->getValInt("vuln-netdde.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

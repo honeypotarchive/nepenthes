@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: gotekCTRLDialogue.cpp 515 2006-04-14 00:12:48Z common $ */
+ /* $Id: gotekCTRLDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <sys/types.h>
 
@@ -176,20 +176,20 @@ ConsumeLevel gotekCTRLDialogue::incomingData(Message *msg)
 		{			
 			if (*(unsigned char *)m_Buffer->getData() == 0xaa) 		// new file
 			{
-				logSpam("%s\n", "G.O.T.E.K. New File");
+				logSpam("G.O.T.E.K. New File\n");
 				g_GotekSubmitHandler->sendGote();
 				m_Buffer->cut(1);
 			}else
 			if ( *(unsigned char *)m_Buffer->getData() == 0x55 )	// file is known
 			{
 
-				logSpam("%s\n", "G.O.T.E.K. Known File");
+				logSpam("G.O.T.E.K. Known File\n");
 				g_GotekSubmitHandler->popGote();
 				m_Buffer->cut(1);
 			}else
 			if ( *(unsigned char *)m_Buffer->getData() == 0xff )	// ping
 			{
-				logSpam("%s\n", "G.O.T.E.K. PING");
+				logSpam("G.O.T.E.K. PING\n");
 				char c = 0xff;
 				m_Socket->doRespond(&c,1);
 				m_Buffer->cut(1);

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-norman.hpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: submit-norman.hpp 674 2006-10-23 01:31:53Z common $ */
 
 
 #include <curl/curl.h>
@@ -144,6 +144,8 @@ namespace nepenthes
 		CURLM * m_CurlStack;
 		int32_t 	m_Queued;
 		string m_Email;
+
+		list <string> m_UrlList;
 	};
 }
 

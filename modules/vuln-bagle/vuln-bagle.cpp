@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-bagle.cpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: vuln-bagle.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <ctype.h>
 
@@ -73,7 +73,7 @@ BagleVuln::BagleVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-bagle";
 	m_ModuleDescription = "emulates the bagle backdoor";
-	m_ModuleRevision    = "$Rev: 321 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Bagle Dialogue Factory";
@@ -102,7 +102,7 @@ bool BagleVuln::Init()
 
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -114,7 +114,7 @@ bool BagleVuln::Init()
 		timeout = m_Config->getValInt("vuln-bagle.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

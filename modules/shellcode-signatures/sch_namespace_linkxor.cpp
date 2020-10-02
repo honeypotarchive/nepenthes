@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_namespace_linkxor.cpp 458 2006-04-01 15:37:12Z common $ */
+/* $Id: sch_namespace_linkxor.cpp 654 2006-09-27 12:01:16Z common $ */
 
 
 #include "sch_namespace_linkxor.hpp"
@@ -154,7 +154,7 @@ sch_result NamespaceLinkXOR::handleShellcode(Message **msg)
 		for ( uint32_t j = 0; j < codeSize && j < postSize; j++ )
 			decodedMessage[j] ^= byteKey;
 
-		g_Nepenthes->getUtilities()->hexdump(l_crit,(byte *)decodedMessage, postSize);			
+//		g_Nepenthes->getUtilities()->hexdump(l_crit,(byte *)decodedMessage, postSize);			
 
 		Message *newMessage = new Message((char *)decodedMessage, postSize, (*msg)->getLocalPort(), (*msg)->getRemotePort(),
 										  (*msg)->getLocalHost(), (*msg)->getRemoteHost(), (*msg)->getResponder(), (*msg)->getSocket());

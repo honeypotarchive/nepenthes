@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SSHSocket.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: SSHSocket.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include "config.h"
 #ifdef HAVE_LIBSSH
@@ -195,7 +195,7 @@ int32_t SSHSocket::doRecv()
 	switch (m_SSHState)
 	{
 	case SSH_STATE_AUTH:
-		logSpam("%s\n","SSH_STATE_AUTH");
+		logSpam("SSH_STATE_AUTH\n");
 		message=ssh_message_get(m_Session);
 		if ( message )
 		{
@@ -234,7 +234,7 @@ int32_t SSHSocket::doRecv()
 
 
 	case SSH_STATE_CHANNEL:
-		logSpam("%s\n","SSH_STATE_CHANNEL");
+		logSpam("SSH_STATE_CHANNEL\n");
 		message=ssh_message_get(m_Session);
 		if ( message )
 		{
@@ -255,7 +255,7 @@ int32_t SSHSocket::doRecv()
 		break;
 
 	case SSH_STATE_SHELL_OR_SFTP:
-		logSpam("%s\n","SSH_STATE_SHELL_OR_SFTP");
+		logSpam("SSH_STATE_SHELL_OR_SFTP\n");
 		message=ssh_message_get(m_Session);
 		if (message == NULL )
         	break;
@@ -265,7 +265,7 @@ int32_t SSHSocket::doRecv()
 		if ( message && ssh_message_type(message)==SSH_CHANNEL_REQUEST &&
 			 ssh_message_subtype(message)==SSH_CHANNEL_REQUEST_SHELL )
 		{
-			logDebug("%s\n","SSH_SHELL");
+			logDebug("SSH_SHELL\n");
 //            if(!strcmp(ssh_message_channel_request_subsystem(message),"sftp")){
 //			sftp=1;
 			m_SSHState = SSH_STATE_DONE;
@@ -277,7 +277,7 @@ int32_t SSHSocket::doRecv()
 			free(welcome);
 														
 
-//			channel_write(m_Channel,(void *)"Nepenthes ssh honeypot $Rev: 332 $\n",strlen("Nepenthes ssh honeypot $Rev: 332 $\n"));
+//			channel_write(m_Channel,(void *)"Nepenthes ssh honeypot $Rev: 550 $\n",strlen("Nepenthes ssh honeypot $Rev: 550 $\n"));
 //			break;
 			//           }
 		}
@@ -302,7 +302,7 @@ int32_t SSHSocket::doRecv()
 		break;
 
 	case SSH_STATE_DONE:
-		logSpam("%s\n","SSH_STATE_DONE");
+		logSpam("SSH_STATE_DONE\n");
 		{
 //			BUFFER *buf=buffer_new();
 			char dest[256];

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-optix.cpp 321 2006-02-20 08:30:38Z common $ */
+ /* $Id: vuln-optix.cpp 550 2006-05-04 10:25:35Z common $ */
 
 
 
@@ -78,7 +78,7 @@ OPTIXVuln::OPTIXVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-optix";
 	m_ModuleDescription = "emulate a optix backdoor, wait for file uploads";
-	m_ModuleRevision    = "$Rev: 321 $";
+	m_ModuleRevision    = "$Rev: 550 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Optix Shell Dialogue Factory";
@@ -106,7 +106,7 @@ bool OPTIXVuln::Init()
    logPF();
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
@@ -118,7 +118,7 @@ bool OPTIXVuln::Init()
 		timeout = m_Config->getValInt("vuln-optix.accepttimeout");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 

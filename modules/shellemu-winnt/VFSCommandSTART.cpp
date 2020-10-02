@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandSTART.cpp 339 2006-02-20 09:45:09Z common $ */
+/* $Id: VFSCommandSTART.cpp 557 2006-05-31 05:18:45Z common $ */
  
 #include "VFSCommandSTART.hpp"
 #include "VFSNode.hpp"
@@ -140,7 +140,7 @@ int32_t VFSCommandSTART::run(vector<string> *paramlist)
 { 
 	logPF();
 	vector <string> params = *paramlist;
-	vector <string>::iterator it,jt;
+//	vector <string>::iterator it,jt;
 
 	uint32_t i;
 	string command;

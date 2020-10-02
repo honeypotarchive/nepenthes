@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_namespace_base64.cpp 499 2006-04-08 18:40:14Z common $ */
+/* $Id: sch_namespace_base64.cpp 693 2006-11-02 19:35:43Z common $ */
 
 #include "sch_namespace_base64.hpp"
 
@@ -109,7 +109,7 @@ sch_result NamespaceBase64::handleShellcode(Message **msg)
 		free(decoded);
 		pcre_free_substring(postMatch);
 
-		return SCH_DONE;
+		return SCH_REPROCESS;
 	}
 	return SCH_NOTHING;
 }

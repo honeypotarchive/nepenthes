@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_bind.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: sch_generic_bind.cpp 550 2006-05-04 10:25:35Z common $ */
  
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -72,7 +72,7 @@ bool GenericBind::Init()
 		sList = *g_GenericShellcodeHandler->getConfig()->getValStringList("shellcode-generic.generic_bind");
 	} catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
 
@@ -155,14 +155,14 @@ sch_result GenericBind::handleShellcode(Message **msg)
 			Socket *socket;
 			if ( (socket = g_Nepenthes->getSocketMgr()->bindTCPSocket(0,port,60,30)) == NULL )
 			{
-				logCrit("%s","Could not bind socket %u \n",port);
+				logCrit("Could not bind socket %u\n", port);
 				return SCH_DONE;
 			}
 
 			DialogueFactory *diaf;
 			if ( (diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL )
 			{
-				logCrit("%s","No WinNTShell DialogueFactory availible \n");
+				logCrit("No WinNTShell DialogueFactory availible \n");
 				return SCH_DONE;
 			}
 

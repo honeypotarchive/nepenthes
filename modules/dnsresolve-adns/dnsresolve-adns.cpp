@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: dnsresolve-adns.cpp 408 2006-03-23 15:45:48Z common $ */
+ /* $Id: dnsresolve-adns.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <sys/poll.h>
 #include <errno.h>
@@ -87,7 +87,7 @@ bool DNSResolverADNS::Init()
 
 	g_Nepenthes->getDNSMgr()->registerDNSHandler(this);
 	REG_EVENT_HANDLER(this);
-	logDebug("%s","adns_init() Success\n");
+	logDebug("adns_init() Success\n");
 
 	return true;
 }

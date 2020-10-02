@@ -25,11 +25,9 @@
  *
  *******************************************************************************/
 
-/* $Id: RingFileLogger.cpp 341 2006-02-20 09:51:00Z common $ */
+/* $Id: RingFileLogger.cpp 697 2006-11-11 09:17:19Z common $ */
 
-#ifdef WIN32
 #include <time.h>
-#endif
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -37,6 +35,13 @@
 #include <stdio.h>
 #include <string>
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <errno.h>
+#include <pwd.h>
+#include <grp.h>
+
 #include "RingFileLogger.hpp"
 #include "Nepenthes.hpp"
 #include "LogManager.hpp"
@@ -155,3 +160,55 @@ void RingFileLogger::log(uint32_t mask, const char *message)
 	if( (uint32_t)s.st_size > m_MaxSize )
 		rotate();
 }
+
+
+
+bool RingFileLogger::setOwnership(uid_t uid, gid_t gid)
+{
+#if !defined(CYGWIN) && !defined(CYGWIN32) && !defined(__CYGWIN__) && !defined(__CYGWIN32__) && !defined(WIN32)
+	char filename[0xff];
+	struct stat s;
+
+	for ( int32_t i = 0; i < m_MaxFiles; i++ )
+	{
+		snprintf(filename, sizeof(filename), m_FileFormat, i);
+		int32_t filestat = stat(filename, &s);
+
+		if ( filestat != 0 )
+		{
+			if ( errno == ENOENT )
+			{
+				logInfo("Creating logfile %s\n",filename);
+				FILE *f = fopen(filename,"w");
+				if (f == NULL)
+				{
+                   	logCrit("Logfile %s does not exist, creating failed with %s\n", filename,strerror(errno));
+					return false;
+				}
+				fclose(f);
+			}
+			else
+			{
+				logCrit("Could not access logfile %s: %s\n", filename, strerror(errno));
+				return false;
+			}
+		}
+
+		if( s.st_uid != uid || s.st_gid != gid )
+		{
+			if ( chown(filename, uid, gid) != 0 )
+			{
+				logCrit("Failed to change ownership for file %s: %s\n", filename, strerror(errno));
+				return false;
+			}
+
+			logInfo("Logfile %s ownership is now %d:%d (%s:%s)\n", filename, uid, gid, getpwuid(uid)->pw_name,
+				getgrgid(gid)->gr_name);
+		}
+	}
+#endif	
+
+	return true;
+}
+
+

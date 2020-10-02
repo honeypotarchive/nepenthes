@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: FILEDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
+ /* $Id: FILEDialogue.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include "FILEDialogue.hpp"
 #include "CTRLDialogue.hpp"
@@ -93,12 +93,16 @@ ConsumeLevel FILEDialogue::incomingData(Message *msg)
 {
 	if (m_Download == NULL)
 	{
-		logWarn("%s","broken ftp server connected 2 times, dropping second connection\n");
+		logWarn("broken ftp server connected 2 times, dropping second connection\n");
 		return CL_DROP;
 	}
 
 //	logSpam("Got %i bytes data\n",msg->getSize());
 	m_Download->getDownloadBuffer()->addData(msg->getMsg(),msg->getSize());
+
+	if (m_Download->getDownloadBuffer()->getSize() > 1024 * 1024 * 4)	// hardcoded 4mb limit for now (tm)
+		return CL_DROP;
+
 	return CL_ASSIGN;
 }
 

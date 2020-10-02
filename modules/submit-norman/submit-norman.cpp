@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-norman.cpp 408 2006-03-23 15:45:48Z common $ */
+ /* $Id: submit-norman.cpp 674 2006-10-23 01:31:53Z common $ */
 
 
 #include "submit-norman.hpp"
@@ -66,7 +66,7 @@ SubmitNorman::SubmitNorman(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-norman";
 	m_ModuleDescription = "submit files to sandbox.norman.no";
-	m_ModuleRevision    = "$Rev: 408 $";
+	m_ModuleRevision    = "$Rev: 674 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-norman";
@@ -103,18 +103,31 @@ bool SubmitNorman::Init()
 
 	if ( m_Config == NULL )
 	{
-		logCrit("%s","I need a config\n");
+		logCrit("I need a config\n");
 		return false;
 	}
 
+	StringList sList;
+	
 	try
 	{
 		m_Email = m_Config->getValString("submit-norman.email");
+		sList = *m_Config->getValStringList("submit-norman.urls");
+
     } catch ( ... )
 	{
-		logCrit("%s","Error setting needed vars, check your config\n");
+		logCrit("Error setting needed vars, check your config\n");
 		return false;
 	}
+
+	uint8_t i = 0;
+	while ( i < sList.size() )
+	{
+		logInfo("Submitting via http post to %s\n",sList[i]);
+		m_UrlList.push_back(string(sList[i]));
+		i++;
+	}
+
 
 	m_ModuleManager = m_Nepenthes->getModuleMgr();
 
@@ -159,26 +172,35 @@ void SubmitNorman::Submit(Download *down)
 
 	if(m_Events.test(EV_TIMEOUT) == false)
     	m_Events.set(EV_TIMEOUT);
-	CURL *curl;
 
-	NormanContext *norm = new NormanContext((char *)m_Email.c_str(),down->getDownloadUrl()->getFile(),down->getDownloadBuffer()->getSize(),
-										   down->getDownloadBuffer()->getData(), (char *)down->getMD5Sum().c_str());
-	curl = curl_easy_init();
-	if ( curl )
+	list <string>::iterator it;
+
+	for ( it = m_UrlList.begin(); it != m_UrlList.end(); it++ )
 	{
-		/* what URL that receives this POST */
-        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, norm->m_HeaderList);
-		curl_easy_setopt(curl, CURLOPT_HTTPPOST, norm->m_FormPost);
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false);
-		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_easy_setopt(curl, CURLOPT_URL           , "http://sandbox.norman.no/live_4.html");//"http://localhost:8888/examplepost.cgi");//
-		curl_easy_setopt(curl, CURLOPT_USERAGENT     , "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)");
-		curl_easy_setopt(curl, CURLOPT_PRIVATE		 , (char *) norm);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA		, norm);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION	, SubmitNorman::WriteCallback);
+		CURL *curl;
 
-        curl_multi_add_handle(m_CurlStack, curl);
-		m_Queued++;
+		NormanContext *norm = new NormanContext((char *)m_Email.c_str(),
+												down->getDownloadUrl()->getFile(),
+												down->getDownloadBuffer()->getSize(),
+												down->getDownloadBuffer()->getData(), 
+												(char *)down->getMD5Sum().c_str());
+		curl = curl_easy_init();
+		if ( curl )
+		{
+			/* what URL that receives this POST */
+			curl_easy_setopt(curl, CURLOPT_HTTPHEADER		, norm->m_HeaderList);
+			curl_easy_setopt(curl, CURLOPT_HTTPPOST			, norm->m_FormPost);
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST	, false);
+			curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER	, false);
+			curl_easy_setopt(curl, CURLOPT_URL				, it->c_str());
+			curl_easy_setopt(curl, CURLOPT_USERAGENT		, "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)");
+			curl_easy_setopt(curl, CURLOPT_PRIVATE			, (char *) norm);
+			curl_easy_setopt(curl, CURLOPT_WRITEDATA		, norm);
+			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION	, SubmitNorman::WriteCallback);
+
+			curl_multi_add_handle(m_CurlStack, curl);
+			m_Queued++;
+		}
 	}
 
 }
@@ -187,6 +209,7 @@ void SubmitNorman::Submit(Download *down)
 size_t SubmitNorman::WriteCallback(char *buffer, size_t size, size_t nitems, void *userp)
 {
 	int32_t iSize = size * nitems;
+//	printf("%.*s\n",iSize,buffer);
 	return iSize;
 }
 
@@ -237,7 +260,7 @@ uint32_t SubmitNorman::handleEvent(Event *event)
 				} else
 				{
 					curl_easy_getinfo(pMessage->easy_handle, CURLINFO_EFFECTIVE_URL, &szUrl);
-					logInfo("Submitted file %s to sandbox \n",norm->getMD5Sum());
+					logInfo("Submitted file %s to sandbox %s\n",norm->getMD5Sum(),szUrl);
 				}
 				CURL *curl = pMessage->easy_handle;
 				curl_multi_remove_handle(m_CurlStack, pMessage->easy_handle);

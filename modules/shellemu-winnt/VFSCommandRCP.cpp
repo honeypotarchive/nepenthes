@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: VFSCommandRCP.cpp 341 2006-02-20 09:51:00Z common $ */
+/* $Id: VFSCommandRCP.cpp 550 2006-05-04 10:25:35Z common $ */
  
 #include "VFSCommandRCP.hpp"
 #include "VFSNode.hpp"
@@ -128,7 +128,7 @@ int32_t VFSCommandRCP::run(vector<string> *paramlist)
 			int stoppdoppel = remotecopy.find(":",0);
 			if (stoppdoppel < 0)
 			{
-				logWarn("%s","rcp.exe no : found in url\n");
+				logWarn("rcp.exe no : found in url\n");
 				return 0;
 			}
 			host = remotecopy.substr(0,stoppdoppel);
@@ -136,7 +136,7 @@ int32_t VFSCommandRCP::run(vector<string> *paramlist)
 			int stopppunkt = host.rfind(".",host.size());
 			if (stopppunkt < 0)
 			{
-				logWarn("%s","rcp.exe no . found in url\n");
+				logWarn("rcp.exe no . found in url\n");
 				return 0;
 			}
 

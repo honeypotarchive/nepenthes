@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_bielefeld_connect.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: sch_generic_bielefeld_connect.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -135,7 +135,7 @@ sch_result BieleFeldConnect::handleShellcode(Message **msg)
 		DialogueFactory *diaf;
 		if ((diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL)
 		{
-			logCrit("%s","No WinNTShell DialogueFactory availible \n");
+			logCrit("No WinNTShell DialogueFactory availible \n");
 			return SCH_DONE;
 		}
 		sock->addDialogue(diaf->createDialogue(sock));

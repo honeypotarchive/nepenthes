@@ -25,10 +25,12 @@
  *
  *******************************************************************************/
 
-/* $Id: EventHandler.cpp 332 2006-02-20 09:28:45Z common $ */
+/* $Id: EventHandler.cpp 697 2006-11-11 09:17:19Z common $ */
 
 #include "Event.hpp"
 #include "EventHandler.hpp"
+#include <time.h>
+
 
 using namespace nepenthes;
 /**

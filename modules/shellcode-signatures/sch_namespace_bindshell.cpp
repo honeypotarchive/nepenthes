@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_namespace_bindshell.cpp 445 2006-03-28 18:09:48Z common $ */
+/* $Id: sch_namespace_bindshell.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -94,14 +94,14 @@ sch_result NamespaceBindShell::handleShellcode(Message **msg)
 		Socket *socket;
 		if ( (socket = g_Nepenthes->getSocketMgr()->bindTCPSocket(0,port,60,30)) == NULL )
 		{
-			logCrit("%s","Could not bind socket %u \n",port);
+			logCrit("Could not bind socket %u\n", port);
 			return SCH_DONE;
 		}
 
 		DialogueFactory *diaf;
 		if ( (diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL )
 		{
-			logCrit("%s","No WinNTShell DialogueFactory availible \n");
+			logCrit("No WinNTShell DialogueFactory availible \n");
 			return SCH_DONE;
 		}
 

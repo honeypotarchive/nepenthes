@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_namespace_execute.cpp 499 2006-04-08 18:40:14Z common $ */
+/* $Id: sch_namespace_execute.cpp 550 2006-05-04 10:25:35Z common $ */
 
 #include "sch_namespace_execute.hpp"
 
@@ -80,7 +80,7 @@ sch_result NamespaceExecute::handleShellcode(Message **msg)
 
 		 if (g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory") == NULL)
 		 {
-			 logCrit("%s","No WinNTShell DialogueFactory availible \n");
+			 logCrit("No WinNTShell DialogueFactory availible \n");
 			 return SCH_DONE;
 		 }
 

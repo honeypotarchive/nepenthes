@@ -1,18 +1,22 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 520 2006-04-18 23:18:17Z common $
+# $Id: Makefile.am 696 2006-11-09 20:54:24Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
 AM_CPPFLAGS = -I$(top_srcdir)/nepenthes-core/include -I$(top_srcdir)/nepenthes-core/src -pipe -D _GNU_SOURCE
 AM_CXXFLAGS = -Wall -Werror
-AM_LDFLAGS = -lpcre
+AM_CFLAGS = -Wall
+AM_LDFLAGS = ${LIB_PCRE} @LEXLIB@ ${LIB_LIBY}
+
+AM_YFLAGS = -d
+
 
 pkglib_LTLIBRARIES = shellcodesignatures.la
 
 
 shellcodesignatures_la_SOURCES = shellcode-signatures.sc 
-shellcodesignatures_la_SOURCES += y.tab.c lex.yy.c y.tab.h
+shellcodesignatures_la_SOURCES += signature_parser.y signature_scanner.l  
 shellcodesignatures_la_SOURCES += parser.hpp parser.h
 shellcodesignatures_la_SOURCES += shellcode-signatures.cpp shellcode-signatures.hpp 
 shellcodesignatures_la_SOURCES += sch_namespace.cpp sch_namespace.hpp
@@ -28,5 +32,6 @@ shellcodesignatures_la_SOURCES += sch_namespace_base64.cpp sch_namespace_base64.
 shellcodesignatures_la_SOURCES += sch_engine_unicode.cpp sch_engine_unicode.hpp
 shellcodesignatures_la_SOURCES += sch_namespace_konstanzxor.cpp sch_namespace_konstanzxor.hpp
 shellcodesignatures_la_SOURCES += sch_namespace_alphanumericxor.cpp sch_namespace_alphanumericxor.hpp
+
 shellcodesignatures_la_LDFLAGS = -module -no-undefined -avoid-version
 

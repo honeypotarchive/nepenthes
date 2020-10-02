@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: TCPSocket.cpp 370 2006-03-06 21:54:56Z oxff $ */
+/* $Id: TCPSocket.cpp 645 2006-09-22 11:39:38Z common $ */
 
 #include "config.h"
 
@@ -273,6 +273,7 @@ bool TCPSocket::bindPort()
 {
 	logPF();
 	struct sockaddr_in addrBind;
+	memset(&addrBind,0,sizeof(struct sockaddr_in));
 	addrBind.sin_family = AF_INET;
 
 	addrBind.sin_addr.s_addr = getLocalHost();
@@ -329,6 +330,9 @@ bool TCPSocket::bindPort()
 	m_LocalPort = ntohs( ( (sockaddr_in *)&addrBind)->sin_port ) ;
 	logDebug("Success binding Port %i\n", m_LocalPort);
 
+	SocketEvent sEvent(this,EV_SOCK_TCP_BIND);
+	g_Nepenthes->getEventMgr()->handleEvent(&sEvent);
+
     return true;
 }
 
@@ -381,6 +385,7 @@ bool TCPSocket::connectHost()
 	m_Socket=socket(AF_INET, SOCK_STREAM, 0);
 
 	struct sockaddr_in addrBind;
+	memset(&addrBind,0,sizeof(struct sockaddr_in));
 	addrBind.sin_family = AF_INET;
 
 	addrBind.sin_addr.s_addr = getLocalHost();
@@ -415,7 +420,7 @@ bool TCPSocket::connectHost()
 #endif
 
 	sockaddr_in ssin; 
-
+	memset(&ssin,0,sizeof(struct sockaddr_in));
 	ssin.sin_family=AF_INET;
 	ssin.sin_port=htons(m_RemotePort);
 	ssin.sin_addr.s_addr=m_RemoteHost;
@@ -752,7 +757,7 @@ int32_t TCPSocket::doWrite(char *msg, uint32_t len)
 	logPF();
 	if (m_CanSend == false)
 	{
-		logCrit("%s","Some read only attached Module wants to write on a Socket\n");
+		logCrit("Some read only attached Module wants to write on a Socket\n");
 		return -1;
 	}
 	Packet *packet = new Packet(msg,len);

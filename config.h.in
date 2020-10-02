@@ -38,9 +38,6 @@
 /* Define to 1 if you have the <fcntl.h> header file. */
 #undef HAVE_FCNTL_H
 
-/* Define wether we want to use GeoLocation */
-#undef HAVE_GEOLOCATION
-
 /* Define to 1 if you have the `gethostbyname' function. */
 #undef HAVE_GETHOSTBYNAME
 
@@ -68,6 +65,12 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
+/* Define to 1 if you want ipfw divert on FreeBSD */
+#undef HAVE_IPFW
+
+/* Define to 1 if you have ip queue on linux */
+#undef HAVE_IPQ
+
 /* Define if you want to use adns */
 #undef HAVE_LIBADNS
 
@@ -76,12 +79,6 @@
 
 /* Define if you want to use libcurl */
 #undef HAVE_LIBCURL
-
-/* Define if you want to use MaxMind's GeoIP */
-#undef HAVE_LIBGEOIP
-
-/* Define if you want to use IP2Location */
-#undef HAVE_LIBIP2LOCATION
 
 /* Define if you want to use libmagic */
 #undef HAVE_LIBMAGIC
@@ -125,8 +122,14 @@
 /* Define to 1 if you have the <netinet/in.h> header file. */
 #undef HAVE_NETINET_IN_H
 
+/* Define to 1 if you have packet capture library */
+#undef HAVE_PCAP
+
 /* Define if we have postgre client library */
 #undef HAVE_POSTGRES
+
+/* Define if libpq supports PQserverVersion */
+#undef HAVE_PQSERVERVERSION
 
 /* Define to 1 if you have the `select' function. */
 #undef HAVE_SELECT
@@ -248,10 +251,10 @@
 /* Define as the return type of signal handlers (`int' or `void'). */
 #undef RETSIGTYPE
 
-/* The size of a `long', as computed by sizeof. */
+/* The size of `long', as computed by sizeof. */
 #undef SIZEOF_LONG
 
-/* The size of a `off_t', as computed by sizeof. */
+/* The size of `off_t', as computed by sizeof. */
 #undef SIZEOF_OFF_T
 
 /* Define to 1 if you have the ANSI C header files. */
@@ -286,7 +289,7 @@
 #undef inline
 #endif
 
-/* Define to `unsigned' if <sys/types.h> does not define. */
+/* Define to `unsigned int' if <sys/types.h> does not define. */
 #undef size_t
 
 /* Define to `int' if <sys/types.h> doesn't define. */

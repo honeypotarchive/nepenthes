@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_mainz_bind.cpp 341 2006-02-20 09:51:00Z common $ */
+ /* $Id: sch_generic_mainz_bind.cpp 550 2006-05-04 10:25:35Z common $ */
 
  
 #include <sys/types.h>
@@ -121,14 +121,14 @@ sch_result MainzBind::handleShellcode(Message **msg)
 		Socket *socket;
 		if ((socket = g_Nepenthes->getSocketMgr()->bindTCPSocket(0,port,60,30)) == NULL)
 		{
-			logCrit("%s","Could not bind socket %u \n",port);
+			logCrit("Could not bind socket %u\n", port);
 			return SCH_DONE;
 		}
 		
 		DialogueFactory *diaf;
 		if ((diaf = g_Nepenthes->getFactoryMgr()->getFactory("WinNTShell DialogueFactory")) == NULL)
 		{
-			logCrit("%s","No WinNTShell DialogueFactory availible \n");
+			logCrit("No WinNTShell DialogueFactory availible \n");
 			return SCH_DONE;
 		}
 
