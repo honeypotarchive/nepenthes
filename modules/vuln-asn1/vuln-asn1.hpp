@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-asn1.hpp 1923 2005-08-27 18:10:01Z dp $ */
+ /* $Id: vuln-asn1.hpp 439 2006-03-27 18:11:55Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -54,7 +54,6 @@ namespace nepenthes
 	protected:
 		uint16_t m_SMBPort;
 		uint16_t m_IISPort;
-		list <ShellcodeHandler *> m_ShellcodeHandlers;
 	};		
 
 }

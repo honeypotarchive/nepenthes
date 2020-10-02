@@ -16,7 +16,7 @@
 
 # nepenthes Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2270 2006-01-14 20:29:45Z common $
+# $Id: Makefile.am 500 2006-04-08 18:57:15Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -70,12 +70,11 @@ am_nepenthes_OBJECTS = Buffer.$(OBJEXT) Compatibility.$(OBJEXT) \
 	ModuleManager.$(OBJEXT) Module.$(OBJEXT) Nepenthes.$(OBJEXT) \
 	Manager.$(OBJEXT) Packet.$(OBJEXT) SocketManager.$(OBJEXT) \
 	Socket.$(OBJEXT) TCPSocket.$(OBJEXT) UDPSocket.$(OBJEXT) \
-	POLLSocket.$(OBJEXT) RAWSocket.$(OBJEXT) FILESocket.$(OBJEXT) \
-	Responder.$(OBJEXT) ShellcodeManager.$(OBJEXT) \
-	ShellcodeHandler.$(OBJEXT) SubmitManager.$(OBJEXT) \
-	SubmitHandler.$(OBJEXT) UploadManager.$(OBJEXT) \
-	UploadQuery.$(OBJEXT) UploadResult.$(OBJEXT) \
-	Utilities.$(OBJEXT)
+	POLLSocket.$(OBJEXT) FILESocket.$(OBJEXT) Responder.$(OBJEXT) \
+	ShellcodeManager.$(OBJEXT) ShellcodeHandler.$(OBJEXT) \
+	SubmitManager.$(OBJEXT) SubmitHandler.$(OBJEXT) \
+	UploadManager.$(OBJEXT) UploadQuery.$(OBJEXT) \
+	UploadResult.$(OBJEXT) Utilities.$(OBJEXT)
 nepenthes_OBJECTS = $(am_nepenthes_OBJECTS)
 nepenthes_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -128,8 +127,12 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
+LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
@@ -155,6 +158,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
+YACC = @YACC@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
@@ -212,10 +216,10 @@ nepenthes_SOURCES = Buffer.cpp Compatibility.cpp Config.cpp \
 	LuaFunctions.cpp LuaInterface.cpp Message.cpp \
 	ModuleManager.cpp Module.cpp Nepenthes.cpp Manager.cpp \
 	Packet.cpp SocketManager.cpp Socket.cpp TCPSocket.cpp \
-	UDPSocket.cpp POLLSocket.cpp RAWSocket.cpp FILESocket.cpp \
-	Responder.cpp ShellcodeManager.cpp ShellcodeHandler.cpp \
-	SubmitManager.cpp SubmitHandler.cpp UploadManager.cpp \
-	UploadQuery.cpp UploadResult.cpp Utilities.cpp
+	UDPSocket.cpp POLLSocket.cpp FILESocket.cpp Responder.cpp \
+	ShellcodeManager.cpp ShellcodeHandler.cpp SubmitManager.cpp \
+	SubmitHandler.cpp UploadManager.cpp UploadQuery.cpp \
+	UploadResult.cpp Utilities.cpp
 all: all-am
 
 .SUFFIXES:
@@ -323,7 +327,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Nepenthes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/POLLSocket.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Packet.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RAWSocket.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Responder.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RingFileLogger.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ShellcodeHandler.Po@am__quote@

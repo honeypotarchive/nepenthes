@@ -25,7 +25,7 @@
 *
 *******************************************************************************/
 
-/* $Id: HTTPUPDialogue.cpp 2091 2005-10-18 21:47:45Z common $ */
+/* $Id: HTTPUPDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "HTTPUPDialogue.hpp"
 #include "UploadQuery.hpp"

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-curl.hpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: download-curl.hpp 321 2006-02-20 08:30:38Z common $ */
 
 #include <curl/curl.h>
 #include <curl/types.h> /* new for v7 */

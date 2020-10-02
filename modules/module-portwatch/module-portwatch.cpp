@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: module-portwatch.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: module-portwatch.cpp 321 2006-02-20 08:30:38Z common $ */
 
 #include <ctype.h>
 
@@ -79,7 +79,7 @@ WatchModule::WatchModule(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "module-portwatch";
 	m_ModuleDescription = "look for activity on new ports";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Watch Factory";

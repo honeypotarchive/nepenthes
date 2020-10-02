@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SubmitNepenthesDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
+ /* $Id: SubmitNepenthesDialogue.hpp 321 2006-02-20 08:30:38Z common $ */
 
 #include <string>
 

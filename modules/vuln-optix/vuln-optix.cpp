@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-optix.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-optix.cpp 321 2006-02-20 08:30:38Z common $ */
 
 
 
@@ -78,7 +78,7 @@ OPTIXVuln::OPTIXVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-optix";
 	m_ModuleDescription = "emulate a optix backdoor, wait for file uploads";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Optix Shell Dialogue Factory";

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-xmlrpc.cpp 2271 2006-01-14 20:31:52Z common $ */
+ /* $Id: submit-xmlrpc.cpp 341 2006-02-20 09:51:00Z common $ */
 
 
 #include "submit-xmlrpc.hpp"
@@ -84,7 +84,7 @@ SubmitXMLRPC::SubmitXMLRPC(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-xmlrpc";
 	m_ModuleDescription = "submit files to xmlrpc";
-	m_ModuleRevision    = "$Rev: 2271 $";
+	m_ModuleRevision    = "$Rev: 341 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-xmlrpc";

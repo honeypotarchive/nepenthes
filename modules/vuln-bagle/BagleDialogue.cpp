@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: BagleDialogue.cpp 2096 2005-10-23 18:59:41Z common $ */
+ /* $Id: BagleDialogue.cpp 496 2006-04-08 17:53:17Z common $ */
 
 #include <ctype.h>
 
@@ -149,8 +149,7 @@ ConsumeLevel BagleDialogue::incomingData(Message *msg)
 				logInfo("Bagle URL %s \n",url);
 				g_Nepenthes->getDownloadMgr()->downloadUrl(msg->getLocalHost(),url,msg->getRemoteHost(),url,0);
 				free(url);
-				return CL_DROP;
-				
+				return CL_ASSIGN_AND_DONE;
 			}else
 			if ( msg->getSize() >= 4 )
 			{
@@ -234,6 +233,7 @@ ConsumeLevel BagleDialogue::connectionShutdown(Message *msg)
 		{
 			g_Nepenthes->getSubmitMgr()->addSubmission(m_Download);
 			// destructor will delete it
+			return CL_ASSIGN_AND_DONE;
 		}
 	}
 	return CL_DROP;

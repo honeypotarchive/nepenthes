@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: TCPSocket.cpp 2270 2006-01-14 20:29:45Z common $ */
+/* $Id: TCPSocket.cpp 370 2006-03-06 21:54:56Z oxff $ */
 
 #include "config.h"
 
@@ -239,7 +239,7 @@ TCPSocket::~TCPSocket()
 
 		while( m_DialogueFactories.size() > 0 )
 		{
-			logSpam("\tRemoving DialogFactory \"%s\" \n",m_DialogueFactories.back()->getFactoryName().c_str());
+			logSpam("\tRemoving DialogueFactory \"%s\" \n",m_DialogueFactories.back()->getFactoryName().c_str());
 			m_DialogueFactories.back()->socketClosed(this);
 			m_DialogueFactories.pop_back();
 		}
@@ -250,7 +250,7 @@ TCPSocket::~TCPSocket()
 		logSpam("%s clearing DialogueList (%i entries)\n",getDescription().c_str(), m_Dialogues.size());
 		while( m_Dialogues.size() > 0 )
 		{
-			logSpam("\tRemoving Dialog \"%s\" \n",m_Dialogues.back()->getDialogueName().c_str());
+			logSpam("\tRemoving Dialogue \"%s\" \n",m_Dialogues.back()->getDialogueName().c_str());
 
 			if (m_HighestConsumeLevel != CL_ASSIGN_AND_DONE )
 			{

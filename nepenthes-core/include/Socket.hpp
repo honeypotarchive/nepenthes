@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Socket.hpp 2270 2006-01-14 20:29:45Z common $ */
+/* $Id: Socket.hpp 341 2006-02-20 09:51:00Z common $ */
 
 #ifndef HAVE_SOCKET_HPP
 #define HAVE_SOCKET_HPP

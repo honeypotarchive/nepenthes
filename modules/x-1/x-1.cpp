@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-1.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: x-1.cpp 321 2006-02-20 08:30:38Z common $ */
 
 #include "x-1.hpp"
 #include "LogManager.hpp"
@@ -57,7 +57,7 @@ X1::X1(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-1";
 	m_ModuleDescription = "eXample Module 1 -loading modules example-";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 	g_Nepenthes = nepenthes;
 }

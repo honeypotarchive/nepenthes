@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-curl.cpp 2227 2005-12-23 17:06:19Z common $ */
+ /* $Id: download-curl.cpp 408 2006-03-23 15:45:48Z common $ */
 
 #include "download-curl.hpp"
 #include "LogManager.hpp"
@@ -55,7 +55,7 @@ CurlDownloadHandler::CurlDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "Curl Download Module";
 	m_ModuleDescription = "provides widly used protocols (http/ftp)";
-	m_ModuleRevision    = "$Rev: 2227 $";
+	m_ModuleRevision    = "$Rev: 408 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "CurlDownloadHandlerEventHandler";
@@ -147,9 +147,11 @@ uint32_t CurlDownloadHandler::handleEvent(Event *event)
 			if ( pMessage->msg == CURLMSG_DONE )
 			{
 				Download *pDown;
+				char *cDown;
 				char * szUrl;
 
-                curl_easy_getinfo(pMessage->easy_handle, CURLINFO_PRIVATE, (char * *) &pDown);
+                curl_easy_getinfo(pMessage->easy_handle, CURLINFO_PRIVATE, (char * *) &cDown);
+                pDown = (Download *)cDown;
 				if ( pMessage->data.result )
 				{
                     logWarn("Download error %s on getting file %s \n", curl_easy_strerror(pMessage->data.result), pDown->getUrl().c_str());

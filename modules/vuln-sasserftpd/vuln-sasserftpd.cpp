@@ -25,15 +25,12 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-sasserftpd.cpp 2233 2005-12-24 14:11:20Z common $ */
+ /* $Id: vuln-sasserftpd.cpp 439 2006-03-27 18:11:55Z common $ */
 
 #include <ctype.h>
 
 #include "SasserFTPDDialogue.hpp"
 #include "vuln-sasserftpd.hpp"
-
-#include "sch_sasserftpd_mandragore_bind.hpp"
-#include "sch_sasserftpd_mandragore_connect.hpp"
 
 #include "SocketManager.hpp"
 
@@ -88,7 +85,7 @@ SasserFTPDVuln::SasserFTPDVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-sasserftpd";
 	m_ModuleDescription = "provides Factory & dialogues for the sasserftpd vuln";
-	m_ModuleRevision    = "$Rev: 2233 $";
+	m_ModuleRevision    = "$Rev: 439 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "SasserFTPD Factory";
@@ -135,21 +132,6 @@ bool SasserFTPDVuln::Init()
 		i++;
 	}
 
-
-	m_ShellcodeHandlers.push_back( new MandragoreBind 	(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back( new MandragoreConnect	(m_Nepenthes->getShellcodeMgr()));
-
-	list <ShellcodeHandler *>::iterator handler;
-	for (handler = m_ShellcodeHandlers.begin(); handler != m_ShellcodeHandlers.end(); handler++)
-	{
-		if ((*handler)->Init() == false)
-		{
-			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
-		}
-		REG_SHELLCODE_HANDLER((*handler));
-
-	}
 
 	return true;
 }

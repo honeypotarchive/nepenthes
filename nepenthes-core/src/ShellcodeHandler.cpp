@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: ShellcodeHandler.cpp 1644 2005-07-14 16:19:15Z dp $ */
+/* $Id: ShellcodeHandler.cpp 318 2006-02-20 08:03:24Z common $ */
 
 #include "ShellcodeHandler.hpp"
 using namespace nepenthes;

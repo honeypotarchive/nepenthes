@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: XMLRPCDialogue.cpp 2220 2005-12-23 16:59:37Z common $ */
+ /* $Id: XMLRPCDialogue.cpp 341 2006-02-20 09:51:00Z common $ */
 
 
 #include "XMLRPCDialogue.hpp"

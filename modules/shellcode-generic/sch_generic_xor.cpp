@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_xor.cpp 2274 2006-01-15 20:49:05Z common $ */
+ /* $Id: sch_generic_xor.cpp 377 2006-03-12 20:37:29Z common $ */
 
 
 /* Additional notes:
@@ -89,7 +89,7 @@ bool GenericXOR::Init()
 	const char * pcreEerror;
 	int32_t pcreErrorPos;
 
-	XORPcreHelper test[15]=
+	XORPcreHelper test[17]=
 	{
 		{
 			"(.*)(\\xEB\\x02\\xEB\\x05\\xE8\\xF9\\xFF\\xFF\\xFF\\x5B\\x31\\xC9\\x66\\xB9(.)\\xFF\\x80\\x73\\x0E(.)\\x43\\xE2\\xF9)(.*)$", 
@@ -159,6 +159,16 @@ bool GenericXOR::Init()
 
 		},
 		{
+			"(.*)(\\xC9\\x83\\xE9(.)\\xD9\\xEE\\xD9\\x74\\x24\\xF4\\x5B\\x81\\x73\\x13(....)\\x83\\xEB\\xFC\\xE2\\xF4)(.*)$",
+			"Metasploit PexEnvSub",
+			XF_SIZE_INVERT
+		},
+		{
+			"(.*)(\\x2B\\xC9\\x83\\xE9(.)\\xE8\\xFF\\xFF\\xFF\\xFF\\xC0\\x5E\\x81\\x76\\x0E(....)\\x83\\xEE\\xFC\\xE2\\xF4)(.*)$",
+			"Metasploit Pex",
+			XF_SIZE_INVERT
+		},
+		{
 			"(.*)(\\xEB\\x0E\\x5B\\x4B\\x33\\xC9\\xB1(.)\\x80\\x34\\x0B(.)\\xE2\\xFA\\xEB\\x05\\xE8\\xED\\xFF\\xFF\\xFF)(.*)$",
 			"leimbach xor",
 			XF_NONE
@@ -170,7 +180,9 @@ bool GenericXOR::Init()
 		}
 	};
 
-	for( uint32_t i = 0; i <= 14; i++ )
+
+	//logDebug("Amount of generic PCRE Helpers: %i\n", sizeof(test));
+	for( uint32_t i = 0; i < 17; i++ )
 	{
 		pcre *mypcre;
 		if((mypcre = pcre_compile(test[i].m_PCRE, PCRE_DOTALL, &pcreEerror, (int *)&pcreErrorPos, 0)) == NULL)

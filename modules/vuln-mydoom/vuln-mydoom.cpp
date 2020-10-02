@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-mydoom.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-mydoom.cpp 321 2006-02-20 08:30:38Z common $ */
 
 
 
@@ -75,7 +75,7 @@ MydoomVuln::MydoomVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-mydoome";
 	m_ModuleDescription = "emulates the mydoom backdoor";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Mydoom Dialogue Factory";

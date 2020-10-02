@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_bind.hpp 1749 2005-08-02 15:46:24Z common $ */
+ /* $Id: sch_generic_bind.hpp 318 2006-02-20 08:03:24Z common $ */
 
 #ifndef HAVE_GENRICBIND_HPP
 #define HAVE_GENRICBIND_HPP

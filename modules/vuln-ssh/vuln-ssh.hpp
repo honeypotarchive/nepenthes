@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-ssh.hpp 1977 2005-09-14 10:59:57Z common $ */
+ /* $Id: vuln-ssh.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

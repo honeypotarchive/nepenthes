@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-kuang2.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: vuln-kuang2.cpp 330 2006-02-20 09:20:44Z common $ */
 
 #include <ctype.h>
 
@@ -72,7 +72,7 @@ Kuang2Vuln::Kuang2Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-kuang2";
 	m_ModuleDescription = "emulates the kuang2 backdoor";
-	m_ModuleRevision    = "$Rev: 1947 $";
+	m_ModuleRevision    = "$Rev: 330 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "Kuang2 Dialogue Factory";

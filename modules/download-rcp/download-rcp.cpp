@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-rcp.cpp 2260 2006-01-13 20:35:08Z common $ */
+ /* $Id: download-rcp.cpp 341 2006-02-20 09:51:00Z common $ */
 
 
 #include <fcntl.h>
@@ -59,7 +59,7 @@ RCPDownloadHandler::RCPDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "rcp Download Module";
 	m_ModuleDescription = "provides a downloadhandler for rcp";
-	m_ModuleRevision    = "$Rev: 2260 $";
+	m_ModuleRevision    = "$Rev: 341 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="rcp download handler";

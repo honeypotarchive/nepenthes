@@ -25,14 +25,12 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-lsass.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-lsass.cpp 439 2006-03-27 18:11:55Z common $ */
 
 #include <ctype.h>
 
 #include "vuln-lsass.hpp"
 #include "LSASSDialogue.hpp"
-#include "sch_lsass_hod_bind.hpp"
-#include "sch_lsass_hod_connect.hpp"
 
 
 #include "SocketManager.hpp"
@@ -76,7 +74,7 @@ LSASSVuln::LSASSVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-lsass2";
 	m_ModuleDescription = "modules provides lsass emulation";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 439 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "LSASSDialogue Factory";
@@ -131,23 +129,6 @@ bool LSASSVuln::Init()
 
 	m_ModuleManager = m_Nepenthes->getModuleMgr();
 
-    m_ShellcodeHandlers.push_back( new HODBind		(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back( new HODConnect	(m_Nepenthes->getShellcodeMgr()));
-
-
-
-
-	list <ShellcodeHandler *>::iterator handler;
-	for (handler = m_ShellcodeHandlers.begin(); handler != m_ShellcodeHandlers.end(); handler++)
-	{
-		if ((*handler)->Init() == false)
-        {
-			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
-		}
-		REG_SHELLCODE_HANDLER((*handler));
-
-	}
 	return true;
 }
 

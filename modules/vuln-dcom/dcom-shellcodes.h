@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: dcom-shellcodes.h 1646 2005-07-14 16:53:03Z common $ */
+ /* $Id: dcom-shellcodes.h 318 2006-02-20 08:03:24Z common $ */
 
 // ripped from http://www.milw0rm.com/id.php?id=76
 // default dcom exploit

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: dnsresolve-adns.cpp 2225 2005-12-23 17:04:25Z common $ */
+ /* $Id: dnsresolve-adns.cpp 408 2006-03-23 15:45:48Z common $ */
 
 #include <sys/poll.h>
 #include <errno.h>
@@ -161,17 +161,25 @@ uint32_t DNSResolverADNS::handleEvent(Event *event)
 void DNSResolverADNS::callBack()
 {
 	adns_query q, r;
+	void *vr;
+	
 	adns_answer *answer;
 	DNSQuery *query;
+	
 	ADNSContext *ctx;
+	void *vctx;
 
 	logSpam("%i DNS Resolves in Queue\n", m_Queue);
 
 	adns_forallqueries_begin(m_aDNSState);
-	while ( (q = adns_forallqueries_next(m_aDNSState, (void **)&r)) != NULL )
+	while ( (q = adns_forallqueries_next(m_aDNSState, (void **)&vr)) != NULL )
 	{
-
-		switch ( adns_check(m_aDNSState, &q, &answer, (void **)&ctx) )
+	        r = (adns_query)vr;
+	        
+	        int adns_ret = adns_check(m_aDNSState, &q, &answer, (void **)&vctx);
+	        ctx = (ADNSContext *)vctx;
+	        
+		switch ( adns_ret )
 		{
 		case 0:
 			{

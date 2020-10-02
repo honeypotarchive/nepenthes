@@ -9,6 +9,9 @@
 /* Define to 1 if you have the `bzero' function. */
 #undef HAVE_BZERO
 
+/* Define to 1 if you need debug logging */
+#undef HAVE_DEBUG_LOGGING
+
 /* Define to 1 if you have the declaration of `getopt', and to 0 if you don't.
    */
 #undef HAVE_DECL_GETOPT
@@ -68,6 +71,9 @@
 /* Define if you want to use adns */
 #undef HAVE_LIBADNS
 
+/* Define if libcap is available to restrict process capabilities */
+#undef HAVE_LIBCAP
+
 /* Define if you want to use libcurl */
 #undef HAVE_LIBCURL
 
@@ -82,6 +88,9 @@
 
 /* Define if you want to use libpcre */
 #undef HAVE_LIBPCRE
+
+/* Define if you want to use libprelude */
+#undef HAVE_LIBPRELUDE
 
 /* Define wether we have libssh */
 #undef HAVE_LIBSSH
@@ -260,6 +269,10 @@
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
 #undef WORDS_BIGENDIAN
+
+/* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
+   `char[]'. */
+#undef YYTEXT_POINTER
 
 /* Define to empty if `const' does not conform to ANSI C. */
 #undef const

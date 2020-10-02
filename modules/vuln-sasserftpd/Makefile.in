@@ -16,7 +16,7 @@
 
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -60,8 +60,7 @@ pkglibLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 vulnsasserftpd_la_LIBADD =
 am_vulnsasserftpd_la_OBJECTS = SasserFTPDDialogue.lo \
-	sch_sasserftpd_mandragore_bind.lo \
-	sch_sasserftpd_mandragore_connect.lo vuln-sasserftpd.lo
+	vuln-sasserftpd.lo
 vulnsasserftpd_la_OBJECTS = $(am_vulnsasserftpd_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -121,8 +120,12 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
+LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
@@ -148,6 +151,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
+YACC = @YACC@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
@@ -196,7 +200,9 @@ AM_CPPFLAGS = -I$(top_srcdir)/nepenthes-core/include -I$(top_srcdir)/nepenthes-c
 AM_CXXFLAGS = -Wall -Werror
 AM_LDFLAGS = -lpcre
 pkglib_LTLIBRARIES = vulnsasserftpd.la
-vulnsasserftpd_la_SOURCES = vuln-sasserftpd.conf.dist SasserFTPDDialogue.hpp sch_sasserftpd_mandragore_bind.hpp sch_sasserftpd_mandragore_connect.hpp vuln-sasserftpd.hpp SasserFTPDDialogue.cpp sch_sasserftpd_mandragore_bind.cpp sch_sasserftpd_mandragore_connect.cpp vuln-sasserftpd.cpp
+vulnsasserftpd_la_SOURCES = vuln-sasserftpd.conf.dist \
+	SasserFTPDDialogue.hpp SasserFTPDDialogue.cpp \
+	vuln-sasserftpd.hpp vuln-sasserftpd.cpp
 vulnsasserftpd_la_LDFLAGS = -module -no-undefined -avoid-version
 all: all-am
 
@@ -268,8 +274,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SasserFTPDDialogue.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_sasserftpd_mandragore_bind.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_sasserftpd_mandragore_connect.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vuln-sasserftpd.Plo@am__quote@
 
 .cpp.o:

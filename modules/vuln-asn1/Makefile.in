@@ -16,7 +16,7 @@
 
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -59,8 +59,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)"
 pkglibLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 vulnasn1_la_LIBADD =
-am_vulnasn1_la_OBJECTS = IISDialogue.lo SMBDialogue.lo sch_asn1_iis.lo \
-	sch_asn1_smb_bind.lo vuln-asn1.lo
+am_vulnasn1_la_OBJECTS = vuln-asn1.lo IISDialogue.lo SMBDialogue.lo
 vulnasn1_la_OBJECTS = $(am_vulnasn1_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -120,8 +119,12 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
+LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
@@ -147,6 +150,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
+YACC = @YACC@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
@@ -195,7 +199,9 @@ AM_CPPFLAGS = -I$(top_srcdir)/nepenthes-core/include -I$(top_srcdir)/nepenthes-c
 AM_CXXFLAGS = -Wall -Werror
 AM_LDFLAGS = -lpcre
 pkglib_LTLIBRARIES = vulnasn1.la
-vulnasn1_la_SOURCES = vuln-asn1.conf.dist asn1-shellcodes.h IISDialogue.hpp SMBDialogue.hpp sch_asn1_iis.hpp sch_asn1_smb_bind.hpp vuln-asn1.hpp IISDialogue.cpp SMBDialogue.cpp sch_asn1_iis.cpp sch_asn1_smb_bind.cpp vuln-asn1.cpp
+vulnasn1_la_SOURCES = vuln-asn1.conf.dist asn1-shellcodes.h \
+	vuln-asn1.hpp vuln-asn1.cpp IISDialogue.hpp IISDialogue.cpp \
+	SMBDialogue.hpp SMBDialogue.cpp
 vulnasn1_la_LDFLAGS = -module -no-undefined -avoid-version
 all: all-am
 
@@ -268,8 +274,6 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/IISDialogue.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SMBDialogue.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_asn1_iis.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_asn1_smb_bind.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vuln-asn1.Plo@am__quote@
 
 .cpp.o:

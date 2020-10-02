@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-sub7.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-sub7.cpp 321 2006-02-20 08:30:38Z common $ */
 
 #include <ctype.h>
 
@@ -73,7 +73,7 @@ SUB7Vuln::SUB7Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-sub7";
 	m_ModuleDescription = "emulate the sub7 backdoor";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "SUB7DialogueFactory";

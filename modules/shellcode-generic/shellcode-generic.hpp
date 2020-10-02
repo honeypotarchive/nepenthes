@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
  
- /* $Id: shellcode-generic.hpp 1923 2005-08-27 18:10:01Z dp $ */
+ /* $Id: shellcode-generic.hpp 321 2006-02-20 08:30:38Z common $ */
 
 #include "Module.hpp"
 #include "ModuleManager.hpp"

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-mssql.cpp 1971 2005-09-13 14:40:24Z common $ */
+ /* $Id: vuln-mssql.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include <ctype.h>
 
@@ -74,7 +74,7 @@ MSSQLVuln::MSSQLVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-mssql";
 	m_ModuleDescription = "emulate the MS02-061 flaw";
-	m_ModuleRevision    = "$Rev: 1971 $";
+	m_ModuleRevision    = "$Rev: 332 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "mssql Dialogue Factory";

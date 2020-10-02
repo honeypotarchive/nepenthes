@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-msdtc.cpp 2197 2005-12-15 21:18:37Z common $ */
+ /* $Id: vuln-msdtc.cpp 339 2006-02-20 09:45:09Z common $ */
 
 #include <ctype.h>
 
@@ -74,7 +74,7 @@ MSDTCVuln::MSDTCVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-msdtc";
 	m_ModuleDescription = "modules provides msdtc emulation";
-	m_ModuleRevision    = "$Rev: 2197 $";
+	m_ModuleRevision    = "$Rev: 339 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "MSDTCDialogue Factory";

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: FileLogger.hpp 2185 2005-11-26 18:41:16Z common $ */
+/* $Id: FileLogger.hpp 336 2006-02-20 09:38:38Z common $ */
 
 #ifndef FILELOFFER_HPP
 #define FILELOFFER_HPP

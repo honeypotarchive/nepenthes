@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: ConsoleLogger.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: ConsoleLogger.cpp 375 2006-03-09 18:10:55Z dp $ */
 
 #include <stdio.h>
 #include <string>
@@ -121,7 +121,14 @@ void ConsoleLogger::log(uint32_t mask, const char *message)
         
 
 #else
-    printf("[ \033[%d;1m%-5s\033[0m] %s",
+	if( m_LogManager->getColorSetting() )
+	{
+	    printf("[ \033[%d;1m%-5s\033[0m] %s",
 			 g_ColorMap[level], tag.c_str(), message);
+	}
+	else
+	{
+		printf("%s", message);
+	}
 #endif
 }

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-nepenthes.cpp 2271 2006-01-14 20:31:52Z common $ */
+ /* $Id: submit-nepenthes.cpp 341 2006-02-20 09:51:00Z common $ */
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -70,7 +70,7 @@ SubmitNepenthes::SubmitNepenthes(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-nepenthes";
 	m_ModuleDescription = "give new toys to good friends";
-	m_ModuleRevision    = "$Rev: 2271 $";
+	m_ModuleRevision    = "$Rev: 341 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-nepenthes";

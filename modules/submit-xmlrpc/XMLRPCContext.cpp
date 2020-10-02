@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: XMLRPCContext.cpp 2078 2005-10-11 20:43:28Z common $ */
+ /* $Id: XMLRPCContext.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "submit-xmlrpc.hpp"
 #include "XMLRPCContext.hpp"
@@ -183,7 +183,7 @@ string XMLRPCContext::getRequest()
 						"</name>"
 						"<value>"
 							"<string>"
-								"Nepenthes submit-xmlrpc $Rev: 2078 $"
+								"Nepenthes submit-xmlrpc $Rev: 332 $"
 							"</string>"
 						"</value>"
 					"</member>"

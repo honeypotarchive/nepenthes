@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-creceive.cpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: download-creceive.cpp 330 2006-02-20 09:20:44Z common $ */
 
 #include <ctype.h>
 
@@ -86,7 +86,7 @@ CReceiveDownloadHandler::CReceiveDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "download-creceive";
 	m_ModuleDescription = "downloads file bei rx";
-	m_ModuleRevision    = "$Rev: 1947 $";
+	m_ModuleRevision    = "$Rev: 330 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "download-creceive";

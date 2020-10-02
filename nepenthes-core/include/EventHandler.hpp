@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: EventHandler.hpp 2043 2005-10-04 15:59:52Z common $ */
+/* $Id: EventHandler.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #ifndef HAVE_EVENTHANDLER_HPP
 #define HAVE_EVENTHANDLER_HPP

@@ -25,15 +25,12 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-netdde.cpp 2233 2005-12-24 14:11:20Z common $ */
+ /* $Id: vuln-netdde.cpp 439 2006-03-27 18:11:55Z common $ */
 
 #include <ctype.h>
 
 #include "NETDDEDialogue.hpp"
 #include "vuln-netdde.hpp"
-
-#include "sch_netdde_hod_bind.hpp"
-#include "sch_netdde_hod_connect.hpp"
 
 #include "SocketManager.hpp"
 
@@ -87,7 +84,7 @@ NETDDEVuln::NETDDEVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-netdde";
 	m_ModuleDescription = "provides Factory & dialogues for the netdde vuln";
-	m_ModuleRevision    = "$Rev: 2233 $";
+	m_ModuleRevision    = "$Rev: 439 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "NETDDE Factory";
@@ -128,22 +125,6 @@ bool NETDDEVuln::Init()
 
 	m_Nepenthes->getSocketMgr()->bindTCPSocket(0,port,0,timeout,this);
 
-
-
-	m_ShellcodeHandlers.push_back( new HODBind	 	(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back( new HODConnect	(m_Nepenthes->getShellcodeMgr()));
-
-	list <ShellcodeHandler *>::iterator handler;
-	for (handler = m_ShellcodeHandlers.begin(); handler != m_ShellcodeHandlers.end(); handler++)
-	{
-		if ((*handler)->Init() == false)
-		{
-			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
-		}
-		REG_SHELLCODE_HANDLER((*handler));
-
-	}
 
 	return true;
 }

@@ -57,7 +57,7 @@
 
  
 
-/* $Id: Utilities.hpp 2043 2005-10-04 15:59:52Z common $ */
+/* $Id: Utilities.hpp 332 2006-02-20 09:28:45Z common $ */
 #ifndef HAVE_UTILITIES_HPP
 #define HAVE_UTILITIES_HPP
 

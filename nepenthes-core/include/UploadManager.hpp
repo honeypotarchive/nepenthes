@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UploadManager.hpp 2242 2006-01-04 17:31:02Z common $ */
+/* $Id: UploadManager.hpp 341 2006-02-20 09:51:00Z common $ */
 
 #ifndef HAVE_UPLOADMANAGER_HPP
 #define HAVE_UPLOADMANAGER_HPP

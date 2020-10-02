@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-8.cpp 2078 2005-10-11 20:43:28Z common $ */
+ /* $Id: x-8.cpp 444 2006-03-27 22:36:10Z common $ */
 
 #include "config.h"
 
@@ -74,7 +74,7 @@ X8::X8(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-8";
 	m_ModuleDescription = "eXample Module 8 -GeoLocationHandler eXample-";
-	m_ModuleRevision    = "$Rev: 2078 $";
+	m_ModuleRevision    = "$Rev: 444 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "x-8 Factory";
@@ -315,7 +315,7 @@ void X8Dialogue::locationSuccess(GeoLocationResult *result)
 	reply += "\n";
 
 	reply += "\t Context: ";
-	sprintf(ctx,"%x",(uint32_t)result->getObject());
+	sprintf(ctx,"%x",(uint32_t)((intptr_t)result->getObject()));
 	reply += ctx;
 	reply += "\n";
 

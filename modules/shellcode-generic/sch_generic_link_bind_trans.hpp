@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_link_bind_trans.hpp 1687 2005-07-24 01:41:04Z dp $ */
+ /* $Id: sch_generic_link_bind_trans.hpp 318 2006-02-20 08:03:24Z common $ */
 
 #ifndef HAVE_LSASS_LINK_BIND_TRANS_HPP
 #define HAVE_LSASS_LINK_BIND_TRANS_HPP

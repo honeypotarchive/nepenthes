@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DownloadUrl.hpp 2051 2005-10-05 16:46:29Z common $ */
+/* $Id: DownloadUrl.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #ifndef HAVE_DOWNLOADURL_HPP
 #define HAVE_DOWNLOADURL_HPP

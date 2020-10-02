@@ -16,7 +16,7 @@
 
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -59,8 +59,7 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)"
 pkglibLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 vulnwins_la_LIBADD =
-am_vulnwins_la_OBJECTS = WINSDialogue.lo sch_wins_hs_bind.lo \
-	sch_wins_hs_connect.lo sch_wins_zuc_connect.lo vuln-wins.lo
+am_vulnwins_la_OBJECTS = WINSDialogue.lo vuln-wins.lo
 vulnwins_la_OBJECTS = $(am_vulnwins_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -120,8 +119,12 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
+LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
@@ -147,6 +150,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
+YACC = @YACC@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
@@ -195,7 +199,9 @@ AM_CPPFLAGS = -I$(top_srcdir)/nepenthes-core/include -I$(top_srcdir)/nepenthes-c
 AM_CXXFLAGS = -Wall -Werror
 AM_LDFLAGS = -lpcre
 pkglib_LTLIBRARIES = vulnwins.la
-vulnwins_la_SOURCES = vuln-wins.conf.dist WINSDialogue.hpp sch_wins_hs_bind.hpp sch_wins_hs_connect.hpp sch_wins_zuc_connect.hpp vuln-wins.hpp wins-shellcodes.hpp WINSDialogue.cpp sch_wins_hs_bind.cpp sch_wins_hs_connect.cpp sch_wins_zuc_connect.cpp vuln-wins.cpp
+vulnwins_la_SOURCES = vuln-wins.conf.dist WINSDialogue.hpp \
+	WINSDialogue.cpp vuln-wins.hpp wins-shellcodes.hpp \
+	vuln-wins.cpp
 vulnwins_la_LDFLAGS = -module -no-undefined -avoid-version
 all: all-am
 
@@ -267,9 +273,6 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WINSDialogue.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_wins_hs_bind.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_wins_hs_connect.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_wins_zuc_connect.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vuln-wins.Plo@am__quote@
 
 .cpp.o:

@@ -1,16 +1,16 @@
 # nepenthes meta-Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 2173 2005-11-22 14:10:03Z common $
+# $Id: Makefile.am 527 2006-04-23 17:48:01Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = nepenthes-core modules 
 #tools
 
-EXTRA_DIST = configure.ac CHANGES doc/README doc/README.VFS doc/logo-shaded.svg doc/nepenthes.8 conf/nepenthes.conf.dist
+EXTRA_DIST = configure.ac CHANGES doc/README.VFS doc/logo-shaded.svg doc/nepenthes.8 conf/nepenthes.conf.dist
 
 docdir = $(prefix)/share/doc
-doc_DATA = doc/README doc/README.VFS doc/logo-shaded.svg
+doc_DATA = doc/README.VFS doc/logo-shaded.svg
 
 #sysconf_DATA = conf/nepenthes.conf.dist
 
@@ -49,6 +49,13 @@ install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache/nepenthes
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache/nepenthes/geolocation
+	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/cache/nepenthes/signatures
+
+	$(INSTALL_DATA) modules/shellcode-signatures/shellcode-signatures.sc $(DESTDIR)$(localstatedir)/cache/nepenthes/signatures
+	
+	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/spool
+	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/spool/nepenthes
+	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/spool/nepenthes/gotek
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/log
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/binaries
 	$(mkinstalldirs) $(DESTDIR)$(localstatedir)/hexdumps

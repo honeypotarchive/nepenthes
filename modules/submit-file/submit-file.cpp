@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-file.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: submit-file.cpp 332 2006-02-20 09:28:45Z common $ */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -53,7 +53,7 @@ FileSubmitHandler::FileSubmitHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-file";
 	m_ModuleDescription = "module providing a file to file submitter";
-	m_ModuleRevision    = "$Rev: 2001 $";
+	m_ModuleRevision    = "$Rev: 332 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-file";

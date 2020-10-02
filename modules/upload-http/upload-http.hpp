@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: upload-http.hpp 2005 2005-09-29 21:46:25Z common $ */
+ /* $Id: upload-http.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "Module.hpp"
 #include "ModuleManager.hpp"

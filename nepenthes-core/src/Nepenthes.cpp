@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Nepenthes.cpp 2270 2006-01-14 20:29:45Z common $ */
+/* $Id: Nepenthes.cpp 505 2006-04-09 16:39:36Z oxff $ */
 
 #include <config.h>
 
@@ -41,6 +41,13 @@
 #include <pwd.h>
 #include <grp.h>
 #include <dirent.h>
+#include <sys/utsname.h>
+
+
+#ifdef HAVE_LIBCAP
+#undef _POSIX_SOURCE
+#include <sys/capability.h>
+#endif
 
 #include "Nepenthes.hpp"
 #include "SocketManager.hpp"
@@ -69,6 +76,8 @@
 #endif	
 
 using namespace nepenthes;
+
+enum ColorSetting { colorAuto, colorAlways, colorNever };
 
 Nepenthes *g_Nepenthes;
 /**
@@ -170,12 +179,14 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 	char *chGroup = NULL;
 	char *chRoot = NULL;
 	const char *consoleTags = 0, *diskTags = 0;
+	bool forcesetcaps=false;
 
 
 	string flpath;
 
 	string rlpath;	// ringlogger path, gets read from config
 	bool ringlog = false;
+	ColorSetting col = colorAuto;
 
 #ifdef WIN32
 
@@ -186,6 +197,7 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 		int32_t option_index = 0;
 		static struct option long_options[] = {
             { "config", 		1, 0, 'c' },
+			{ "capabilities",	0, 0, 'C' },
 			{ "disk-log", 		1, 0, 'd' },	// FIXME
 			{ "file-check",		1, 0, 'f' },	// FIXME
 			{ "group",			1, 0, 'g' },	
@@ -195,7 +207,7 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 			{ "check-config", 	0, 0, 'k' },
 			{ "log", 			1, 0, 'l' },	// FIXME
 			{ "logging-help",	0, 0, 'L' },	// FIXME
-			{ "no-color", 		0, 0, 'o' },	// FIXME
+			{ "color",	 		1, 0, 'o' },
 			{ "chroot",			1, 0, 'r' }, 
 			{ "ringlog",		0, 0, 'R' }, 
 			{ "user",			1, 0, 'u' },	
@@ -205,7 +217,7 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 			{ 0, 0, 0, 0 }
 		};
 
-		int32_t c = getopt_long(argc, argv, "c:d:f:g:hHikl:Lor:Ru:vVw:", long_options, (int *)&option_index);
+		int32_t c = getopt_long(argc, argv, "c:Cd:f:g:hHikl:Lo:r:Ru:vVw:", long_options, (int *)&option_index);
 		if (c == -1)
 			break;
 
@@ -215,6 +227,11 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 		case 'b':
 			basedir = optarg;
 			break;
+
+		case 'C':
+			forcesetcaps = true;
+			break;
+
 
 		case 'c':
 			confpath = optarg;
@@ -267,8 +284,19 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 			break;
 
 		case 'o':	// FIXME set nocolor on console
-			printf("This feature '%c' is todo\nquitting\n",c);
-			run=false;
+			if( !strcmp(optarg, "never") )
+				col = colorNever;
+			else if( !strcmp(optarg, "always") )
+				col = colorAlways;
+			else if( !strcmp(optarg, "auto") )
+				col = colorAuto;
+			else
+			{
+				fprintf(stdout, "Invalid argument for --color; must be one of\n"
+						"`never', `always' or `auto'.\n");
+				run = false;
+			}
+
 			break;
 
 		case 'r':
@@ -401,19 +429,35 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 
 	if ( run == true || confcheck == true || filecheck == true)
 	{
+		switch( col )
+		{
+			case colorAuto:
+				if( isatty(STDOUT_FILENO) )
+					m_LogManager->setColor(true);
+				else
+					m_LogManager->setColor(false);
+				break;
+			case colorNever:
+				m_LogManager->setColor(false);
+				break;
+			case colorAlways:
+				m_LogManager->setColor(true);
+				break;
+		}
+
         m_Config = new Config;
-		logInfo("Trying to load Nepenthes Configuration from %s \n",confpath);
+		logSpam("Trying to load Nepenthes Configuration from %s \n",confpath);
 		try
 		{
 			m_Config->load(confpath);
-			logInfo("Done loading Nepenthes Configuration from %s \n",confpath);
+			logInfo("Loaded Nepenthes Configuration from \"%s\".\n",confpath);
 		} catch ( LoadError e )
 		{
-			printf("Unable to load configuration file %s: %s\n", confpath, e.getMessage());
+			printf("Unable to load configuration file \"%s\": %s\n", confpath, e.getMessage());
 			run = false;
 		} catch ( ParseError e )
 		{
-			printf("Parse error in %s on line %d: %s\n", confpath, e.getLine(), e.getMessage());
+			printf("Parse error in \"%s\" on line %d: %s\n", confpath, e.getLine(), e.getMessage());
 			run = false;
 		}
 		
@@ -556,15 +600,6 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 		}
 	}
 
-	if ( chRoot != NULL )
-	{
-		if ( changeRoot(chRoot) == false )
-		{
-			run = false;
-		}
-	}
-
-
 	// if we drop priviliges, we have to take care of the logfiles user/group permission
 	// if we do not drop privs, make sure the files are ours
 	// --common
@@ -674,6 +709,27 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 #endif
 	}
 
+	if ( run == true  )
+	{
+		if ( setCapabilties() == false)
+		{
+			if ( forcesetcaps == true )
+			{
+				logCrit("%s","As you asked to force capabilities, this is a critical error and we will terminate right now\n");
+				run = false;
+			}
+		}
+	}
+
+	if ( run == true && chRoot != NULL )
+	{
+		if ( changeRoot(chRoot) == false )
+		{
+			run = false;
+		}
+	}
+
+
 	// change process group id
 	if ( run == true && chGroup != NULL )
 	{
@@ -693,14 +749,14 @@ int32_t Nepenthes::run(int32_t argc, char **argv)
 		}
 	}
 
-	if( run == true )
-	{
-        doLoop();
-	}else
 	if (filecheck)
 	{
 		show_version();
 		fileCheckMain(filecheckarg,argc,optind,argv);
+	}
+	if( run == true )
+	{
+        doLoop();
 	}
 
 
@@ -1130,7 +1186,13 @@ bool Nepenthes::reloadConfig()
 bool Nepenthes::changeUser(char *user)
 {
 	passwd * pass;                                
-    
+
+	if (isdigit(*user) != 0)
+	{
+        m_UID = atoi(user);
+		printf("User %s has uid %i\n",user,m_UID);
+		return true;
+	}else
 	if ( (pass = getpwnam(user)) == NULL )
 	{
 		printf("Could not get userid for user '%s'\n",user);
@@ -1215,6 +1277,12 @@ bool Nepenthes::changeGroup(char *gruppe)
 {
 	struct group *grp;
 
+	if (isdigit(*gruppe) != 0)
+	{
+		m_GID = atoi(gruppe);
+		printf("Group %s has gid %i\n",gruppe,m_GID);
+		return true;
+	}else
 	if ( (grp = getgrnam(gruppe)) == NULL )
 	{
 		printf("Could not get groupid for group '%s' (%s)\n",gruppe,strerror(errno));
@@ -1319,6 +1387,55 @@ bool Nepenthes::changeRoot(char *path)
 
 }
 
+
+bool Nepenthes::setCapabilties()
+{
+	logPF();
+
+#ifdef HAVE_LIBCAP
+	// set caps
+	cap_t caps = cap_init();
+	cap_value_t capList[4] =
+	{ 
+		CAP_SYS_CHROOT, 		// chroot()
+		CAP_NET_BIND_SERVICE, 	// bind() ports < 1024 
+		CAP_SETUID, 			// setuid()
+		CAP_SETGID				// setgid()
+	};
+
+	unsigned num_caps = 4;
+
+	cap_set_flag(caps, CAP_EFFECTIVE, 	num_caps, capList, CAP_SET);
+	cap_set_flag(caps, CAP_INHERITABLE, num_caps, capList, CAP_SET);
+	cap_set_flag(caps, CAP_PERMITTED, 	num_caps, capList, CAP_SET);
+
+	if ( cap_set_proc(caps) )
+	{
+		cap_free(caps);
+		logCrit("Could not set capabilities '%s'\n",strerror(errno));
+		logCrit("%s","Maybe you did not load the kernel module 'capability' ?\n");
+		logCrit("%s","Try 'modprobe capability' \n");
+		return false;
+	}
+	cap_free(caps);
+
+	// print caps
+	caps = cap_get_proc();
+	ssize_t y = 0;
+	logInfo("The process %d was given capabilities %s\n",(int) getpid(), cap_to_text(caps, &y));
+	fflush(0);
+	cap_free(caps);
+
+	return true;
+#else
+	logCrit("%s","Compiled without support for capabilities, no way to run capabilities\n");
+	return false;
+#endif	// HAVE_LIBCAP
+
+}
+
+
+
 /**
  * the signalhandler
  * 
@@ -1330,36 +1447,27 @@ void SignalHandler(int32_t iSignal)
     switch(iSignal)
     {
 	case SIGHUP:
-		printf("Got SIGHUP\nRereading Config File!\n");
+		logCrit("%s\n", "Got SIGHUP\nRereading Config File!\n");
 		g_Nepenthes->reloadConfig();
 		break;
 
 	case SIGINT:
-		printf("Got SIGINT\nStopping NOW!\n");
+		logCrit("%s\n", "Got SIGINT\nStopping NOW!\n");
 		g_Nepenthes->stop();
 		break;
 
 	case SIGABRT:
-		printf("%s\n", "Unhandled Exception");
+		logCrit("%s\n", "Unhandled Exception");
 		exit(-1);
 		break;
 
 	case SIGSEGV:
-		printf("%s\n", "Segmentation Fault");
+		logCrit("%s\n", "Segmentation Fault");
 		exit(-1);
 		break;
 
-#ifndef HAVE_MSG_NOSIGNAL
-	// this wont work
-	// at least it did not work for me when i wanted to ignore SIGWINCH this way
-	// -- common
-	case SIGPIPE:
-		printf("Ignoring %i\n", iSignal);
-		signal(iSignal,SIG_IGN);
-		break;
-#endif
 	default:
-		printf("Exit 'cause of %i\n", iSignal);
+		logCrit("Exit 'cause of %i\n", iSignal);
 		g_Nepenthes->stop();
 	}
 }
@@ -1398,7 +1506,20 @@ int main(int32_t argc, char **argv)
 	signal(SIGFPE,   SignalHandler);	//       8       Core    Floating point exception
 //  signal(SIGKILL,  SignalHandler);	//       9       Term    Kill signal
 	signal(SIGSEGV,  SignalHandler);	//      11       Core    Invalid memory reference
+
+/* I hate breaking this well formatted list, 
+ * but some systems lack
+ * MSG_NOSIGNAL as send() option and 
+ * SO_NOSIGPIPE as setsockopt() feature
+ * So we would get sigpipe when sending data on a closed connection ...
+ * it sucks, but we have to ignore sigpipe on such systems (f.e. OpenBSD 3.8)
+ */
+#if !defined(HAVE_SO_NOSIGPIPE) && !defined(HAVE_MSG_NOSIGNAL)
+	signal(SIGPIPE,  SIG_IGN);	        //      13       Term    Broken pipe: write to pipe with no readers
+#else
 	signal(SIGPIPE,  SignalHandler);	//      13       Term    Broken pipe: write to pipe with no readers
+#endif
+										// 
 	signal(SIGALRM,  SignalHandler);	//      14       Term    Timer signal from alarm(2)
 	signal(SIGTERM,  SignalHandler);	//      15       Term    Termination signal
 	signal(SIGUSR1,  SignalHandler);	//   30,10,16    Term    User-defined signal 1
@@ -1415,6 +1536,7 @@ int main(int32_t argc, char **argv)
  */
 
 	signal(SIGBUS,   SignalHandler);	//   10,7,10     Core    Bus error (bad memory access)
+	
 #ifdef HAVE_SIGPOLL
 	signal(SIGPOLL,  SignalHandler);	//               Term    Pollable event (Sys V). Synonym of SIGIO
 #endif
@@ -1524,61 +1646,103 @@ void show_help(bool defaults)
 
 	helpstruct myopts[]=
 	{
-        {"c",	"config",			"give path to Config File",				SYSCONFDIR "/nepenthes.conf"	},
-		{"d",	"disk-log",			"disk logging tags, see -L",			"(no filter)"			},
-		{"f",	"file-check",		"check file for known shellcode rmknown,rmnonop",   ""						},
-		{"h",	"help",				"show help",							""						},
-		{"H",	"large-help",		"show help with default values",		""						},
-		{"i",	"info",		   		"how to contact us",					""						},
-		{"k",	"check-config",		"check config for syntax errors",		""						},
-		{"l",	"log",				"console logging tags, see -L",			"(no filter)"			},
-		{"L",	"logging-help",		"display help for -d and -l",			""						},
-		{"o",	"no-color",			"log without colors",					"FIXME"					},
-        {"r",	"chroot",			"chroot to",							"default is not to set chroot"},
-		{"R",	"ringlog",			"use ringlogger instead of filelogger",	"default is filelogger"},
-		{"u",	"user",				"set user to switch to",				"default is not to switch"},
-		{"g",	"group",			"set group to switch to (use with -u)", "default is not to switch"},
+        {"c",	"config=FILE",		"use FILE as configuration file",				SYSCONFDIR "/nepenthes.conf"	},
+		{"C",	"capabilities",		"force kernel 'security' capabilities",	0						},
+		{"d",	"disk-log",			"disk logging tags, see -L",			0						},
+		{"f",	"file-check=OPTS",	"check file for known shellcode, OPTS can\n"
+			"                              be any combination of `rmknown' and\n"
+			"                              `rmnonop'; seperate by comma when needed",   0			},
+		{"h",	"help",				"display help",							0						},
+		{"H",	"large-help",		"display help with default values",		0						},
+		{"i",	"info",		   		"how to contact us",					0						},
+		{"k",	"check-config",		"check configuration file for syntax errors",		0			},
+		{"l",	"log",				"console logging tags, see -L",			0						},
+		{"L",	"logging-help",		"display help for -d and -l",			0						},
+		{"o",	"color=WHEN",		"control color usage. WHEN may be `never',\n"
+			"                              `always' or `auto'",					"`auto'"		},
+        {"r",	"chroot=DIR",		"chroot to DIR after startup",				"don't chroot"		},
+		{"R",	"ringlog",			"use ringlogger instead of filelogger",			"filelogger"	},
+		{"u",	"user=USER",				"switch to USER after startup",	"keep current user"},
+		{"g",	"group=GROUP",			"switch to GROUP after startup (use with -u)", "keep current group"},
 		{"v",	"version",			"show version",							""						},
-		{"w",	"workingdir",		"where shall the process live",			PREFIX					},
+		{"w",	"workingdir=DIR",		"set the process' working dir to DIR",			PREFIX		},
 	};
 	show_version();
 
-	if ( defaults == true )
+	for ( uint32_t i=0;i<sizeof(myopts)/sizeof(helpstruct);i++ )
 	{
-		for ( uint32_t i=0;i<sizeof(myopts)/sizeof(helpstruct);i++ )
+		printf("  -%s, --%-19s %s\n", myopts[i].m_shortOpt,
+			myopts[i].m_longOpt,
+			myopts[i].m_Description);
+		
+		if( defaults == true && myopts[i].m_Default )
 		{
-			printf("  -%s,\t--%-12s %-30s %s\n", myopts[i].m_shortOpt,
-				   myopts[i].m_longOpt,
-				   myopts[i].m_Description,
-				   myopts[i].m_Default);
+			printf("                              Default value/behaviour: %s\n", myopts[i].m_Default);
 		}
-	}else
-	{
-		for ( uint32_t i=0;i<sizeof(myopts)/sizeof(helpstruct);i++ )
-		{
-			printf("  -%s,\t--%-12s %-30s\n", myopts[i].m_shortOpt,
-				   myopts[i].m_longOpt,
-				   myopts[i].m_Description
-				   );
-		}
-
 	}
 }
 
-#ifdef __GNUG__
+
+#if defined(__GNUG__)
 	#define MY_COMPILER "g++"
 /*
-	#if ( __GNUC__ == 4 && __GNUC_MINOR__ == 0  ) // g++ 4 detection
-		#error "g++ 4 has bugs, dont use g++4 " 
-		#error "nepenthes would compile using g++4, "
-		#error "but the async dns would fail as there is a bug somewhere outside nepenthes" 
+	#if ( __GNUC__ == 4 && __GNUC_MINOR__ == 0  && __GNUC_PATCHLEVEL__ <= 2 ) // g++ 4 detection
+		#error "MAKE SURE TO READ THIS"
+		#error "g++ 4 has bugs, dont use it" 
+		#error "nepenthes would compile using g++4, but it will segfault while running"
 		#error "refer to http://nepenthes.sourceforge.net/documentation:readme:faq:gcc_4 for more information"
+		#error "if you got no other compiler feel free to remove this section by commenting it out"
+		#error "but don't complain when it does not work"
+		#error "you can find it in Nepenthes.cpp around line 1569, just search for 'g++ 4 detection'"
 	#endif
 */	
-#else
+#elif defined(__CYGWIN__)
+	#define MY_COMPILER "cygwin"
+#else	
 	#define MY_COMPILER "unknown Compiler"
 #endif
 
+
+#if defined(__FreeBSD__)
+#  define MY_OS "FreeBSD"
+#elif defined(linux) || defined (__linux)
+#  define MY_OS "Linux"
+#elif defined (__MACOSX__) || defined (__APPLE__)
+#  define MY_OS "Mac OS X"
+#elif defined(__NetBSD__)
+#  define MY_OS "NetBSD"
+#elif defined(__OpenBSD__)
+#  define MY_OS "OpenBSD"
+#elif defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
+#  define MY_OS "Windows"
+#elif defined(CYGWIN)
+#  define MY_OS "Cygwin\Windows"
+#else
+#  define MY_OS "Unknown OS"
+#endif
+
+
+#if defined(__alpha__) || defined(__alpha) || defined(_M_ALPHA)
+#  define MY_ARCH "Alpha"
+#elif defined(i386) || defined(__i386__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL)
+#  define MY_ARCH "x86"
+#elif defined(__x86_64__) || defined(__amd64__)
+#  define MY_ARCH "x86_64"
+#elif defined(__ia64__) || defined(_IA64) || defined(__IA64__) || defined(_M_IA64)
+#  define MY_ARCH "Intel Architecture-64"
+#elif defined(__mips__) || defined(__mips) || defined(__MIPS__)
+#  define MY_ARCH "MIPS"
+#elif defined(__hppa__) || defined(__hppa)
+#  define MY_ARCH "PA RISC"
+#elif defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || defined(__ppc__) || defined(_M_PPC) || defined(__PPC) || defined(__PPC__)
+#  define MY_ARCH "PowerPC"
+#elif defined(__THW_RS6000) || defined(_IBMR2) || defined(_POWER) || defined(_ARCH_PWR) || defined(_ARCH_PWR2)
+#  define MY_ARCH "RS/6000"
+#elif defined(__sparc__) || defined(sparc) || defined(__sparc)
+#  define MY_ARCH "SPARC"
+#else
+#  define MY_ARCH "Unknown Architecture"
+#endif
 
 void show_loghelp()
 {
@@ -1598,9 +1762,23 @@ void show_loghelp()
  */
 void show_version()
 {
+	struct utsname sysinfo;
+	int i = uname(&sysinfo);
+
 	printf("\n");
 	printf("Nepenthes Version %s \n",VERSION);
-	printf("Compiled on %s %s with %s %s \n",__DATE__, __TIME__,MY_COMPILER,__VERSION__);
+	printf("Compiled on %s/%s at %s %s with %s %s \n",MY_OS,MY_ARCH,__DATE__, __TIME__,MY_COMPILER,__VERSION__);
+
+	if (i == 0)
+	{
+		printf("Started on %s running %s/%s release %s\n",
+			   sysinfo.nodename,
+			   sysinfo.sysname, 
+			   sysinfo.machine,
+			   sysinfo.release
+			   );
+	}
+
 	printf("\n");
 }
 

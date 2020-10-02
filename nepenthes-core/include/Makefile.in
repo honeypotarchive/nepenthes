@@ -16,7 +16,7 @@
 
 # nepenthes header Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 2032 2005-10-02 16:15:25Z common $
+# $Id: Makefile.am 500 2006-04-08 18:57:15Z common $
 
 # mostly for generating the dist target
 srcdir = @srcdir@
@@ -87,8 +87,12 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
+LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
@@ -114,6 +118,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
+YACC = @YACC@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
@@ -171,12 +176,11 @@ EXTRA_DIST = Buffer.hpp Compatibility.hpp Config.hpp Message.hpp \
 	RingFileLogger.hpp ConsoleLogger.hpp LuaFunctions.hpp \
 	LuaInterface.hpp ModuleManager.hpp Module.hpp Manager.hpp \
 	Nepenthes.hpp SocketManager.hpp Socket.hpp TCPSocket.hpp \
-	UDPSocket.hpp POLLSocket.hpp RAWSocket.hpp Responder.hpp \
-	UDSSocket.hpp FILESocket.hpp ShellcodeManager.hpp \
-	ShellcodeHandler.hpp Packet.hpp SubmitManager.hpp \
-	SubmitHandler.hpp UploadManager.hpp UploadHandler.hpp \
-	UploadQuery.hpp UploadCallback.hpp UploadResult.hpp \
-	Utilities.hpp
+	UDPSocket.hpp POLLSocket.hpp Responder.hpp UDSSocket.hpp \
+	FILESocket.hpp ShellcodeManager.hpp ShellcodeHandler.hpp \
+	Packet.hpp SubmitManager.hpp SubmitHandler.hpp \
+	UploadManager.hpp UploadHandler.hpp UploadQuery.hpp \
+	UploadCallback.hpp UploadResult.hpp Utilities.hpp
 all: all-am
 
 .SUFFIXES:

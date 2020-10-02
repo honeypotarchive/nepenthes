@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-download.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: log-download.cpp 321 2006-02-20 08:30:38Z common $ */
 
 #include "log-download.hpp"
 #include "LogManager.hpp"
@@ -67,7 +67,7 @@ LogDownload::LogDownload(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "log-download";
 	m_ModuleDescription = "logs all downloads to a file";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "LogDownloadEventHandler";

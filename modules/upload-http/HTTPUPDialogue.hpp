@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: HTTPUPDialogue.hpp 2087 2005-10-18 21:21:31Z common $ */
+ /* $Id: HTTPUPDialogue.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "Dialogue.hpp"
 

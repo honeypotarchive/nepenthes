@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DownloadBuffer.hpp 2043 2005-10-04 15:59:52Z common $ */
+/* $Id: DownloadBuffer.hpp 332 2006-02-20 09:28:45Z common $ */
 #ifndef HAVE_DOWNLOADBUFFER_HPP
 #define HAVE_DOWNLOADBUFFER_HPP
 

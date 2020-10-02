@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-nepenthes.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: download-nepenthes.cpp 321 2006-02-20 08:30:38Z common $ */
 
 #include <ctype.h>
 
@@ -74,7 +74,7 @@ DownloadNepenthes::DownloadNepenthes(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "download-nepenthes";
 	m_ModuleDescription = "accepts files from other nepenthes nodes";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "download-nepenthes factory";

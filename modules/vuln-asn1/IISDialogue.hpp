@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: IISDialogue.hpp 1689 2005-07-25 23:16:44Z common $ */
+ /* $Id: IISDialogue.hpp 318 2006-02-20 08:03:24Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

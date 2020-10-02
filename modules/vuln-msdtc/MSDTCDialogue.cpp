@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: MSDTCDialogue.cpp 2197 2005-12-15 21:18:37Z common $ */
+ /* $Id: MSDTCDialogue.cpp 339 2006-02-20 09:45:09Z common $ */
 
 #include "MSDTCDialogue.hpp"
 #include "Message.hpp"

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-wins.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-wins.cpp 439 2006-03-27 18:11:55Z common $ */
 
 #include <ctype.h>
 
@@ -43,10 +43,6 @@
 
 #include "Config.hpp"
 
-#include "sch_wins_hs_connect.hpp"
-#include "sch_wins_hs_bind.hpp"
-#include "sch_wins_zuc_connect.hpp"
-
 using namespace nepenthes;
 
 
@@ -61,7 +57,7 @@ WINSVuln::WINSVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-wins";
 	m_ModuleDescription = "emulate the wins vuln";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 439 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "wins vuln Factory";
@@ -73,11 +69,6 @@ WINSVuln::WINSVuln(Nepenthes *nepenthes)
 WINSVuln::~WINSVuln()
 {
 	logPF();
-	while (m_ShellcodeHandlers.size() > 0)
-	{
-		delete m_ShellcodeHandlers.front();
-		m_ShellcodeHandlers.pop_front();
-	}
 }
 
 bool WINSVuln::Init()
@@ -111,37 +102,11 @@ bool WINSVuln::Init()
 
 	m_ModuleManager = m_Nepenthes->getModuleMgr();
 	
-
-	m_ShellcodeHandlers.push_back(new HATSQUADConnect(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new HATSQUADBind(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new ZUCConnect(m_Nepenthes->getShellcodeMgr()));
-
-	list <ShellcodeHandler *>::iterator handler;
-	for (handler = m_ShellcodeHandlers.begin(); handler != m_ShellcodeHandlers.end(); handler++)
-	{
-		if ((*handler)->Init() == false)
-        {
-			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
-		}
-		REG_SHELLCODE_HANDLER((*handler));
-
-	}
 	return true;
 }
 
 bool WINSVuln::Exit()
 {
-	list <ShellcodeHandler *>::iterator handler;
-	for (handler = m_ShellcodeHandlers.begin(); handler != m_ShellcodeHandlers.end(); handler++)
-	{
-		if ((*handler)->Exit() == false)
-		{
-			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
-		}
-		m_Nepenthes->getShellcodeMgr()->unregisterShellcodeHandler((*handler));
-	}
 	return true;
 }
 

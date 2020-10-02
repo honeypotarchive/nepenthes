@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: LogManager.cpp 2047 2005-10-04 21:32:00Z common $ */
+/* $Id: LogManager.cpp 505 2006-04-09 16:39:36Z oxff $ */
 
 #include <stdarg.h>
 #include <assert.h>
@@ -43,6 +43,8 @@ LogManager::LogManager()
 {
 	for( int32_t i = 0; i < MAX_TAGS; i++ )
 		m_Tags[i] = 0;
+
+	m_useColor = false;
 }
 
 
@@ -104,10 +106,15 @@ void LogManager::addLogger(LogHandler *lh, uint32_t filterMask)
 		if( filterMask & (1 << i) )
 		{
 			assert(m_Tags[i]);
+			
+			#ifdef HAVE_DEBUG_LOGGING
 			printf("%s (%d) ", m_Tags[i], 1 << i);
+			#endif
 		}
-
+	
+	#ifdef HAVE_DEBUG_LOGGING
 	printf("\n");
+	#endif
 }
 
 
@@ -215,4 +222,14 @@ uint32_t LogManager::parseTagString(const char *tagString)
 
 	free(str);
 	return mask;
+}
+
+void LogManager::setColor(bool setting)
+{
+	m_useColor = setting;
+}
+
+bool LogManager::getColorSetting()
+{
+	return m_useColor;
 }

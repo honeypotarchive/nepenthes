@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: MydoomDialogue.cpp 2096 2005-10-23 18:59:41Z common $ */
+ /* $Id: MydoomDialogue.cpp 495 2006-04-08 17:52:19Z common $ */
 
 
 
@@ -196,6 +196,7 @@ ConsumeLevel MydoomDialogue::connectionShutdown(Message *msg)
 	if (m_Download != NULL)
 	{
     	g_Nepenthes->getSubmitMgr()->addSubmission(m_Download);
+		return CL_ASSIGN_AND_DONE;
 	}
 	return CL_DROP;
 }

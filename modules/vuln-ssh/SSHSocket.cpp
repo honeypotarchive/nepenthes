@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SSHSocket.cpp 1984 2005-09-16 14:31:30Z common $ */
+ /* $Id: SSHSocket.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "config.h"
 #ifdef HAVE_LIBSSH
@@ -277,7 +277,7 @@ int32_t SSHSocket::doRecv()
 			free(welcome);
 														
 
-//			channel_write(m_Channel,(void *)"Nepenthes ssh honeypot $Rev: 1984 $\n",strlen("Nepenthes ssh honeypot $Rev: 1984 $\n"));
+//			channel_write(m_Channel,(void *)"Nepenthes ssh honeypot $Rev: 332 $\n",strlen("Nepenthes ssh honeypot $Rev: 332 $\n"));
 //			break;
 			//           }
 		}

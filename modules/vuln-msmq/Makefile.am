@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,10 @@ AM_LDFLAGS = -lpcre
 
 pkglib_LTLIBRARIES = vulnmsmq.la
 
-vulnmsmq_la_SOURCES = vuln-msmq.conf.dist MSMQDialogue.hpp sch_msmq_hod_bind.hpp vuln-msmq.hpp MSMQDialogue.cpp sch_msmq_hod_bind.cpp vuln-msmq.cpp
+vulnmsmq_la_SOURCES = vuln-msmq.conf.dist 
+vulnmsmq_la_SOURCES += MSMQDialogue.hpp MSMQDialogue.cpp        
+vulnmsmq_la_SOURCES += vuln-msmq.hpp    vuln-msmq.cpp           
+							       
+
 
 vulnmsmq_la_LDFLAGS = -module -no-undefined -avoid-version

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Download.cpp 2099 2005-10-23 22:12:52Z common $ */
+/* $Id: Download.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "Download.hpp"
 #include "DownloadUrl.hpp"

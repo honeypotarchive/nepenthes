@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CSendDownloadHandler.cpp 2102 2005-10-25 08:36:48Z common $ */
+ /* $Id: CSendDownloadHandler.cpp 332 2006-02-20 09:28:45Z common $ */
 
 
 #include <fcntl.h>
@@ -57,7 +57,7 @@ CSendDownloadHandler::CSendDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "CSend Download Module";
 	m_ModuleDescription = "provides a downloadhandler for tcp protocol";
-	m_ModuleRevision    = "$Rev: 2102 $";
+	m_ModuleRevision    = "$Rev: 332 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="csend download handler";

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: geolocation-ip2location.cpp 2190 2005-12-01 20:09:59Z common $ */
+ /* $Id: geolocation-ip2location.cpp 336 2006-02-20 09:38:38Z common $ */
 
 #include "config.h"
 
@@ -90,7 +90,7 @@ GeoLocationIp2Location::GeoLocationIp2Location(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "geolocation-ip2location";
 	m_ModuleDescription = "resolve ips to coordinates using p2location DB5";
-	m_ModuleRevision    = "$Rev: 2190 $";
+	m_ModuleRevision    = "$Rev: 336 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;

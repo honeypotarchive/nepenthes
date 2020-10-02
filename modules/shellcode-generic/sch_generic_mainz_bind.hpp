@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_mainz_bind.hpp 1738 2005-08-01 13:58:49Z common $ */
+ /* $Id: sch_generic_mainz_bind.hpp 318 2006-02-20 08:03:24Z common $ */
 
 #ifndef HAVE_HODBIND_HPP
 #define HAVE_HODBIND_HPP

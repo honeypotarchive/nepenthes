@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-msmq.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-msmq.hpp 439 2006-03-27 18:11:55Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -50,9 +50,6 @@ namespace nepenthes
 		Dialogue *createDialogue(Socket *socket);
 		bool Init();
 		bool Exit();
-
-	protected:
-		list <ShellcodeHandler *> m_ShellcodeHandlers;
 	};
 }
 extern nepenthes::Nepenthes *g_Nepenthes;

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CTRLDialogue.hpp 2212 2005-12-16 23:51:58Z common $ */
+ /* $Id: CTRLDialogue.hpp 339 2006-02-20 09:45:09Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

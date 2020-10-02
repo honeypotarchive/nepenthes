@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DownloadHandler.hpp 2043 2005-10-04 15:59:52Z common $ */
+/* $Id: DownloadHandler.hpp 408 2006-03-23 15:45:48Z common $ */
 
 #ifndef HAVE_DOWNLOADHANDLER_HPP
 #define HAVE_DOWNLOADHANDLER_HPP
@@ -64,7 +64,7 @@ namespace nepenthes
 			return m_DownloadHandlerName;
 		}
 
-		virtual string DownloadHandler::getDownloadHandlerDescription()
+		virtual string getDownloadHandlerDescription()
 		{
 			return m_DownloadHandlerDescription;
 		}

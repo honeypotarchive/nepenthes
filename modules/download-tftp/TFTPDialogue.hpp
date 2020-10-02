@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: TFTPDialogue.hpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: TFTPDialogue.hpp 321 2006-02-20 08:30:38Z common $ */
 
 #ifndef HAVE_TFTPDIALOGUE_HPP
 #define HAVE_TFTPDIALOGUE_HPP

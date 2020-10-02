@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-dameware.cpp 1941 2005-09-07 10:40:01Z common $ */
+ /* $Id: vuln-dameware.cpp 330 2006-02-20 09:20:44Z common $ */
 
 #include <ctype.h>
 
@@ -78,7 +78,7 @@ DameWareVuln::DameWareVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-dameware";
 	m_ModuleDescription = "emulates the 2 known dameware bugs";
-	m_ModuleRevision    = "$Rev: 1941 $";
+	m_ModuleRevision    = "$Rev: 330 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "DameWare Dialogue Factory";

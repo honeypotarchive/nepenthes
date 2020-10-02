@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-veritas.cpp 2233 2005-12-24 14:11:20Z common $ */
+ /* $Id: vuln-veritas.cpp 341 2006-02-20 09:51:00Z common $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ VERITASVuln::VERITASVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-veritas";
 	m_ModuleDescription = "provides Factory & dialogues for the vertias vuln";
-	m_ModuleRevision    = "$Rev: 2233 $";
+	m_ModuleRevision    = "$Rev: 341 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "VERITAS Factory";

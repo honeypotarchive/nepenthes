@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SMBDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: SMBDialogue.cpp 439 2006-03-27 18:11:55Z common $ */
 
 #include <ctype.h>
 
@@ -42,6 +42,8 @@
 
 #include "Utilities.hpp"
 #include "ShellcodeManager.hpp"
+
+#include "vuln-asn1.hpp"
 
 #ifdef STDTAGS 
 #undef STDTAGS 

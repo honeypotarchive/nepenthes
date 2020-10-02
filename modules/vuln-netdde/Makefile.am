@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,10 @@ AM_LDFLAGS = -lpcre
 
 pkglib_LTLIBRARIES = vulnnetdde.la
 
-vulnnetdde_la_SOURCES = vuln-netdde.conf.dist NETDDEDialogue.hpp sch_netdde_hod_bind.hpp sch_netdde_hod_connect.hpp vuln-netdde.hpp NETDDEDialogue.cpp sch_netdde_hod_bind.cpp sch_netdde_hod_connect.cpp vuln-netdde.cpp
+vulnnetdde_la_SOURCES = vuln-netdde.conf.dist 
+vulnnetdde_la_SOURCES += NETDDEDialogue.hpp NETDDEDialogue.cpp      
+vulnnetdde_la_SOURCES += vuln-netdde.hpp    vuln-netdde.cpp         
+
+
 
 vulnnetdde_la_LDFLAGS = -module -no-undefined -avoid-version

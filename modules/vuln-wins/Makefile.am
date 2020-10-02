@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,9 @@ AM_LDFLAGS = -lpcre
 
 pkglib_LTLIBRARIES = vulnwins.la
 
-vulnwins_la_SOURCES = vuln-wins.conf.dist WINSDialogue.hpp sch_wins_hs_bind.hpp sch_wins_hs_connect.hpp sch_wins_zuc_connect.hpp vuln-wins.hpp wins-shellcodes.hpp WINSDialogue.cpp sch_wins_hs_bind.cpp sch_wins_hs_connect.cpp sch_wins_zuc_connect.cpp vuln-wins.cpp
+vulnwins_la_SOURCES = vuln-wins.conf.dist 
+vulnwins_la_SOURCES += WINSDialogue.hpp 			WINSDialogue.cpp                       
+vulnwins_la_SOURCES += vuln-wins.hpp wins-shellcodes.hpp	vuln-wins.cpp                          
+
 
 vulnwins_la_LDFLAGS = -module -no-undefined -avoid-version

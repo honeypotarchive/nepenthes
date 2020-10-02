@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-ssh.cpp 1984 2005-09-16 14:31:30Z common $ */
+ /* $Id: vuln-ssh.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include <ctype.h>
 #include <signal.h>
@@ -76,7 +76,7 @@ SSHVuln::SSHVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-ssh";
 	m_ModuleDescription = "log ssh bruteforces";
-	m_ModuleRevision    = "$Rev: 1984 $";
+	m_ModuleRevision    = "$Rev: 332 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: geolocation-hostip.cpp 2206 2005-12-16 15:15:13Z common $ */
+ /* $Id: geolocation-hostip.cpp 339 2006-02-20 09:45:09Z common $ */
 
 #include "config.h"
 
@@ -93,7 +93,7 @@ GeoLocationHostIp::GeoLocationHostIp(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "geolocation-hostip";
 	m_ModuleDescription = "resolve ips to coordinates using hostip.info";
-	m_ModuleRevision    = "$Rev: 2206 $";
+	m_ModuleRevision    = "$Rev: 339 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;

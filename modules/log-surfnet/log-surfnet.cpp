@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-surfnet.cpp 2271 2006-01-14 20:31:52Z common $ */
+ /* $Id: log-surfnet.cpp 341 2006-02-20 09:51:00Z common $ */
 
 #include "log-surfnet.hpp"
 #include "DatabaseConnection.hpp"
@@ -75,7 +75,7 @@ LogSurfNET::LogSurfNET(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "log-surfnet";
 	m_ModuleDescription = "log various malicious events to postgresql";
-	m_ModuleRevision    = "$Rev: 2271 $";
+	m_ModuleRevision    = "$Rev: 341 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "LogSurfNETEventHandler";

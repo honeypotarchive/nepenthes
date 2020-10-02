@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-3.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: x-3.cpp 332 2006-02-20 09:28:45Z common $ */
 
 
 #include <fcntl.h>
@@ -74,7 +74,7 @@ X3::X3(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-3";
 	m_ModuleDescription = "eXample Module 3 -download handler example-";
-	m_ModuleRevision    = "$Rev: 2001 $";
+	m_ModuleRevision    = "$Rev: 332 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerName ="urandom download handler";

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: DatabaseConnection.cpp 2271 2006-01-14 20:31:52Z common $ */
+ /* $Id: DatabaseConnection.cpp 341 2006-02-20 09:51:00Z common $ */
 
 
 #include "config.h"

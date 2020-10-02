@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-4.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: x-4.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "x-4.hpp"
 #include "Download.hpp"
@@ -61,7 +61,7 @@ X4::X4(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-4";
 	m_ModuleDescription = "eXample Module 4 -submit handler example-";
-	m_ModuleRevision    = "$Rev: 2001 $";
+	m_ModuleRevision    = "$Rev: 332 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "hexdump";

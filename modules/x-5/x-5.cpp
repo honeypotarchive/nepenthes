@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-5.cpp 1992 2005-09-24 17:28:12Z common $ */
+ /* $Id: x-5.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "x-5.hpp"
 #include "LogManager.hpp"
@@ -68,7 +68,7 @@ X5::X5(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-5";
 	m_ModuleDescription = "eXample Module 5 -eventhandler example-";
-	m_ModuleRevision    = "$Rev: 1992 $";
+	m_ModuleRevision    = "$Rev: 332 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "X5EventHandler";

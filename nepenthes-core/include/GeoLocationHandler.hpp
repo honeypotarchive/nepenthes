@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: GeoLocationHandler.hpp 2078 2005-10-11 20:43:28Z common $ */
+/* $Id: GeoLocationHandler.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "config.h"
 

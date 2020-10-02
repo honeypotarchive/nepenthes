@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Buffer.hpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: Buffer.hpp 321 2006-02-20 08:30:38Z common $ */
 #ifndef HAVE_BUFFER_HPP
 #define HAVE_BUFFER_HPP
 

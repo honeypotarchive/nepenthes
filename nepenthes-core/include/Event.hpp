@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Event.hpp 2086 2005-10-18 21:19:58Z common $ */
+/* $Id: Event.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #ifndef HAVE_EVENT_HPP
 #define HAVE_EVENT_HPP

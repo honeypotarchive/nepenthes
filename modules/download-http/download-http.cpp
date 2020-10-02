@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-http.cpp 2102 2005-10-25 08:36:48Z common $ */
+ /* $Id: download-http.cpp 343 2006-02-20 17:11:57Z common $ */
 
 #include <ctype.h>
 
@@ -81,7 +81,7 @@ HTTPDownloadHandler::HTTPDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "download-http";
 	m_ModuleDescription = "painless simple http client";
-	m_ModuleRevision    = "$Rev: 2102 $";
+	m_ModuleRevision    = "$Rev: 343 $";
 	m_Nepenthes = nepenthes;
 
 	m_DownloadHandlerDescription = "simple http downloadhandler";
@@ -142,7 +142,12 @@ bool HTTPDownloadHandler::dnsResolved(DNSResult *result)
 
 bool HTTPDownloadHandler::dnsFailure(DNSResult *result)
 {
-	logWarn("url %s unresolved \n",result->getDNS().c_str());
+	logWarn("url %s unresolved, dropping download\n",result->getDNS().c_str());
+	Download *down = (Download *) result->getObject();
+	if (down != NULL)
+	{
+		delete down;
+	}
 	return true;
 }
 

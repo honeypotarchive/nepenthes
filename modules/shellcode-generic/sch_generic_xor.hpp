@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_xor.hpp 2180 2005-11-26 15:06:28Z common $ */
+ /* $Id: sch_generic_xor.hpp 336 2006-02-20 09:38:38Z common $ */
 
 #ifndef HAVE_GENERICXOR_HPP
 #define HAVE_GENERICXOR_HPP

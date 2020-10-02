@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: OPTIXBindDialogue.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: OPTIXBindDialogue.hpp 318 2006-02-20 08:03:24Z common $ */
 
 
 #ifndef HAVE_OPTIXBINDDIALOGUE_HPP

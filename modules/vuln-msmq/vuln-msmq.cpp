@@ -25,13 +25,12 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-msmq.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-msmq.cpp 439 2006-03-27 18:11:55Z common $ */
 
 #include <ctype.h>
 
 #include "vuln-msmq.hpp"
 #include "MSMQDialogue.hpp"
-#include "sch_msmq_hod_bind.hpp"
 
 #include "SocketManager.hpp"
 #include "Message.hpp"
@@ -77,7 +76,7 @@ MSMQVuln::MSMQVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-msmq";
 	m_ModuleDescription = "provides Dialogue & factory for MS05-017";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 439 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "MSMQ Dialogue Factory";
@@ -130,21 +129,6 @@ bool MSMQVuln::Init()
 
 	m_ModuleManager = m_Nepenthes->getModuleMgr();
 
-	m_ShellcodeHandlers.push_back( new HODBind		(m_Nepenthes->getShellcodeMgr()));
-//	m_ShellcodeHandlers.push_back( new HODConnect	(m_Nepenthes->getShellcodeMgr()));
-
-
-	list <ShellcodeHandler *>::iterator handler;
-	for (handler = m_ShellcodeHandlers.begin(); handler != m_ShellcodeHandlers.end(); handler++)
-	{
-		if ((*handler)->Init() == false)
-		{
-			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
-		}
-		REG_SHELLCODE_HANDLER((*handler));
-
-	}
 	return true;
 }
 

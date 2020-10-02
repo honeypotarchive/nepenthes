@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: geolocation-geoip.cpp 2078 2005-10-11 20:43:28Z common $ */
+ /* $Id: geolocation-geoip.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "config.h"
 
@@ -88,7 +88,7 @@ GeoLocationGeoIp::GeoLocationGeoIp(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "geolocation-geoip";
 	m_ModuleDescription = "resolve ips to coordinates using maxdata geoip city";
-	m_ModuleRevision    = "$Rev: 2078 $";
+	m_ModuleRevision    = "$Rev: 332 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;

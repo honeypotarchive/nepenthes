@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: POLLSocket.hpp 1974 2005-09-14 10:57:28Z common $ */
+/* $Id: POLLSocket.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #ifndef HAVE_POLLSOCKET_HPP
 #define HAVE_POLLSOCKET_HPP

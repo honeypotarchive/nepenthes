@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Responder.hpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: Responder.hpp 321 2006-02-20 08:30:38Z common $ */
 
 #ifndef HAVE_RESPONDER_H
 #define HAVE_RESPONDER_H

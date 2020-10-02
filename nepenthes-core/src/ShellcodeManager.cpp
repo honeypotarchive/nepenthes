@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: ShellcodeManager.cpp 2270 2006-01-14 20:29:45Z common $ */
+/* $Id: ShellcodeManager.cpp 505 2006-04-09 16:39:36Z oxff $ */
 
 #include "ShellcodeManager.hpp"
 #include "ShellcodeHandler.hpp"
@@ -87,13 +87,13 @@ bool  ShellcodeManager::Exit()
 void ShellcodeManager::doList()
 {
 	list <ShellcodeHandler *>::iterator shandler;
-	logInfo("=--- %-69s ---=\n","ShellcodeManager");
+	logSpam("=--- %-69s ---=\n","ShellcodeManager");
 	int32_t i=0;
 	for(shandler = m_ShellcodeHandlers.begin();shandler != m_ShellcodeHandlers.end();shandler++,i++)
 	{
-		logInfo("  %i) %-8s %s\n",i,(*shandler)->getShellcodeHandlerName().c_str(), (*shandler)->getShellcodeHandlerDescription().c_str());
+		logSpam("  %i) %-8s %s\n",i,(*shandler)->getShellcodeHandlerName().c_str(), (*shandler)->getShellcodeHandlerDescription().c_str());
 	}
-    logInfo("=--- %2i %-66s ---=\n\n",i, "ShellcodeHandlers registerd");
+    logSpam("=--- %2i %-66s ---=\n\n",i, "ShellcodeHandlers registerd");
 
 }
 
@@ -122,7 +122,17 @@ bool ShellcodeManager::registerShellcodeHandler(ShellcodeHandler *handler)
  */
 bool ShellcodeManager::unregisterShellcodeHandler(ShellcodeHandler *handler)
 {
-	return true;
+	list <ShellcodeHandler *>::iterator shandler;
+	for(shandler = m_ShellcodeHandlers.begin();shandler != m_ShellcodeHandlers.end();shandler++)
+	{
+		if (*shandler == handler)
+		{
+			logSpam("Removing %s\n",(*shandler)->getShellcodeHandlerName().c_str());
+			m_ShellcodeHandlers.erase(shandler);
+			return true;
+		}
+	}
+	return false;
 }  
 
 

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-ftp.hpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: download-ftp.hpp 343 2006-02-20 17:11:57Z common $ */
 
 #ifndef HAVE_DOWNLOAD_FTP_HPP
 #define HAVE_DOWNLOAD_FTP_HPP
@@ -63,8 +63,18 @@ namespace nepenthes
 		bool dnsFailure(DNSResult *result);
 
 		bool removeContext(FTPContext *context);
+
+		uint16_t getMinPort();
+		uint16_t getMaxPort();
+		uint32_t getRetrAddress();
 	protected:
 		list <FTPContext *> m_Contexts;
+
+		// we need those vars for NAT active ftp
+		string	m_DynDNS;
+		uint16_t m_MinPort;
+		uint16_t m_MaxPort;
+		uint32_t m_RetrAddress;
 	};
 
 

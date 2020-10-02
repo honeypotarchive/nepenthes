@@ -16,7 +16,7 @@
 
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2274 2006-01-15 20:49:05Z common $
+# $Id: Makefile.am 372 2006-03-08 14:57:30Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -68,7 +68,7 @@ am_shellcodegeneric_la_OBJECTS = shellcode-generic.lo \
 	sch_generic_mainz_bind.lo sch_generic_stuttgart.lo \
 	sch_generic_url.lo sch_generic_wuerzburg.lo sch_generic_xor.lo \
 	sch_generic_unicode.lo sch_generic_winexec.lo \
-	sch_generic_leimbach_url_xor.lo
+	sch_generic_leimbach_url_xor.lo sch_generic_wget.lo
 shellcodegeneric_la_OBJECTS = $(am_shellcodegeneric_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -128,8 +128,12 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
+LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
@@ -155,6 +159,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
+YACC = @YACC@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
@@ -223,7 +228,8 @@ shellcodegeneric_la_SOURCES = shellcode-generic.conf.dist \
 	sch_generic_xor.hpp sch_generic_unicode.cpp \
 	sch_generic_unicode.hpp sch_generic_winexec.cpp \
 	sch_generic_winexec.hpp sch_generic_leimbach_url_xor.cpp \
-	sch_generic_leimbach_url_xor.hpp
+	sch_generic_leimbach_url_xor.hpp sch_generic_wget.cpp \
+	sch_generic_wget.hpp
 shellcodegeneric_la_LDFLAGS = -module -no-undefined -avoid-version
 all: all-am
 
@@ -309,6 +315,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_generic_stuttgart.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_generic_unicode.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_generic_url.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_generic_wget.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_generic_winexec.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_generic_wuerzburg.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sch_generic_xor.Plo@am__quote@

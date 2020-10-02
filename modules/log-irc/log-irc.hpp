@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-irc.hpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: log-irc.hpp 378 2006-03-12 22:53:58Z common $ */
 
 #include <string>
 
@@ -83,6 +83,7 @@ namespace nepenthes
 		string getIrcChannel();
 		string getIrcChannelPass();
 		string getIrcUserModes();
+		string getIrcPass(); //server password
 
 
 		void setDialogue(IrcDialogue *);

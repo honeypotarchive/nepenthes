@@ -25,14 +25,12 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-iis.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-iis.cpp 439 2006-03-27 18:11:55Z common $ */
 
 #include <ctype.h>
 
 #include "vuln-iis.hpp"
 #include "IISDialogue.hpp"
-#include "sch_iis_thc_connect.hpp"
-#include "sch_iis_thc_bind.hpp"
 
 #include "SocketManager.hpp"
 #include "Message.hpp"
@@ -79,7 +77,7 @@ VulnIIS::VulnIIS(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-iis";
 	m_ModuleDescription = "provides Factory, Dialogues and ShellcodeHandler for IIS SSL bug";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 439 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "VULNIIS Factory";
@@ -123,21 +121,6 @@ bool VulnIIS::Init()
 	{
 		m_Nepenthes->getSocketMgr()->bindTCPSocket(0,atoi(sList[i]),0,timeout,this);
 		i++;
-	}
-
-	m_ShellcodeHandlers.push_back( new THCConnect	(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back( new THCBind		(m_Nepenthes->getShellcodeMgr()));
-
-	list <ShellcodeHandler *>::iterator handler;
-	for (handler = m_ShellcodeHandlers.begin(); handler != m_ShellcodeHandlers.end(); handler++)
-	{
-		if ((*handler)->Init() == false)
-		{
-			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
-		}
-		REG_SHELLCODE_HANDLER((*handler));
-
 	}
 
 	return true;

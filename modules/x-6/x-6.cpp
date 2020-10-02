@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-6.cpp 2271 2006-01-14 20:31:52Z common $ */
+ /* $Id: x-6.cpp 343 2006-02-20 17:11:57Z common $ */
 
 #include <ctype.h>
 
@@ -77,7 +77,7 @@ X6::X6(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-2";
 	m_ModuleDescription = "eXample Module 2 -binding sockets & setting up a dialogue example-";
-	m_ModuleRevision    = "$Rev: 2271 $";
+	m_ModuleRevision    = "$Rev: 343 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "x-2 Factory";
@@ -167,7 +167,13 @@ X6Dialogue::~X6Dialogue()
  */
 ConsumeLevel X6Dialogue::incomingData(Message *msg)
 {
-	char *message = strdup(msg->getMsg());
+	char *freemessage = strdup(msg->getMsg());
+	char *message = freemessage;
+
+	if (message == NULL)
+	{
+		return CL_ASSIGN;
+	}
 
 	for(uint32_t i=0;i < strlen(message);i++)
 	{
@@ -209,7 +215,11 @@ ConsumeLevel X6Dialogue::incomingData(Message *msg)
 		msg->getResponder()->doRespond((char *)sDeineMutter.c_str(),sDeineMutter.size());
 
 	}
-	free(message);
+
+	if (freemessage != NULL)
+	{
+    	free(freemessage);
+	}
 
 //	msg->getResponder()->doRespond("deine mutter\n",strlen("deine mutter\n"));
 	return CL_ASSIGN;

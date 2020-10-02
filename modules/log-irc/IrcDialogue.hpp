@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: IrcDialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
+ /* $Id: IrcDialogue.hpp 378 2006-03-12 22:53:58Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"
@@ -72,6 +72,9 @@ namespace nepenthes
 
 		void 	logIrc(uint32_t mask, const char *message);
 
+		void sendNick(bool random);
+		void sendUser();
+		void sendServerPass();
 	protected:
 
 		void processBuffer();

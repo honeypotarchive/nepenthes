@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DialogueFactoryManager.cpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: DialogueFactoryManager.cpp 505 2006-04-09 16:39:36Z oxff $ */
 
 #include "DialogueFactoryManager.hpp"
 #include "DialogueFactory.hpp"
@@ -69,12 +69,12 @@ void DialogueFactoryManager::doList()
 {
 	list <DialogueFactory *>::iterator diaf;
 	int32_t i =0;
-	logInfo("%s","=--- DialogueFactoryManager --=\n");
+	logSpam("%s","=--- DialogueFactoryManager --=\n");
 	for (diaf = m_Factories.begin();diaf != m_Factories.end();diaf++, i++)
 	{
-		logInfo("%i %20s %s\n",i,(*diaf)->getFactoryName().c_str(),(*diaf)->getFactoryDescription().c_str());
+		logSpam("%i %20s %s\n",i,(*diaf)->getFactoryName().c_str(),(*diaf)->getFactoryDescription().c_str());
 	}
-	logInfo("=--- %i Factories --=\n", m_Factories.size());
+	logSpam("=--- %i Factories --=\n", m_Factories.size());
 
 }
 

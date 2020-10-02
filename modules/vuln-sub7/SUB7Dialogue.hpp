@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SUB7Dialogue.hpp 1926 2005-08-27 20:52:47Z dp $ */
+ /* $Id: SUB7Dialogue.hpp 321 2006-02-20 08:30:38Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

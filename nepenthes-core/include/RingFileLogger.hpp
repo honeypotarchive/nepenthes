@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: FileLogger.hpp 1926 2005-08-27 20:52:47Z dp $ */
+/* $Id: RingFileLogger.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #ifndef RINGFILELOGGER_HPP
 #define RINGFILELOGGER_HPP

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: FILEDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: FILEDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "FILEDialogue.hpp"
 #include "CTRLDialogue.hpp"

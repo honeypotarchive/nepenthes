@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: NETDDEDialogue.hpp 1952 2005-09-09 21:18:37Z common $ */
+ /* $Id: NETDDEDialogue.hpp 330 2006-02-20 09:20:44Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

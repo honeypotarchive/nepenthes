@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-netbiosname.cpp 2233 2005-12-24 14:11:20Z common $ */
+ /* $Id: vuln-netbiosname.cpp 341 2006-02-20 09:51:00Z common $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ NetbiosNameVuln::NetbiosNameVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-netbiosname";
 	m_ModuleDescription = "provides Factory & dialogues for the netbios name resolution";
-	m_ModuleRevision    = "$Rev: 2233 $";
+	m_ModuleRevision    = "$Rev: 341 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "NetbiosName Factory";

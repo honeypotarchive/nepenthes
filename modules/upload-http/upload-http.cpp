@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: upload-http.cpp 2271 2006-01-14 20:31:52Z common $ */
+ /* $Id: upload-http.cpp 341 2006-02-20 09:51:00Z common $ */
 
 #include "upload-http.hpp"
 #include "HTTPUPDialogue.hpp"
@@ -71,7 +71,7 @@ HTTPUploadHandler::HTTPUploadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "upload-http";
 	m_ModuleDescription = "upload files via http POST";
-	m_ModuleRevision    = "$Rev: 2271 $";
+	m_ModuleRevision    = "$Rev: 341 $";
 
 	m_UploadHandlerName		= "upload-http";
 	m_UploadHandlerDescription = "upload files via http post";

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UploadHandler.hpp 2047 2005-10-04 21:32:00Z common $ */
+/* $Id: UploadHandler.hpp 408 2006-03-23 15:45:48Z common $ */
 
 #ifndef HAVE_UPLOADHANDLER_HPP
 #define HAVE_UPLOADHANDLER_HPP
@@ -57,7 +57,7 @@ namespace nepenthes
 			return m_UploadHandlerName;
 		}
 
-		virtual string UploadHandler::getUploadHandlerDescription()
+		virtual string getUploadHandlerDescription()
 		{
 			return m_UploadHandlerDescription;
 		}

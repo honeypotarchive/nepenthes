@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2274 2006-01-15 20:49:05Z common $
+# $Id: Makefile.am 372 2006-03-08 14:57:30Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -30,5 +30,6 @@ shellcodegeneric_la_SOURCES += sch_generic_xor.cpp             sch_generic_xor.h
 shellcodegeneric_la_SOURCES += sch_generic_unicode.cpp         sch_generic_unicode.hpp
 shellcodegeneric_la_SOURCES += sch_generic_winexec.cpp         sch_generic_winexec.hpp
 shellcodegeneric_la_SOURCES += sch_generic_leimbach_url_xor.cpp sch_generic_leimbach_url_xor.hpp
+shellcodegeneric_la_SOURCES += sch_generic_wget.cpp            sch_generic_wget.hpp
 
 shellcodegeneric_la_LDFLAGS = -module -no-undefined -avoid-version

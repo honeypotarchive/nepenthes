@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,10 @@ AM_LDFLAGS = -lpcre
 
 pkglib_LTLIBRARIES = vulniis.la
 
-vulniis_la_SOURCES = vuln-iis.conf.dist iis-shellcodes.h IISDialogue.hpp sch_iis_tc_bind.hpp sch_iis_thc_bind.hpp sch_iis_thc_connect.hpp vuln-iis.hpp IISDialogue.hpp sch_iis_tc_bind.hpp sch_iis_thc_bind.hpp sch_iis_thc_connect.hpp vuln-iis.hpp IISDialogue.cpp sch_iis_tc_bind.cpp sch_iis_thc_bind.cpp sch_iis_thc_connect.cpp vuln-iis.cpp
+vulniis_la_SOURCES = vuln-iis.conf.dist iis-shellcodes.h 
+vulniis_la_SOURCES += IISDialogue.hpp IISDialogue.cpp            
+vulniis_la_SOURCES += vuln-iis.hpp    vuln-iis.cpp               
+								 
+
 
 vulniis_la_LDFLAGS = -module -no-undefined -avoid-version

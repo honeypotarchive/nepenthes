@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-kuang2.hpp 1947 2005-09-08 17:30:06Z common $ */
+ /* $Id: vuln-kuang2.hpp 330 2006-02-20 09:20:44Z common $ */
 
 #include "DialogueFactory.hpp"
 #include "Module.hpp"

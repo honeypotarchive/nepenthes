@@ -25,15 +25,13 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-asn1.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-asn1.cpp 439 2006-03-27 18:11:55Z common $ */
 
 #include <ctype.h>
 
 #include "vuln-asn1.hpp"
 #include "IISDialogue.hpp"
 #include "SMBDialogue.hpp"
-#include "sch_asn1_iis.hpp"
-#include "sch_asn1_smb_bind.hpp"
 
 #include "SocketManager.hpp"
 #include "Message.hpp"
@@ -84,7 +82,7 @@ ASN1Vuln::ASN1Vuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-asn1";
 	m_ModuleDescription = "provides dialogues and factories for asn1 flaw";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 439 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "ASN1 Dialogue Factory";
@@ -128,21 +126,6 @@ bool ASN1Vuln::Init()
 
     m_Nepenthes->getSocketMgr()->bindTCPSocket(0,m_IISPort,0,timeout,this);
 	m_Nepenthes->getSocketMgr()->bindTCPSocket(0,m_SMBPort,0,timeout,this);
-
-	m_ShellcodeHandlers.push_back( new ASN1IISBase64	(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back( new ASN1SMBBind		(m_Nepenthes->getShellcodeMgr()));
-
-	list <ShellcodeHandler *>::iterator handler;
-	for (handler = m_ShellcodeHandlers.begin(); handler != m_ShellcodeHandlers.end(); handler++)
-	{
-		if ((*handler)->Init() == false)
-        {
-			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
-		}
-		REG_SHELLCODE_HANDLER((*handler));
-
-	}
 
 	return true;
 }

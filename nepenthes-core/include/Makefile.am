@@ -1,6 +1,6 @@
 # nepenthes header Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 2032 2005-10-02 16:15:25Z common $
+# $Id: Makefile.am 500 2006-04-08 18:57:15Z common $
 
 # mostly for generating the dist target
 
@@ -17,7 +17,7 @@ EXTRA_DIST += LogManager.hpp LogHandler.hpp LogHandlerEntry.hpp FileLogger.hpp R
 EXTRA_DIST += LuaFunctions.hpp LuaInterface.hpp
 EXTRA_DIST += ModuleManager.hpp Module.hpp  
 EXTRA_DIST += Manager.hpp Nepenthes.hpp
-EXTRA_DIST += SocketManager.hpp Socket.hpp TCPSocket.hpp UDPSocket.hpp POLLSocket.hpp RAWSocket.hpp Responder.hpp  UDSSocket.hpp FILESocket.hpp
+EXTRA_DIST += SocketManager.hpp Socket.hpp TCPSocket.hpp UDPSocket.hpp POLLSocket.hpp Responder.hpp  UDSSocket.hpp FILESocket.hpp
 EXTRA_DIST += ShellcodeManager.hpp ShellcodeHandler.hpp 
 EXTRA_DIST += Packet.hpp
 EXTRA_DIST += SubmitManager.hpp SubmitHandler.hpp 

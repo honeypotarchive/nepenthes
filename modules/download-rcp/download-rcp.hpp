@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-rcp.hpp 2260 2006-01-13 20:35:08Z common $ */
+ /* $Id: download-rcp.hpp 341 2006-02-20 09:51:00Z common $ */
 
 #ifndef HAVE_RCPDOWNLOADHANDLER_HPP
 #define HAVE_RCPDOWNLOADHANDLER_HPP

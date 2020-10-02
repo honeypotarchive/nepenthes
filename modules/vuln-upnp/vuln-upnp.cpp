@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-upnp.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-upnp.cpp 321 2006-02-20 08:30:38Z common $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ UPNPVuln::UPNPVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-upnp";
 	m_ModuleDescription = "provides Factory & dialogues for the upnp vuln";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "UPNP Factory";

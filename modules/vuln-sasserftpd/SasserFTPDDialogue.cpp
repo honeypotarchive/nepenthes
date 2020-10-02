@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: SasserFTPDDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: SasserFTPDDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include <ctype.h>
 

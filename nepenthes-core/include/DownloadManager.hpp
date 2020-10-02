@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DownloadManager.hpp 2096 2005-10-23 18:59:41Z common $ */
+/* $Id: DownloadManager.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #ifndef HAVE_DOWNLOADMANAGER_HPP
 #define HAVE_DOWNLOADMANAGER_HPP

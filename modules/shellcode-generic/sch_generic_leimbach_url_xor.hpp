@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_leimbach_url_xor.hpp 2274 2006-01-15 20:49:05Z common $ */
+ /* $Id: sch_generic_leimbach_url_xor.hpp 341 2006-02-20 09:51:00Z common $ */
 
 #ifndef HAVE_LEIMBACHURLXORXOR_HPP
 #define HAVE_LEIMBACHURLXORXOR_HPP

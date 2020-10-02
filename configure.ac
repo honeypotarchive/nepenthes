@@ -3,12 +3,12 @@
 # Process this file with autoconf to produce a configure script.
 # nepenthes meta-Makefile
 # Maximillian Dornseif 2005
-# $Id: configure.ac 2272 2006-01-14 20:36:02Z common $
+# $Id: configure.ac 500 2006-04-08 18:57:15Z common $
 
 AC_PREREQ(2.59)
-AC_INIT([nepenthes], [0.1.6], [dornseif@informatik.rwth-aachen.de])
-AM_INIT_AUTOMAKE([nepenthes], [0.1.6])
-AC_REVISION([$Id: configure.ac 2272 2006-01-14 20:36:02Z common $])
+AC_INIT([nepenthes], [0.1.7], [dornseif@informatik.rwth-aachen.de])
+AM_INIT_AUTOMAKE([nepenthes], [0.1.7])
+AC_REVISION([$Id: configure.ac 500 2006-04-08 18:57:15Z common $])
 
 AC_PREFIX_DEFAULT(/opt/nepenthes)
 AC_CONFIG_SRCDIR([nepenthes-core/include/Buffer.hpp])
@@ -47,6 +47,8 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
+AC_PROG_YACC
+AC_PROG_LEX
 
 # Checks for header files.
 #AC_HEADER_DIRENT
@@ -159,6 +161,18 @@ AC_MSG_RESULT([$haveMSG_NOSIGNAL])
 AC_FUNC_ERROR_AT_LINE
 AC_TYPE_SIGNAL
 AC_CHECK_FUNCS([strndup alarm bzero gethostbyname gethostname gettimeofday inet_ntoa localtime_r memmove memset munmap select socket strcasecmp strdup strerror strncasecmp strstr strtoul setresgid setresuid])
+
+
+dnl **************************************************
+dnl * debug logging                                  *
+dnl **************************************************
+AC_ARG_ENABLE(debug-logging, [  --enable-debug-logging		spam the console and logfile with all debug information  [default=no]], 
+		    enable_debug_logging="$enableval", enable_debug_logging="no")
+
+if test x$enable_debug_logging = "xyes"; then
+	AC_DEFINE([HAVE_DEBUG_LOGGING], [1], [Define to 1 if you need debug logging])
+fi	
+
 
 # Checks for generic libraries.
 
@@ -723,6 +737,90 @@ fi
 
 
 
+
+dnl **************************************************
+dnl * libprelude Support                             *
+dnl **************************************************
+AC_MSG_CHECKING(whether to use prelude for logging)
+AC_ARG_ENABLE(prelude,
+  [  --enable-prelude          enable prelude support [default=no].],
+  [ if test "$enableval" = "yes"; then
+       enable_prelude="yes"
+    fi ],
+  [ enable_prelude="no" ] )
+
+if test x$enable_prelude = xno ; then
+    AC_MSG_RESULT([no -- disabled by user])
+else
+    AC_PATH_PROG(LIBPRELUDE_CONFIG, libprelude-config, no)
+    if test "$LIBPRELUDE_CONFIG" = "no" ; then
+	AC_MSG_ERROR([libpreludes libprelude-config was not found in PATH])
+	enable_prelude=no
+    else
+        AC_DEFINE(HAVE_LIBPRELUDE, 1,[Define if you want to use libprelude]) 
+	PRELUDE_LDFLAGS=`$LIBPRELUDE_CONFIG --ldflags`
+	PRELUDE_LIBS=`$LIBPRELUDE_CONFIG --libs`
+	PRELUDE_CPPFLAGS=`$LIBPRELUDE_CONFIG --cflags`
+	
+	LIBS="$PRELUDE_LIBS $LIBS"
+	LDFLAGS="$PRELUDE_LDFLAGS $LDFLAGS"
+	CPPFLAGS="$PRELUDE_CPPFLAGS $CPPFLAGS"
+	
+    fi
+fi
+
+
+
+
+dnl **************************************************
+dnl * capabilities Support                           *
+dnl **************************************************
+
+AC_MSG_CHECKING(whether to use libcap to improve security)
+AC_ARG_ENABLE(capabilities, [  --enable-capabilities	Enable capabilities [default=auto]], 
+		   [enable_capabilities="$enableval"], 
+		   [enable_capabilities="no"])
+
+if test x$enable_capabilities = xno ; then
+    AC_MSG_RESULT([no -- disabled by user])
+else
+    AC_ARG_WITH(cap-include,
+	[  --with-cap-include=PATH      use libcap],
+	[cap_inc=$withval],
+	[cap_inc=no])
+	
+    AC_ARG_WITH(cap-lib,
+	[  --with-cap-lib=PATH       	use libcap],
+	[cap_lib=$withval],
+	[cap_lib=no])
+
+
+    orig_cppflags=$CPPFLAGS
+  
+    if test "x$cap_inc" != xno; then
+      CPPFLAGS="-I$cap_inc $CPPFLAGS"
+    fi
+
+    orig_ldflags=$LDFLAGS
+    if test "x$cap_lib" != "xno"; then
+        LDFLAGS="-L$cap_lib $LDFLAGS"
+    fi
+
+    AC_CHECK_LIB(cap, cap_init, 
+	[
+              AC_DEFINE(HAVE_LIBCAP, 1,[Define if libcap is available to restrict process capabilities])
+               LIBS="$LIBS -lcap"
+               enable_capabilities="yes"
+	], 
+	[
+               AC_MSG_WARN([libcap check failed])
+               enable_capabilities="no (check failed)"
+	])
+    
+fi    
+    
+
+
 AC_DEFUN([AC_DEFINE_DIR], [
   prefix_NONE=
   exec_prefix_NONE=
@@ -759,6 +857,7 @@ AC_CONFIG_FILES([Makefile
                  modules/log-irc/Makefile
                  modules/module-portwatch/Makefile
                  modules/submit-file/Makefile
+                 modules/submit-gotek/Makefile
                  modules/submit-nepenthes/Makefile
                  modules/submit-norman/Makefile
                  modules/submit-xmlrpc/Makefile
@@ -790,7 +889,6 @@ AC_CONFIG_FILES([Makefile
                  modules/x-4/Makefile
                  modules/x-5/Makefile                 
                  modules/x-6/Makefile
-                 modules/x-7/Makefile
                  modules/x-8/Makefile
 		 modules/geolocation-hostip/Makefile
 		 modules/geolocation-geoip/Makefile
@@ -801,7 +899,11 @@ AC_CONFIG_FILES([Makefile
 		 modules/log-surfnet/Makefile		 
 		 modules/vuln-msdtc/Makefile
 		 modules/download-rcp/Makefile
+		 modules/vuln-ftpd/Makefile
+		 modules/log-prelude/Makefile
+		 modules/shellcode-signatures/Makefile		 
 		 ])
+#		 modules/log-prelude/Makefile
 #                modules/module-drone/Makefile		 
 #		 modules/log-surfnet/Makefile])
 #                modules/vuln-netbios/Makefile
@@ -812,6 +914,8 @@ AC_OUTPUT
 
 echo
 echo "*** Dumping Nepenthes Configuration ***"
+echo "- Debug Logging               : $enable_debug_logging"
+echo ""
 echo "- DNS Resolve                 "
 echo "  - Support adns              : $enable_dnsresolve_adns"
 echo ""
@@ -827,5 +931,10 @@ echo ""
 echo "- Support PostgreSQL          : $enable_postgre"
 echo "" 
 echo "- Support ssh                 : $enable_ssh"
+echo "" 
+echo "- Support prelude             : $enable_prelude"
+echo "" 
+echo "- Support capabilities        : $enable_capabilities"
+
 # echo ""
 # echo "- Support ipv6                : $enable_ipv6"

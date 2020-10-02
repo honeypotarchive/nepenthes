@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: CReceiveDialogue.cpp 2096 2005-10-23 18:59:41Z common $ */
+ /* $Id: CReceiveDialogue.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include "CReceiveDialogue.hpp"
 

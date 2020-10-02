@@ -34,7 +34,7 @@
  */
 
  
- /* $Id: shellcode-generic.cpp 2274 2006-01-15 20:49:05Z common $ */
+ /* $Id: shellcode-generic.cpp 500 2006-04-08 18:57:15Z common $ */
 
 #include "shellcode-generic.hpp"
 
@@ -57,6 +57,7 @@
 #include "sch_generic_unicode.hpp"
 #include "sch_generic_winexec.hpp"
 #include "sch_generic_leimbach_url_xor.hpp"
+#include "sch_generic_wget.hpp"
 
 #include "ShellcodeManager.hpp"
 #include "Nepenthes.hpp"
@@ -77,28 +78,29 @@ GenericShellcodeHandler::GenericShellcodeHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "generic shellcode module";
 	m_ModuleDescription = "prove xor, url and createprocess shelldecoder";
-	m_ModuleRevision    = "$Rev: 2274 $";
+	m_ModuleRevision    = "$Rev: 500 $";
 	m_Nepenthes = nepenthes;
 
-	m_ShellcodeHandlers.push_back(new GenericXOR(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new GenericCreateProcess(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new GenericUrl(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new LinkXOR(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new GenericCMD(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new LinkTrans(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new LinkBindTrans(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericXOR(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericCreateProcess(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericUrl(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new LinkXOR(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericCMD(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new LinkTrans(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new LinkBindTrans(m_Nepenthes->getShellcodeMgr()));
 	m_ShellcodeHandlers.push_back(new Stuttgart(m_Nepenthes->getShellcodeMgr()));
 	m_ShellcodeHandlers.push_back(new Wuerzburg(m_Nepenthes->getShellcodeMgr()));
 //	m_ShellcodeHandlers.push_back(new BieleFeldConnect(m_Nepenthes->getShellcodeMgr()));
 //	m_ShellcodeHandlers.push_back(new MainzBind(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new GenericBind(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new GenericConnect(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericBind(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericConnect(m_Nepenthes->getShellcodeMgr()));
 	m_ShellcodeHandlers.push_back(new KonstanzXOR(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new GenericConnectTrans(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericConnectTrans(m_Nepenthes->getShellcodeMgr()));
 
-	m_ShellcodeHandlers.push_back(new GenericUniCode(m_Nepenthes->getShellcodeMgr()));
-	m_ShellcodeHandlers.push_back(new GenericWinExec(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericUniCode(m_Nepenthes->getShellcodeMgr()));
+//	m_ShellcodeHandlers.push_back(new GenericWinExec(m_Nepenthes->getShellcodeMgr()));
 	m_ShellcodeHandlers.push_back(new LeimbachUrlXORXOR(m_Nepenthes->getShellcodeMgr()));
+	m_ShellcodeHandlers.push_back(new Genericwget(m_Nepenthes->getShellcodeMgr()));
 
 	g_Nepenthes = nepenthes;
 	g_GenericShellcodeHandler = this;
@@ -106,7 +108,7 @@ GenericShellcodeHandler::GenericShellcodeHandler(Nepenthes *nepenthes)
 
 GenericShellcodeHandler::~GenericShellcodeHandler()
 {
-	Exit();
+
 }
 /*
 struct pcremap
@@ -149,9 +151,9 @@ bool GenericShellcodeHandler::Exit()
 		if ((*handler)->Exit() == false)
 		{
 			logCrit("ERROR %s\n",__PRETTY_FUNCTION__);
-			return false;
 		}
 		m_Nepenthes->getShellcodeMgr()->unregisterShellcodeHandler((*handler));
+		delete *handler;
 	}
 	return true;
 }

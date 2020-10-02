@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,10 @@ AM_LDFLAGS = -lpcre
 
 pkglib_LTLIBRARIES = vulndcom.la
 
-vulndcom_la_SOURCES = vuln-dcom.conf.dist dcom-shellcodes.h DCOMDialogue.hpp sch_dcom_oc192_bind.hpp sch_dcom_sol2k_bind.hpp sch_dcom_sol2k_connect.hpp vuln-dcom.hpp DCOMDialogue.cpp sch_dcom_oc192_bind.cpp sch_dcom_sol2k_bind.cpp sch_dcom_sol2k_connect.cpp vuln-dcom.cpp
+vulndcom_la_SOURCES = vuln-dcom.conf.dist dcom-shellcodes.h 
+vulndcom_la_SOURCES += DCOMDialogue.hpp DCOMDialogue.cpp                      
+vulndcom_la_SOURCES += vuln-dcom.hpp    vuln-dcom.cpp                         
+
+
 
 vulndcom_la_LDFLAGS = -module -no-undefined -avoid-version

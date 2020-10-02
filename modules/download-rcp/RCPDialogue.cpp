@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: RCPDialogue.cpp 2271 2006-01-14 20:31:52Z common $ */
+ /* $Id: RCPDialogue.cpp 341 2006-02-20 09:51:00Z common $ */
  
 #include <sys/types.h>
 #include <netinet/in.h>

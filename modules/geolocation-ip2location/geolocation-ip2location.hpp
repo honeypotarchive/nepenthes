@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: geolocation-ip2location.hpp 2190 2005-12-01 20:09:59Z common $ */
+ /* $Id: geolocation-ip2location.hpp 336 2006-02-20 09:38:38Z common $ */
 
 
 #include "config.h"

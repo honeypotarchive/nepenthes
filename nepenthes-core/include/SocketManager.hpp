@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SocketManager.hpp 2262 2006-01-13 20:38:59Z common $ */
+/* $Id: SocketManager.hpp 500 2006-04-08 18:57:15Z common $ */
 
 #ifndef HAVE_SOCKETMANAGER_HPP
 #define HAVE_SOCKETMANAGER_HPP
@@ -65,9 +65,6 @@ namespace nepenthes
 		virtual Socket *connectUDPHost(uint32_t localHost, uint32_t remotehost, uint16_t remoteport,time_t connecttimeout);
 		virtual Socket *connectTCPHost(uint32_t localHost, uint32_t remotehost, uint16_t remoteport,time_t connecttimeout);
 		virtual Socket *connectTCPHost(uint32_t localHost, uint32_t remotehost, uint16_t localport, uint16_t remoteport,time_t connecttimeout);
-
-		virtual Socket *createRAWSocketUDP(uint16_t localport, uint16_t remoteport,time_t bindtimeout,time_t accepttimeout, DialogueFactory *diaf);
-		virtual Socket *createRAWSocketTCP(uint16_t localport, uint16_t remoteport,time_t bindtimeout,time_t accepttimeout, DialogueFactory *diaf);
 
 		virtual Socket *addPOLLSocket(POLLSocket *sock);
 

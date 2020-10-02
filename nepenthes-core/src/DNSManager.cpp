@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DNSManager.cpp 2270 2006-01-14 20:29:45Z common $ */
+/* $Id: DNSManager.cpp 505 2006-04-09 16:39:36Z oxff $ */
 
 #ifdef WIN32
 
@@ -98,15 +98,15 @@ bool DNSManager::Exit()
 void DNSManager::doList()
 {
 
-	logInfo("=--- %-69s ---=\n","DNSManager");
+	logSpam("=--- %-69s ---=\n","DNSManager");
 	if (m_DNSHandler != NULL)
 	{
-    	logInfo("  # %s\n",m_DNSHandler->getDNSHandlerName().c_str());
+    	logSpam("  # %s\n",m_DNSHandler->getDNSHandlerName().c_str());
 	}else
 	{
 		logCrit("%s","availible DNSHandler dnsresolve-adns\n");
 	}
-	logInfo("=--- %2s %-66s ---=\n","", "DNSHandler registerd");
+	logSpam("=--- %2s %-66s ---=\n","", "DNSHandler registerd");
 
 	return;
 }

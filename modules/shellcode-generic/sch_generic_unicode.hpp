@@ -26,7 +26,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_unicode.hpp 2143 2005-11-03 15:15:44Z common $ */
+/* $Id: sch_generic_unicode.hpp 332 2006-02-20 09:28:45Z common $ */
 
 #ifndef HAVE_GENERICUNICODE_HPP
 #define HAVE_GENERICUNICODE_HPP

@@ -16,7 +16,7 @@
 
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2127 2005-10-31 16:05:02Z common $
+# $Id: Makefile.am 343 2006-02-20 17:11:57Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -59,8 +59,8 @@ am__installdirs = "$(DESTDIR)$(pkglibdir)"
 pkglibLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
 downloadftp_la_LIBADD =
-am_downloadftp_la_OBJECTS = CTRLDialogue.lo FTPContext.lo \
-	FILEDialogue.lo download-ftp.lo
+am_downloadftp_la_OBJECTS = CTRLDialogue.lo FILEDialogue.lo \
+	FTPContext.lo download-ftp.lo
 downloadftp_la_OBJECTS = $(am_downloadftp_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -120,8 +120,12 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
+LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
@@ -147,6 +151,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
+YACC = @YACC@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
@@ -195,7 +200,10 @@ AM_CPPFLAGS = -I$(top_srcdir)/nepenthes-core/include -I$(top_srcdir)/nepenthes-c
 AM_CXXFLAGS = -Wall -Werror
 AM_LDFLAGS = -lpcre
 pkglib_LTLIBRARIES = downloadftp.la
-downloadftp_la_SOURCES = CTRLDialogue.hpp FILEDialogue.hpp FTPContext.hpp download-ftp.hpp CTRLDialogue.cpp FTPContext.cpp FILEDialogue.cpp download-ftp.cpp
+downloadftp_la_SOURCES = CTRLDialogue.hpp CTRLDialogue.cpp \
+	FILEDialogue.hpp FILEDialogue.cpp FTPContext.hpp \
+	FTPContext.cpp download-ftp.hpp download-ftp.cpp \
+	download-ftp.conf.dist
 downloadftp_la_LDFLAGS = -module -no-undefined -avoid-version
 all: all-am
 

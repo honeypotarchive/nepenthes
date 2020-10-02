@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1986 2005-09-24 17:20:03Z common $
+# $Id: Makefile.am 332 2006-02-20 09:28:45Z common $
 
 AUTOMAKE_OPTIONS = foreign
 

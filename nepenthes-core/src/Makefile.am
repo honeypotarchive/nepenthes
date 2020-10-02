@@ -1,6 +1,6 @@
 # nepenthes Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2270 2006-01-14 20:29:45Z common $
+# $Id: Makefile.am 500 2006-04-08 18:57:15Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -22,7 +22,7 @@ nepenthes_SOURCES += Message.cpp
 nepenthes_SOURCES += ModuleManager.cpp Module.cpp 
 nepenthes_SOURCES += Nepenthes.cpp Manager.cpp
 nepenthes_SOURCES += Packet.cpp
-nepenthes_SOURCES += SocketManager.cpp Socket.cpp TCPSocket.cpp UDPSocket.cpp POLLSocket.cpp RAWSocket.cpp FILESocket.cpp
+nepenthes_SOURCES += SocketManager.cpp Socket.cpp TCPSocket.cpp UDPSocket.cpp POLLSocket.cpp FILESocket.cpp
 nepenthes_SOURCES += Responder.cpp
 nepenthes_SOURCES += ShellcodeManager.cpp ShellcodeHandler.cpp 
 nepenthes_SOURCES += SubmitManager.cpp SubmitHandler.cpp 

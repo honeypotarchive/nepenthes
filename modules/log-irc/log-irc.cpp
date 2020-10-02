@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: log-irc.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: log-irc.cpp 502 2006-04-08 19:20:15Z common $ */
 
 #include <ctype.h>
 
@@ -79,7 +79,7 @@ LogIrc::LogIrc(Nepenthes *nepenthes)// : LogHandler(nepenthes->getLogMgr())
 {
 	m_ModuleName        = "log-irc";
 	m_ModuleDescription = "log to irc using tor";
-	m_ModuleRevision    = "$Rev: 2001 $";
+	m_ModuleRevision    = "$Rev: 502 $";
 	m_Nepenthes = nepenthes;
 
 	g_Nepenthes = nepenthes;
@@ -277,13 +277,9 @@ bool LogIrc::dnsFailure(DNSResult *result)
 {
 	logPF();
 
-	logSpam("LogIrc DNS %s has no ip, resolve error\n", result->getDNS().c_str());
-/*	char *reply;
-	asprintf(&reply,"DNS '%s' could not resolve\n", result->getDNS().c_str());
-	m_Socket->doRespond(reply,strlen(reply));
-	free(reply);
-*/	
-	return true;
+	logWarn("LogIrc DNS %s has no ip, resolve error, retrying ... \n", result->getDNS().c_str());
+	g_Nepenthes->getDNSMgr()->addDNS(this,(char *)result->getDNS().c_str(),this);
+    return true;
 }
 
 void LogIrc::log(uint32_t mask, const char *message)
@@ -302,6 +298,11 @@ uint32_t LogIrc::getIrcIP()
 uint16_t LogIrc::getIrcPort()
 {
 	return m_IrcPort;
+}
+
+string LogIrc::getIrcPass()
+{
+	return m_IrcPass;
 }
 
 string LogIrc::getIrcNick()

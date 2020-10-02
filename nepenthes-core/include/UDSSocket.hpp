@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UDSSocket.hpp 1927 2005-08-27 21:56:59Z dp $ */
+/* $Id: UDSSocket.hpp 321 2006-02-20 08:30:38Z common $ */
 
 #include "Socket.hpp"
 #include "Responder.hpp"

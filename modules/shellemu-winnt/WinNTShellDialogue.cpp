@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: WinNTShellDialogue.cpp 2221 2005-12-23 17:01:33Z common $ */ 
+/* $Id: WinNTShellDialogue.cpp 341 2006-02-20 09:51:00Z common $ */ 
 
 //#include <arpa/inet.h>
 #include <errno.h>

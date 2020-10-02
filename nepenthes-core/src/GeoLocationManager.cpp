@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: GeoLocationManager.cpp 2078 2005-10-11 20:43:28Z common $ */
+/* $Id: GeoLocationManager.cpp 353 2006-02-22 08:13:33Z common $ */
 
 #include "config.h"
 
@@ -371,7 +371,7 @@ bool GeoLocationManager::Init()
  */
 bool GeoLocationManager::Exit()
 {
-
+	return true;
 }
 
 

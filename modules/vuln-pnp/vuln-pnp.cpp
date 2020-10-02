@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-pnp.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-pnp.cpp 321 2006-02-20 08:30:38Z common $ */
 
 #include <ctype.h>
 
@@ -77,7 +77,7 @@ PNPVuln::PNPVuln(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "vuln-pnp";
 	m_ModuleDescription = "modules provides pnp emulation";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleRevision    = "$Rev: 321 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "PNPDialogue Factory";

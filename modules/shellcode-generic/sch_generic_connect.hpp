@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_generic_connect.hpp 1749 2005-08-02 15:46:24Z common $ */
+ /* $Id: sch_generic_connect.hpp 318 2006-02-20 08:03:24Z common $ */
 
 #ifndef HAVE_GENRICCONNECT_HPP
 #define HAVE_GENRICCONNECT_HPP

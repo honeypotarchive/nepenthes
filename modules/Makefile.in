@@ -16,7 +16,7 @@
 
 # nepenthes module meta-Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 2261 2006-01-13 20:35:42Z common $
+# $Id: Makefile.am 500 2006-04-08 18:57:15Z common $
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 VPATH = @srcdir@
@@ -94,8 +94,12 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LEX = @LEX@
+LEXLIB = @LEXLIB@
+LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBDIR = @LIBDIR@
 LIBOBJS = @LIBOBJS@
+LIBPRELUDE_CONFIG = @LIBPRELUDE_CONFIG@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
@@ -121,6 +125,7 @@ SHELL = @SHELL@
 STRIP = @STRIP@
 SYSCONFDIR = @SYSCONFDIR@
 VERSION = @VERSION@
+YACC = @YACC@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
@@ -167,7 +172,7 @@ target_alias = @target_alias@
 SUBDIRS = download-creceive download-csend download-curl download-ftp download-http download-link download-nepenthes download-tftp download-rcp\
           upload-http \
           log-download log-irc \
-          submit-file submit-nepenthes submit-norman submit-xmlrpc \
+          submit-file submit-gotek submit-nepenthes submit-norman submit-xmlrpc \
           shellcode-generic shellemu-winnt \
           vuln-asn1 vuln-bagle vuln-dcom vuln-iis vuln-kuang2 vuln-lsass \
           vuln-msdtc vuln-msmq vuln-mssql vuln-mydoom \
@@ -176,9 +181,9 @@ SUBDIRS = download-creceive download-csend download-curl download-ftp download-h
           module-portwatch \
           geolocation-hostip geolocation-geoip geolocation-ip2location \
           dnsresolve-adns \
-          x-1 x-2 x-3 x-4 x-5 x-6 x-7 x-8 \
-          log-surfnet \
-          # log-prelude vuln-netbios
+          x-1 x-2 x-3 x-4 x-5 x-6 x-8 \
+          log-surfnet vuln-ftpd \
+          log-prelude shellcode-signatures
 
 all: all-recursive
 
@@ -488,6 +493,8 @@ uninstall-info: uninstall-info-recursive
 	mostlyclean-recursive pdf pdf-am ps ps-am tags tags-recursive \
 	uninstall uninstall-am uninstall-info-am
 
+
+#          vuln-netbios
           # x-5 has linking issues on MacOS X
 #         log-surfnet \
 #          module-drone\ work in progress

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-wins.hpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: vuln-wins.hpp 439 2006-03-27 18:11:55Z common $ */
 
 #ifndef HAVE_VULN_WINS_HPP
 #define HAVE_VULN_WINS_HPP
@@ -54,8 +54,6 @@ namespace nepenthes
 		Dialogue *createDialogue(Socket *socket);
 		bool Init();
 		bool Exit();
-	protected:
-		list <ShellcodeHandler *> m_ShellcodeHandlers;
 	};
 
 

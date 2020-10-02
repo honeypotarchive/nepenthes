@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SubmitManager.cpp 2232 2005-12-23 17:16:18Z common $ */
+/* $Id: SubmitManager.cpp 505 2006-04-09 16:39:36Z oxff $ */
 #include <sys/types.h>
 
 #ifdef WIN32
@@ -281,11 +281,11 @@ bool SubmitManager::registerSubmitter(SubmitHandler *handler)
 void SubmitManager::doList()
 {
 	list <SubmitHandler *>::iterator submitter;
-	logInfo("=--- %-69s ---=\n","SubmitManager");
+	logSpam("=--- %-69s ---=\n","SubmitManager");
 	int32_t i=0;
 	for(submitter = m_Submitters.begin();submitter != m_Submitters.end();submitter++,i++)
 	{
-		logInfo("  %i) %-8s %s\n",i,(*submitter)->getSubmitterName().c_str(), (*submitter)->getSubmitterDescription().c_str());
+		logSpam("  %i) %-8s %s\n",i,(*submitter)->getSubmitterName().c_str(), (*submitter)->getSubmitterDescription().c_str());
 	}
-    logInfo("=--- %2i %-66s ---=\n\n",i, "Submit Handlers registerd");
+    logSpam("=--- %2i %-66s ---=\n\n",i, "Submit Handlers registerd");
 }

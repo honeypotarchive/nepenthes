@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 1870 2005-08-19 22:56:37Z md $
+# $Id: Makefile.am 439 2006-03-27 18:11:55Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -10,6 +10,12 @@ AM_LDFLAGS = -lpcre
 
 pkglib_LTLIBRARIES = vulnsasserftpd.la
 
-vulnsasserftpd_la_SOURCES = vuln-sasserftpd.conf.dist SasserFTPDDialogue.hpp sch_sasserftpd_mandragore_bind.hpp sch_sasserftpd_mandragore_connect.hpp vuln-sasserftpd.hpp SasserFTPDDialogue.cpp sch_sasserftpd_mandragore_bind.cpp sch_sasserftpd_mandragore_connect.cpp vuln-sasserftpd.cpp
+vulnsasserftpd_la_SOURCES = vuln-sasserftpd.conf.dist               
+vulnsasserftpd_la_SOURCES += SasserFTPDDialogue.hpp                   SasserFTPDDialogue.cpp                                             
+vulnsasserftpd_la_SOURCES += vuln-sasserftpd.hpp                      vuln-sasserftpd.cpp                                                
+
+
+
+
 
 vulnsasserftpd_la_LDFLAGS = -module -no-undefined -avoid-version

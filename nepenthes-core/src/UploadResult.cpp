@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: UploadResult.cpp 2051 2005-10-05 16:46:29Z common $ */
+/* $Id: UploadResult.cpp 332 2006-02-20 09:28:45Z common $ */
 
 #include <stdlib.h>
 #include <string.h>
