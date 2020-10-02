@@ -25,20 +25,17 @@
  *
  *******************************************************************************/
 
-/* $Id: UploadManager.hpp 2043 2005-10-04 15:59:52Z common $ */
+/* $Id: UploadManager.hpp 2242 2006-01-04 17:31:02Z common $ */
 
 #ifndef HAVE_UPLOADMANAGER_HPP
 #define HAVE_UPLOADMANAGER_HPP
 
-#ifdef WIN32
 
-#else
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#endif
+
 
 #include <string>
 #include <list>
+#include <stdint.h>
 
 
 

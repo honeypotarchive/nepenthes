@@ -25,9 +25,9 @@
  *
  *******************************************************************************/
 
- /* $Id: CSendDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: CSendDialogue.cpp 2271 2006-01-14 20:31:52Z common $ */
  
-#include <arpa/tftp.h>
+#include <sys/types.h>
 #include <netinet/in.h>
 
 #include "CSendDialogue.hpp"

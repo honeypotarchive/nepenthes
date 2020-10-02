@@ -25,11 +25,18 @@
  *
  *******************************************************************************/
 
-/* $Id: POLLSocket.cpp 1974 2005-09-14 10:57:28Z common $ */
+/* $Id: POLLSocket.cpp 2270 2006-01-14 20:29:45Z common $ */
 
 #include "POLLSocket.hpp"
 
 using namespace nepenthes;
+
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 
 POLLSocket::POLLSocket()
 {

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Socket.hpp 2046 2005-10-04 18:12:20Z common $ */
+/* $Id: Socket.hpp 2270 2006-01-14 20:29:45Z common $ */
 
 #ifndef HAVE_SOCKET_HPP
 #define HAVE_SOCKET_HPP
@@ -34,6 +34,7 @@
 #define socklen_t int32_t
 #endif
 
+#include <sys/types.h>
 #include <sys/socket.h>
 #include "Dialogue.hpp"
 

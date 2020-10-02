@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: upload-http.cpp 2084 2005-10-16 13:07:52Z common $ */
+ /* $Id: upload-http.cpp 2271 2006-01-14 20:31:52Z common $ */
 
 #include "upload-http.hpp"
 #include "HTTPUPDialogue.hpp"
@@ -71,8 +71,9 @@ HTTPUploadHandler::HTTPUploadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "upload-http";
 	m_ModuleDescription = "upload files via http POST";
-	m_ModuleRevision    = "$Rev: 2084 $";
+	m_ModuleRevision    = "$Rev: 2271 $";
 
+	m_UploadHandlerName		= "upload-http";
 	m_UploadHandlerDescription = "upload files via http post";
 
 	m_Nepenthes = nepenthes;
@@ -119,7 +120,7 @@ bool HTTPUploadHandler::upload(UploadQuery *up)
 
 bool HTTPUploadHandler::dnsResolved(DNSResult *result)
 {
-	logDebug("url %s resolved %i for %x\n",result->getDNS().c_str(), result->getIP4List().size(), (uint32_t) result->getObject());
+	logDebug("url %s resolved %i for %x\n",result->getDNS().c_str(), result->getIP4List().size(), (uint32_t) ((intptr_t)result->getObject()));
 
 	list <uint32_t> resolved = result->getIP4List();
 	uint32_t host = resolved.front();

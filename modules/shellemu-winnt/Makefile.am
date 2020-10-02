@@ -1,6 +1,6 @@
 # nepenthes module Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2205 2005-12-16 13:09:23Z common $
+# $Id: Makefile.am 2259 2006-01-13 20:33:39Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -26,6 +26,6 @@ shellemuwinnt_la_SOURCES += VFSCommandREDIR.cpp VFSCommandREDIR.hpp
 shellemuwinnt_la_SOURCES += VFSCommandRREDIR.cpp VFSCommandRREDIR.hpp 
 shellemuwinnt_la_SOURCES += VFSCommandTFTP.cpp  VFSCommandTFTP.hpp 
 shellemuwinnt_la_SOURCES += VFSCommandSTART.cpp VFSCommandSTART.hpp 
-
+shellemuwinnt_la_SOURCES += VFSCommandRCP.cpp VFSCommandRCP.hpp 
 
 shellemuwinnt_la_LDFLAGS = -module -no-undefined -avoid-version

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: download-curl.cpp 2002 2005-09-27 13:58:14Z common $ */
+ /* $Id: download-curl.cpp 2227 2005-12-23 17:06:19Z common $ */
 
 #include "download-curl.hpp"
 #include "LogManager.hpp"
@@ -55,7 +55,7 @@ CurlDownloadHandler::CurlDownloadHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "Curl Download Module";
 	m_ModuleDescription = "provides widly used protocols (http/ftp)";
-	m_ModuleRevision    = "$Rev: 2002 $";
+	m_ModuleRevision    = "$Rev: 2227 $";
 	m_Nepenthes = nepenthes;
 
 	m_EventHandlerName = "CurlDownloadHandlerEventHandler";
@@ -135,14 +135,14 @@ uint32_t CurlDownloadHandler::handleEvent(Event *event)
 	}
 
 	int32_t iQueue=0;
-	while ( curl_multi_perform(m_CurlStack, &iQueue) == CURLM_CALL_MULTI_PERFORM );
+	while ( curl_multi_perform(m_CurlStack, (int *)&iQueue) == CURLM_CALL_MULTI_PERFORM );
 
 	if ( m_Queued > iQueue )
 	{
 		logSpam("m_Queued  (%i) > (%i) iQueue\n", m_Queued, iQueue);
 		CURLMsg * pMessage;
 
-		while ( (pMessage = curl_multi_info_read(m_CurlStack, &iQueue)) )
+		while ( (pMessage = curl_multi_info_read(m_CurlStack, (int *)&iQueue)) )
 		{
 			if ( pMessage->msg == CURLMSG_DONE )
 			{

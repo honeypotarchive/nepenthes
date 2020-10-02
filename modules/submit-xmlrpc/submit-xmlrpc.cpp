@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-xmlrpc.cpp 2110 2005-10-25 17:54:47Z common $ */
+ /* $Id: submit-xmlrpc.cpp 2271 2006-01-14 20:31:52Z common $ */
 
 
 #include "submit-xmlrpc.hpp"
@@ -84,7 +84,7 @@ SubmitXMLRPC::SubmitXMLRPC(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-xmlrpc";
 	m_ModuleDescription = "submit files to xmlrpc";
-	m_ModuleRevision    = "$Rev: 2110 $";
+	m_ModuleRevision    = "$Rev: 2271 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-xmlrpc";
@@ -174,7 +174,7 @@ void SubmitXMLRPC::Submit(Download *down)
 							down->getRemoteHost(), 
 							CS_INIT_SESSION);
 #ifdef HAVE_GEOLOCATION
-	g_Nepenthes->getGeoMgr()->addGeoLocation(this,down->getLocalHost(),ctx);
+	g_Nepenthes->getGeoMgr()->addGeoLocation(this,down->getRemoteHost(),ctx);
 #else
 	string request = ctx->getRequest();
 	g_Nepenthes->getUploadMgr()->uploadUrl((char *)m_XMLRPCServer.c_str(),(char *)request.c_str(),request.size(),this,ctx);
@@ -284,7 +284,7 @@ void SubmitXMLRPC::uploadSuccess(UploadResult *up)
 
 void SubmitXMLRPC::uploadFailure(UploadResult *up)
 {
-	logCrit("UPLOAD FAILED %x\n",(uint32_t )up);
+	logCrit("UPLOAD FAILED %x\n",(uint32_t )((intptr_t)up));
 	XMLRPCContext *ctx  = (XMLRPCContext *)up->getObject();
 	delete ctx;
 }

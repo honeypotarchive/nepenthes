@@ -16,7 +16,7 @@
 
 # nepenthes Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2032 2005-10-02 16:15:25Z common $
+# $Id: Makefile.am 2270 2006-01-14 20:29:45Z common $
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -199,7 +199,7 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = foreign
-AM_CPPFLAGS = -I../include -I ../..
+AM_CPPFLAGS = -I../include -I ../.. -Wall -Werror
 nepenthes_SOURCES = Buffer.cpp Compatibility.cpp Config.cpp \
 	Dialogue.cpp DialogueFactory.cpp DialogueFactoryManager.cpp \
 	DNSManager.cpp DNSHandler.cpp DNSQuery.cpp DNSResult.cpp \

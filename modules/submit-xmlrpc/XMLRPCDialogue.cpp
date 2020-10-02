@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: XMLRPCDialogue.cpp 2006 2005-09-29 21:47:12Z common $ */
+ /* $Id: XMLRPCDialogue.cpp 2220 2005-12-23 16:59:37Z common $ */
 
 
 #include "XMLRPCDialogue.hpp"
@@ -65,7 +65,7 @@ Date: Mon, 22 Aug 2005 15:40:32 GMT
 Connection: Keep-Alive
 
 */
-
+/*
 HTTPHeader::HTTPHeader(char *header, uint32_t size)
 {
 	if (strncmp(header,"HTTP",4) != 0)
@@ -195,3 +195,4 @@ HTTPHeaderValue::~HTTPHeaderValue()
 {
 }
 
+*/

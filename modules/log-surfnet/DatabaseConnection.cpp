@@ -25,11 +25,12 @@
  *
  *******************************************************************************/
 
- /* $Id: DatabaseConnection.cpp 2154 2005-11-11 20:07:45Z common $ */
+ /* $Id: DatabaseConnection.cpp 2271 2006-01-14 20:31:52Z common $ */
 
 
 #include "config.h"
 
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>

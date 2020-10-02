@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-norman.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: submit-norman.cpp 2227 2005-12-23 17:06:19Z common $ */
 
 
 #include "submit-norman.hpp"
@@ -66,7 +66,7 @@ SubmitNorman::SubmitNorman(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "submit-norman";
 	m_ModuleDescription = "submit files to sandbox.norman.no";
-	m_ModuleRevision    = "$Rev: 2001 $";
+	m_ModuleRevision    = "$Rev: 2227 $";
 	m_Nepenthes = nepenthes;
 
 	m_SubmitterName = "submit-norman";
@@ -213,14 +213,14 @@ uint32_t SubmitNorman::handleEvent(Event *event)
 	}
 
 	int32_t iQueue=0;
-	while ( curl_multi_perform(m_CurlStack, &iQueue) == CURLM_CALL_MULTI_PERFORM );
+	while ( curl_multi_perform(m_CurlStack, (int *)&iQueue) == CURLM_CALL_MULTI_PERFORM );
 
 	if ( m_Queued > iQueue )
 	{
 		logSpam("m_Queued  (%i) > (%i) iQueue\n", m_Queued, iQueue);
 		CURLMsg * pMessage;
 
-		while ( (pMessage = curl_multi_info_read(m_CurlStack, &iQueue)) )
+		while ( (pMessage = curl_multi_info_read(m_CurlStack, (int *)&iQueue)) )
 		{
 			if ( pMessage->msg == CURLMSG_DONE )
 			{

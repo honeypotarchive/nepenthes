@@ -25,12 +25,10 @@
  *
  *******************************************************************************/
 
- /* $Id: LinkDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: LinkDialogue.cpp 2228 2005-12-23 17:08:38Z common $ */
 
 
 #include <ctype.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
 
 #include "LinkDialogue.hpp"
 

@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: DNSManager.cpp 2045 2005-10-04 17:46:04Z common $ */
+/* $Id: DNSManager.cpp 2270 2006-01-14 20:29:45Z common $ */
 
 #ifdef WIN32
 
@@ -45,7 +45,7 @@
 
 using namespace nepenthes;
 
-extern int32_t errno;
+//extern int32_t errno;
 
 /**
  * DNSManager constructor
@@ -193,6 +193,7 @@ bool DNSManager::registerDNSHandler(DNSHandler *handler)
 	{
 		m_DNSHandler = handler;
 	}
+	return true;
 }
 
 /**
@@ -205,4 +206,5 @@ bool DNSManager::registerDNSHandler(DNSHandler *handler)
 bool DNSManager::unregisterDNSHandler(DNSHandler *handler)
 {
 	m_DNSHandler = NULL;
+	return true;
 }

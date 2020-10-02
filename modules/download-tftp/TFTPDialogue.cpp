@@ -25,8 +25,9 @@
  *
  *******************************************************************************/
 
- /* $Id: TFTPDialogue.cpp 2001 2005-09-27 13:54:35Z common $ */
- 
+ /* $Id: TFTPDialogue.cpp 2271 2006-01-14 20:31:52Z common $ */
+
+#include <sys/types.h>
 #include <arpa/tftp.h>
 #include <netinet/in.h>
 

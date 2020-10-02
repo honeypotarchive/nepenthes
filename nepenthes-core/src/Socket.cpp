@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: Socket.cpp 2046 2005-10-04 18:12:20Z common $ */
+/* $Id: Socket.cpp 2270 2006-01-14 20:29:45Z common $ */
 
 #include <string>
 #include <sstream>
@@ -33,8 +33,10 @@
 #ifdef WIN32
 #include <time.h>
 #else
-#include <arpa/inet.h>
-
+     #include <sys/types.h>
+     #include <sys/socket.h>
+     #include <netinet/in.h>
+     #include <arpa/inet.h>
 #endif
 
 #include "Socket.hpp"

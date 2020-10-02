@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: vuln-netdde.cpp 1927 2005-08-27 21:56:59Z dp $ */
+ /* $Id: vuln-netdde.cpp 2233 2005-12-24 14:11:20Z common $ */
 
 #include <ctype.h>
 
@@ -85,13 +85,13 @@ Nepenthes *g_Nepenthes;
  */
 NETDDEVuln::NETDDEVuln(Nepenthes *nepenthes)
 {
-	m_ModuleName        = "vuln-upnp";
-	m_ModuleDescription = "provides Factory & dialogues for the upnp vuln";
-	m_ModuleRevision    = "$Rev: 1927 $";
+	m_ModuleName        = "vuln-netdde";
+	m_ModuleDescription = "provides Factory & dialogues for the netdde vuln";
+	m_ModuleRevision    = "$Rev: 2233 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "NETDDE Factory";
-	m_DialogueFactoryDescription = "creates upnp dialogues";
+	m_DialogueFactoryDescription = "creates netdde dialogues";
 
 	g_Nepenthes = nepenthes;
 }

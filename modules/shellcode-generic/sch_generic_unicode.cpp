@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: sch_generic_unicode.cpp 2186 2005-11-27 01:56:48Z common $ */
+/* $Id: sch_generic_unicode.cpp 2245 2006-01-06 16:46:44Z common $ */
 
 
 #include "sch_generic_unicode.hpp"

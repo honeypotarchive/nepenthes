@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: XMLRPCParser.cpp 2193 2005-12-01 20:12:10Z common $ */
+ /* $Id: XMLRPCParser.cpp 2271 2006-01-14 20:31:52Z common $ */
 
  
 #ifndef _GNU_SOURCE
@@ -345,7 +345,7 @@ void dumpNodeTree(Node *tree, uint32_t depth)
 		for( i = 0; i < depth; i++ )
 			printf("  ");
 		
-		printf("%s  %08x:", n->m_key, (uint32_t)n);
+		printf("%s  %08x:", n->m_key, (unsigned int)((intptr_t)n));
 		
 		if( n->m_type == n_value )
 		{

@@ -25,7 +25,9 @@
  *
  *******************************************************************************/
 
- /* $Id: CTRLDialogue.cpp 2212 2005-12-16 23:51:58Z common $ */
+ /* $Id: CTRLDialogue.cpp 2271 2006-01-14 20:31:52Z common $ */
+ 
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>

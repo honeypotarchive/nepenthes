@@ -1,8 +1,8 @@
 # nepenthes module meta-Makefile
 # Maximillian Dornseif
-# $Id: Makefile.am 2200 2005-12-15 21:26:22Z common $
+# $Id: Makefile.am 2261 2006-01-13 20:35:42Z common $
 
-SUBDIRS = download-creceive download-csend download-curl download-ftp download-http download-link download-nepenthes download-tftp \
+SUBDIRS = download-creceive download-csend download-curl download-ftp download-http download-link download-nepenthes download-tftp download-rcp\
           upload-http \
           log-download log-irc \
           submit-file submit-nepenthes submit-norman submit-xmlrpc \

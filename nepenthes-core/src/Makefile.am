@@ -1,10 +1,10 @@
 # nepenthes Makefile
 # Paul Baecher, Maximillian Dornseif, Markus Koetter
-# $Id: Makefile.am 2032 2005-10-02 16:15:25Z common $
+# $Id: Makefile.am 2270 2006-01-14 20:29:45Z common $
 
 AUTOMAKE_OPTIONS = foreign
 
-AM_CPPFLAGS = -I../include -I ../..
+AM_CPPFLAGS = -I../include -I ../.. -Wall -Werror
 
 bin_PROGRAMS = nepenthes
 

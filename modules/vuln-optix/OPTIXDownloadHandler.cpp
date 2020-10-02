@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: OPTIXDownloadHandler.cpp 1644 2005-07-14 16:19:15Z dp $ */
+ /* $Id: OPTIXDownloadHandler.cpp 2234 2005-12-24 14:13:32Z common $ */
 
 
 #include "OPTIXDownloadHandler.hpp"
@@ -48,7 +48,7 @@ OPTIXDownloadHandler::OPTIXDownloadHandler(Nepenthes *nepenthes)
 {
 	logPF();
 	m_DownloadHandlerName = "Optix Download Handler";
-	m_DownloadHandlerDescription = "";
+	m_DownloadHandlerDescription = "download files via optix";
 
 	m_DialogueFactoryName = "Optix DownloadHandler DialogueFactory";
 	m_DialogueFactoryDescription = "creates a dialogue to download a file from via the optix bindport 500";

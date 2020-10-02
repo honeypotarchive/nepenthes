@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
-/* $Id: SubmitManager.cpp 2060 2005-10-07 16:21:53Z common $ */
+/* $Id: SubmitManager.cpp 2232 2005-12-23 17:16:18Z common $ */
 #include <sys/types.h>
 
 #ifdef WIN32
@@ -122,7 +122,11 @@ bool SubmitManager::Init()
     struct dirent *dent=NULL;
     for (dent = readdir(dirfiles); dent != NULL; dent = readdir(dirfiles))
     {
+#if defined(CYGWIN)  || defined(CYGWIN32) || defined(__CYGWIN__) || defined(__CYGWIN32__)  || defined(WIN32)
+		if (1)
+#else
         if ( (int32_t)dent->d_type == DT_REG)
+#endif
         {
 			if (strlen(dent->d_name) == 32)
 			{

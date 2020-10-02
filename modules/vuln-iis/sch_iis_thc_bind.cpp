@@ -1,4 +1,3 @@
-
 /********************************************************************************
  *                              Nepenthes
  *                        - finest collection -
@@ -26,10 +25,8 @@
  *
  *******************************************************************************/
 
- /* $Id: sch_iis_thc_bind.cpp 2001 2005-09-27 13:54:35Z common $ */
+ /* $Id: sch_iis_thc_bind.cpp 2219 2005-12-23 16:57:57Z common $ */
 
-#include <netinet/in.h>
-#include <arpa/inet.h>
 
 #include "LogManager.hpp"
 #include "Message.hpp"
@@ -97,7 +94,7 @@ bool THCBind::Init()
     
 	const char * pcreEerror;
 	int32_t pcreErrorPos;
-	if((m_pcre = pcre_compile(thcconnectpcre, PCRE_DOTALL, &pcreEerror, &pcreErrorPos, 0)) == NULL)
+	if((m_pcre = pcre_compile(thcconnectpcre, PCRE_DOTALL, &pcreEerror, (int *)&pcreErrorPos, 0)) == NULL)
 	{
 		logCrit("THCBind could not compile pattern \n\t\"%s\"\n\t Error:\"%s\" at Position %u", 
 				thcconnectpcre, pcreEerror, pcreErrorPos);
@@ -126,10 +123,10 @@ sch_result THCBind::handleShellcode(Message **msg)
 	int32_t piOutput[10 * 3];
 	int32_t iResult; 
 
-	if ((iResult = pcre_exec(m_pcre, 0, (char *) shellcode, len, 0, 0, piOutput, sizeof(piOutput)/sizeof(int32_t))) > 0)
+	if ((iResult = pcre_exec(m_pcre, 0, (char *) shellcode, len, 0, 0, (int *)piOutput, sizeof(piOutput)/sizeof(int32_t))) > 0)
 	{
         const char * pCode;
-		pcre_get_substring((char *) shellcode, piOutput, iResult, 1, &pCode);
+		pcre_get_substring((char *) shellcode, (int *)piOutput, (int)iResult, 1, &pCode);
 
 		logInfo("THC Bind 31337  %i\n",(*msg)->getSize());
 

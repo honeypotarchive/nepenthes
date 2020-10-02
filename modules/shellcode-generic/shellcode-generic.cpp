@@ -34,7 +34,7 @@
  */
 
  
- /* $Id: shellcode-generic.cpp 2134 2005-11-02 10:00:29Z common $ */
+ /* $Id: shellcode-generic.cpp 2274 2006-01-15 20:49:05Z common $ */
 
 #include "shellcode-generic.hpp"
 
@@ -55,6 +55,8 @@
 #include "sch_generic_connect_trans.hpp"
 
 #include "sch_generic_unicode.hpp"
+#include "sch_generic_winexec.hpp"
+#include "sch_generic_leimbach_url_xor.hpp"
 
 #include "ShellcodeManager.hpp"
 #include "Nepenthes.hpp"
@@ -75,7 +77,7 @@ GenericShellcodeHandler::GenericShellcodeHandler(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "generic shellcode module";
 	m_ModuleDescription = "prove xor, url and createprocess shelldecoder";
-	m_ModuleRevision    = "$Rev: 2134 $";
+	m_ModuleRevision    = "$Rev: 2274 $";
 	m_Nepenthes = nepenthes;
 
 	m_ShellcodeHandlers.push_back(new GenericXOR(m_Nepenthes->getShellcodeMgr()));
@@ -95,6 +97,9 @@ GenericShellcodeHandler::GenericShellcodeHandler(Nepenthes *nepenthes)
 	m_ShellcodeHandlers.push_back(new GenericConnectTrans(m_Nepenthes->getShellcodeMgr()));
 
 	m_ShellcodeHandlers.push_back(new GenericUniCode(m_Nepenthes->getShellcodeMgr()));
+	m_ShellcodeHandlers.push_back(new GenericWinExec(m_Nepenthes->getShellcodeMgr()));
+	m_ShellcodeHandlers.push_back(new LeimbachUrlXORXOR(m_Nepenthes->getShellcodeMgr()));
+
 	g_Nepenthes = nepenthes;
 	g_GenericShellcodeHandler = this;
 }

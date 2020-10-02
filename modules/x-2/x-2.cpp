@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: x-2.cpp 2096 2005-10-23 18:59:41Z common $ */
+ /* $Id: x-2.cpp 2243 2006-01-04 18:02:15Z common $ */
 
 #include <ctype.h>
 
@@ -85,7 +85,7 @@ X2::X2(Nepenthes *nepenthes)
 {
 	m_ModuleName        = "x-2";
 	m_ModuleDescription = "eXample Module 2 -binding sockets & setting up a dialogue example-";
-	m_ModuleRevision    = "$Rev: 2096 $";
+	m_ModuleRevision    = "$Rev: 2243 $";
 	m_Nepenthes = nepenthes;
 
 	m_DialogueFactoryName = "x-2 Factory";

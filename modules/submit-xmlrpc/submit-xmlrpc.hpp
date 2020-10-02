@@ -25,12 +25,14 @@
  *
  *******************************************************************************/
 
- /* $Id: submit-xmlrpc.hpp 2078 2005-10-11 20:43:28Z common $ */
+ /* $Id: submit-xmlrpc.hpp 2271 2006-01-14 20:31:52Z common $ */
 
 #ifndef HAVE_SUBMITXMLRPC_HPP
 #define HAVE_SUBMITXMLRPC_HPP
 
 #include <stdint.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string>

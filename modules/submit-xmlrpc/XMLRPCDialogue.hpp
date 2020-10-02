@@ -25,7 +25,7 @@
  *
  *******************************************************************************/
 
- /* $Id: XMLRPCDialogue.hpp 2006 2005-09-29 21:47:12Z common $ */
+ /* $Id: XMLRPCDialogue.hpp 2220 2005-12-23 16:59:37Z common $ */
 
 #include "submit-xmlrpc.hpp"
 
@@ -42,6 +42,7 @@ using namespace std;
 namespace nepenthes
 {
 
+/*
 	struct HTTPHeaderValue
 	{
 		HTTPHeaderValue(string name, string value);
@@ -68,7 +69,7 @@ namespace nepenthes
 
 
 	};
-
+*/
 }
 
 
